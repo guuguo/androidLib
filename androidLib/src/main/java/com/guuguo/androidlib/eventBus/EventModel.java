@@ -12,8 +12,8 @@ public class EventModel {
     protected boolean state;
 
     public EventModel(Object... data) {
-        if (data.length <= 1) this.data = data[0];
-        else this.data = data;
+        if (data.length == 1) this.data = data[0];
+        else if (data.length > 1) this.data = data;
     }
 
     public EventModel() {

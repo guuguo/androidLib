@@ -1,12 +1,11 @@
 package com.guuguo.androidlib;
 
 import android.app.Application;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.HashMap;
 
@@ -53,27 +52,13 @@ public abstract class BaseApplication extends Application {
 
     public void toast(String msg) {
         Observable.create((Observable.OnSubscribe<String>) subscriber -> {
-            try {
-                Snackbar snackbar = Snackbar.make(currentContainer, msg, Snackbar.LENGTH_SHORT);
-                TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-                snackbar.show();
-            } catch (Exception e) {
-                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-            }
+            TastyToast.makeText(this, msg, Toast.LENGTH_SHORT, TastyToast.DEFAULT);
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
     public void toastLong(String msg) {
         Observable.create((Observable.OnSubscribe<String>) subscriber -> {
-            try {
-                Snackbar snackbar = Snackbar.make(currentContainer, msg, Snackbar.LENGTH_LONG);
-                TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
-                textView.setTextColor(Color.WHITE);
-                snackbar.show();
-            } catch (Exception e) {
-                Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-            }
+            TastyToast.makeText(this, msg, Toast.LENGTH_LONG, TastyToast.DEFAULT);
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 

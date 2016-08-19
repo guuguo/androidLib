@@ -1,5 +1,6 @@
 package com.guuguo.androidlib.ui;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.DecelerateInterpolator;
 
 import com.flyco.systembar.SystemBarHelper;
 import com.guuguo.androidlib.BaseApplication;
@@ -22,6 +22,7 @@ import com.guuguo.androidlib.R;
 import com.guuguo.androidlib.eventBus.SettingChangeEvent;
 import com.guuguo.androidlib.helper.DrawerHelper;
 import com.guuguo.androidlib.helper.ToolBarHelper;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,10 +59,14 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
             window.setFlags(flag, flag);
         }
         EventBus.getDefault().register(this);
-        setTheme(myApplication.getAppTheme());
+        if (getMyTheme() > 0)
+            setTheme(getMyTheme());
+        else {
+            setTheme(myApplication.getAppTheme());
+        }
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
-        myApplication.currentContainer=getContainer();
+        myApplication.currentContainer = getContainer();
         init();
     }
 
@@ -75,6 +80,10 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         initView();
         initVariable();
         loadData();
+    }
+
+    protected  int getMyTheme(){
+        return 0;
     }
 
     protected abstract int getLayoutResId();
@@ -159,6 +168,10 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         }
     }
 
+    protected boolean getBackExit() {
+        return false;
+    }
+
     public AppBarLayout getAppbar() {
         return mToolBarHelper.getmAppBarView();
     }
@@ -190,6 +203,18 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
 
     @Override
     public void onBackPressed() {
+        if (getBackExit()) {
+            dialogWarningShow("确定要退出吗", "确定", new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    Intent home = new Intent(Intent.ACTION_MAIN);
+                    home.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(home);
+                    System.exit(0);
+                }
+            });
+            return;
+        }
         for (LBaseFragment fragment : mFragments) {
             if (fragment.getUserVisibleHint() && fragment.onBackPressed()) {
                 return;
@@ -198,10 +223,6 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         super.onBackPressed();
     }
 
-    protected void hideOrShowToolbar() {
-        getAppbar().animate().translationY(mIsHidden ? 0 : -getAppbar().getHeight()).setInterpolator(new DecelerateInterpolator(2)).start();
-        mIsHidden = !mIsHidden;
-    }
 
     public void dialogLoadingShow() {
         showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, "加载中", false);
@@ -252,6 +273,17 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
     public void dialogErrorShow(String msg, long delayTime, DialogDismissListener listener) {
         dialogErrorShow(msg);
         dialogDismiss(listener, delayTime);
+
+    }
+
+    public void dialogErrorShow(String msg, int Length) {
+        TastyToast.makeText(getApplicationContext(), msg, Length, TastyToast.ERROR);
+        dialogDismiss();
+    }
+
+    public void dialogCompleteShow(String msg, int Length) {
+        TastyToast.makeText(getApplicationContext(), msg, Length, TastyToast.SUCCESS);
+        dialogDismiss();
     }
 
     public void dialogCompleteShow(String msg, long delayTime, DialogDismissListener listener) {

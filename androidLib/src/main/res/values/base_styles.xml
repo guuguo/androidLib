@@ -62,12 +62,15 @@
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
-    <style name="text_item_title">
+    <style name="text_item_title_bold">
         <item name="android:textColor">?myTitleTextColor</item>
         <item name="android:textSize">@dimen/title_item</item>
         <item name="android:textStyle">bold</item>
     </style>
-
+    <style name="text_item_title">
+        <item name="android:textColor">?myTitleTextColor</item>
+        <item name="android:textSize">@dimen/title_item</item>
+    </style>
     <style name="text_level1_title">
         <item name="android:textColor">?myTitleTextColor</item>
         <item name="android:textSize">@dimen/title1</item>

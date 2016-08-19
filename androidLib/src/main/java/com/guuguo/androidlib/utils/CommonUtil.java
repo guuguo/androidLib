@@ -5,9 +5,18 @@ import android.text.TextUtils;
 
 import com.guuguo.androidlib.BaseApplication;
 
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.channels.FileChannel;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -24,60 +33,93 @@ public class CommonUtil {
         return list == null || list.isEmpty();
     }
 
-    //全部为空
-    public static boolean isAllEmpty(List... lists) {
-        for (List list : lists) {
-            if (!isEmpty(list)) {
-                return false;
+
+    public static String md5(String info) {
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.update(info.getBytes("UTF-8"));
+            byte[] encryption = md5.digest();
+
+            StringBuffer strBuf = new StringBuffer();
+            for (int i = 0; i < encryption.length; i++) {
+                if (Integer.toHexString(0xff & encryption[i]).length() == 1) {
+                    strBuf.append("0").append(Integer.toHexString(0xff & encryption[i]));
+                } else {
+                    strBuf.append(Integer.toHexString(0xff & encryption[i]));
+                }
             }
+            return strBuf.toString();
+        } catch (NoSuchAlgorithmException e) {
+            return "";
+        } catch (UnsupportedEncodingException e) {
+            return "";
         }
-
-        return true;
     }
-
-    //有一个为空
-    public static boolean isOneEmpty(List... lists) {
-        for (List list : lists) {
-            if (isEmpty(list)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
 
     //============================字符串============================================
     public static boolean isEmpty(String s) {
         return TextUtils.isEmpty(s);
     }
 
-    //全部为空
-    public static boolean isAllEmpty(String... strings) {
-        for (String s : strings) {
+    /**
+     * The file copy buffer size (30 MB)
+     */
+    private static final long FILE_COPY_BUFFER_SIZE = 1024 * 1024 * 30;
 
-            if (!isEmpty(s)) {
-                //如果有一个不为空则返回false.
-                return false;
-            }
-
+    /**
+     * Internal copy file method.
+     *
+     * @param srcFile          the validated source file, must not be {@code null}
+     * @param destFile         the validated destination file, must not be {@code null}
+     * @param preserveFileDate whether to preserve the file date
+     * @throws java.io.IOException if an error occurs
+     */
+    public static void doCopyFile(File srcFile, File destFile, boolean preserveFileDate) throws IOException {
+        if (destFile.exists() && destFile.isDirectory()) {
+            throw new IOException("Destination '" + destFile + "' exists but is a directory");
         }
 
-        return true;
-    }
-
-    //有一个为空
-    public static boolean isOneEmpty(String... strings) {
-        for (String s : strings) {
-            if (isEmpty(s)) {
-                return true;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        FileChannel input = null;
+        FileChannel output = null;
+        try {
+            fis = new FileInputStream(srcFile);
+            fos = new FileOutputStream(destFile);
+            input = fis.getChannel();
+            output = fos.getChannel();
+            long size = input.size();
+            long pos = 0;
+            long count = 0;
+            while (pos < size) {
+                count = size - pos > FILE_COPY_BUFFER_SIZE ? FILE_COPY_BUFFER_SIZE : size - pos;
+                pos += output.transferFrom(input, pos, count);
             }
+        } finally {
+            closeQuietly(output);
+            closeQuietly(fos);
+            closeQuietly(input);
+            closeQuietly(fis);
         }
 
-        return false;
+        if (srcFile.length() != destFile.length()) {
+            throw new IOException("Failed to copy full contents from '" +
+                    srcFile + "' to '" + destFile + "'");
+        }
+        if (preserveFileDate) {
+            destFile.setLastModified(srcFile.lastModified());
+        }
     }
 
-
+    public static void closeQuietly(Closeable closeable) {
+        try {
+            if (closeable != null) {
+                closeable.close();
+            }
+        } catch (IOException ioe) {
+            // ignore
+        }
+    }
     //============================URL============================================
 
     /**
@@ -156,4 +198,19 @@ public class CommonUtil {
         }
         return heightPixels;
     }
+
+    /**
+     * 现在的几分钟前
+     *
+     * @param date
+     * @return
+     */
+    public static int getMinutesBefore(Date date) {
+        return (int) (System.currentTimeMillis() - date.getTime()) / 1000 / 60;
+    }
+
+    public static int getMinutesBefore(Long date) {
+        return (int) (System.currentTimeMillis() - date) / 1000 / 60;
+    }
+
 }

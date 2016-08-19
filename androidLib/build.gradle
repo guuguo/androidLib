@@ -11,14 +11,16 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     compileOptions {
         sourceCompatibility sourceCompatibilityVersion
         targetCompatibility targetCompatibilityVersion
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -28,13 +30,15 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile rootProject.ext.deps['appcompat']
-    compile rootProject.ext.deps['supportDesign']
-    compile rootProject.ext.deps['constraintLayout']
-    compile rootProject.ext.deps['flycoSystemBar']
-    compile rootProject.ext.deps['eventbus']
-    compile rootProject.ext.deps['sweetalert']
-    compile files('libs/lite-common-1.1.3.jar')
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha+'
+    compile 'com.flyco.systembar:FlycoSystemBar_Lib:1.0.0@aar'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'cn.pedant.sweetalert:library:1.3'
     compile 'io.reactivex:rxandroid:1.0.0'
     compile files('libs/lite-orm-1.9.2.jar')
+    compile 'com.sdsmdg.tastytoast:tastytoast:0.0.1'
+    compile 'com.zhy:percent-support-extends:1.1.1'
+
 }
