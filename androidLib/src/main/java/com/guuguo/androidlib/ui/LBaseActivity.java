@@ -82,7 +82,7 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         loadData();
     }
 
-    protected  int getMyTheme(){
+    protected int getMyTheme() {
         return 0;
     }
 
@@ -204,23 +204,21 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
     @Override
     public void onBackPressed() {
         if (getBackExit()) {
-            dialogWarningShow("确定要退出吗", "确定", new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    Intent home = new Intent(Intent.ACTION_MAIN);
-                    home.addCategory(Intent.CATEGORY_HOME);
-                    startActivity(home);
-                    System.exit(0);
-                }
+            dialogWarningShow("确定要退出吗", "确定", sweetAlertDialog -> {
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
+                System.exit(0);
             });
-            return;
-        }
-        for (LBaseFragment fragment : mFragments) {
-            if (fragment.getUserVisibleHint() && fragment.onBackPressed()) {
-                return;
+            ;
+        } else {
+            for (LBaseFragment fragment : mFragments) {
+                if (fragment.getUserVisibleHint() && fragment.onBackPressed()) {
+                    return;
+                }
             }
-        }
-        super.onBackPressed();
+            super.onBackPressed();
+        } 
     }
 
 
