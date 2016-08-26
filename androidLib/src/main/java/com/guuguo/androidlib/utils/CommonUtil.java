@@ -3,8 +3,6 @@ package com.guuguo.androidlib.utils;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.guuguo.androidlib.BaseApplication;
-
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -165,39 +163,6 @@ public class CommonUtil {
         return Looper.myLooper() == Looper.getMainLooper();
     }
 
-    private static float density = -1F;
-    private static int widthPixels = -1;
-    private static int heightPixels = -1;
-
-    public static float getDensity() {
-        if (density <= 0F) {
-            density = BaseApplication.getInstance().getResources().getDisplayMetrics().density;
-        }
-        return density;
-    }
-
-    public static int dip2px(float dpValue) {
-        return (int) (dpValue * getDensity() + 0.5F);
-    }
-
-    public static int px2dip(float pxValue) {
-        return (int) (pxValue / getDensity() + 0.5F);
-    }
-
-    public static int getScreenWidth() {
-        if (widthPixels <= 0) {
-            widthPixels = BaseApplication.getInstance().getResources().getDisplayMetrics().widthPixels;
-        }
-        return widthPixels;
-    }
-
-
-    public static int getScreenHeight() {
-        if (heightPixels <= 0) {
-            heightPixels = BaseApplication.getInstance().getResources().getDisplayMetrics().heightPixels;
-        }
-        return heightPixels;
-    }
 
     /**
      * 现在的几分钟前

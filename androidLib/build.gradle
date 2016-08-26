@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
@@ -40,5 +39,6 @@ dependencies {
     compile files('libs/lite-orm-1.9.2.jar')
     compile 'com.sdsmdg.tastytoast:tastytoast:0.0.1'
     compile 'com.zhy:percent-support-extends:1.1.1'
-
+    
+    compile 'com.orhanobut:logger:1.15'
 }

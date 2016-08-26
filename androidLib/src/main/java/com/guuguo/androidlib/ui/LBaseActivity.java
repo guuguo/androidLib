@@ -8,9 +8,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +38,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by guodeqing on 16/5/31.
  */
 public abstract class LBaseActivity extends AppCompatActivity implements IBaseActivityInterface {
+
+    public final static String SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO";
     protected ArrayList<LBaseFragment> mFragments = new ArrayList<>();
     private ToolBarHelper mToolBarHelper;
     private DrawerHelper mDrawerHelper;
@@ -46,6 +51,7 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
     protected LBaseActivity activity;
     private boolean mIsHidden = false;
     private SweetAlertDialog mLoadingDialog;
+    private LBaseFragment mFragment;
 
     public LBaseActivity() {
         activity = this;
@@ -68,6 +74,7 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         setContentView(getLayoutResId());
         myApplication.currentContainer = getContainer();
         init();
+
     }
 
     @Override
@@ -77,16 +84,25 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
     }
 
     protected void init() {
+        initFromIntent(getIntent());
         initView();
         initVariable();
         loadData();
+        if (getHeaderTitle() != null)
+            activity.getSupportActionBar().setTitle(getHeaderTitle());
+    }
+
+    protected String getHeaderTitle() {
+        return null;
     }
 
     protected int getMyTheme() {
         return 0;
     }
 
-    protected abstract int getLayoutResId();
+    protected int getLayoutResId() {
+        return R.layout.base_activity_simple_back;
+    }
 
     protected boolean getDarkMode() {
         return false;
@@ -101,13 +117,25 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
     }
 
     public boolean getReturnBtnVisible() {
-        return false;
+        return true;
     }
 
     public void onCreateCustomToolBar(Toolbar toolbar) {
         toolbar.setContentInsetsRelative(0, 0);
         getSupportActionBar().setDisplayHomeAsUpEnabled(getReturnBtnVisible());
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (mFragments.size()> 0)
+            for (Fragment fra : mFragments)
+                fra.onCreateOptionsMenu(menu, getMenuInflater());
+        return super.onCreateOptionsMenu(menu);
+
+//        if (mFragment != null) mFragment.onCreateOptionsMenu(menu, getMenuInflater());
+//        return super.onCreateOptionsMenu(menu);
+    }
+
 
     @Override
     public void setContentView(int layoutResID) {
@@ -143,14 +171,47 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         initBar();
     }
 
+    /**
+     * 判断是否 fragment activity
+     *
+     * @param data
+     */
+    private void initFromIntent(Intent data) {
+        Class<?> clz = (Class<?>) getIntent().getSerializableExtra(SIMPLE_ACTIVITY_INFO);
+        if (data == null || clz == null) {
+            return;
+        }
+        try {
+            mFragment = (LBaseFragment) clz.newInstance();
+            Bundle args = data.getExtras();
+
+            if (args != null) {
+                mFragment.setArguments(args);
+            }
+            FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
+            trans.replace(R.id.content, mFragment);
+            trans.commitAllowingStateLoss();
+            
+            mFragments.add(mFragment);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("generate fragment error. by value:" + clz.toString());
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
-                break;
+                return true;
         }
+        if (mFragments.size()> 0)
+            for (Fragment fra : mFragments)
+            if (fra.onOptionsItemSelected(item)) return true;
         return super.onOptionsItemSelected(item);
+//        if (mFragment != null && mFragment.onOptionsItemSelected(item)) return true;
+//        else return super.onOptionsItemSelected(item);
     }
 
     protected boolean isFullScreen() {
@@ -218,7 +279,7 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
                 }
             }
             super.onBackPressed();
-        } 
+        }
     }
 
 

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.guuguo.androidlib.BaseApplication;
 import com.guuguo.androidlib.eventBus.SettingChangeEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,7 +19,6 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public abstract class LBaseFragment extends Fragment implements IBaseActivityInterface {
     protected LBaseActivity activity;
-    private BaseApplication myApplication=BaseApplication.getInstance();
     private boolean isPrepare = false;
     protected boolean isFirstLazyLoad = true;
     protected View contentView;
@@ -30,6 +28,8 @@ public abstract class LBaseFragment extends Fragment implements IBaseActivityInt
         initView();
         initVariable();
         loadData();
+        if (getHeaderTitle() != null && activity.getToolBarResId()!=0)
+            activity.getSupportActionBar().setTitle(getHeaderTitle());
         //如果可见 懒加载
         isPrepare = true;
         if (getUserVisibleHint()) {
@@ -39,6 +39,9 @@ public abstract class LBaseFragment extends Fragment implements IBaseActivityInt
 
     }
 
+    protected String getHeaderTitle() {
+        return null;
+    }
 
     @Nullable
     @Override
@@ -78,19 +81,25 @@ public abstract class LBaseFragment extends Fragment implements IBaseActivityInt
         return activity.getToolbar();
     }
 
-    public AppBarLayout getAppbar() {return activity.getAppbar();}
+    public AppBarLayout getAppbar() {
+        return activity.getAppbar();
+    }
 
     /**
      * 返回动作,如果返回true,捕捉了返回动作
+     *
      * @return
      */
-    public boolean onBackPressed() {return false;}
+    public boolean onBackPressed() {
+        return false;
+    }
 
-    public void lazyLoad() {}
+    public void lazyLoad() {
+    }
 
     @Subscribe
     public void onEvent(SettingChangeEvent event) {
     }
 
-    protected abstract int getLayoutResId() ;
+    protected abstract int getLayoutResId();
 }
