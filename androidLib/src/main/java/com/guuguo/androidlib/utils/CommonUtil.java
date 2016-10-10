@@ -14,6 +14,7 @@ import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -177,5 +178,25 @@ public class CommonUtil {
     public static int getMinutesBefore(Long date) {
         return (int) (System.currentTimeMillis() - date) / 1000 / 60;
     }
-
+    //但如果字符串为空，返回“”
+    public static String getSafeString(String str) {
+        if (TextUtils.isEmpty(str))
+            return "";
+        else
+            return str;
+    }
+    //但如果字符串为空，返回“”
+    public static List getSafeList(List list) {
+        if (list==null)
+            return new ArrayList<>();
+        else
+            return list;
+    }
+    //但如果字符串为空，返回“”
+    public static String getGoodNumberStr(double num) {
+        if (num==(int)num)
+            return (int)num+"";
+        else
+            return num+"";
+    }
 }

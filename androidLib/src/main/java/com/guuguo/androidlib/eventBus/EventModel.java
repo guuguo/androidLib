@@ -1,7 +1,5 @@
 package com.guuguo.androidlib.eventBus;
 
-import java.util.Objects;
-
 /**
  * Created by guodeqing on 16/6/1.
  */
@@ -19,28 +17,10 @@ public class EventModel {
     public EventModel() {
     }
 
-    public EventModel(Object data) {
-        this.data = data;
-    }
 
-    public EventModel(Object data, int value) {
-        this.data = data;
-        Value = value;
-    }
-
-    public EventModel(Objects data, String msg, int value) {
-        this.data = data;
-        this.msg = msg;
-        Value = value;
-    }
 
     public EventModel(int value) {
         Value = value;
-    }
-
-    public EventModel(int value, boolean changeTo) {
-        Value = value;
-        this.state = changeTo;
     }
 
     public EventModel(String msg, boolean changeTo, int value) {

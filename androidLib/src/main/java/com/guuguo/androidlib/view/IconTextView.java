@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.guuguo.androidlib.BaseApplication;
 import com.guuguo.androidlib.R;
 
 public class IconTextView extends TextView {
@@ -31,11 +30,12 @@ public class IconTextView extends TextView {
         int type = typedArray.getInt(R.styleable.IconTextView_typeface, 0);
         switch (type) {
             case 0:
-                this.setTypeface(BaseApplication.getInstance().getTypeface(BaseApplication.MATERIAL_ICON));
+                this.setTypeface(FontManager.getTypeface(getContext(),FontManager.MATERIAL_ICON));
                 break;
             case 1:
-                this.setTypeface(BaseApplication.getInstance().getTypeface(BaseApplication.FONTAWESOME_ICON));
+                this.setTypeface(FontManager.getTypeface(getContext(),FontManager.FONTAWESOME_ICON));
 
         }
+        typedArray.recycle();
     }
 }

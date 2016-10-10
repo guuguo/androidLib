@@ -14,21 +14,35 @@ import com.guuguo.androidlib.eventBus.SettingChangeEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Call;
+
 /**
  * Created by guodeqing on 16/5/31.
  */
 public abstract class LBaseFragment extends Fragment implements IBaseActivityInterface {
+
+    protected final String TAG = this.getClass().getSimpleName(); 
     protected LBaseActivity activity;
+    
     private boolean isPrepare = false;
     protected boolean isFirstLazyLoad = true;
     protected View contentView;
+    private List<Call> mApiCalls = new ArrayList<>();
 
+    protected void addApiCall(Call call) {
+        if (call != null)
+            mApiCalls.add(call);
+    }
+    
     protected void init(View view) {
         activity = (LBaseActivity) getActivity();
         initView();
         initVariable();
         loadData();
-        if (getHeaderTitle() != null && activity.getToolBarResId()!=0)
+        if (getHeaderTitle() != null && activity.getRealToolBarResId()!=0)
             activity.getSupportActionBar().setTitle(getHeaderTitle());
         //如果可见 懒加载
         isPrepare = true;
@@ -63,6 +77,11 @@ public abstract class LBaseFragment extends Fragment implements IBaseActivityInt
     @Override
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
+        for (Call call : mApiCalls) {
+            if (call != null && call.isExecuted())
+                call.cancel();
+        }
+        mApiCalls.clear();
         super.onDestroyView();
     }
 

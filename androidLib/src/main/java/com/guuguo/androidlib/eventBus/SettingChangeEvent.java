@@ -12,7 +12,7 @@ public class SettingChangeEvent extends EventModel {
     }
 
     public SettingChangeEvent(String msg) {
-        super(msg);
+        this.msg=msg;
     }
 
     public SettingChangeEvent(String msg, boolean changeTo, int value) {
