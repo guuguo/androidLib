@@ -1,4 +1,4 @@
-package com.guuguo.androidlib.ui;
+package com.guuguo.androidlib.app;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,7 +44,9 @@ import rx.android.schedulers.AndroidSchedulers;
 /**
  * Created by guodeqing on 16/5/31.
  */
-public abstract class LBaseActivity extends AppCompatActivity implements IBaseActivityInterface {
+public abstract class LBaseActivity extends AppCompatActivity {
+
+
     protected final String TAG = this.getClass().getSimpleName();
 
     public final static String SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO";
@@ -130,6 +133,15 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         loadData();
         if (getHeaderTitle() != null)
             activity.getSupportActionBar().setTitle(getHeaderTitle());
+    }
+
+    protected void loadData() {
+    }
+
+    protected void initVariable() {
+    }
+
+    protected void initView() {
     }
 
     protected String getHeaderTitle() {
@@ -314,22 +326,71 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
     }
 
     public void exitDialog() {
-        dialogWarningShow("确定要退出吗", "确定", sweetAlertDialog -> {
-            finish();
-            System.exit(0);
-
+        dialogWarningShow("确定要退出吗", "确定", new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                finish();
+                System.exit(0);
+            }
         });
     }
 
-
-    public void dialogLoadingShow() {
-        showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, "加载中", false);
+    public void dialogLoadingShow(String msg) {
+        if (TextUtils.isEmpty(msg))
+            msg = "加载中";
+        showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, msg, false);
+        showLoadingDialogOnMain();
+    }
+    public void dialogLoadingShowCanTouchDismiss(String msg) {
+        if (TextUtils.isEmpty(msg))
+            msg = "加载中";
+        showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, msg, true);
         showLoadingDialogOnMain();
     }
 
-    public void dialogLoadingShow(String msg) {
-        showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, msg, false);
+    public void dialogErrorShow(String msg, DialogDismissListener listener) {
+        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+        if (mLoadingDialog != null)
+            dialogDismiss(listener, 500);
+    }
+
+    public void dialogCompleteShow(String msg, DialogDismissListener listener) {
+        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+        if (listener != null)
+            dialogDismiss(listener, 500);
+    }
+
+    public void dialogWarningShow(String msg, String confirmStr, SweetAlertDialog.OnSweetClickListener listener) {
+        showSweetDialog(SweetAlertDialog.WARNING_TYPE, R.color.colorPrimaryRed, msg, true);
+        mLoadingDialog.setConfirmText(confirmStr);
+        mLoadingDialog.setCancelText("取消");
+        mLoadingDialog.setConfirmClickListener(listener);
         showLoadingDialogOnMain();
+    }
+
+    public void dialogDismiss(DialogDismissListener listener, long delayTime) {
+        Observable observable = Observable.just(activity);
+
+        if (delayTime != 0) observable = observable.delay(delayTime, TimeUnit.MILLISECONDS);
+        observable.observeOn(AndroidSchedulers.mainThread()).
+                subscribe(tempActivity -> {
+                    try {
+                        if (mLoadingDialog != null) {
+                            mLoadingDialog.dismiss();
+                        }
+                        if (listener != null) listener.onDismiss();
+                    } catch (WindowManager.BadTokenException e) {
+                        Log.i("baseActivity", e.getMessage());
+                    }
+                });
+    }
+
+    public void dialogDismiss(DialogDismissListener listener) {
+        dialogDismiss(listener, 0);
+    }
+
+    public void dialogDismiss() {
+        dialogDismiss(null, 0);
     }
 
     private void showSweetDialog(int dialogType, int progressColorRes, String TitleText, boolean cancelAble) {
@@ -346,79 +407,15 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         mLoadingDialog.setCancelClickListener(sweetAlertDialog -> dialogDismiss());
     }
 
-    public void dialogCompleteShow(String msg) {
-        showSweetDialog(SweetAlertDialog.SUCCESS_TYPE, R.color.colorPrimaryBlue, msg, true);
-        mLoadingDialog.setConfirmText("知道了");
-        mLoadingDialog.showCancelButton(false);
-        showLoadingDialogOnMain();
-    }
-
-    public void dialogErrorShow(String msg, String confirmStr, SweetAlertDialog.OnSweetClickListener listener) {
-        showSweetDialog(SweetAlertDialog.ERROR_TYPE, R.color.colorPrimaryRed, msg, true);
-        mLoadingDialog.setConfirmText(confirmStr);
-        mLoadingDialog.setConfirmClickListener(listener);
-        mLoadingDialog.setCancelText("取消");
-        showLoadingDialogOnMain();
-    }
-
-    public void dialogErrorShow(String msg) {
-        showSweetDialog(SweetAlertDialog.ERROR_TYPE, R.color.colorPrimaryRed, msg, true);
-        mLoadingDialog.setConfirmText("知道了");
-        mLoadingDialog.showCancelButton(false);
-        showLoadingDialogOnMain();
-    }
-
     private void showLoadingDialogOnMain() {
         Observable.just(activity).observeOn(AndroidSchedulers.mainThread()).subscribe((a) -> {
-            try{
-                mLoadingDialog.show();}
-            catch (WindowManager.BadTokenException e){
-                Log.i("baseActivity",e.getMessage());
+            try {
+                if (mLoadingDialog != null)
+                    mLoadingDialog.show();
+            } catch (WindowManager.BadTokenException e) {
+                Log.i("baseActivity", e.getMessage());
             }
         });
-    }
-
-    public void dialogErrorShow(String msg, long delayTime, DialogDismissListener listener) {
-        dialogErrorShow(msg);
-        dialogDismiss(listener, delayTime);
-    }
-
-    public void dialogErrorShow(String msg, int Length) {
-        TastyToast.makeText(getApplicationContext(), msg, Length, TastyToast.ERROR);
-        dialogDismiss();
-    }
-
-    public void dialogCompleteShow(String msg, int Length) {
-        TastyToast.makeText(getApplicationContext(), msg, Length, TastyToast.SUCCESS);
-        dialogDismiss();
-    }
-
-    public void dialogCompleteShow(String msg, long delayTime, DialogDismissListener listener) {
-        dialogCompleteShow(msg);
-        dialogDismiss(listener, delayTime);
-    }
-
-    public void dialogDismiss(DialogDismissListener listener, long delayTime) {
-        Observable.just(activity).delay(delayTime, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).
-                subscribe(tempActivity -> {
-                    if (mLoadingDialog != null) {
-                        try {
-                            mLoadingDialog.dismiss();
-                            if (listener != null) listener.onDismiss();
-                        }
-                        catch (WindowManager.BadTokenException e){
-                            Log.i("baseActivity",e.getMessage());
-                        }
-                    }
-                });
-    }
-
-    public void dialogDismiss(DialogDismissListener listener) {
-        dialogDismiss(listener, 0);
-    }
-
-    public void dialogDismiss() {
-        dialogDismiss(null, 0);
     }
 
     public int getRealToolBarResId() {
@@ -437,13 +434,6 @@ public abstract class LBaseActivity extends AppCompatActivity implements IBaseAc
         return true;
     }
 
-    public void dialogWarningShow(String msg, String confirmStr, SweetAlertDialog.OnSweetClickListener listener) {
-        showSweetDialog(SweetAlertDialog.WARNING_TYPE, R.color.colorPrimaryRed, msg, true);
-        mLoadingDialog.setConfirmText(confirmStr);
-        mLoadingDialog.setCancelText("取消");
-        mLoadingDialog.setConfirmClickListener(listener);
-        showLoadingDialogOnMain();
-    }
 
 }
 

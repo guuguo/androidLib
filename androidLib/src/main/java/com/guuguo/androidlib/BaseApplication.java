@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -34,15 +35,21 @@ public abstract class BaseApplication extends Application {
 
 
   
-    public void toast(String msg) {
-        Observable.create((Observable.OnSubscribe<String>) subscriber -> {
-            TastyToast.makeText(this, msg, Toast.LENGTH_SHORT, TastyToast.DEFAULT);
+    public void toast(final String msg) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                TastyToast.makeText(BaseApplication.this, msg, Toast.LENGTH_SHORT, TastyToast.DEFAULT);
+            }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
-    public void toastLong(String msg) {
-        Observable.create((Observable.OnSubscribe<String>) subscriber -> {
-            TastyToast.makeText(this, msg, Toast.LENGTH_LONG, TastyToast.DEFAULT);
+    public void toastLong(final String msg) {
+        Observable.create(new Observable.OnSubscribe<String>() {
+            @Override
+            public void call(Subscriber<? super String> subscriber) {
+                TastyToast.makeText(BaseApplication.this, msg, Toast.LENGTH_LONG, TastyToast.DEFAULT);
+            }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 

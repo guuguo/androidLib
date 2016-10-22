@@ -1,4 +1,4 @@
-package com.guuguo.androidlib.ui;
+package com.guuguo.androidlib.app;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,7 +22,7 @@ import okhttp3.Call;
 /**
  * Created by guodeqing on 16/5/31.
  */
-public abstract class LBaseFragment extends Fragment implements IBaseActivityInterface {
+public abstract class LBaseFragment extends Fragment  {
 
     protected final String TAG = this.getClass().getSimpleName(); 
     protected LBaseActivity activity;
@@ -50,7 +50,14 @@ public abstract class LBaseFragment extends Fragment implements IBaseActivityInt
             lazyLoad();
             isFirstLazyLoad = false;
         }
+    }
+    protected void loadData() {
+    }
 
+    protected void initVariable() {
+    }
+
+    protected void initView() {
     }
 
     protected String getHeaderTitle() {
