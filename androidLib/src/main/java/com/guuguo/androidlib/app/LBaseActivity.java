@@ -28,7 +28,7 @@ import com.guuguo.androidlib.R;
 import com.guuguo.androidlib.eventBus.EventModel;
 import com.guuguo.androidlib.helper.DrawerHelper;
 import com.guuguo.androidlib.helper.ToolBarHelper;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.guuguo.androidlib.view.StateDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -86,7 +86,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        myApplication.currentActivity=activity;
+        myApplication.currentActivity = activity;
     }
 
     @Override
@@ -362,13 +362,27 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogErrorShow(String msg, DialogDismissListener listener) {
-        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
+        StateDialog stateDialog = new StateDialog(activity)
+                .stateStyle(StateDialog.STATE_STYLE.error)
+                .autoDismissDelay(500)
+                .autoDismiss(true)
+                .content(msg);
+        stateDialog.show();
+//        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
         if (mLoadingDialog != null)
             dialogDismiss(listener, 500);
     }
 
     public void dialogCompleteShow(String msg, DialogDismissListener listener) {
-        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+//        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+
+        StateDialog stateDialog = new StateDialog(activity)
+                .stateStyle(StateDialog.STATE_STYLE.success)
+                .autoDismissDelay(500)
+                .autoDismiss(true)
+                .content(msg);
+        stateDialog.show();
+
         if (mLoadingDialog != null)
             dialogDismiss(listener, 500);
     }
