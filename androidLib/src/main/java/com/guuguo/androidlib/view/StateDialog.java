@@ -103,11 +103,13 @@ public class StateDialog extends BaseDialog<StateDialog> {
         mLlControlHeight.setGravity(Gravity.CENTER);
 
         /** llcontainer **/
-        mLlContainer.setLayoutParams(new ViewGroup.LayoutParams(dp2px(180), dp2px(180)));
+        mLlContainer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        mLlContainer.setPadding(dp2px(15), dp2px(15), dp2px(15), dp2px(15));
+        mLlContainer.setMinimumWidth(dp2px(150));
         mLlContainer.setGravity(Gravity.CENTER);
 
         /** stateImage **/
-        mIvState.setLayoutParams(new ViewGroup.LayoutParams(dp2px(45), dp2px(45)));
+        mIvState.setLayoutParams(new ViewGroup.LayoutParams(dp2px(42), dp2px(42)));
         mIvState.setColorFilter(mContentTextColor);
         mLlContainer.addView(mIvState);
 
@@ -119,7 +121,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
 
         /** content */
         mTvContent.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        mTvContent.setPadding(0, dp2px(10), 0, dp2px(10));
+        mTvContent.setPadding(0, dp2px(15), 0, 0);
         mLlContainer.addView(mTvContent);
 
         return mLlContainer;
