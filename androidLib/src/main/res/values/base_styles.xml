@@ -13,6 +13,7 @@
         <item name="android:textColorHint">@color/day_hint</item>
         <item name="android:textColorLink">@color/day_hint</item>
         <item name="containerBackgroundLayer1">@color/day_main_base_bg</item>
+        <item name="android:actionBarSize">@dimen/actionbar_size</item>
     </style>
     <!-- 夜间模式 -->
     <style name="AppTheme.night" parent="AppTheme">
@@ -99,7 +100,7 @@
 
     <style name="text_hint">
         <item name="android:textColor">?android:textColorHint</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">@dimen/hint</item>
     </style>
 
     <style name="text_link">

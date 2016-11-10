@@ -17,26 +17,26 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.Call;
+import rx.Subscription;
 
 /**
  * Created by guodeqing on 16/5/31.
  */
 public abstract class LBaseFragment extends Fragment  {
 
-    protected final String TAG = this.getClass().getSimpleName(); 
+    protected final String TAG = this.getClass().getSimpleName();
     protected LBaseActivity activity;
-    
-    private boolean isPrepare = false;
-    protected boolean isFirstLazyLoad = true;
-    protected View contentView;
-    private List<Call> mApiCalls = new ArrayList<>();
 
-    protected void addApiCall(Call call) {
+    private boolean isPrepare = false;
+    protected boolean mFirstLazyLoad = true;
+    protected View contentView;
+    private List<Subscription> mApiCalls = new ArrayList<>();
+
+    protected void addApiCall(Subscription call) {
         if (call != null)
             mApiCalls.add(call);
     }
-    
+
     protected void init(View view) {
         activity = (LBaseActivity) getActivity();
         initView();
@@ -48,7 +48,7 @@ public abstract class LBaseFragment extends Fragment  {
         isPrepare = true;
         if (getUserVisibleHint()) {
             lazyLoad();
-            isFirstLazyLoad = false;
+            mFirstLazyLoad = false;
         }
     }
     protected void loadData() {
@@ -84,10 +84,10 @@ public abstract class LBaseFragment extends Fragment  {
     @Override
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
-        for (Call call : mApiCalls) {
-            if (call != null && call.isExecuted())
-                call.cancel();
-        }
+        for (Subscription call : mApiCalls) {
+        if (call != null && !call.isUnsubscribed())
+            call.unsubscribe();
+    }
         mApiCalls.clear();
         super.onDestroyView();
     }
@@ -99,7 +99,7 @@ public abstract class LBaseFragment extends Fragment  {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isPrepare) {
             lazyLoad();
-            isFirstLazyLoad = false;
+            mFirstLazyLoad = false;
         }
     }
 

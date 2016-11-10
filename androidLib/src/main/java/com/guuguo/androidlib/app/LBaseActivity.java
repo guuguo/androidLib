@@ -1,5 +1,6 @@
 package com.guuguo.androidlib.app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -37,9 +38,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import okhttp3.Call;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * Created by guodeqing on 16/5/31.
@@ -69,18 +71,23 @@ public abstract class LBaseActivity extends AppCompatActivity {
         activity = this;
     }
 
-    private List<Call> mApiCalls = new ArrayList<>();
+    private List<Subscription> mApiCalls = new ArrayList<>();
 
     /**
      * 管控异步网络请求.避免横竖屏切换出错
      *
      * @param call
      */
-    protected void addApiCall(Call call) {
+    protected void addApiCall(Subscription call) {
         if (call != null)
             mApiCalls.add(call);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        myApplication.currentActivity=activity;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,9 +111,9 @@ public abstract class LBaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        for (Call call : mApiCalls) {
-            if (call != null && call.isExecuted())
-                call.cancel();
+        for (Subscription call : mApiCalls) {
+            if (call != null && !call.isUnsubscribed())
+                call.unsubscribe();
         }
         mApiCalls.clear();
         mLoadingDialog = null;
@@ -131,8 +138,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
         initView();
         initVariable();
         loadData();
-        if (getHeaderTitle() != null)
-            activity.getSupportActionBar().setTitle(getHeaderTitle());
     }
 
     protected void loadData() {
@@ -145,7 +150,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     protected String getHeaderTitle() {
-        return null;
+        return "";
     }
 
     protected int getMyTheme() {
@@ -205,7 +210,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
         } else {
             super.setContentView(contentView);
         }
-        initBar();
+        if (getRealToolBarResId() != 0)
+            initBar();
         if (!isFullScreen()) {
             SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
@@ -215,18 +221,21 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     protected void initBar() {
-        if (getRealToolBarResId() == 0)
-            return;
         if (Build.VERSION.SDK_INT >= 21 && getIsAppbarElevation()) {
             getAppbar().setElevation(10.6f);
         }
+
         if (!isFullScreen()) {
-            SystemBarHelper.setHeightAndPadding(this, getToolbar());
+            SystemBarHelper.setHeightAndPadding(this, toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
         }
         getToolbar().setContentInsetsRelative(0, 0);
-
         setSupportActionBar(getToolbar()); /*自定义的一些操作*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(getReturnBtnVisible());
+        activity.getSupportActionBar().setTitle(getHeaderTitle());
+    }
+
+    protected View getMyToolBar() {
+        return getAppbar();
     }
 
     /**
@@ -235,23 +244,28 @@ public abstract class LBaseActivity extends AppCompatActivity {
      * @param data
      */
     private void initFromIntent(Intent data) {
-        Class<?> clz = (Class<?>) getIntent().getSerializableExtra(SIMPLE_ACTIVITY_INFO);
-        if (data == null || clz == null) {
-            return;
-        }
-        forceToolBarView = getIntent().getIntExtra(SIMPLE_ACTIVITY_TOOLBAR, 0);
         try {
-            mFragment = (LBaseFragment) clz.newInstance();
-            Bundle args = data.getExtras();
-
-            if (args != null) {
-                mFragment.setArguments(args);
+            Class<?> clz = (Class<?>) getIntent().getSerializableExtra(SIMPLE_ACTIVITY_INFO);
+            if (data == null || clz == null) {
+                return;
             }
+            forceToolBarView = getIntent().getIntExtra(SIMPLE_ACTIVITY_TOOLBAR, 0);
+            try {
+                mFragment = (LBaseFragment) clz.newInstance();
+                Bundle args = data.getExtras();
 
+                if (args != null) {
+                    mFragment.setArguments(args);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new IllegalArgumentException("generate fragment error. by value:" + clz.toString());
+            }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("generate fragment error. by value:" + clz.toString());
+
         }
+
     }
 
     @Override
@@ -265,8 +279,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
             for (Fragment fra : mFragments)
                 if (fra.onOptionsItemSelected(item)) return true;
         return super.onOptionsItemSelected(item);
-//        if (mFragment != null && mFragment.onOptionsItemSelected(item)) return true;
-//        else return super.onOptionsItemSelected(item);
     }
 
     protected boolean isFullScreen() {
@@ -341,6 +353,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, msg, false);
         showLoadingDialogOnMain();
     }
+
     public void dialogLoadingShowCanTouchDismiss(String msg) {
         if (TextUtils.isEmpty(msg))
             msg = "加载中";
@@ -356,7 +369,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     public void dialogCompleteShow(String msg, DialogDismissListener listener) {
         TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
-        if (listener != null)
+        if (mLoadingDialog != null)
             dialogDismiss(listener, 500);
     }
 
@@ -368,19 +381,22 @@ public abstract class LBaseActivity extends AppCompatActivity {
         showLoadingDialogOnMain();
     }
 
-    public void dialogDismiss(DialogDismissListener listener, long delayTime) {
+    public void dialogDismiss(final DialogDismissListener listener, long delayTime) {
         Observable observable = Observable.just(activity);
 
         if (delayTime != 0) observable = observable.delay(delayTime, TimeUnit.MILLISECONDS);
         observable.observeOn(AndroidSchedulers.mainThread()).
-                subscribe(tempActivity -> {
-                    try {
-                        if (mLoadingDialog != null) {
-                            mLoadingDialog.dismiss();
+                subscribe(new Action1() {
+                    @Override
+                    public void call(Object o) {
+                        try {
+                            if (mLoadingDialog != null) {
+                                mLoadingDialog.dismiss();
+                            }
+                            if (listener != null) listener.onDismiss();
+                        } catch (WindowManager.BadTokenException e) {
+                            Log.i("baseActivity", e.getMessage());
                         }
-                        if (listener != null) listener.onDismiss();
-                    } catch (WindowManager.BadTokenException e) {
-                        Log.i("baseActivity", e.getMessage());
                     }
                 });
     }
@@ -401,19 +417,37 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
         mLoadingDialog.getProgressHelper().setBarColor(getResources().getColor(progressColorRes));
         mLoadingDialog.setTitleText(TitleText);
-        mLoadingDialog.setOnCancelListener(dialog -> mLoadingDialog = null);
+        mLoadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                mLoadingDialog = null;
+            }
+        });
         mLoadingDialog.setCanceledOnTouchOutside(cancelAble);
-        mLoadingDialog.setConfirmClickListener(sweetAlertDialog -> dialogDismiss());
-        mLoadingDialog.setCancelClickListener(sweetAlertDialog -> dialogDismiss());
+        mLoadingDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                dialogDismiss();
+            }
+        });
+        mLoadingDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                dialogDismiss();
+            }
+        });
     }
 
     private void showLoadingDialogOnMain() {
-        Observable.just(activity).observeOn(AndroidSchedulers.mainThread()).subscribe((a) -> {
-            try {
-                if (mLoadingDialog != null)
-                    mLoadingDialog.show();
-            } catch (WindowManager.BadTokenException e) {
-                Log.i("baseActivity", e.getMessage());
+        Observable.just(activity).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<LBaseActivity>() {
+            @Override
+            public void call(LBaseActivity lBaseActivity) {
+                try {
+                    if (mLoadingDialog != null)
+                        mLoadingDialog.show();
+                } catch (WindowManager.BadTokenException e) {
+                    Log.i("baseActivity", e.getMessage());
+                }
             }
         });
     }

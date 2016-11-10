@@ -8,8 +8,7 @@ buildscript {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-rc1'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.android.tools.build:gradle:2.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -30,8 +29,8 @@ allprojects {
 ext {
     minSdkVersion = 17
     targetSdkVersion = 23
-    compileSdkVersion = 24
-    buildToolsVersion = '24.0.1'
+    compileSdkVersion = 25
+    buildToolsVersion = '25.0.0'
     sourceCompatibilityVersion = JavaVersion.VERSION_1_8
     targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }

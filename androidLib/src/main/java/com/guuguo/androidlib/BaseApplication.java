@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.design.widget.CoordinatorLayout;
 import android.widget.Toast;
 
+import com.guuguo.androidlib.app.LBaseActivity;
 import com.sdsmdg.tastytoast.TastyToast;
 
 import rx.Observable;
@@ -22,6 +23,8 @@ public abstract class BaseApplication extends Application {
         return INSTANCE;
     }
 
+    public LBaseActivity currentActivity = null;
+
     public abstract int getAppTheme();
 
     @Override
@@ -34,7 +37,6 @@ public abstract class BaseApplication extends Application {
     protected abstract void init();
 
 
-  
     public void toast(final String msg) {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
@@ -53,5 +55,5 @@ public abstract class BaseApplication extends Application {
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
-   
+
 }
