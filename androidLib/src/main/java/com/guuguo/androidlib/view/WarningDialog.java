@@ -4,17 +4,16 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.flyco.dialog.utils.CornerUtils;
 import com.flyco.dialog.widget.internal.BaseAlertDialog;
 
 /**
- * Created by guodeqing on 6/23/16.
+ * Created by mimi on 2016-11-11.
  */
 @SuppressWarnings("deprecation")
-public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
+public class WarningDialog extends BaseAlertDialog<WarningDialog> {
 
     /**
      * title underline
@@ -45,24 +44,16 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
      */
     private int mDividerColor = Color.parseColor("#DCDCDC");
 
-    public View getContainer() {
-        return mLlContainer;
-    }
-
-    private FrameLayout mContentLayout;
-    protected View mContentView;
-
     public static final int STYLE_ONE = 0;
     public static final int STYLE_TWO = 1;
     private int mStyle = STYLE_ONE;
 
-    public CustomtAlertDialog(Context context) {
+    public WarningDialog(Context context) {
         super(context);
+        isTitleShow(false);
 
         /** default value*/
-        mWidthScale = 0.85f;
-        mTitleTextColor = Color.parseColor("#61AEDC");
-        mTitleTextSize = 22f;
+        mWidthScale=0.85f;
         mContentTextColor = Color.parseColor("#383838");
         mContentTextSize = 17f;
         mLeftBtnTextColor = Color.parseColor("#000000");
@@ -70,13 +61,13 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
         mMiddleBtnTextColor = Color.parseColor("#8a000000");
         mCornerRadius = 10;
         /** default value*/
-
     }
 
     @Override
     public View onCreateView() {
         /** title */
-        mTvTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        mTvTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
         mLlContainer.addView(mTvTitle);
 
         /** title underline */
@@ -84,9 +75,9 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
         mLlContainer.addView(mVLineTitle);
 
         /** content */
-        mContentLayout = new FrameLayout(mContext);
-        mContentLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        mLlContainer.addView(mContentLayout);
+        mTvContent.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
+        mLlContainer.addView(mTvContent);
 
         mVLineHorizontal = new View(mContext);
         mVLineHorizontal.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1));
@@ -118,8 +109,7 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
     @Override
     public void setUiBeforShow() {
         super.setUiBeforShow();
-        if (mContentView != null && mContentLayout.indexOfChild(mContentView) == -1)
-            mContentLayout.addView(mContentView);
+
         /** title */
         if (mStyle == STYLE_ONE) {
             mTvTitle.setMinHeight(dp2px(48));
@@ -132,15 +122,20 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
         }
 
         /** title underline */
-        mVLineTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(mTitleLineHeight)));
+        mVLineTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                dp2px(mTitleLineHeight)));
         mVLineTitle.setBackgroundColor(mTitleLineColor);
         mVLineTitle.setVisibility(mIsTitleShow && mStyle == STYLE_ONE ? View.VISIBLE : View.GONE);
 
         /** content */
         if (mStyle == STYLE_ONE) {
-            mContentLayout.setPadding(dp2px(15), dp2px(10), dp2px(15), dp2px(10));
+            mTvContent.setPadding(dp2px(15), dp2px(30), dp2px(15), dp2px(30));
+            mTvContent.setMinHeight(dp2px(120));
+            mTvContent.setGravity(mContentGravity);
         } else if (mStyle == STYLE_TWO) {
-            mContentLayout.setPadding(dp2px(15), dp2px(7), dp2px(15), dp2px(20));
+            mTvContent.setPadding(dp2px(15), dp2px(30), dp2px(15), dp2px(30));
+            mTvContent.setMinHeight(dp2px(120));
+            mTvContent.setGravity(Gravity.CENTER);
         }
 
         /** btns */
@@ -167,15 +162,11 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
     }
 
     // --->属性设置
-    public CustomtAlertDialog contentView(View content) {
-        this.mContentView = content;
-        return this;
-    }
 
     /**
      * set style(设置style)
      */
-    public CustomtAlertDialog style(int style) {
+    public WarningDialog style(int style) {
         this.mStyle = style;
         return this;
     }
@@ -183,7 +174,7 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
     /**
      * set title underline color(设置标题下划线颜色)
      */
-    public CustomtAlertDialog titleLineColor(int titleLineColor) {
+    public WarningDialog titleLineColor(int titleLineColor) {
         this.mTitleLineColor = titleLineColor;
         return this;
     }
@@ -191,7 +182,7 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
     /**
      * set title underline height(设置标题下划线高度)
      */
-    public CustomtAlertDialog titleLineHeight(float titleLineHeight_DP) {
+    public WarningDialog titleLineHeight(float titleLineHeight_DP) {
         this.mTitleLineHeight = titleLineHeight_DP;
         return this;
     }
@@ -199,10 +190,9 @@ public class CustomtAlertDialog extends BaseAlertDialog<CustomtAlertDialog> {
     /**
      * set divider color between btns(设置btn分割线的颜色)
      */
-    public CustomtAlertDialog dividerColor(int dividerColor) {
+    public WarningDialog dividerColor(int dividerColor) {
         this.mDividerColor = dividerColor;
         return this;
     }
+
 }
-
-

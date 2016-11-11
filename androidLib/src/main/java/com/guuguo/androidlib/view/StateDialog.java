@@ -43,7 +43,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
     /**
      * content textsize(正文字体大小)
      */
-    protected float mContentTextSize = 18;
+    protected float mContentTextSize;
 
 //stateImage
     /**
@@ -72,7 +72,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
     /**
      * background color(背景颜色)
      */
-    protected int mBgColor = Color.parseColor("#88000000");
+    protected int mBgColor;
 
     /**
      * method execute order:
@@ -83,6 +83,12 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog(Context context) {
         super(context, true);
+        /** init */
+        mCornerRadius = 10;
+        mContentTextSize = 16;
+        mContentTextColor = Color.parseColor("#ffffff");
+        mBgColor = Color.parseColor("#88000000");
+
         widthScale(1f);
         dimEnabled(false);
         mLlContainer = new LinearLayout(context);

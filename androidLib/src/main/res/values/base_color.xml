@@ -33,6 +33,8 @@
     <color name="black70">#b3000000</color>
     <color name="black80">#cc000000</color>
 
+    <color name="red">#f23131</color>
+
     <!--主色调-->
     <color name="colorPrimaryRed">#F25D8E</color>
     <color name="colorPrimaryBlue">#29ACE2</color>

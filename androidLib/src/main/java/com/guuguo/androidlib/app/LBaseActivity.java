@@ -15,13 +15,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.widget.base.BaseDialog;
 import com.flyco.systembar.SystemBarHelper;
 import com.guuguo.androidlib.BaseApplication;
 import com.guuguo.androidlib.R;
@@ -29,15 +31,14 @@ import com.guuguo.androidlib.eventBus.EventModel;
 import com.guuguo.androidlib.helper.DrawerHelper;
 import com.guuguo.androidlib.helper.ToolBarHelper;
 import com.guuguo.androidlib.view.StateDialog;
+import com.guuguo.androidlib.view.WarningDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -64,7 +65,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     private BaseApplication myApplication = BaseApplication.getInstance();
     protected LBaseActivity activity;
     private boolean mIsHidden = false;
-    private SweetAlertDialog mLoadingDialog;
+    private StateDialog mLoadingDialog;
     private LBaseFragment mFragment;
 
     public LBaseActivity() {
@@ -338,9 +339,9 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void exitDialog() {
-        dialogWarningShow("确定要退出吗", "确定", new SweetAlertDialog.OnSweetClickListener() {
+        dialogWarningShow("确定退出软件？", "取消", "确定", new OnBtnClickL() {
             @Override
-            public void onClick(SweetAlertDialog sweetAlertDialog) {
+            public void onBtnClick() {
                 finish();
                 System.exit(0);
             }
@@ -348,122 +349,91 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogLoadingShow(String msg) {
-        if (TextUtils.isEmpty(msg))
-            msg = "加载中";
-        showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, msg, false);
-        showLoadingDialogOnMain();
+        dialogLoadingShow(msg, false, -1);
     }
 
-    public void dialogLoadingShowCanTouchDismiss(String msg) {
+    public void dialogLoadingShow(String msg, boolean canTouchCancel, long maxDelay) {
         if (TextUtils.isEmpty(msg))
             msg = "加载中";
-        showSweetDialog(SweetAlertDialog.PROGRESS_TYPE, R.color.colorPrimary, msg, true);
-        showLoadingDialogOnMain();
+        if (mLoadingDialog == null)
+            mLoadingDialog = new StateDialog(activity);
+        mLoadingDialog.stateStyle(StateDialog.STATE_STYLE.loading)
+                .content(msg);
+
+        if (maxDelay >= 0)
+            mLoadingDialog.autoDismiss(true)
+                    .autoDismissDelay(maxDelay);
+        else {
+            mLoadingDialog.autoDismiss(false);
+        }
+        mLoadingDialog.setCanceledOnTouchOutside(canTouchCancel);
+        showDialogOnMain(mLoadingDialog);
+
     }
 
-    public void dialogErrorShow(String msg, DialogDismissListener listener) {
+    public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener) {
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error);
+    }
+
+    public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener) {
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success);
+    }
+
+    private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle) {
         StateDialog stateDialog = new StateDialog(activity)
-                .stateStyle(StateDialog.STATE_STYLE.error)
+                .stateStyle(stateStyle)
                 .autoDismissDelay(500)
                 .autoDismiss(true)
                 .content(msg);
-        stateDialog.show();
-//        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.ERROR);
-        if (mLoadingDialog != null)
-            dialogDismiss(listener, 500);
+        stateDialog.setOnDismissListener(listener);
+        showDialogOnMain(stateDialog);
     }
 
-    public void dialogCompleteShow(String msg, DialogDismissListener listener) {
-//        TastyToast.makeText(getApplicationContext(), msg, TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
+    public void dialogWarningShow(final String msg,final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
 
-        StateDialog stateDialog = new StateDialog(activity)
-                .stateStyle(StateDialog.STATE_STYLE.success)
-                .autoDismissDelay(500)
-                .autoDismiss(true)
-                .content(msg);
-        stateDialog.show();
+        WarningDialog normalDialog = new WarningDialog(activity)
+                .contentGravity(Gravity.CENTER)
+                .content(msg)
+                .btnNum(2)
+                .btnText(cancelStr, confirmStr);
+        normalDialog.setOnBtnClickL(null,listener);
+        showDialogOnMain(normalDialog);
+    }
+    public void dialogMessageShow(final String msg, final String confirmStr, final OnBtnClickL listener) {
 
-        if (mLoadingDialog != null)
-            dialogDismiss(listener, 500);
+        WarningDialog normalDialog = new WarningDialog(activity)
+                .contentGravity(Gravity.CENTER)
+                .content(msg)
+                .btnNum(1)
+                .btnText(confirmStr);
+        normalDialog.setOnBtnClickL(listener);
+        showDialogOnMain(normalDialog);
     }
 
-    public void dialogWarningShow(String msg, String confirmStr, SweetAlertDialog.OnSweetClickListener listener) {
-        showSweetDialog(SweetAlertDialog.WARNING_TYPE, R.color.colorPrimaryRed, msg, true);
-        mLoadingDialog.setConfirmText(confirmStr);
-        mLoadingDialog.setCancelText("取消");
-        mLoadingDialog.setConfirmClickListener(listener);
-        showLoadingDialogOnMain();
+    public void showDialogOnMain(final BaseDialog dialog) {
+        Observable.just(1).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+                dialog.show();
+            }
+        });
     }
 
-    public void dialogDismiss(final DialogDismissListener listener, long delayTime) {
-        Observable observable = Observable.just(activity);
-
-        if (delayTime != 0) observable = observable.delay(delayTime, TimeUnit.MILLISECONDS);
-        observable.observeOn(AndroidSchedulers.mainThread()).
-                subscribe(new Action1() {
+    public void dialogDismiss(final DialogInterface.OnDismissListener listener) {
+        Observable.just(1).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Integer>() {
                     @Override
-                    public void call(Object o) {
-                        try {
-                            if (mLoadingDialog != null) {
-                                mLoadingDialog.dismiss();
-                            }
-                            if (listener != null) listener.onDismiss();
-                        } catch (WindowManager.BadTokenException e) {
-                            Log.i("baseActivity", e.getMessage());
+                    public void call(Integer integer) {
+                        if (mLoadingDialog != null) {
+                            mLoadingDialog.setOnDismissListener(listener);
+                            mLoadingDialog.dismiss();
                         }
                     }
                 });
     }
 
-    public void dialogDismiss(DialogDismissListener listener) {
-        dialogDismiss(listener, 0);
-    }
-
     public void dialogDismiss() {
-        dialogDismiss(null, 0);
-    }
-
-    private void showSweetDialog(int dialogType, int progressColorRes, String TitleText, boolean cancelAble) {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new SweetAlertDialog(activity, dialogType);
-        } else {
-            mLoadingDialog.changeAlertType(dialogType);
-        }
-        mLoadingDialog.getProgressHelper().setBarColor(getResources().getColor(progressColorRes));
-        mLoadingDialog.setTitleText(TitleText);
-        mLoadingDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                mLoadingDialog = null;
-            }
-        });
-        mLoadingDialog.setCanceledOnTouchOutside(cancelAble);
-        mLoadingDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                dialogDismiss();
-            }
-        });
-        mLoadingDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-            @Override
-            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                dialogDismiss();
-            }
-        });
-    }
-
-    private void showLoadingDialogOnMain() {
-        Observable.just(activity).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<LBaseActivity>() {
-            @Override
-            public void call(LBaseActivity lBaseActivity) {
-                try {
-                    if (mLoadingDialog != null)
-                        mLoadingDialog.show();
-                } catch (WindowManager.BadTokenException e) {
-                    Log.i("baseActivity", e.getMessage());
-                }
-            }
-        });
+        dialogDismiss(null);
     }
 
     public int getRealToolBarResId() {
@@ -473,10 +443,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
             return forceToolBarView;
     }
 
-    public interface DialogDismissListener {
-        void onDismiss();
-
-    }
 
     public boolean getIsAppbarElevation() {
         return true;
