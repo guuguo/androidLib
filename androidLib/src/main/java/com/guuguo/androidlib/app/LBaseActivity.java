@@ -121,11 +121,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Override
-    protected void onPause() {
-        mLoadingDialog = null;
-        super.onPause();
-    }
+//    @Override
+//    protected void onPause() {
+//        mLoadingDialog = null;
+//        super.onPause();
+//    }
 
 
     protected void init() {
@@ -349,7 +349,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogLoadingShow(String msg) {
-        dialogLoadingShow(msg, false, -1);
+        dialogLoadingShow(msg, false, 7000);
     }
 
     public void dialogLoadingShow(String msg, boolean canTouchCancel, long maxDelay) {
@@ -372,10 +372,12 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener) {
+//        dialogDismiss();
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error);
     }
 
     public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener) {
+//        dialogDismiss();
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success);
     }
 
@@ -389,24 +391,20 @@ public abstract class LBaseActivity extends AppCompatActivity {
         showDialogOnMain(stateDialog);
     }
 
-    public void dialogWarningShow(final String msg,final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
+    public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
 
-        WarningDialog normalDialog = new WarningDialog(activity)
+        final WarningDialog normalDialog = new WarningDialog(activity)
                 .contentGravity(Gravity.CENTER)
                 .content(msg)
                 .btnNum(2)
                 .btnText(cancelStr, confirmStr);
-        normalDialog.setOnBtnClickL(null,listener);
-        showDialogOnMain(normalDialog);
-    }
-    public void dialogMessageShow(final String msg, final String confirmStr, final OnBtnClickL listener) {
-
-        WarningDialog normalDialog = new WarningDialog(activity)
-                .contentGravity(Gravity.CENTER)
-                .content(msg)
-                .btnNum(1)
-                .btnText(confirmStr);
-        normalDialog.setOnBtnClickL(listener);
+        normalDialog.setOnBtnClickL(null,new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                listener.onBtnClick();
+                normalDialog.dismiss();
+            }
+        });
         showDialogOnMain(normalDialog);
     }
 
