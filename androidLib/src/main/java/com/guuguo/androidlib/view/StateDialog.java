@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -171,6 +172,12 @@ public class StateDialog extends BaseDialog<StateDialog> {
         mLlContainer.setBackgroundDrawable(CornerUtils.cornerDrawable(mBgColor, radius));
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (mCancel)
+            dismiss();
+        return super.dispatchTouchEvent(ev);
+    }
 
     /**
      * set content text(设置正文内容)

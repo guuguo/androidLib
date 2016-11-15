@@ -30,6 +30,7 @@ import com.guuguo.androidlib.R;
 import com.guuguo.androidlib.eventBus.EventModel;
 import com.guuguo.androidlib.helper.DrawerHelper;
 import com.guuguo.androidlib.helper.ToolBarHelper;
+import com.guuguo.androidlib.utils.CommonUtil;
 import com.guuguo.androidlib.view.StateDialog;
 import com.guuguo.androidlib.view.WarningDialog;
 
@@ -121,12 +122,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-//    @Override
-//    protected void onPause() {
-//        mLoadingDialog = null;
-//        super.onPause();
-//    }
-
 
     protected void init() {
         myApplication.currentContainer = getContainer();
@@ -170,6 +165,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
         return defaultToolBarView;
     }
 
+    protected boolean getToolBarOverlay() {
+        return false;
+    }
+
     protected int getDrawerResId() {
         return 0;
     }
@@ -194,7 +193,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         if (getRealToolBarResId() == 0) {
             mToolBarHelper = new ToolBarHelper(this, layoutResID);
         } else {
-            mToolBarHelper = new ToolBarHelper(this, layoutResID, getRealToolBarResId());
+            mToolBarHelper = new ToolBarHelper(this, layoutResID, getRealToolBarResId(), getToolBarOverlay());
             toolbar = mToolBarHelper.getToolBar();
         }
         contentView = mToolBarHelper.getContentView();
@@ -222,9 +221,13 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     protected void initBar() {
-        if (Build.VERSION.SDK_INT >= 21 && getIsAppbarElevation()) {
-            getAppbar().setElevation(10.6f);
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (getIsAppbarElevation())
+                getAppbar().setElevation(10.6f);
+            else
+                getAppbar().setElevation(0f);
         }
+
 
         if (!isFullScreen()) {
             SystemBarHelper.setHeightAndPadding(this, toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
@@ -372,21 +375,24 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener) {
-//        dialogDismiss();
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1000);
+    }
+
+    public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener, int delayTime) {
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, delayTime);
     }
 
     public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener) {
-//        dialogDismiss();
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 1000);
     }
 
-    private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle) {
+    private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle, long delayTime) {
         StateDialog stateDialog = new StateDialog(activity)
                 .stateStyle(stateStyle)
-                .autoDismissDelay(500)
+                .autoDismissDelay(delayTime)
                 .autoDismiss(true)
-                .content(msg);
+                .content(CommonUtil.getSafeString(msg));
+        stateDialog.setCanceledOnTouchOutside(true);
         stateDialog.setOnDismissListener(listener);
         showDialogOnMain(stateDialog);
     }
@@ -395,10 +401,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
         final WarningDialog normalDialog = new WarningDialog(activity)
                 .contentGravity(Gravity.CENTER)
-                .content(msg)
+                .content(CommonUtil.getSafeString(msg))
                 .btnNum(2)
                 .btnText(cancelStr, confirmStr);
-        normalDialog.setOnBtnClickL(null,new OnBtnClickL() {
+        normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
                 listener.onBtnClick();
@@ -419,15 +425,18 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     public void dialogDismiss(final DialogInterface.OnDismissListener listener) {
         Observable.just(1).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Integer>() {
-                    @Override
-                    public void call(Integer integer) {
-                        if (mLoadingDialog != null) {
-                            mLoadingDialog.setOnDismissListener(listener);
-                            mLoadingDialog.dismiss();
+                .subscribe(
+                        new Action1<Integer>() {
+                            @Override
+                            public void call(Integer integer) {
+                                try {
+                                    mLoadingDialog.setOnDismissListener(listener);
+                                    mLoadingDialog.dismiss();
+                                } catch (Exception e) {
+                                }
+                            }
                         }
-                    }
-                });
+                );
     }
 
     public void dialogDismiss() {

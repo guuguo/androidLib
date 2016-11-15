@@ -71,7 +71,7 @@ public class SimpleViewHelper {
         simpleView.setButton(buttonText, onClickListener);
         if (buttonText == null)
             simpleView.setButtonShow(false);
-        simpleView.setmIconSrc(R.drawable.error_warning);
+        simpleView.setmIconSrc(R.drawable.state_error);
         simpleView.setType(mSimpleViewType);
 
         requestSimpleView();
