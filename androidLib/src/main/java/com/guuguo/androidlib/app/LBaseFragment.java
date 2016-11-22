@@ -72,13 +72,14 @@ public abstract class LBaseFragment extends Fragment  {
             contentView = inflater.inflate(getLayoutResId(), container, false);
         }
         EventBus.getDefault().register(this);
-        init(contentView);
         return contentView;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        init(view);
     }
 
     @Override

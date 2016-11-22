@@ -394,10 +394,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
         StateDialog stateDialog = new StateDialog(activity)
                 .stateStyle(stateStyle)
                 .content(CommonUtil.getSafeString(msg));
-        
+
         stateDialog.setCanceledOnTouchOutside(true);
         showDialogOnMain(stateDialog);
-        dialogDismiss(delayTime,stateDialog,listener);
+        dialogDismiss(delayTime, stateDialog, listener);
     }
 
     public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
@@ -432,7 +432,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                         new Action1<Integer>() {
                             @Override
                             public void call(Integer integer) {
-                                if (isValidContext(activity)) {
+                                if (isValidContext(activity) && dialog != null) {
                                     dialog.setOnDismissListener(listener);
                                     dialog.dismiss();
                                 }
@@ -442,7 +442,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogDismiss() {
-        dialogDismiss(0,mLoadingDialog, null);
+        dialogDismiss(0, mLoadingDialog, null);
     }
 
     public int getRealToolBarResId() {
