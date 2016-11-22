@@ -32,11 +32,6 @@ public class SimpleViewHelper {
 
     private SimpleView simpleView;
 
-    public void setButtonShow(boolean buttonShow) {
-        isButtonShow = buttonShow;
-    }
-
-    private boolean isButtonShow = false;
 
     public SimpleViewHelper(View view) {
         this(new VaryViewHelper(view));
@@ -47,12 +42,6 @@ public class SimpleViewHelper {
     }
 
     private int mIconSrc = -1;
-    private int mGravityVertical = -1;
-    private int mSimpleViewType = -1;
-
-    public void restoreSimpleViewType() {
-        mSimpleViewType = -1;
-    }
 
     public SimpleViewHelper(IVaryViewHelper helper) {
         super();
@@ -60,38 +49,33 @@ public class SimpleViewHelper {
     }
 
     public void showError(String errorText) {
-        showError(errorText, null, null);
+        showError(errorText, "", null);
     }
 
     public void showError(String errorText, String buttonText, OnClickListener onClickListener) {
         simpleView = new SimpleView(helper.getContext());
-        simpleView.setType(SimpleView.TYPE_IMAGE_HINT);
-
-        simpleView.setText(errorText);
-        simpleView.setButton(buttonText, onClickListener);
-        if (buttonText == null)
-            simpleView.setButtonShow(false);
-        simpleView.setmIconSrc(R.drawable.state_error);
-        simpleView.setType(mSimpleViewType);
-
+        simpleView.text(errorText)
+                .icon(R.drawable.state_error)
+                .btnText(buttonText)
+                .btnListener(onClickListener);
         requestSimpleView();
 
     }
 
     public void showEmpty(String text) {
-        showEmpty(text, null);
+        showEmpty(text, "");
     }
 
     public void showEmpty(String text, String hint) {
-        showEmpty(text, hint, null, null);
+        showEmpty(text, hint, "", null);
     }
 
     public void showEmpty(String text, String buttonText, OnClickListener onClickListener) {
-        showEmpty(text, null, buttonText, onClickListener);
+        showEmpty(text, "", buttonText, onClickListener);
     }
 
     public void showLoading(String text) {
-        showLoading(text, null);
+        showLoading(text, "");
     }
 
     public void showLoading(String text, String indicator) {
@@ -100,53 +84,30 @@ public class SimpleViewHelper {
 
     public void showLoading(String text, String indicator, int color) {
         simpleView = new SimpleView(helper.getContext());
-        if (text != null) {
-            simpleView.setText(text);
-            simpleView.setType(SimpleView.TYPE_LOADING);
-        } else {
-            simpleView.setType(SimpleView.TYPE_LOADING_HINT);
-        }
-        simpleView.setLoadingIndicator(indicator, color);
+        simpleView.setWrapContent(true);
+        simpleView.text(text)
+                .style(SimpleView.STYLE.INSTANCE.getLoading())
+                .loadingIndicator(indicator)
+                .loadingColor(color);
         requestSimpleView();
     }
 
     public void requestSimpleView() {
-
-        if (!simpleView.isLoading()) {
-            simpleView.setButtonShow(isButtonShow);
-            simpleView.setType(SimpleView.TYPE_IMAGE_HINT);
-            if (mSimpleViewType != -1) {
-                simpleView.setType(mSimpleViewType);
-            }
-        } else {
-            simpleView.setButtonShow(false);
-        }
-
+        if (mIconSrc != -1)
+            simpleView.icon(mIconSrc);
         simpleView.onAttachedToWindow();
         helper.showLayout(simpleView);
     }
 
-    public void hideButton() {
-        simpleView.setButtonText(null);
-    }
-
-    public void showLoading() {
-        showLoading(null);
-    }
 
     public void showEmpty(String text, String hint, String buttonText, OnClickListener onClickListener) {
         simpleView = new SimpleView(helper.getContext());
-        simpleView.setText(text);
-        if (hint != null) {
-            simpleView.setType(SimpleView.TYPE_IMAGE_TEXT_HINT);
-            simpleView.setHint(hint);
-        }
-        if (buttonText != null)
-            simpleView.setButton(buttonText, onClickListener);
-        if (mGravityVertical != -1) {
-            simpleView.setVerticalGravity(mGravityVertical);
-        }
-        simpleView.setmIconSrc(mIconSrc);
+        simpleView.setWrapContent(true);
+        simpleView.text(text)
+                .hint(hint)
+                .btnText(buttonText)
+                .btnListener(onClickListener);
+
         requestSimpleView();
     }
 
@@ -163,14 +124,4 @@ public class SimpleViewHelper {
         return simpleView;
     }
 
-    public void setmGravityVertical(int mGravityVertical) {
-        this.mGravityVertical = mGravityVertical;
-    }
-
-    public void changeType(int Type) {
-    }
-
-    public void setmSimpleViewType(int mSimpleViewType) {
-        this.mSimpleViewType = mSimpleViewType;
-    }
 }

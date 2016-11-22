@@ -1,5 +1,7 @@
 package com.guuguo.androidlib.app;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -15,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
 import rx.Subscription;
@@ -389,12 +393,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
     private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle, long delayTime) {
         StateDialog stateDialog = new StateDialog(activity)
                 .stateStyle(stateStyle)
-                .autoDismissDelay(delayTime)
-                .autoDismiss(true)
                 .content(CommonUtil.getSafeString(msg));
+        
         stateDialog.setCanceledOnTouchOutside(true);
-        stateDialog.setOnDismissListener(listener);
         showDialogOnMain(stateDialog);
+        dialogDismiss(delayTime,stateDialog,listener);
     }
 
     public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
@@ -423,16 +426,15 @@ public abstract class LBaseActivity extends AppCompatActivity {
         });
     }
 
-    public void dialogDismiss(final DialogInterface.OnDismissListener listener) {
-        Observable.just(1).observeOn(AndroidSchedulers.mainThread())
+    public void dialogDismiss(long delay, final BaseDialog dialog, final DialogInterface.OnDismissListener listener) {
+        Observable.just(1).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         new Action1<Integer>() {
                             @Override
                             public void call(Integer integer) {
-                                try {
-                                    mLoadingDialog.setOnDismissListener(listener);
-                                    mLoadingDialog.dismiss();
-                                } catch (Exception e) {
+                                if (isValidContext(activity)) {
+                                    dialog.setOnDismissListener(listener);
+                                    dialog.dismiss();
                                 }
                             }
                         }
@@ -440,7 +442,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogDismiss() {
-        dialogDismiss(null);
+        dialogDismiss(0,mLoadingDialog, null);
     }
 
     public int getRealToolBarResId() {
@@ -455,6 +457,16 @@ public abstract class LBaseActivity extends AppCompatActivity {
         return true;
     }
 
+    private boolean isValidContext(Context c) {
 
+        Activity a = (Activity) c;
+
+        if (a.isDestroyed() || a.isFinishing()) {
+            Log.i("YXH", "Activity is invalid." + " isDestoryed-->" + a.isDestroyed() + " isFinishing-->" + a.isFinishing());
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
