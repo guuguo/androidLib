@@ -1,6 +1,4 @@
 <resources>
-
-
     <dimen name="icon_large">37sp</dimen>
     <dimen name="title_item">15sp</dimen>
     <dimen name="title1">35sp</dimen>
@@ -9,6 +7,5 @@
     <dimen name="hint">11sp</dimen>
     <dimen name="actionbar_size">60dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
-
-
+    <dimen name="text_size">14sp</dimen>
 </resources>

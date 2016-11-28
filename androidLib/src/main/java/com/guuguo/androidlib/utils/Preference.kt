@@ -1,4 +1,4 @@
-package com.guuguo.learnsave.util
+package com.guuguo.androidlib.util
 
 import android.content.Context
 import kotlin.properties.ReadWriteProperty

@@ -14,6 +14,7 @@
     <color name="green">#45B823</color>
     <color name="remark_content">#E3E7E9</color>
     <color name="remark_item">#ffffff</color>
+    <color name="red">#f23131</color>
 
     <color name="white100">#ffffffff</color>
     <color name="white20">#33ffffff</color>
@@ -33,7 +34,6 @@
     <color name="black70">#b3000000</color>
     <color name="black80">#cc000000</color>
 
-    <color name="red">#da2b2b</color>
     <color name="orange">#f57f19</color>
 
     <!--主色调-->

@@ -368,11 +368,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 .content(msg);
 
         if (maxDelay >= 0)
-            mLoadingDialog.autoDismiss(true)
-                    .autoDismissDelay(maxDelay);
-        else {
-            mLoadingDialog.autoDismiss(false);
-        }
+            dialogDismiss(maxDelay, mLoadingDialog, null);
         mLoadingDialog.setCanceledOnTouchOutside(canTouchCancel);
         showDialogOnMain(mLoadingDialog);
 
@@ -410,8 +406,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
         normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
-                listener.onBtnClick();
                 normalDialog.dismiss();
+                listener.onBtnClick();
             }
         });
         showDialogOnMain(normalDialog);
