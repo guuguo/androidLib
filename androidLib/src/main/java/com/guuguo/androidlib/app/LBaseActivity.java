@@ -383,7 +383,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 1500);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 800);
     }
 
     private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle, long delayTime) {
@@ -403,7 +403,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 .content(CommonUtil.getSafeString(msg))
                 .btnNum(2)
                 .btnText(cancelStr, confirmStr);
-//        normalDialog.setCanceledOnTouchOutside(false);
         normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
@@ -433,9 +432,13 @@ public abstract class LBaseActivity extends AppCompatActivity {
                             @Override
                             public void call(Integer integer) {
                                 if (isValidContext(activity) && dialog != null) {
-                                    dialog.setOnDismissListener(listener);
                                     dialog.dismiss();
                                 }
+                                if (listener != null)
+                                    try {
+                                        listener.onDismiss(dialog);
+                                    } catch (Exception e) {
+                                    }
                             }
                         }
                 );
