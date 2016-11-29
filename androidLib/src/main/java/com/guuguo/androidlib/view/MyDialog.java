@@ -50,6 +50,7 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
     public static final int STYLE_TWO = 1;
     protected int mStyle = STYLE_ONE;
     private int mPrimaryBtnColor;
+    private boolean mIsDfaultWidth = false;
 
     public MyDialog(Context context) {
         super(context);
@@ -73,9 +74,11 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
     @Override
     public View onCreateView() {
         mLlControlHeight.setGravity(Gravity.CENTER);
-        
+
+
         /** llcontainer **/
-        mLlContainer.setLayoutParams(new ViewGroup.LayoutParams(getContext().getResources().getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT));
+        if (!mIsDfaultWidth)
+            mLlContainer.setLayoutParams(new ViewGroup.LayoutParams(getContext().getResources().getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT));
 
         /** title */
         mTvTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
@@ -126,6 +129,8 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
     @Override
     public void setUiBeforShow() {
         super.setUiBeforShow();
+
+
         /** title */
         if (mStyle == STYLE_ONE) {
             mTvTitle.setMinHeight(dp2px(48));
@@ -144,7 +149,7 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         mVLineTitle.setVisibility(mIsTitleShow && mStyle == STYLE_ONE ? View.VISIBLE : View.GONE);
 
         /** content */
-        
+
         if (mStyle == STYLE_ONE) {
             mTvContent.setPadding(dp2px(15), dp2px(30), dp2px(15), dp2px(30));
             mTvContent.setMinHeight(dp2px(120));
@@ -175,7 +180,8 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         mLlContainer.setBackgroundDrawable(CornerUtils.cornerDrawable(mBgColor, radius));
         mTvBtnLeft.setBackgroundDrawable(CornerUtils.btnSelector(radius, mBgColor, mBtnPressColor, 0));
         mTvBtnRight.setBackgroundDrawable(CornerUtils.btnSelector(radius, mPrimaryBtnColor, Color.parseColor("#e12020"), 1));
-        mTvBtnMiddle.setBackgroundDrawable(CornerUtils.btnSelector(mBtnNum == 1 ? radius : 0, Color.parseColor("#f23131"), Color.parseColor("#e12020"), -1));
+        mTvBtnMiddle.setBackgroundDrawable(CornerUtils.btnSelector(mBtnNum == 1 ? radius : 0, mBgColor, mBtnPressColor, -1));
+        mTvBtnMiddle.setTextColor(Color.BLACK);
     }
 
 
@@ -213,4 +219,11 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         return (T) this;
     }
 
+    /**
+     * set divider color between btns(设置btn分割线的颜色)
+     */
+    public T setDefaultWidth(boolean bool) {
+        this.mIsDfaultWidth = bool;
+        return (T) this;
+    }
 }

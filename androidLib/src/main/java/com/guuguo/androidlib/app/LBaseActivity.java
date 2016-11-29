@@ -375,7 +375,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1000);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1500);
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener, int delayTime) {
@@ -383,7 +383,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 1000);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 1500);
     }
 
     private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle, long delayTime) {
@@ -391,7 +391,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 .stateStyle(stateStyle)
                 .content(CommonUtil.getSafeString(msg));
 
-        stateDialog.setCanceledOnTouchOutside(true);
+        stateDialog.setCanceledOnTouchOutside(false);
         showDialogOnMain(stateDialog);
         dialogDismiss(delayTime, stateDialog, listener);
     }
@@ -403,6 +403,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 .content(CommonUtil.getSafeString(msg))
                 .btnNum(2)
                 .btnText(cancelStr, confirmStr);
+//        normalDialog.setCanceledOnTouchOutside(false);
         normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
@@ -417,7 +418,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
         Observable.just(1).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
-                dialog.show();
+                try {
+                    dialog.show();
+                } catch (Exception e) {
+                }
             }
         });
     }
