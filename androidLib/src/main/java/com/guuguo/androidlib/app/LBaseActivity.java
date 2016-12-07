@@ -335,6 +335,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getBackExit()) {
             exitDialog();
+
+
         } else {
             for (LBaseFragment fragment : mFragments) {
                 if (fragment.getUserVisibleHint() && fragment.onBackPressed()) {
@@ -349,10 +351,15 @@ public abstract class LBaseActivity extends AppCompatActivity {
         dialogWarningShow("确定退出软件？", "取消", "确定", new OnBtnClickL() {
             @Override
             public void onBtnClick() {
-                finish();
-                System.exit(0);
+//                finish();
+//                System.exit(0);
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
             }
         });
+    
     }
 
     public void dialogLoadingShow(String msg) {
