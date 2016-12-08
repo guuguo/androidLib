@@ -1,6 +1,5 @@
 package com.guuguo.learnsave.extension
 
-import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -26,7 +25,6 @@ import java.util.*
 //}
 
 
-
 fun <T> List<T>.intersection(list: List<T>): ArrayList<T> {
     var temp = ArrayList<T>()
     list.forEach { nModel ->
@@ -42,4 +40,12 @@ fun <T> List<T>.intersection(list: List<T>): ArrayList<T> {
             temp.add(nModel)
     }
     return temp
+}
+
+fun <T> ArrayList<T>?.safe(): ArrayList<T> {
+    if (this == null)
+        return ArrayList()
+    else {
+        return this;
+    }
 }

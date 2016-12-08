@@ -30,7 +30,6 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     var simpleView: SimpleView? = null
         private set
 
-
     constructor(view: View) : this(VaryViewHelper(view)) {
     }
 
@@ -63,8 +62,8 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     fun requestSimpleView() {
         if (mIconSrc != -1)
             simpleView!!.icon(mIconSrc)
-        simpleView!!.onAttachedToWindow()
-        helper.showLayout(simpleView)
+        simpleView!!.view.invalidate()
+        helper.showLayout(simpleView?.view)
     }
 
 

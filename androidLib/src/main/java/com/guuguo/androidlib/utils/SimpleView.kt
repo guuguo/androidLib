@@ -2,18 +2,20 @@ package com.guuguo.androidlib.utils
 
 import android.content.Context
 import android.text.TextUtils
-import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.guuguo.androidlib.R
 import com.wang.avi.AVLoadingIndicatorView
 
 /**
  * Created by Barry on 16/5/28.
  */
-class SimpleView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : FrameLayout(context, attrs) {
+class SimpleView {
 
     private var text: String = ""
     private var hint: String = ""
@@ -33,9 +35,29 @@ class SimpleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private val mBtn: Button
     private val mLoadingVIew: AVLoadingIndicatorView
 
-
     private var gravity = Gravity.CENTER
+    val view: View
 
+    constructor(context: Context) : this(context, null) {
+    }
+    constructor(context: Context, viewGroup: ViewGroup?) {
+        view = View.inflate(context, R.layout.simple_empty_view, viewGroup)
+        mLLLayout = view.findViewById(R.id.layoutEmpty) as LinearLayout
+        mTvText = view.findViewById(R.id.tv_text) as TextView
+        mTvHint = view.findViewById(R.id.tv_hint) as TextView
+        mImg = view.findViewById(R.id.img) as ImageView
+        mBtn = view.findViewById(R.id.btn_empty) as Button
+        mLoadingVIew = view.findViewById(R.id.avl_loading) as AVLoadingIndicatorView
+        view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(p0: View?) {
+                setUIBeforeShow()
+            }
+
+            override fun onViewDetachedFromWindow(p0: View?) {
+            }
+
+        })
+    }
 
     object STYLE {
         val loading = 0
@@ -43,13 +65,7 @@ class SimpleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     init {
-        View.inflate(context, R.layout.simple_empty_view, this)
-        mLLLayout = findViewById(R.id.layoutEmpty) as LinearLayout
-        mTvText = findViewById(R.id.tv_text) as TextView
-        mTvHint = findViewById(R.id.tv_hint) as TextView
-        mImg = findViewById(R.id.img) as ImageView
-        mBtn = findViewById(R.id.btn_empty) as Button
-        mLoadingVIew = findViewById(R.id.avl_loading) as AVLoadingIndicatorView
+
     }
 
     fun style(style: Int): SimpleView {
@@ -103,20 +119,15 @@ class SimpleView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         return this
     }
 
-    public override fun onAttachedToWindow() {
-        setUIBeforeShow()
-        super.onAttachedToWindow()
-    }
-
     private fun setUIBeforeShow() {
         /**wrap_content */
         if (!isWrapContent) {
-            val params = FrameLayout.LayoutParams(mLLLayout.layoutParams)
+            val params = mLLLayout.layoutParams
             params.width = ViewGroup.LayoutParams.MATCH_PARENT
             params.height = ViewGroup.LayoutParams.MATCH_PARENT
             mLLLayout.layoutParams = params
-        }else{
-            val params = FrameLayout.LayoutParams(mLLLayout.layoutParams)
+        } else {
+            val params = mLLLayout.layoutParams
             params.width = ViewGroup.LayoutParams.MATCH_PARENT
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT
             mLLLayout.layoutParams = params
