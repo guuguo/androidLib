@@ -34,10 +34,10 @@ public class CustomtAlertDialog extends MyDialog<CustomtAlertDialog> {
         if (mContentView != null && mContentLayout.indexOfChild(mContentView) == -1)
             mContentLayout.addView(mContentView);
         if (mStyle == STYLE_ONE) {
-            mContentLayout.setPadding(dp2px(15), dp2px(10), dp2px(15), dp2px(10));
+//            mContentLayout.setPadding(dp2px(15), dp2px(10), dp2px(15), dp2px(10));
             mTvContent.setMinHeight(dp2px(120));
         } else if (mStyle == STYLE_TWO) {
-            mContentLayout.setPadding(dp2px(15), dp2px(7), dp2px(15), dp2px(20));
+//            mContentLayout.setPadding(dp2px(15), dp2px(7), dp2px(15), dp2px(20));
             mTvContent.setMinHeight(dp2px(120));
         }
 
