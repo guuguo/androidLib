@@ -42,7 +42,7 @@ fun <T> List<T>.intersection(list: List<T>): ArrayList<T> {
     return temp
 }
 
-fun <T> ArrayList<T>?.safe(): ArrayList<T> {
+fun <T> List<T>?.safe(): List<T> {
     if (this == null)
         return ArrayList()
     else {

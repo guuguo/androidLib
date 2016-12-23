@@ -99,7 +99,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initFromIntent(getIntent());
-        if (isFullScreen()) {
+        if (fullScreen()) {
             int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
             Window window = LBaseActivity.this.getWindow();
             window.setFlags(flag, flag);
@@ -169,18 +169,30 @@ public abstract class LBaseActivity extends AppCompatActivity {
         return defaultToolBarView;
     }
 
-    protected boolean getToolBarOverlay() {
-        return false;
-    }
 
     protected int getDrawerResId() {
         return 0;
     }
 
-    public boolean getReturnBtnVisible() {
+    public boolean isBtnVisible() {
         return true;
     }
 
+    protected boolean isFullScreen() {
+        return false;
+    }
+
+    protected boolean isToolBarOverlay() {
+        return false;
+    }
+
+    private boolean fullScreen() {
+        return isFullScreen() || (mFragment != null && mFragment.isFullScreen());
+    }
+
+    private boolean toolBarOverlay() {
+        return isToolBarOverlay() || (mFragment != null && mFragment.isToolBarOverlay());
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -197,7 +209,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         if (getRealToolBarResId() == 0) {
             mToolBarHelper = new ToolBarHelper(this, layoutResID);
         } else {
-            mToolBarHelper = new ToolBarHelper(this, layoutResID, getRealToolBarResId(), getToolBarOverlay());
+            mToolBarHelper = new ToolBarHelper(this, layoutResID, getRealToolBarResId(), toolBarOverlay());
             toolbar = mToolBarHelper.getToolBar();
         }
         contentView = mToolBarHelper.getContentView();
@@ -208,7 +220,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
             TypedArray array = getTheme().obtainStyledAttributes(new int[]{R.attr.colorPrimary,});
             int color = array.getColor(0, 0xFF00FF);
             array.recycle();
-            if (!isFullScreen()) {
+            if (!fullScreen()) {
                 SystemBarHelper.tintStatusBarForDrawer(this, drawerLayout, color);
             }
         } else {
@@ -216,7 +228,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
         if (getRealToolBarResId() != 0)
             initBar();
-        if (!isFullScreen()) {
+        if (!fullScreen()) {
             SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);
@@ -233,12 +245,12 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
 
 
-        if (!isFullScreen()) {
+        if (!fullScreen()) {
             SystemBarHelper.setHeightAndPadding(this, toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
         }
         getToolbar().setContentInsetsRelative(0, 0);
         setSupportActionBar(getToolbar()); /*自定义的一些操作*/
-        getSupportActionBar().setDisplayHomeAsUpEnabled(getReturnBtnVisible());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(isBtnVisible());
         activity.getSupportActionBar().setTitle(getHeaderTitle());
     }
 
@@ -287,10 +299,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
             for (Fragment fra : mFragments)
                 if (fra.onOptionsItemSelected(item)) return true;
         return super.onOptionsItemSelected(item);
-    }
-
-    protected boolean isFullScreen() {
-        return false;
     }
 
 
@@ -359,7 +367,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 startActivity(home);
             }
         });
-    
+
     }
 
     public void dialogLoadingShow(String msg) {

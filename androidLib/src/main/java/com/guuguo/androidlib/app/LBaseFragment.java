@@ -22,7 +22,7 @@ import rx.Subscription;
 /**
  * Created by guodeqing on 16/5/31.
  */
-public abstract class LBaseFragment extends Fragment  {
+public abstract class LBaseFragment extends Fragment {
 
     protected final String TAG = this.getClass().getSimpleName();
     protected LBaseActivity activity;
@@ -42,7 +42,7 @@ public abstract class LBaseFragment extends Fragment  {
         initView();
         initVariable();
         loadData();
-        if (getHeaderTitle() != null && activity.getRealToolBarResId()!=0)
+        if (getHeaderTitle() != null && activity.getRealToolBarResId() != 0)
             activity.getSupportActionBar().setTitle(getHeaderTitle());
         //如果可见 懒加载
         isPrepare = true;
@@ -51,6 +51,7 @@ public abstract class LBaseFragment extends Fragment  {
             mFirstLazyLoad = false;
         }
     }
+
     protected void loadData() {
     }
 
@@ -86,9 +87,9 @@ public abstract class LBaseFragment extends Fragment  {
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
         for (Subscription call : mApiCalls) {
-        if (call != null && !call.isUnsubscribed())
-            call.unsubscribe();
-    }
+            if (call != null && !call.isUnsubscribed())
+                call.unsubscribe();
+        }
         mApiCalls.clear();
         super.onDestroyView();
     }
@@ -129,4 +130,12 @@ public abstract class LBaseFragment extends Fragment  {
     }
 
     protected abstract int getLayoutResId();
+
+    public boolean isFullScreen() {
+        return false;
+    }
+
+    public boolean isToolBarOverlay() {
+        return false;
+    }
 }
