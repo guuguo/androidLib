@@ -401,6 +401,23 @@ public abstract class LBaseActivity extends AppCompatActivity {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 800);
     }
 
+    public void dialogMsgShow(String msg,String btnText, final OnBtnClickL listener) {
+        final WarningDialog normalDialog = new WarningDialog(activity)
+                .contentGravity(Gravity.CENTER)
+                .content(CommonUtil.getSafeString(msg))
+                .btnNum(1)
+                .btnText(btnText);
+        normalDialog.setOnBtnClickL(new OnBtnClickL() {
+            @Override
+            public void onBtnClick() {
+                normalDialog.dismiss();
+                if (listener != null)
+                    listener.onBtnClick();
+            }
+        });
+        showDialogOnMain(normalDialog);
+    }
+
     private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle, long delayTime) {
         StateDialog stateDialog = new StateDialog(activity)
                 .stateStyle(stateStyle)
@@ -422,7 +439,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
             @Override
             public void onBtnClick() {
                 normalDialog.dismiss();
-                listener.onBtnClick();
+                if (listener != null)
+                    listener.onBtnClick();
             }
         });
         showDialogOnMain(normalDialog);
