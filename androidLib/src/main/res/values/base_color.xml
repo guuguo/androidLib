@@ -2,9 +2,12 @@
 <resources>
     <color name="mired">#E34F1B</color>
     <color name="migray">#f3f3f3</color>
-    <color name="blue">#3180e2</color>
+    <color name="blue">#5ca4de</color>
     <color name="blue_deep">#0154B2</color>
     <color name="gray">#4F4F4F</color>
+    <color name="gray30">#4d4F4F4F</color>
+    <color name="gray60">#994F4F4F</color>
+    <color name="gray80">#cc4F4F4F</color>
     <color name="red30">#4dE34F1B</color>
     <color name="white">#FFFFFF</color>
     <color name="blue30">#4d92FF</color>
