@@ -42,7 +42,7 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     @JvmOverloads fun showError(errorText: String, buttonText: String, onClickListener: OnClickListener? = null) {
         simpleView = SimpleView(helper.context)
         simpleView!!.text(errorText)
-                .icon(R.drawable.state_error)
+                .icon(R.drawable.ic_error)
                 .btnText(buttonText)
                 .btnListener(onClickListener)
         requestSimpleView()

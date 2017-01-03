@@ -5,10 +5,10 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.flyco.roundview.RoundTextView
 import com.guuguo.android.R
 import com.wang.avi.AVLoadingIndicatorView
 
@@ -32,7 +32,7 @@ class SimpleView {
     private val mImg: ImageView
     private val mTvText: TextView
     private val mTvHint: TextView
-    private val mBtn: Button
+    private val mBtn: RoundTextView
     private val mLoadingVIew: AVLoadingIndicatorView
 
     private var gravity = Gravity.CENTER
@@ -46,7 +46,7 @@ class SimpleView {
         mTvText = view.findViewById(R.id.tv_text) as TextView
         mTvHint = view.findViewById(R.id.tv_hint) as TextView
         mImg = view.findViewById(R.id.img) as ImageView
-        mBtn = view.findViewById(R.id.btn_empty) as Button
+        mBtn = view.findViewById(R.id.btn_empty) as RoundTextView
         mLoadingVIew = view.findViewById(R.id.avl_loading) as AVLoadingIndicatorView
         view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(p0: View?) {

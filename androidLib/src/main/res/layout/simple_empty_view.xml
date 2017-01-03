@@ -15,14 +15,16 @@
         android:id="@+id/avl_loading"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:visibility="gone"
         app:indicatorColor="@color/black30"
-        app:indicatorName="BallScaleMultipleIndicator" 
-        android:visibility="gone"/>
+        app:indicatorName="BallScaleMultipleIndicator" />
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="100dp"
+        android:minWidth="100dp"
         android:src="@drawable/empty_cute_girl_box" />
 
     <TextView
@@ -32,8 +34,8 @@
         android:layout_marginTop="10dp"
         android:text="找不到数据"
         android:textColor="#333232"
-        android:visibility="gone"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_hint"
@@ -43,18 +45,26 @@
         android:text="找不到数据"
         android:textColor="#999999" />
 
-    <Button
+    <com.flyco.roundview.RoundTextView
         android:id="@+id/btn_empty"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@drawable/btn_green"
         android:elevation="0dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
         android:text="按钮"
-        android:visibility="gone"
-        android:textColor="@drawable/btn_green_text_color" />
+        android:textColor="@color/green"
+        app:rv_backgroundColor="@color/white"
+        app:rv_backgroundPressColor="@color/green"
+        app:rv_cornerRadius="4dp"
+        app:rv_isRippleEnable="false"
+        app:rv_strokeColor="@color/green"
+        app:rv_strokeWidth="1px"
+        app:rv_textPressColor="@color/white" />
 
 
 </LinearLayout>
