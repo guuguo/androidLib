@@ -7,5 +7,5 @@ package com.guuguo.learnsave.extension
 fun String?.safe(): String {
     if (this == null)
         return "";
-    else return this!!;
+    else return this;
 }

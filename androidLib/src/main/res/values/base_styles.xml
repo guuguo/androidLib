@@ -62,7 +62,7 @@
 
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!--<item name="android:textColorPrimary">@color/material_red</item>-->
         <!--<item name="android:textColorSecondary">@color/white100</item>-->
         <!--<item name="colorControlNormal">?android:textColor</item>-->

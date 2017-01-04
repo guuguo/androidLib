@@ -58,7 +58,7 @@ public class ToolBarHelper { /*上下文，创建view的时候需要用到*/
     }
 
     private void initContentView() { /*直接创建一个布局，作为视图容器的父容器*/
-        mContentView = new CoordinatorLayout(mContext);
+         mContentView = new CoordinatorLayout(mContext);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mContentView.setLayoutParams(params);
     }

@@ -105,11 +105,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
             window.setFlags(flag, flag);
         }
         EventBus.getDefault().register(this);
-        if (getMyTheme() > 0)
-            setTheme(getMyTheme());
-        else {
-            setTheme(myApplication.getAppTheme());
-        }
         setContentView(getLayoutResId());
         init();
     }

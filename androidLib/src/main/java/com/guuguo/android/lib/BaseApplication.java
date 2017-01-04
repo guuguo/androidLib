@@ -25,8 +25,6 @@ public abstract class BaseApplication extends Application {
 
     public LBaseActivity currentActivity = null;
 
-    public abstract int getAppTheme();
-
     @Override
     public void onCreate() {
         INSTANCE = this;

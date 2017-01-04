@@ -42,7 +42,7 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     @JvmOverloads fun showError(errorText: String, buttonText: String, onClickListener: OnClickListener? = null) {
         simpleView = SimpleView(helper.context)
         simpleView!!.text(errorText)
-                .icon(R.drawable.ic_error)
+                .icon(R.drawable.state_error)
                 .btnText(buttonText)
                 .btnListener(onClickListener)
         requestSimpleView()
@@ -67,7 +67,7 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     }
 
 
-    @JvmOverloads fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+     fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
         simpleView = SimpleView(helper.context)
         simpleView!!.setWrapContent(true)
         simpleView!!.text(text)
