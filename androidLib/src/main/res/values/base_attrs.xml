@@ -8,8 +8,12 @@
     <attr name="mySubTitleTextColor" format="color"></attr>
     <declare-styleable name="IconTextView">
         <attr name="typeface" format="enum">
-            <enum name="material_icon" value="0"/>
-            <enum name="font_awesome" value="1"/>
+            <enum name="material_icon" value="0" />
+            <enum name="font_awesome" value="1" />
         </attr>
+    </declare-styleable>
+    <declare-styleable name="LinearList">
+        <attr name="columnNum" format="integer" />
+        <attr name="divideWidth" format="dimension" />
     </declare-styleable>
 </resources>

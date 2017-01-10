@@ -9,3 +9,9 @@ fun String?.safe(): String {
         return "";
     else return this;
 }
+
+fun String?.empty(): Boolean {
+    if (this == null)
+        return true;
+    else return this.isEmpty();
+}

@@ -67,7 +67,7 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     }
 
 
-     fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+    fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
         simpleView = SimpleView(helper.context)
         simpleView!!.setWrapContent(true)
         simpleView!!.text(text)
@@ -78,6 +78,17 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
         requestSimpleView()
     }
 
+    fun showEmpty(isIconShow: Boolean, text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+        simpleView = SimpleView(helper.context)
+        simpleView!!.setWrapContent(true)
+        simpleView!!.text(text)
+                .setIconShow(isIconShow)
+                .hint(hint)
+                .btnText(buttonText)
+                .btnListener(onClickListener)
+
+        requestSimpleView()
+    }
 
     fun showView(view: View) {
         helper.showLayout(view)
