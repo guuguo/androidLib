@@ -354,12 +354,12 @@ public abstract class LBaseActivity extends AppCompatActivity {
         dialogWarningShow("确定退出软件？", "取消", "确定", new OnBtnClickL() {
             @Override
             public void onBtnClick() {
-//                finish();
-//                System.exit(0);
-                Intent home = new Intent(Intent.ACTION_MAIN);
-                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                home.addCategory(Intent.CATEGORY_HOME);
-                startActivity(home);
+                finish();
+                android.os.Process.killProcess(android.os.Process.myPid());
+//                Intent home = new Intent(Intent.ACTION_MAIN);
+//                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                home.addCategory(Intent.CATEGORY_HOME);
+//                startActivity(home);
             }
         });
 
@@ -396,7 +396,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 800);
     }
 
-    public void dialogMsgShow(String msg,String btnText, final OnBtnClickL listener) {
+    public void dialogMsgShow(String msg, String btnText, final OnBtnClickL listener) {
         final WarningDialog normalDialog = new WarningDialog(activity)
                 .contentGravity(Gravity.CENTER)
                 .content(CommonUtil.getSafeString(msg))
@@ -430,6 +430,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 .content(CommonUtil.getSafeString(msg))
                 .btnNum(2)
                 .btnText(cancelStr, confirmStr);
+        normalDialog.setCanceledOnTouchOutside(false);
+
         normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
             @Override
             public void onBtnClick() {
@@ -492,12 +494,15 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
         Activity a = (Activity) c;
 
-        if (a.isDestroyed() || a.isFinishing()) {
-            Log.i("YXH", "Activity is invalid." + " isDestoryed-->" + a.isDestroyed() + " isFinishing-->" + a.isFinishing());
-            return false;
-        } else {
-            return true;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (a.isDestroyed() || a.isFinishing()) {
+                Log.i("YXH", "Activity is invalid." + " isDestoryed-->" + a.isDestroyed() + " isFinishing-->" + a.isFinishing());
+                return false;
+            } else {
+                return true;
+            }
         }
+        return false;
     }
 }
 

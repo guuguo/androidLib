@@ -33,12 +33,6 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     constructor(view: View) : this(VaryViewHelper(view)) {
     }
 
-    fun setmIconSrc(mIconSrc: Int) {
-        this.mIconSrc = mIconSrc
-    }
-
-    private var mIconSrc = -1
-
     @JvmOverloads fun showError(errorText: String, buttonText: String, onClickListener: OnClickListener? = null) {
         simpleView = SimpleView(helper.context)
         simpleView!!.text(errorText)
@@ -60,13 +54,21 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     }
 
     fun requestSimpleView() {
-        if (mIconSrc != -1)
-            simpleView!!.icon(mIconSrc)
         simpleView!!.view.invalidate()
         helper.showLayout(simpleView?.view)
     }
 
+    fun showImg(iconRes:Int,text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+        simpleView = SimpleView(helper.context)
+        simpleView!!.setWrapContent(true)
+        simpleView!!.text(text)
+                .icon(iconRes)
+                .hint(hint)
+                .btnText(buttonText)
+                .btnListener(onClickListener)
 
+        requestSimpleView()
+    }
     fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
         simpleView = SimpleView(helper.context)
         simpleView!!.setWrapContent(true)

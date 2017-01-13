@@ -40,6 +40,7 @@ class SimpleView {
 
     constructor(context: Context) : this(context, null) {
     }
+
     constructor(context: Context, viewGroup: ViewGroup?) {
         view = View.inflate(context, R.layout.simple_empty_view, viewGroup)
         mLLLayout = view.findViewById(R.id.layoutEmpty) as LinearLayout

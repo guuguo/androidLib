@@ -23,8 +23,9 @@
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
+        android:minHeight="40dp"
+        android:minWidth="40dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/empty_cute_girl_box" />
 
     <TextView
@@ -43,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="找不到数据"
-        android:textColor="#999999" />
+        android:textColor="#999999"
+        android:textSize="18sp" />
 
     <com.flyco.roundview.RoundTextView
         android:id="@+id/btn_empty"
