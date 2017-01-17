@@ -2,6 +2,7 @@ package com.guuguo.android.lib.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,7 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         mRightBtnTextColor = Color.parseColor("#ffffff");
         mMiddleBtnTextColor = Color.parseColor("#ffffff");
 
-        mPrimaryBtnColor = Color.parseColor("#f23131");
+        mPrimaryBtnColor = ContextCompat.getColor(context, R.color.colorPrimary); //Color.parseColor("#f23131");
         mCornerRadius = 10;
         /** default value*/
     }

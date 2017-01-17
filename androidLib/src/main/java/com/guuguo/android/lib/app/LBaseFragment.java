@@ -6,6 +6,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -65,6 +67,10 @@ public abstract class LBaseFragment extends Fragment {
         return null;
     }
 
+    protected int getMenuResId() {
+        return 0;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,6 +82,12 @@ public abstract class LBaseFragment extends Fragment {
         return contentView;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (getMenuResId() != 0)
+            inflater.inflate(getMenuResId(), menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

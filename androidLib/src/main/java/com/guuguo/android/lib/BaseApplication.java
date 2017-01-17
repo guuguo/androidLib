@@ -2,10 +2,9 @@ package com.guuguo.android.lib;
 
 import android.app.Application;
 import android.support.design.widget.CoordinatorLayout;
-import android.widget.Toast;
 
 import com.guuguo.android.lib.app.LBaseActivity;
-import com.sdsmdg.tastytoast.TastyToast;
+import com.guuguo.android.lib.utils.Toastor;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -18,6 +17,8 @@ public abstract class BaseApplication extends Application {
 
     public CoordinatorLayout currentContainer;
     protected static BaseApplication INSTANCE;
+    public Toastor toastor;
+    public boolean isMaterial = false;
 
     public static BaseApplication getInstance() {
         return INSTANCE;
@@ -27,6 +28,7 @@ public abstract class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
+        toastor = new Toastor(this);
         INSTANCE = this;
         super.onCreate();
         init();
@@ -34,12 +36,11 @@ public abstract class BaseApplication extends Application {
 
     protected abstract void init();
 
-
     public void toast(final String msg) {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                TastyToast.makeText(BaseApplication.this, msg, Toast.LENGTH_SHORT, TastyToast.DEFAULT);
+                toastor.getToast(msg).show();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
@@ -48,7 +49,7 @@ public abstract class BaseApplication extends Application {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                TastyToast.makeText(BaseApplication.this, msg, Toast.LENGTH_LONG, TastyToast.DEFAULT);
+                toastor.getLongToast(msg).show();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }

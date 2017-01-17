@@ -3,6 +3,7 @@ package com.guuguo.learnsave.app.widget
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
+import com.guuguo.android.R
 
 /**
  * 一个能保持比例的 ImageView
@@ -15,13 +16,21 @@ class RatioImageView : AppCompatImageView {
     private var originalWidth: Int = 0
     private var originalHeight: Int = 0
 
-    constructor(context: Context) : super(context) {
+    constructor(context: Context) : this(context, null)
+
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        initAttr(context, attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    private fun initAttr(context: Context, attrs: AttributeSet?) {
+        if (attrs != null) {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView)
+            originalWidth = typedArray.getDimensionPixelSize(R.styleable.RatioImageView_rt_origin_width, 0)
+            originalHeight = typedArray.getDimensionPixelSize(R.styleable.RatioImageView_rt_origin_height, 0)
+            typedArray.recycle()
+        }
     }
 
     fun setOriginalSize(originalWidth: Int, originalHeight: Int) {

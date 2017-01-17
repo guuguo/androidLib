@@ -1,6 +1,7 @@
 package com.guuguo.android.lib.app;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -26,10 +28,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.flyco.dialog.listener.OnBtnClickL;
-import com.flyco.dialog.widget.base.BaseDialog;
 import com.flyco.systembar.SystemBarHelper;
-import com.guuguo.android.lib.BaseApplication;
 import com.guuguo.android.R;
+import com.guuguo.android.lib.BaseApplication;
 import com.guuguo.android.lib.eventBus.EventModel;
 import com.guuguo.android.lib.helper.DrawerHelper;
 import com.guuguo.android.lib.helper.ToolBarHelper;
@@ -169,6 +170,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
         return 0;
     }
 
+    protected int getMenuResId() {
+        return 0;
+    }
+
     public boolean isBtnVisible() {
         return true;
     }
@@ -191,6 +196,9 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (getMenuResId() != 0)
+            getMenuInflater().inflate(getMenuResId(), menu);
+
         if (mFragments.size() > 0)
             for (Fragment fra : mFragments)
                 fra.onCreateOptionsMenu(menu, getMenuInflater());
@@ -355,11 +363,12 @@ public abstract class LBaseActivity extends AppCompatActivity {
             @Override
             public void onBtnClick() {
                 finish();
-                android.os.Process.killProcess(android.os.Process.myPid());
-//                Intent home = new Intent(Intent.ACTION_MAIN);
-//                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                home.addCategory(Intent.CATEGORY_HOME);
-//                startActivity(home);
+//                android.os.Process.killProcess(android.os.Process.myPid());
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                home.addCategory(Intent.CATEGORY_HOME);
+                startActivity(home);
+                System.exit(0);
             }
         });
 
@@ -397,23 +406,39 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogMsgShow(String msg, String btnText, final OnBtnClickL listener) {
-        final WarningDialog normalDialog = new WarningDialog(activity)
-                .contentGravity(Gravity.CENTER)
-                .content(CommonUtil.getSafeString(msg))
-                .btnNum(1)
-                .btnText(btnText);
-        normalDialog.setOnBtnClickL(new OnBtnClickL() {
-            @Override
-            public void onBtnClick() {
-                normalDialog.dismiss();
-                if (listener != null)
-                    listener.onBtnClick();
-            }
-        });
-        showDialogOnMain(normalDialog);
+        if (myApplication.isMaterial) {
+            AlertDialog alertDialog = new AlertDialog.Builder(activity)
+                    .setMessage(msg)
+                    .setPositiveButton(btnText, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if (listener != null)
+                                listener.onBtnClick();
+                        }
+                    })
+                    .create();
+            showDialogOnMain(alertDialog);
+        } else {
+            final WarningDialog normalDialog = new WarningDialog(activity)
+                    .contentGravity(Gravity.CENTER)
+                    .content(CommonUtil.getSafeString(msg))
+                    .btnNum(1)
+                    .btnText(btnText);
+            normalDialog.setOnBtnClickL(new OnBtnClickL() {
+                @Override
+                public void onBtnClick() {
+                    normalDialog.dismiss();
+                    if (listener != null)
+                        listener.onBtnClick();
+                }
+            });
+            showDialogOnMain(normalDialog);
+        }
     }
 
     private void dialogStateShow(String msg, DialogInterface.OnDismissListener listener, int stateStyle, long delayTime) {
+
         StateDialog stateDialog = new StateDialog(activity)
                 .stateStyle(stateStyle)
                 .content(CommonUtil.getSafeString(msg));
@@ -421,29 +446,50 @@ public abstract class LBaseActivity extends AppCompatActivity {
         stateDialog.setCanceledOnTouchOutside(false);
         showDialogOnMain(stateDialog);
         dialogDismiss(delayTime, stateDialog, listener);
+
     }
 
     public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
 
-        final WarningDialog normalDialog = new WarningDialog(activity)
-                .contentGravity(Gravity.CENTER)
-                .content(CommonUtil.getSafeString(msg))
-                .btnNum(2)
-                .btnText(cancelStr, confirmStr);
-        normalDialog.setCanceledOnTouchOutside(false);
+        if (myApplication.isMaterial) {
+            AlertDialog alertDialog = new AlertDialog.Builder(activity)
+                    .setMessage(msg)
+                    .setPositiveButton(confirmStr, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            if (listener != null)
+                                listener.onBtnClick();
+                        }
+                    }).setNegativeButton(cancelStr, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+            showDialogOnMain(alertDialog);
+        } else {
+            final WarningDialog normalDialog = new WarningDialog(activity)
+                    .contentGravity(Gravity.CENTER)
+                    .content(CommonUtil.getSafeString(msg))
+                    .btnNum(2)
+                    .btnText(cancelStr, confirmStr);
+            normalDialog.setCanceledOnTouchOutside(false);
 
-        normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
-            @Override
-            public void onBtnClick() {
-                normalDialog.dismiss();
-                if (listener != null)
-                    listener.onBtnClick();
-            }
-        });
-        showDialogOnMain(normalDialog);
+            normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
+                @Override
+                public void onBtnClick() {
+                    normalDialog.dismiss();
+                    if (listener != null)
+                        listener.onBtnClick();
+                }
+            });
+            showDialogOnMain(normalDialog);
+        }
     }
 
-    public void showDialogOnMain(final BaseDialog dialog) {
+    public void showDialogOnMain(final Dialog dialog) {
         Observable.just(1).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
@@ -455,7 +501,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         });
     }
 
-    public void dialogDismiss(long delay, final BaseDialog dialog, final DialogInterface.OnDismissListener listener) {
+    public void dialogDismiss(long delay, final Dialog dialog, final DialogInterface.OnDismissListener listener) {
         Observable.just(1).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         new Action1<Integer>() {

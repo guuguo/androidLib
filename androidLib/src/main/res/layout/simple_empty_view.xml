@@ -60,6 +60,7 @@
         android:paddingTop="10dp"
         android:text="按钮"
         android:textColor="@color/green"
+        android:visibility="gone"
         app:rv_backgroundColor="@color/white"
         app:rv_backgroundPressColor="@color/green"
         app:rv_cornerRadius="4dp"
