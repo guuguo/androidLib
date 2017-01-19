@@ -31,15 +31,11 @@ import com.flyco.dialog.listener.OnBtnClickL;
 import com.flyco.systembar.SystemBarHelper;
 import com.guuguo.android.R;
 import com.guuguo.android.lib.BaseApplication;
-import com.guuguo.android.lib.eventBus.EventModel;
 import com.guuguo.android.lib.helper.DrawerHelper;
 import com.guuguo.android.lib.helper.ToolBarHelper;
 import com.guuguo.android.lib.utils.CommonUtil;
 import com.guuguo.android.lib.view.StateDialog;
 import com.guuguo.android.lib.view.WarningDialog;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,14 +101,12 @@ public abstract class LBaseActivity extends AppCompatActivity {
             Window window = LBaseActivity.this.getWindow();
             window.setFlags(flag, flag);
         }
-        EventBus.getDefault().register(this);
         setContentView(getLayoutResId());
         init();
     }
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         for (Subscription call : mApiCalls) {
             if (call != null && !call.isUnsubscribed())
                 call.unsubscribe();
@@ -329,9 +323,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
         return mToolBarHelper.getContentView();
     }
 
-    @Subscribe
-    public void onEvent(EventModel event) {
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

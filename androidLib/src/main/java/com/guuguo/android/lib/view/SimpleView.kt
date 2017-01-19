@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.utils
+package com.guuguo.android.lib.view
 
 import android.content.Context
 import android.text.TextUtils

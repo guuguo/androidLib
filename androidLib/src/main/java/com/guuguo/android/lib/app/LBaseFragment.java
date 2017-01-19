@@ -11,11 +11,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.guuguo.android.lib.eventBus.SettingChangeEvent;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +73,6 @@ public abstract class LBaseFragment extends Fragment {
         if (contentView == null) {
             contentView = inflater.inflate(getLayoutResId(), container, false);
         }
-        EventBus.getDefault().register(this);
         return contentView;
     }
 
@@ -97,7 +91,6 @@ public abstract class LBaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        EventBus.getDefault().unregister(this);
         for (Subscription call : mApiCalls) {
             if (call != null && !call.isUnsubscribed())
                 call.unsubscribe();
@@ -135,10 +128,6 @@ public abstract class LBaseFragment extends Fragment {
     }
 
     public void lazyLoad() {
-    }
-
-    @Subscribe
-    public void onEvent(SettingChangeEvent event) {
     }
 
     protected abstract int getLayoutResId();

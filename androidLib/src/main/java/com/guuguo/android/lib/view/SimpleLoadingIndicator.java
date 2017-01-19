@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.utils;
+package com.guuguo.android.lib.view;
 
 /**
  * Created by Barry on 16/5/28.
