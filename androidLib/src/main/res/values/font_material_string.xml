@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--google-->
+    <string name="icon_back">&#xE5C4;</string>
+    <string name="icon_exit">&#xE879;</string>
+    <string name="icon_add_box">&#xE146;</string>
+    <string name="icon_setting">&#xE8B8;</string>
+    <string name="icon_security">&#xE32A;</string>
+    <string name="icon_user">&#xE853;</string>
+    <string name="icon_label">&#xE892;</string>
+    <string name="icon_update">&#xE864;</string>
+    <string name="icon_code">&#xE86F;</string>
+    <string name="icon_tables">&#xE8F0;</string>
+    <string name="icon_computer">&#xE30A;</string>
+    <string name="icon_room">&#xE8B4;</string>
+    <string name="icon_store">&#xE563;</string>
+    <string name="icon_schedule">&#xE8B5;</string>
+    <string name="icon_wifi">&#xE8A9;</string>
+    <string name="icon_bright">&#xE8BD;</string>
+    <string name="icon_home">&#xE88A;</string>
+    <string name="icon_audio">&#xE3A1;</string>
+    <string name="icon_remove">&#xE15B;</string>
+    <string name="icon_search">&#xE8B6;</string>
+    <string name="icon_arrow_left">&#xE314;</string>
+</resources>
