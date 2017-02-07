@@ -87,12 +87,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        myApplication.currentActivity = activity;
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initFromIntent(getIntent());
@@ -118,7 +112,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
 
     protected void init() {
-        myApplication.currentContainer = getContainer();
         if (mFragment != null) {
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
             trans.replace(R.id.content, mFragment);

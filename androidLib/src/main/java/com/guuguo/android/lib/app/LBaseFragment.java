@@ -25,7 +25,7 @@ public abstract class LBaseFragment extends Fragment {
     protected LBaseActivity activity;
 
     private boolean isPrepare = false;
-    protected boolean mFirstLazyLoad = true;
+    public boolean mFirstLazyLoad = true;
     protected View contentView;
     private List<Subscription> mApiCalls = new ArrayList<>();
 

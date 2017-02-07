@@ -22,4 +22,5 @@
     <string name="icon_remove">&#xE15B;</string>
     <string name="icon_search">&#xE8B6;</string>
     <string name="icon_arrow_left">&#xE314;</string>
+    <string name="icon_delete">&#xE92B;</string>
 </resources>

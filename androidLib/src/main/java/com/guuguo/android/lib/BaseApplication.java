@@ -1,7 +1,6 @@
 package com.guuguo.android.lib;
 
 import android.app.Application;
-import android.support.design.widget.CoordinatorLayout;
 
 import com.guuguo.android.lib.app.LBaseActivity;
 import com.guuguo.android.lib.utils.Toastor;
@@ -15,7 +14,6 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 public abstract class BaseApplication extends Application {
 
-    public CoordinatorLayout currentContainer;
     protected static BaseApplication INSTANCE;
     public Toastor toastor;
     public boolean isMaterial = false;
@@ -23,8 +21,6 @@ public abstract class BaseApplication extends Application {
     public static BaseApplication getInstance() {
         return INSTANCE;
     }
-
-    public LBaseActivity currentActivity = null;
 
     @Override
     public void onCreate() {
