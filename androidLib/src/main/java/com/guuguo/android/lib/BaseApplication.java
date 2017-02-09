@@ -2,7 +2,6 @@ package com.guuguo.android.lib;
 
 import android.app.Application;
 
-import com.guuguo.android.lib.app.LBaseActivity;
 import com.guuguo.android.lib.utils.Toastor;
 
 import rx.Observable;

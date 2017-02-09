@@ -5,16 +5,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -207,18 +207,22 @@ public abstract class LBaseActivity extends AppCompatActivity {
             mDrawerHelper = new DrawerHelper(this, contentView, getDrawerResId());
             drawerLayout = mDrawerHelper.getContentView();
             super.setContentView(drawerLayout);
-            TypedArray array = getTheme().obtainStyledAttributes(new int[]{R.attr.colorPrimary,});
-            int color = array.getColor(0, 0xFF00FF);
-            array.recycle();
-            if (!fullScreen()) {
-                SystemBarHelper.tintStatusBarForDrawer(this, drawerLayout, color);
-            }
         } else {
             super.setContentView(contentView);
         }
         if (getRealToolBarResId() != 0)
             initBar();
         if (!fullScreen()) {
+            initStatus();
+        }
+    }
+
+    private void initStatus() {
+        if (getDrawerResId() != 0)
+            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), Color.WHITE, 0);
+        else {
+            if (getRealToolBarResId() != 0)
+                SystemBarHelper.setPadding(this, getAppbar());// toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
             SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);
@@ -235,9 +239,16 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
 
 
-        if (!fullScreen()) {
-            SystemBarHelper.setHeightAndPadding(this, toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
+        if (getDrawerResId() != 0) {
+            if (isBtnVisible()) {
+                //drawer和toolbar关联
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                        this, getDrawerLayout(), getToolbar(), R.string.app_name, R.string.app_name);
+                getDrawerLayout().addDrawerListener(toggle);
+                toggle.syncState();
+            }
         }
+
         getToolbar().setContentInsetsRelative(0, 0);
         setSupportActionBar(getToolbar()); /*自定义的一些操作*/
         getSupportActionBar().setDisplayHomeAsUpEnabled(isBtnVisible());
@@ -282,7 +293,15 @@ public abstract class LBaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish();
+                if (getDrawerResId() == 0)
+                    this.finish();
+                else {
+                    if (getDrawerLayout().isDrawerOpen(Gravity.LEFT))
+                        getDrawerLayout().closeDrawer(Gravity.LEFT);
+                    else {
+                        getDrawerLayout().openDrawer(Gravity.LEFT);
+                    }
+                }
                 return true;
         }
         if (mFragments.size() > 0)
@@ -312,7 +331,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         return mDrawerHelper.getNavigationView();
     }
 
-    public CoordinatorLayout getContainer() {
+    public View getContainer() {
         return mToolBarHelper.getContentView();
     }
 
