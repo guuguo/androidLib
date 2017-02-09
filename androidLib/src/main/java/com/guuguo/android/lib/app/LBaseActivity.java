@@ -49,7 +49,7 @@ import rx.functions.Action1;
 /**
  * Created by guodeqing on 16/5/31.
  */
-public abstract class LBaseActivity extends AppCompatActivity {
+public abstract class                LBaseActivity extends AppCompatActivity {
 
 
     protected final String TAG = this.getClass().getSimpleName();
@@ -226,18 +226,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
             SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);
-            }
+            } 
         }
     }
 
     protected void initBar() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            if (getIsAppbarElevation())
-                getAppbar().setElevation(10.6f);
-            else
-                getAppbar().setElevation(0f);
-        }
-
 
         if (getDrawerResId() != 0) {
             if (isBtnVisible()) {
@@ -535,9 +528,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
 
-    public boolean getIsAppbarElevation() {
-        return true;
-    }
 
     private boolean isValidContext(Context c) {
 
