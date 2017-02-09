@@ -14,7 +14,6 @@ import com.guuguo.android.R;
  */
 public class DrawerHelper { /*上下文，创建view的时候需要用到*/
     private Context mContext;
-    /*base com.hesheng.orderpad.view*/
     private DrawerLayout mContentView;
     /*用户自定义view*/
     private View mUserView;
@@ -50,7 +49,7 @@ public class DrawerHelper { /*上下文，创建view的时候需要用到*/
 
     }
 
-    public DrawerLayout getContentView() {
+    public DrawerLayout getDrawerLayout() {
         return mContentView;
     }
 

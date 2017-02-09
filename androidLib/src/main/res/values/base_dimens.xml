@@ -5,7 +5,7 @@
     <dimen name="title2">25sp</dimen>
     <dimen name="list_interval">10dp</dimen>
     <dimen name="hint">11sp</dimen>
-    <dimen name="actionbar_size">60dp</dimen>
+    <dimen name="actionbar_size">56dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
     <dimen name="text_size">14sp</dimen>
 </resources>

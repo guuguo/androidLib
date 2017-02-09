@@ -37,17 +37,17 @@ public class ToolBarHelper { /*上下文，创建view的时候需要用到*/
         this(context, layoutId, toolbarResId, false);
     }
 
-    public ToolBarHelper(Context context, int layoutId, int toolbarResId, boolean isOverlay) {
+    public ToolBarHelper(Context context, int layoutId, int toolbarResId, boolean isToolbarManual) {
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext); /*初始化整个内容*/
         ViewGroup layout;
         initContentView();
-        if (!isOverlay)/*初始化用户定义的布局*/ {
+        if (!isToolbarManual)/*初始化用户定义的布局*/ {
             initToolBar(mContentView, toolbarResId);
             initUserView(mContentView, layoutId); /*初始化toolbar*/
         } else {
+            initManualBehaviorUserView(mContentView, layoutId); /*初始化toolbar*/
             initToolBar(mContentView, toolbarResId);
-            initOverlayUserView(mContentView, layoutId); /*初始化toolbar*/
         }
     }
 
@@ -75,17 +75,17 @@ public class ToolBarHelper { /*上下文，创建view的时候需要用到*/
     }
 
     private void initUserView(CoordinatorLayout parent, int id) {
-        mUserView = mInflater.inflate(id, parent);
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mUserView.getLayoutParams();
-        params.setBehavior(new AppBarLayout.Behavior());
-        mUserView.setLayoutParams(params);
-//        parent.addView(mUserView, params);
+        mUserView = mInflater.inflate(id, null);
+        CoordinatorLayout.LayoutParams params = new CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.setBehavior(new AppBarLayout.ScrollingViewBehavior());
+        parent.addView(mUserView, params);
+
     }
 
-    private void initOverlayUserView(ViewGroup parent, int id) {
-        mUserView = mInflater.inflate(id, null);
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        parent.addView(mUserView, params);
+    private void initManualBehaviorUserView(CoordinatorLayout parent, int id) {
+        mUserView = mInflater.inflate(id, parent);
+//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        parent.addView(mUserView, params);
     }
 
     public View getContentView() {
