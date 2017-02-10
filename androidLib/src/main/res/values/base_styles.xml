@@ -56,21 +56,20 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="Toolbar.Dark" parent="Base.Widget.AppCompat.ActionBar">
+    <style name="Toolbar.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColor">@color/white</item>
         <item name="titleTextColor">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
-    <style name="Toolbar.Light" parent="Base.Widget.AppCompat.ActionBar">
+    <style name="Toolbar.Light" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlNormal">@color/black</item>
         <item name="android:textColor">@color/black</item>
         <item name="titleTextColor">@color/black</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!--<item name="android:textColorPrimary">@color/material_red</item>-->
-        <!--<item name="android:textColorSecondary">@color/white100</item>-->
-        <!--<item name="colorControlNormal">?android:textColor</item>-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="actionMenuTextColor">@color/white100</item>
         <item name="android:editTextColor">?android:textColor</item>
 

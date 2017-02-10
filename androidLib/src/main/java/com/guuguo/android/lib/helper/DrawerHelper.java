@@ -1,6 +1,7 @@
 package com.guuguo.android.lib.helper;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -34,12 +35,12 @@ public class DrawerHelper { /*上下文，创建view的时候需要用到*/
         mContentView = new DrawerLayout(mContext);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mContentView.setLayoutParams(params);
+        mContentView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     private void initDrawerView(int resId) {
         View mView = mInflater.inflate(resId, mContentView);
         mNavigationView = (NavigationView) mView.findViewById(R.id.nav_view);
-
     }
 
     private void initUserView(View content) {
