@@ -31,7 +31,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     
     //support
-    ext.support_vesion = "25.1.0"
+    ext.support_vesion = "25.1.1"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
 

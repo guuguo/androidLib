@@ -57,21 +57,11 @@ public class ToolBarHelper { /*上下文，创建view的时候需要用到*/
         mContentView.setLayoutParams(params);
     }
 
-//    private LinearLayout initLinearView() { /*直接创建一个布局，作为视图容器的父容器*/
-//        LinearLayout mLLContentView = new LinearLayout(mContext);
-//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        mLLContentView.setOrientation(LinearLayout.VERTICAL);
-//        mLLContentView.setLayoutParams(params);
-//        mContentView.addView(mLLContentView);
-//        return mLLContentView;
-//    }
-
 
     private void initToolBar(CoordinatorLayout parent, int resId) { /*通过inflater获取toolbar的布局文件*/
         View view = mInflater.inflate(resId, parent);
         mToolBar = (Toolbar) view.findViewById(R.id.id_tool_bar);
         mAppBarView = (AppBarLayout) view.findViewById(R.id.appbar);
-//        parent.addView(view);
     }
 
     private void initUserView(CoordinatorLayout parent, int id) {
@@ -84,8 +74,6 @@ public class ToolBarHelper { /*上下文，创建view的时候需要用到*/
 
     private void initManualBehaviorUserView(CoordinatorLayout parent, int id) {
         mUserView = mInflater.inflate(id, parent);
-//        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        parent.addView(mUserView, params);
     }
 
     public View getContentView() {

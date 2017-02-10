@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +23,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -219,20 +217,23 @@ public abstract class LBaseActivity extends AppCompatActivity {
     private void initStatus() {
         if (getDrawerResId() != 0) {
             int color = getResources().getColor(R.color.colorPrimary);
-            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color);
+            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color,0);
             SystemBarHelper.setPadding(this, getNavigationView().getHeaderView(0));
-            ViewGroup decroView = (ViewGroup) getWindow().getDecorView();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-
-                View statusBarView = new View(decroView.getContext());
-                statusBarView.setId(R.id.statusbar_view);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT, SystemBarHelper.getStatusBarHeight(decroView.getContext()));
-                decroView.addView(statusBarView, 1, lp);
-
-                statusBarView.setBackgroundColor(Color.YELLOW);
+            if (getToolBarResId() != 0) {
+                getContainer().setFitsSystemWindows(false);
+                SystemBarHelper.setPadding(this, getAppbar());
             }
-//            SystemBarHelper.setPadding(this, getAppbar());// toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
+//            ViewGroup decroView = (ViewGroup) getWindow().getDecorView();
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//
+//                View statusBarView = new View(decroView.getContext());
+//                statusBarView.setId(R.id.statusbar_view);
+//                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT, SystemBarHelper.getStatusBarHeight(decroView.getContext()));
+//                decroView.addView(statusBarView,1,lp);
+//
+//                statusBarView.setBackgroundColor(Color.YELLOW);
+//            }
         } else {
             if (getRealToolBarResId() != 0)
                 SystemBarHelper.setPadding(this, getAppbar());// toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
