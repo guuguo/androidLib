@@ -27,8 +27,8 @@ class RatioImageView : AppCompatImageView {
     private fun initAttr(context: Context, attrs: AttributeSet?) {
         if (attrs != null) {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView)
-            originalWidth = typedArray.getDimensionPixelSize(R.styleable.RatioImageView_rt_origin_width, 0)
-            originalHeight = typedArray.getDimensionPixelSize(R.styleable.RatioImageView_rt_origin_height, 0)
+            originalWidth = typedArray.getDimensionPixelSize(R.styleable.RatioImageView_riv_origin_width, 0)
+            originalHeight = typedArray.getDimensionPixelSize(R.styleable.RatioImageView_riv_origin_height, 0)
             typedArray.recycle()
         }
     }

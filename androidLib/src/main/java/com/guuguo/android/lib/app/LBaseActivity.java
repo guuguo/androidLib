@@ -33,6 +33,7 @@ import com.guuguo.android.lib.BaseApplication;
 import com.guuguo.android.lib.helper.DrawerHelper;
 import com.guuguo.android.lib.helper.ToolBarHelper;
 import com.guuguo.android.lib.utils.CommonUtil;
+import com.guuguo.android.lib.utils.MemoryLeakUtil;
 import com.guuguo.android.lib.view.StateDialog;
 import com.guuguo.android.lib.view.WarningDialog;
 
@@ -106,6 +107,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
         mApiCalls.clear();
         mLoadingDialog = null;
+        
+        MemoryLeakUtil.fixInputMethodManagerLeak(activity);
         super.onDestroy();
     }
 
@@ -217,7 +220,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     private void initStatus() {
         if (getDrawerResId() != 0) {
             int color = getResources().getColor(R.color.colorPrimary);
-            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color,0);
+            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color, 0);
             SystemBarHelper.setPadding(this, getNavigationView().getHeaderView(0));
             if (getToolBarResId() != 0) {
                 getContainer().setFitsSystemWindows(false);

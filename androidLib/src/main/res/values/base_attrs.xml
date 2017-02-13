@@ -17,7 +17,7 @@
         <attr name="divideWidth" format="dimension" />
     </declare-styleable>
     <declare-styleable name="RatioImageView">
-        <attr name="rt_origin_width" format="dimension" />
-        <attr name="rt_origin_height" format="dimension" />
+        <attr name="riv_origin_width" format="dimension" />
+        <attr name="riv_origin_height" format="dimension" />
     </declare-styleable>
 </resources>
