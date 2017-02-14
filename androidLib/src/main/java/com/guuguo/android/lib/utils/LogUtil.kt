@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.utils
 
+import android.provider.SyncStateContract
 import com.orhanobut.logger.Logger
 
 /**
@@ -14,7 +15,7 @@ object LogUtil {
         Logger.init(tag)                 // default PRETTYLOGGER or use just init()
                 .methodCount(2)                 // default 2
                 .hideThreadInfo()               // default shown
-                .logLevel(if (debug) FULL else NONE)        // default LogLevel.FULL
+                .logLevel(FULL)        // default LogLevel.FULL
                 .methodOffset(0) //default AndroidLogAdapter
     }
 

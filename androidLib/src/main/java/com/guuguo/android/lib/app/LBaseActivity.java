@@ -107,7 +107,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
         mApiCalls.clear();
         mLoadingDialog = null;
-        
+
         MemoryLeakUtil.fixInputMethodManagerLeak(activity);
         super.onDestroy();
     }
@@ -386,7 +386,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogLoadingShow(String msg) {
-        dialogLoadingShow(msg, false, 7000);
+        dialogLoadingShow(msg, false, 0);
     }
 
     public void dialogLoadingShow(String msg, boolean canTouchCancel, long maxDelay) {
@@ -397,7 +397,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         mLoadingDialog.stateStyle(StateDialog.STATE_STYLE.loading)
                 .content(msg);
 
-        if (maxDelay >= 0)
+        if (maxDelay > 0)
             dialogDismiss(maxDelay, mLoadingDialog, null);
         mLoadingDialog.setCanceledOnTouchOutside(canTouchCancel);
         showDialogOnMain(mLoadingDialog);
@@ -405,7 +405,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1500);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 2000);
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener, int delayTime) {
@@ -501,7 +501,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void showDialogOnMain(final Dialog dialog) {
-        Observable.just(1).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
+        addApiCall(Observable.just(1).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
                 try {
@@ -509,11 +509,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 } catch (Exception e) {
                 }
             }
-        });
+        }));
     }
 
     public void dialogDismiss(long delay, final Dialog dialog, final DialogInterface.OnDismissListener listener) {
-        Observable.just(1).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+        addApiCall(Observable.just(1).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         new Action1<Integer>() {
                             @Override
@@ -528,7 +528,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                                     }
                             }
                         }
-                );
+                ));
     }
 
     public void dialogDismiss() {
