@@ -405,7 +405,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 2000);
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1500);
     }
 
     public void dialogErrorShow(String msg, DialogInterface.OnDismissListener listener, int delayTime) {

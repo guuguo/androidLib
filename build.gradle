@@ -1,18 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-//    ext.kotlin_version = '1.0.4'
-    ext.kotlin_version = '1.0.3'
+    ext.kotlin_version = '1.0.6'
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-beta3'
+        classpath 'com.android.tools.build:gradle:2.3.0-beta4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        //jcenter
-//        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-
     }
 }
 allprojects {
@@ -21,13 +16,4 @@ allprojects {
         maven { url "https://jitpack.io" }
     }
 
-}
-
-ext {
-    minSdkVersion = 17
-    targetSdkVersion = 23
-    compileSdkVersion = 25
-    buildToolsVersion = '25.0.2'
-    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
-    targetCompatibilityVersion = JavaVersion.VERSION_1_8
 }
