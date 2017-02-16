@@ -37,7 +37,6 @@ public abstract class LBaseFragment extends Fragment {
     protected void init(View view) {
         activity = (LBaseActivity) getActivity();
         initView();
-        initVariable();
         loadData();
         if (getHeaderTitle() != null && activity.getRealToolBarResId() != 0)
             activity.getSupportActionBar().setTitle(getHeaderTitle());
@@ -70,6 +69,7 @@ public abstract class LBaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         contentView = super.onCreateView(inflater, container, savedInstanceState);
+        initVariable();
         if (contentView == null) {
             contentView = inflater.inflate(getLayoutResId(), container, false);
         }

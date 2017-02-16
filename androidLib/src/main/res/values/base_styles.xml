@@ -1,6 +1,5 @@
 <resources>
 
-
     <!-- 日间模式 -->
     <style name="AppTheme.day" parent="AppTheme">
         <item name="android:windowBackground">@color/day_main_base_bg</item>

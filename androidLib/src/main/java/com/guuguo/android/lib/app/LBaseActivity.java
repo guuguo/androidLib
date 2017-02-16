@@ -120,8 +120,8 @@ public abstract class LBaseActivity extends AppCompatActivity {
             trans.commitAllowingStateLoss();
             mFragments.add(mFragment);
         }
-        initView();
         initVariable();
+        initView();
         loadData();
     }
 
@@ -226,20 +226,9 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 getContainer().setFitsSystemWindows(false);
                 SystemBarHelper.setPadding(this, getAppbar());
             }
-//            ViewGroup decroView = (ViewGroup) getWindow().getDecorView();
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//
-//                View statusBarView = new View(decroView.getContext());
-//                statusBarView.setId(R.id.statusbar_view);
-//                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
-//                        ViewGroup.LayoutParams.MATCH_PARENT, SystemBarHelper.getStatusBarHeight(decroView.getContext()));
-//                decroView.addView(statusBarView,1,lp);
-//
-//                statusBarView.setBackgroundColor(Color.YELLOW);
-//            }
         } else {
             if (getRealToolBarResId() != 0)
-                SystemBarHelper.setPadding(this, getAppbar());// toolbar.getVisibility() == View.GONE ? getMyToolBar() : toolbar);
+                SystemBarHelper.setPadding(this, getAppbar());
             SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);

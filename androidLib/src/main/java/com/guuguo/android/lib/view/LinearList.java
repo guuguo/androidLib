@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.guuguo.android.R;
@@ -68,6 +69,7 @@ public class LinearList extends LinearLayout {
             int i = 0;
             while (i < adapter.getItemCount()) {
                 RecyclerView.ViewHolder holder = adapter.createViewHolder(this, adapter.getItemViewType(i));
+                initHolderListener(holder, i);
                 adapter.bindViewHolder(holder, i);
                 this.addView(holder.itemView);
                 i++;
@@ -79,7 +81,7 @@ public class LinearList extends LinearLayout {
             for (int col = 0; col < columnNum; col++) {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
                 params.weight = 1;
-                
+
                 LinearLayout linearLayout = new LinearLayout(getContext());
                 linearLayout.setOrientation(VERTICAL);
                 if (col > 0)
@@ -97,6 +99,7 @@ public class LinearList extends LinearLayout {
                     if (i < adapter.getItemCount()) {
 
                         RecyclerView.ViewHolder holder = adapter.createViewHolder(this, adapter.getItemViewType(i));
+                        initHolderListener(holder, i);
                         adapter.bindViewHolder(holder, i);
                         if (i >= llList.size()) {
                             LinearLayout.LayoutParams param = ((LinearLayout.LayoutParams) holder.itemView.getLayoutParams());
@@ -110,6 +113,29 @@ public class LinearList extends LinearLayout {
             }
         }
     }
+
+    public void setHolderListener(HolderListener holderListener) {
+        this.holderListener = holderListener;
+    }
+
+   public interface HolderListener {
+        void itemClick(int position);
+    }
+
+    private HolderListener holderListener;
+
+    private void initHolderListener(RecyclerView.ViewHolder holder, final int position) {
+
+        if (holderListener != null)
+            holder.itemView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holderListener.itemClick(position);
+                }
+            });
+
+    }
+
 
     public void setDivideWidth(int divideWidth) {
         this.divideWidth = divideWidth;

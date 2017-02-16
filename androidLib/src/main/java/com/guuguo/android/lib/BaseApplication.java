@@ -35,7 +35,7 @@ public abstract class BaseApplication extends Application {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                toastor.getToast(msg).show();
+                toastor.getSingletonToast(msg).show();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
@@ -44,7 +44,7 @@ public abstract class BaseApplication extends Application {
         Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                toastor.getLongToast(msg).show();
+                toastor.getSingleLongToast(msg).show();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
