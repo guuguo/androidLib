@@ -96,7 +96,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
             window.setFlags(flag, flag);
         }
         setContentView(getLayoutResId());
+        initAboutInstanceStat(savedInstanceState);
         init();
+    }
+
+    protected void initAboutInstanceStat(Bundle savedInstanceState) {
     }
 
     @Override

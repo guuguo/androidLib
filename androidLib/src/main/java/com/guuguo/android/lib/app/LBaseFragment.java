@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.app;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -32,6 +33,12 @@ public abstract class LBaseFragment extends Fragment {
     protected void addApiCall(Subscription call) {
         if (call != null)
             mApiCalls.add(call);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.activity = (LBaseActivity) context;
     }
 
     protected void init(View view) {
@@ -105,6 +112,15 @@ public abstract class LBaseFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser && isPrepare) {
+            lazyLoad();
+            mFirstLazyLoad = false;
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden && isPrepare) {
             lazyLoad();
             mFirstLazyLoad = false;
         }
