@@ -16,7 +16,35 @@ public class DateUtil {
         }
     }
 
-    public static String formDate(String format, long dateTime) {
+    public static String fromDate(String format, long dateTime) {
         return new SimpleDateFormat(format).format(dateTime);
+    }
+
+//    public static void main(String[] str) {
+//        System.out.print(getTimeSpan("yyyy-MM-dd", System.currentTimeMillis() - 3212132020L));
+//    }
+
+    public static String getTimeSpan(String format, long dateTime) {
+        long timeSpan = System.currentTimeMillis() - dateTime;
+        timeSpan = timeSpan / 1000;
+        if (timeSpan < 60)
+            return timeSpan + "秒前";
+        timeSpan /= 60;
+        if (timeSpan < 60) {
+            return timeSpan + "分钟前";
+        }
+        timeSpan /= 60;
+        if (timeSpan < 24) {
+            return timeSpan + "小时前";
+        }
+        timeSpan /= 24;
+        if (timeSpan < 7) {
+            return timeSpan + "天前";
+        }
+        timeSpan /= 7;
+        if (timeSpan < 4) {
+            return timeSpan + "周前";
+        }
+        return fromDate(format, dateTime);
     }
 }
