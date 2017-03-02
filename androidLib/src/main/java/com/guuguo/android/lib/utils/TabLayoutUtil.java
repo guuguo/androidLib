@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
  */
 
 public class TabLayoutUtil {
+    
     public static void setIndicator(TabLayout tabs, int leftDip, int rightDip) {
         Class<?> tabLayout = tabs.getClass();
         Field tabStrip = null;

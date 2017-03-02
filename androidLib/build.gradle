@@ -36,6 +36,7 @@ dependencies {
     ext.support_vesion = "25.1.1"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
 
     //function 
     compile 'com.orhanobut:logger:1.15'
