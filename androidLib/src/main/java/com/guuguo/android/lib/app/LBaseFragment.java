@@ -15,7 +15,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Subscription;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by guodeqing on 16/5/31.
@@ -28,9 +29,9 @@ public abstract class LBaseFragment extends Fragment {
     private boolean isPrepare = false;
     public boolean mFirstLazyLoad = true;
     protected View contentView;
-    private List<Subscription> mApiCalls = new ArrayList<>();
+    private List<Disposable> mApiCalls = new ArrayList<>();
 
-    protected void addApiCall(Subscription call) {
+    protected void addApiCall(Disposable call) {
         if (call != null)
             mApiCalls.add(call);
     }
@@ -98,9 +99,9 @@ public abstract class LBaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        for (Subscription call : mApiCalls) {
-            if (call != null && !call.isUnsubscribed())
-                call.unsubscribe();
+        for (Disposable call : mApiCalls) {
+            if (call != null && !call.isDisposed())
+                call.dispose();
         }
         mApiCalls.clear();
         super.onDestroyView();

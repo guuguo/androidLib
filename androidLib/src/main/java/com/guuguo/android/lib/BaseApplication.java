@@ -4,9 +4,14 @@ import android.app.Application;
 
 import com.guuguo.android.lib.utils.Toastor;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Completable;
+import io.reactivex.CompletableEmitter;
+import io.reactivex.CompletableOnSubscribe;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+
 
 /**
  * Created by guodeqing on 16/3/7.
@@ -32,19 +37,21 @@ public abstract class BaseApplication extends Application {
     protected abstract void init();
 
     public void toast(final String msg) {
-        Observable.create(new Observable.OnSubscribe<String>() {
+        Completable.create(new CompletableOnSubscribe() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
+            public void subscribe(CompletableEmitter e) throws Exception {
                 toastor.getSingletonToast(msg).show();
+                e.onComplete();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
 
     public void toastLong(final String msg) {
-        Observable.create(new Observable.OnSubscribe<String>() {
+        Completable.create(new CompletableOnSubscribe() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
+            public void subscribe(CompletableEmitter e) throws Exception {
                 toastor.getSingleLongToast(msg).show();
+                e.onComplete();
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }

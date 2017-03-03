@@ -41,10 +41,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * Created by guodeqing on 16/5/31.
@@ -74,14 +75,14 @@ public abstract class LBaseActivity extends AppCompatActivity {
         activity = this;
     }
 
-    private List<Subscription> mApiCalls = new ArrayList<>();
+    private List<Disposable> mApiCalls = new ArrayList<>();
 
     /**
      * 管控异步网络请求.避免横竖屏切换出错
      *
      * @param call
      */
-    protected void addApiCall(Subscription call) {
+    protected void addApiCall(Disposable call) {
         if (call != null)
             mApiCalls.add(call);
     }
@@ -105,9 +106,9 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        for (Subscription call : mApiCalls) {
-            if (call != null && !call.isUnsubscribed())
-                call.unsubscribe();
+        for (Disposable call : mApiCalls) {
+            if (call != null && !call.isDisposed())
+                call.dispose();
         }
         mApiCalls.clear();
         mLoadingDialog = null;
@@ -221,7 +222,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
     }
 
-    private void initStatus() {
+    protected void initStatus() {
         if (getDrawerResId() != 0) {
             int color = getResources().getColor(R.color.colorPrimary);
             SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color, 0);
@@ -494,34 +495,51 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void showDialogOnMain(final Dialog dialog) {
-        addApiCall(Observable.just(1).observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Integer>() {
+        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe(new CompletableObserver() {
             @Override
-            public void call(Integer integer) {
+            public void onSubscribe(Disposable d) {
+                addApiCall(d);
+            }
+
+            @Override
+            public void onComplete() {
                 try {
                     dialog.show();
                 } catch (Exception e) {
                 }
             }
-        }));
+
+            @Override
+            public void onError(Throwable e) {
+            }
+        });
     }
 
     public void dialogDismiss(long delay, final Dialog dialog, final DialogInterface.OnDismissListener listener) {
-        addApiCall(Observable.just(1).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Action1<Integer>() {
-                            @Override
-                            public void call(Integer integer) {
-                                if (isValidContext(activity) && dialog != null) {
-                                    dialog.dismiss();
-                                }
-                                if (listener != null)
-                                    try {
-                                        listener.onDismiss(dialog);
-                                    } catch (Exception e) {
-                                    }
-                            }
-                        }
-                ));
+        Completable.complete().delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                               @Override
+                               public void onSubscribe(Disposable d) {
+                                   addApiCall(d);
+                               }
+
+                               @Override
+                               public void onComplete() {
+                                   if (isValidContext(activity) && dialog != null) {
+                                       dialog.dismiss();
+                                   }
+                                   if (listener != null)
+                                       try {
+                                           listener.onDismiss(dialog);
+                                       } catch (Exception e) {
+                                       }
+                               }
+
+                               @Override
+                               public void onError(Throwable e) {
+                               }
+                           }
+                );
     }
 
     public void dialogDismiss() {
