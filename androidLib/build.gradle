@@ -31,7 +31,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    
+
     //support
     ext.support_vesion = "25.2.0"
     compile "com.android.support:appcompat-v7:$support_vesion"
@@ -41,12 +41,12 @@ dependencies {
     //function 
     compile 'com.orhanobut:logger:1.15'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.2@aar'
+
+
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-// Because RxAndroid releases are few and far between, it is recommended you also
-// explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'io.reactivex.rxjava2:rxjava:2.0.6'
-    
+
     //view
     compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
     compile "com.flyco.systembar:FlycoSystemBar_Lib:1.0.0@aar"
@@ -76,26 +76,3 @@ repositories {
     mavenCentral()
 }
 
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-
-//tasks.withType(Javadoc) {
-//    options.addStringOption('Xdoclint:none', '-quiet')
-//    options.addStringOption('encoding', 'UTF-8')
-//    options.addStringOption('charSet', 'UTF-8')
-//}
-
-//javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
-
-/*javadoc {
-    options {
-        encoding "UTF-8"
-        charSet 'UTF-8'
-        author true
-        version true
-        links "http://docs.oracle.com/javase/8/docs/api"
-    }
-}*/

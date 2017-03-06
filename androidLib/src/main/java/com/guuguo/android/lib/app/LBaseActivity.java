@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.app;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -25,17 +26,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 
 import com.flyco.dialog.listener.OnBtnClickL;
+import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.NormalListDialog;
 import com.flyco.systembar.SystemBarHelper;
 import com.guuguo.android.R;
 import com.guuguo.android.lib.BaseApplication;
 import com.guuguo.android.lib.helper.DrawerHelper;
 import com.guuguo.android.lib.helper.ToolBarHelper;
 import com.guuguo.android.lib.utils.CommonUtil;
+import com.guuguo.android.lib.utils.FileUtil;
 import com.guuguo.android.lib.utils.MemoryLeakUtil;
 import com.guuguo.android.lib.view.StateDialog;
 import com.guuguo.android.lib.view.WarningDialog;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +50,9 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 /**
@@ -96,6 +104,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
             Window window = LBaseActivity.this.getWindow();
             window.setFlags(flag, flag);
         }
+        initVariable();
         setContentView(getLayoutResId());
         initAboutInstanceStat(savedInstanceState);
         init();
@@ -125,7 +134,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
             trans.commitAllowingStateLoss();
             mFragments.add(mFragment);
         }
-        initVariable();
         initView();
         loadData();
     }
@@ -302,7 +310,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                         getDrawerLayout().openDrawer(Gravity.LEFT);
                     }
                 } else {
-                    this.finish();
+                    this.onBackPressed();
                 }
                 return true;
         }
@@ -553,6 +561,37 @@ public abstract class LBaseActivity extends AppCompatActivity {
             return forceToolBarView;
     }
 
+    public void dialogTakePhotoShow(final DialogInterface.OnClickListener takePhotoListener, final DialogInterface.OnClickListener pickPhotoListener) {
+        if (FileUtil.isExternalStorageMounted()) {
+            RxPermissions rxPermissions = new RxPermissions(this);
+            rxPermissions.request(Manifest.permission.CAMERA)
+                    .subscribe(new Consumer<Boolean>() {
+                        @Override
+                        public void accept(@NonNull Boolean granted) throws Exception {
+                            if (granted) { // Always true pre-M
+                                String[] strings = {"拍照", "从相册中选取"};
+                                final NormalListDialog listDialog = new NormalListDialog(activity, strings).title("请选择");
+                                listDialog.layoutAnimation(null);
+                                listDialog.setOnOperItemClickL(new OnOperItemClickL() {
+                                    @Override
+                                    public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        if (position == 0)
+                                            takePhotoListener.onClick(listDialog, position);
+                                        else if (position == 1)
+                                            pickPhotoListener.onClick(listDialog, position);
+                                        listDialog.dismiss();
+                                    }
+                                });
+                                showDialogOnMain(listDialog);
+                            } else {
+                                myApplication.toast("拍照权限被拒绝");
+                            }
+                        }
+                    });
+        } else {
+            myApplication.toast("未检测到外部sd卡");
+        }
+    }
 
     private boolean isValidContext(Context c) {
 
