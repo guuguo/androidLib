@@ -53,4 +53,10 @@ public class DateUtil {
         else
             return dateTime;
     }
+    public static long getSecondDateTime(long dateTime) {
+        if ((dateTime + "").length() == 13)
+            return dateTime / 1000;
+        else
+            return dateTime;
+    }
 }
