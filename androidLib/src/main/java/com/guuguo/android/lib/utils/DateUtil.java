@@ -17,13 +17,13 @@ public class DateUtil {
     }
 
     public static String fromDate(String format, long dateTime) {
-        dateTime = getMsDateTime(dateTime);
+        dateTime = getS2MsDateTime(dateTime);
         return new SimpleDateFormat(format).format(dateTime);
     }
 
 
     public static String getTimeSpan(String format, long dateTime) {
-        dateTime = getMsDateTime(dateTime);
+        dateTime = getS2MsDateTime(dateTime);
         long timeSpan = System.currentTimeMillis() - dateTime;
         timeSpan = timeSpan / 1000;
         if (timeSpan < 60)
@@ -47,17 +47,11 @@ public class DateUtil {
         return fromDate(format, dateTime);
     }
 
-    public static long getMsDateTime(long dateTime) {
-        if ((Math.abs(dateTime) + "").length() == 10)
+    public static long getS2MsDateTime(long dateTime) {
             return dateTime * 1000;
-        else
-            return dateTime;
     }
 
-    public static long getSecondDateTime(long dateTime) {
-        if ((Math.abs(dateTime) + "").length() == 13)
-            return dateTime / 1000;
-        else
-            return dateTime;
+    public static long getMs2SecondDateTime(long dateTime) {
+        return dateTime / 1000;
     }
 }

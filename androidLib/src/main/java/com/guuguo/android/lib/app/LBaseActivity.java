@@ -13,6 +13,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -230,15 +231,20 @@ public abstract class LBaseActivity extends AppCompatActivity {
         }
     }
 
+    protected int getTintSystemBarColor() {
+        return ContextCompat.getColor(activity, R.color.colorPrimary);
+    }
+
     protected void initStatus() {
         if (getDrawerResId() != 0) {
-            int color = getResources().getColor(R.color.colorPrimary);
-            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color, 0);
-            SystemBarHelper.setPadding(this, getNavigationView().getHeaderView(0));
-            if (getToolBarResId() != 0) {
-                getContainer().setFitsSystemWindows(false);
-                SystemBarHelper.setPadding(this, getAppbar());
-            }
+//            int color = getResources().getColor(R.color.colorPrimary);
+//            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color, 0);
+//            SystemBarHelper.setPadding(this, getNavigationView().getHeaderView(0));
+//            if (getToolBarResId() != 0) {
+//                getContainer().setFitsSystemWindows(false);
+//                SystemBarHelper.setPadding(this, getAppbar());
+//            }
+            SystemBarHelper.tintStatusBar(activity, getTintSystemBarColor());
         } else {
             if (getRealToolBarResId() != 0)
                 SystemBarHelper.setPadding(this, getAppbar());
