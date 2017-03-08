@@ -48,13 +48,14 @@ public class DateUtil {
     }
 
     public static long getMsDateTime(long dateTime) {
-        if ((dateTime + "").length() == 10)
+        if ((Math.abs(dateTime) + "").length() == 10)
             return dateTime * 1000;
         else
             return dateTime;
     }
+
     public static long getSecondDateTime(long dateTime) {
-        if ((dateTime + "").length() == 13)
+        if ((Math.abs(dateTime) + "").length() == 13)
             return dateTime / 1000;
         else
             return dateTime;
