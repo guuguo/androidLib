@@ -148,6 +148,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
     protected void initView() {
     }
 
+    protected int getSystemBarColor() {
+        return 0;
+    }
+
     protected String getHeaderTitle() {
         return "";
     }
@@ -246,13 +250,18 @@ public abstract class LBaseActivity extends AppCompatActivity {
 //            }
             SystemBarHelper.tintStatusBar(activity, getTintSystemBarColor());
         } else {
-            if (getRealToolBarResId() != 0)
+            if (getRealToolBarResId() != 0) {
                 SystemBarHelper.setPadding(this, getAppbar());
-            SystemBarHelper.immersiveStatusBar(this, 0);
+                SystemBarHelper.immersiveStatusBar(this, 0);
+            } else {
+                SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 1);
+            }
+//            SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);
             }
         }
+
     }
 
     protected void initBar() {
@@ -398,6 +407,10 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogLoadingShow(String msg, boolean canTouchCancel, long maxDelay) {
+        dialogLoadingShow(msg, canTouchCancel, maxDelay, null);
+    }
+
+    public void dialogLoadingShow(String msg, boolean canTouchCancel, long maxDelay, final DialogInterface.OnDismissListener listener) {
         if (TextUtils.isEmpty(msg))
             msg = "加载中";
         if (mLoadingDialog == null)
@@ -406,7 +419,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                 .content(msg);
 
         if (maxDelay > 0)
-            dialogDismiss(maxDelay, mLoadingDialog, null);
+            dialogDismiss(maxDelay, mLoadingDialog, listener);
         mLoadingDialog.setCanceledOnTouchOutside(canTouchCancel);
         showDialogOnMain(mLoadingDialog);
 
