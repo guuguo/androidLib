@@ -9,4 +9,6 @@
     <string name="state_network_error">网络错误</string>
     <string name="state_network_timeout">请求超时，请检查网络或者稍候重试</string>
     <string name="state_network_unknown_host">服务器连接失败，检查网络连接</string>
+    <string name="state_network_interrupted">网络请求中止</string>
+
 </resources>
