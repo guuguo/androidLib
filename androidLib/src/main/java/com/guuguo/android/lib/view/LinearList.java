@@ -3,6 +3,7 @@ package com.guuguo.android.lib.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
@@ -53,13 +54,23 @@ public class LinearList extends LinearLayout {
     public void setAdapter(RecyclerView.Adapter value) {
         this.adapter = value;
         if (adapter != null && !adapter.hasObservers())
-            adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onChanged() {
-                    super.onChanged();
-                    refreshView(adapter);
-                }
-            });
+            adapter.registerAdapterDataObserver(observer);
+    }
+
+    @NonNull
+    private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            refreshView(adapter);
+        }
+    };
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (observer != null && adapter != null)
+            adapter.unregisterAdapterDataObserver(observer);
     }
 
     private void refreshView(RecyclerView.Adapter adapter) {
@@ -118,7 +129,7 @@ public class LinearList extends LinearLayout {
         this.holderListener = holderListener;
     }
 
-   public interface HolderListener {
+    public interface HolderListener {
         void itemClick(int position);
     }
 
