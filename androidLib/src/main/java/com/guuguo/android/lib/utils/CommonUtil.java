@@ -29,6 +29,14 @@ public class CommonUtil {
         return list == null || list.isEmpty();
     }
 
+    public static int log(int n) {
+        int a = 0;
+        while (n % 2 == 0) {
+            n = n / 2;
+            a++;
+        }
+        return a;
+    }
 
     public static String md5(String info) {
         try {
