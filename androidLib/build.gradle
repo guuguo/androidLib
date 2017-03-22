@@ -33,19 +33,19 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     //support
-    ext.support_vesion = "25.2.0"
+    ext.support_vesion = "25.3.0"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
 
     //function 
     compile 'com.orhanobut:logger:1.15'
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.2@aar'
 
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.6'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'com.artemzin.rxjava:proguard-rules:1.2.7.0'
     
     //view

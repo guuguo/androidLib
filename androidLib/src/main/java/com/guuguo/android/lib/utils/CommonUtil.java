@@ -32,6 +32,8 @@ public class CommonUtil {
     public static int log(int n) {
         int a = 0;
         while (n % 2 == 0) {
+            if (n % 2 != 0)
+                return -1;
             n = n / 2;
             a++;
         }
