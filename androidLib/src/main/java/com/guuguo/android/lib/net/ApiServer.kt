@@ -1,15 +1,13 @@
 package com.guuguo.android.lib.net
 
+import android.accounts.NetworkErrorException
 import android.text.TextUtils
 import com.guuguo.android.lib.utils.NetWorkUtil
 import io.reactivex.Single
-import io.reactivex.SingleOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -54,18 +52,14 @@ object ApiServer {
     private fun executeRequest(callbackL: LBaseCallback<*>, request: Request) {
         val call = mOkHttpClient.newCall(request)
 
-        return Single.create(SingleOnSubscribe<String> { subscriber ->
+        return Single.just(call).map { t ->
             if (!NetWorkUtil.isNetworkAvailable()) {
-                subscriber.onError(IOException("网络不可访问"))
+                Single.error<String>(NetworkErrorException())
+                ""
+            } else {
+                t.execute().body().string()
             }
-            var response = ""
-            try {
-                response = call.execute().body().string()
-            } catch (e: Exception) {
-                subscriber.onError(e)
-            }
-            subscriber.onSuccess(response)
-        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callbackL)
     }
     /**

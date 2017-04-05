@@ -33,10 +33,10 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     //support
-    ext.support_vesion = "25.3.0"
+    ext.support_vesion = "25.3.1"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     //function 
     compile 'com.orhanobut:logger:1.15'
@@ -44,7 +44,7 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.2@aar'
     compile 'com.google.code.gson:gson:2.8.0'
 
-
+    //rxjava
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'com.artemzin.rxjava:proguard-rules:1.2.7.0'

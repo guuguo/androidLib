@@ -244,13 +244,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     protected void initStatus() {
         if (getDrawerResId() != 0) {
-//            int color = getResources().getColor(R.color.colorPrimary);
-//            SystemBarHelper.tintStatusBarForDrawer(activity, getDrawerLayout(), color, 0);
-//            SystemBarHelper.setPadding(this, getNavigationView().getHeaderView(0));
-//            if (getToolBarResId() != 0) {
-//                getContainer().setFitsSystemWindows(false);
-//                SystemBarHelper.setPadding(this, getAppbar());
-//            }
             SystemBarHelper.tintStatusBar(activity, getTintSystemBarColor());
         } else {
             if (getRealToolBarResId() != 0) {
@@ -261,9 +254,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
                     SystemBarHelper.immersiveStatusBar(this, 0);
                 else
                     SystemBarHelper.tintStatusBar(activity, getTintSystemBarColor());
-//                SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 1);
             }
-//            SystemBarHelper.immersiveStatusBar(this, 0);
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);
             }
