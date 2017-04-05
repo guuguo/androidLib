@@ -239,27 +239,23 @@ public abstract class LBaseActivity extends AppCompatActivity {
      * @return 如果返回0就是透明状态栏，内容上移
      */
     protected int getTintSystemBarColor() {
-        return ContextCompat.getColor(activity, R.color.colorPrimary);
+        return 0;
     }
 
     protected void initStatus() {
-        if (getDrawerResId() != 0) {
+        if (getTintSystemBarColor() != 0)
             SystemBarHelper.tintStatusBar(activity, getTintSystemBarColor());
-        } else {
+        else {
             if (getRealToolBarResId() != 0) {
-                SystemBarHelper.setPadding(this, getAppbar());
                 SystemBarHelper.immersiveStatusBar(this, 0);
+                SystemBarHelper.setPadding(this, getMyAppBar());
             } else {
-                if (getTintSystemBarColor() == 0)
-                    SystemBarHelper.immersiveStatusBar(this, 0);
-                else
-                    SystemBarHelper.tintStatusBar(activity, getTintSystemBarColor());
+                SystemBarHelper.immersiveStatusBar(this, 0);
             }
             if (getDarkMode()) {
                 SystemBarHelper.setStatusBarDarkMode(this);
             }
         }
-
     }
 
     protected void initBar() {
@@ -278,7 +274,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         activity.getSupportActionBar().setTitle(getHeaderTitle());
     }
 
-    protected View getMyToolBar() {
+    protected View getMyAppBar() {
         return getAppbar();
     }
 
