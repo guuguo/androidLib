@@ -67,7 +67,7 @@ class ToolBarHelper { /*上下文，创建view的时候需要用到*/
         val view = mInflater!!.inflate(resId, parent, false)
         toolBar = view.findViewById(R.id.id_tool_bar) as Toolbar
         mAppBarView = view.findViewById(R.id.appbar) as AppBarLayout
-        parent.addView(view, 0)
+        parent.addView(view)
     }
 
     private fun initUserView(parent: CoordinatorLayout, id: Int) {

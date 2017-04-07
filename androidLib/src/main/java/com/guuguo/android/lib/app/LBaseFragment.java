@@ -99,12 +99,16 @@ public abstract class LBaseFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        clearApiCall();
+        super.onDestroyView();
+    }
+
+    private void clearApiCall() {
         for (Disposable call : mApiCalls) {
             if (call != null && !call.isDisposed())
                 call.dispose();
         }
         mApiCalls.clear();
-        super.onDestroyView();
     }
 
 

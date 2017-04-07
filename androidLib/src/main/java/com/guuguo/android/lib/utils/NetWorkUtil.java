@@ -7,9 +7,14 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.guuguo.android.lib.BaseApplication;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -17,6 +22,14 @@ import java.net.SocketException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -60,9 +73,48 @@ public class NetWorkUtil {
     /**
      * Instantiates a new Easy  network mod.
      *
-     * @param context
-     *     the context
+     * @param consumer
+     * @return
      */
+    public static Disposable ping(Consumer consumer) {
+      return  Single.create(new SingleOnSubscribe<Boolean>() {
+            @Override
+            public void subscribe(SingleEmitter<Boolean> emitter) throws Exception {
+                String result = null;
+                try {
+                    String ip = "www.baidu.com";// ping 的地址，可以换成任何一种可靠的外网 
+                    Process p = Runtime.getRuntime().exec("ping -c 3 -w 100 " + ip);// ping网址3次 
+                    // 读取ping的内容，可以不加 
+                    InputStream input = p.getInputStream();
+                    BufferedReader in = new BufferedReader(new InputStreamReader(input));
+                    StringBuffer stringBuffer = new StringBuffer();
+                    String content = "";
+                    while ((content = in.readLine()) != null) {
+                        stringBuffer.append(content);
+                    }
+                    Log.d("------ping-----", "result content : " + stringBuffer.toString());
+                    // ping的状态 
+                    int status = p.waitFor();
+                    if (status == 0) {
+                        result = "success";
+                        emitter.onSuccess(true);
+                    } else {
+                        result = "failed";
+                    }
+                } catch (IOException e) {
+                    result = "IOException";
+                    emitter.onError(e);
+                } catch (InterruptedException e) {
+                    result = "InterruptedException";
+                    emitter.onError(e);
+                } finally {
+                    Log.d("----result---", "result = " + result);
+                }
+                emitter.onSuccess(false);
+
+            }
+        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(consumer);
+    }
 
     /**
      * Is wifi enabled.
