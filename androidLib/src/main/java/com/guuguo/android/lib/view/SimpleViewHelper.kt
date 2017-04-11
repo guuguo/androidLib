@@ -15,6 +15,7 @@ package com.guuguo.android.lib.view
 import android.view.View
 import android.view.View.OnClickListener
 import com.guuguo.android.R
+import com.guuguo.android.R.dimen.hint
 import com.guuguo.android.lib.utils.vary.IVaryViewHelper
 import com.guuguo.android.lib.utils.vary.VaryViewHelper
 
@@ -29,23 +30,20 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
 
     var simpleView: SimpleView? = null
         private set
+    var isWrapContent: Boolean = true
+    constructor(view: View) : this(VaryViewHelper(view)) 
 
-    constructor(view: View) : this(VaryViewHelper(view)) {
+    constructor(view: View, isWrapContent: Boolean = true) : this(VaryViewHelper(view)) {
+        this.isWrapContent = isWrapContent
     }
 
     @JvmOverloads fun showError(errorText: String, buttonText: String, onClickListener: OnClickListener? = null) {
-        simpleView = SimpleView(helper.context)
-        simpleView!!.text(errorText)
-                .icon(R.drawable.state_error)
-                .btnText(buttonText)
-                .btnListener(onClickListener)
-        requestSimpleView()
-
+        showImg(R.drawable.state_error, errorText, "", buttonText, onClickListener)
     }
 
-    @JvmOverloads fun showLoading(text: String, indicator: String = "", color: Int = -1) {
+    @JvmOverloads fun showLoading(text: String) {
         simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(true)
+        simpleView!!.setWrapContent(isWrapContent)
         simpleView!!.text(text)
                 .style(SimpleView.STYLE.loading)
         requestSimpleView()
@@ -56,9 +54,9 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
         helper.showLayout(simpleView?.view)
     }
 
-    fun showImg(iconRes:Int,text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+    fun showImg(iconRes: Int, text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
         simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(true)
+        simpleView!!.setWrapContent(isWrapContent)
         simpleView!!.text(text)
                 .icon(iconRes)
                 .hint(hint)
@@ -67,20 +65,19 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
 
         requestSimpleView()
     }
-    fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
-        simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(true)
-        simpleView!!.text(text)
-                .hint(hint)
-                .btnText(buttonText)
-                .btnListener(onClickListener)
 
-        requestSimpleView()
+    fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+        showImg(R.drawable.empty_cute_girl_box, text, hint, buttonText, onClickListener)
+    }
+
+    fun showEmpty(text: String) {
+        showEmpty("", text, "", null)
     }
 
     fun showEmpty(isIconShow: Boolean, text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
+
         simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(true)
+        simpleView!!.setWrapContent(isWrapContent)
         simpleView!!.text(text)
                 .setIconShow(isIconShow)
                 .hint(hint)

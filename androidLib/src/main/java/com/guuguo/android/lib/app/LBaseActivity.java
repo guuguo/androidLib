@@ -116,15 +116,19 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        clearApiCall();
+        mLoadingDialog = null;
+
+        MemoryLeakUtil.fixInputMethodManagerLeak(activity);
+        super.onDestroy();
+    }
+
+    protected void clearApiCall() {
         for (Disposable call : mApiCalls) {
             if (call != null && !call.isDisposed())
                 call.dispose();
         }
         mApiCalls.clear();
-        mLoadingDialog = null;
-
-        MemoryLeakUtil.fixInputMethodManagerLeak(activity);
-        super.onDestroy();
     }
 
 

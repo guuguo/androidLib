@@ -103,7 +103,7 @@ public abstract class LBaseFragment extends Fragment {
         super.onDestroyView();
     }
 
-    private void clearApiCall() {
+    protected void clearApiCall() {
         for (Disposable call : mApiCalls) {
             if (call != null && !call.isDisposed())
                 call.dispose();
