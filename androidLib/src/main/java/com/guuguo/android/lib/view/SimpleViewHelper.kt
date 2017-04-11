@@ -48,8 +48,6 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
         simpleView!!.setWrapContent(true)
         simpleView!!.text(text)
                 .style(SimpleView.STYLE.loading)
-                .loadingIndicator(indicator)
-                .loadingColor(color)
         requestSimpleView()
     }
 

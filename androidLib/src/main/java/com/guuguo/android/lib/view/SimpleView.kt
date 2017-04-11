@@ -1,8 +1,8 @@
 package com.guuguo.android.lib.view
 
+import am.drawable.DoubleCircleDrawable
 import android.content.Context
 import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,7 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.flyco.roundview.RoundTextView
 import com.guuguo.android.R
-import com.wang.avi.AVLoadingIndicatorView
+
+//import com.wang.avi.AVLoadingIndicatorView
 
 /**
  * Created by Barry on 16/5/28.
@@ -25,21 +26,19 @@ class SimpleView {
     private var mIconRes = R.drawable.empty_cute_girl_box
     private var isWrapContent = true
     private var mStyle: Int = STYLE.normal
-    private var mLoadingIndicator = ""
-    private var mLoadingColor: Int = -1
 
     private val mLLLayout: LinearLayout
     private val mImg: ImageView
     private val mTvText: TextView
     private val mTvHint: TextView
     private val mBtn: RoundTextView
-    private val mLoadingVIew: AVLoadingIndicatorView
+//    private val mLoadingVIew: AVLoadingIndicatorView
 
-    private var gravity = Gravity.CENTER
     val view: View
 
-    constructor(context: Context) : this(context, null) {
-    }
+    constructor(context: Context) : this(context, null)
+
+    private val drawable: DoubleCircleDrawable
 
     constructor(context: Context, viewGroup: ViewGroup?) {
         view = View.inflate(context, R.layout.simple_empty_view, viewGroup)
@@ -48,7 +47,6 @@ class SimpleView {
         mTvHint = view.findViewById(R.id.tv_hint) as TextView
         mImg = view.findViewById(R.id.img) as ImageView
         mBtn = view.findViewById(R.id.btn_empty) as RoundTextView
-        mLoadingVIew = view.findViewById(R.id.avl_loading) as AVLoadingIndicatorView
         view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(p0: View?) {
                 setUIBeforeShow()
@@ -58,6 +56,7 @@ class SimpleView {
             }
 
         })
+        drawable = DoubleCircleDrawable(context.resources.getDisplayMetrics().density)
     }
 
     object STYLE {
@@ -74,16 +73,6 @@ class SimpleView {
         return this
     }
 
-
-    fun loadingColor(color: Int): SimpleView {
-        this.mLoadingColor = color
-        return this
-    }
-
-    fun loadingIndicator(text: String): SimpleView {
-        this.mLoadingIndicator = text
-        return this
-    }
 
     fun text(text: String): SimpleView {
         this.text = text
@@ -136,14 +125,12 @@ class SimpleView {
 
         /**loading */
         if (mStyle == STYLE.loading) {
-            mLoadingVIew.visibility = View.VISIBLE
+            mImg.setImageDrawable(drawable)
+            drawable.start()
             isIconShow = false
-            if (!TextUtils.isEmpty(mLoadingIndicator))
-                mLoadingVIew.setIndicator(mLoadingIndicator)
-            if (mLoadingColor != -1)
-                mLoadingVIew.setIndicatorColor(mLoadingColor)
-        } else {
-            mLoadingVIew.visibility = View.GONE
+        } else if (isIconShow) {
+            /**icon */
+            mImg.setImageResource(mIconRes)
         }
 
         /**button */
@@ -174,12 +161,6 @@ class SimpleView {
             mTvHint.visibility = View.GONE
         }
 
-        /**icon */
-        if (isIconShow) {
-            mImg.visibility = View.VISIBLE
-            mImg.setImageResource(mIconRes)
-        } else {
-            mImg.visibility = View.GONE
-        }
+
     }
 }

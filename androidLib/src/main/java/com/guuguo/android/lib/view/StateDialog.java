@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.flyco.dialog.utils.CornerUtils;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.guuguo.android.R;
-import com.wang.avi.AVLoadingIndicatorView;
+
+import am.drawable.DoubleCircleDrawable;
 
 /**
  * Created by mimi on 2016-11-10.
@@ -51,6 +52,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      * stateStyle
      */
     protected int mStateStyle;
+    private DoubleCircleDrawable loadDrawable;
 
     public static class STATE_STYLE {
         public static final int loading = 0;
@@ -61,10 +63,6 @@ public class StateDialog extends BaseDialog<StateDialog> {
     protected ImageView mIvState;
     protected int mCustomStateRes = 0;
 
-    /**
-     * loadingView
-     */
-    protected AVLoadingIndicatorView mLoadingView;
 
     /**
      * corner radius,dp(圆角程度,单位dp)
@@ -98,8 +96,6 @@ public class StateDialog extends BaseDialog<StateDialog> {
         /** stateImage **/
         mIvState = new ImageView(context);
 
-        /** loadingView **/
-        mLoadingView = new AVLoadingIndicatorView(context);
 
         /** content */
         mTvContent = new TextView(context);
@@ -121,10 +117,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
         mLlContainer.addView(mIvState);
 
         /** loadingView **/
-        mLoadingView.setLayoutParams(new ViewGroup.LayoutParams(dp2px(45), dp2px(45)));
-        mLoadingView.setIndicatorColor(mContentTextColor);
-        mLoadingView.setIndicator("BallSpinFadeLoaderIndicator");
-        mLlContainer.addView(mLoadingView);
+        loadDrawable = new DoubleCircleDrawable(getContext().getResources().getDisplayMetrics().density);
 
         /** content */
         mTvContent.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -138,23 +131,19 @@ public class StateDialog extends BaseDialog<StateDialog> {
     public void setUiBeforShow() {
 
         /** stateImage **/
-        mIvState.setVisibility(View.GONE);
-        mLoadingView.setVisibility(View.GONE);
 
         if (mCustomStateRes != 0) {
-            mIvState.setVisibility(View.VISIBLE);
             mIvState.setImageResource(mCustomStateRes);
         } else {
             switch (mStateStyle) {
                 case STATE_STYLE.loading:
-                    mLoadingView.setVisibility(View.VISIBLE);
+                    mIvState.setImageDrawable(loadDrawable);
+                    loadDrawable.start();
                     break;
                 case STATE_STYLE.error:
-                    mIvState.setVisibility(View.VISIBLE);
                     mIvState.setImageResource(R.drawable.state_error);
                     break;
                 case STATE_STYLE.success:
-                    mIvState.setVisibility(View.VISIBLE);
                     mIvState.setImageResource(R.drawable.state_success);
                     break;
             }
