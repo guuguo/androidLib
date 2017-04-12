@@ -1,15 +1,16 @@
 package com.guuguo.android.lib;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.guuguo.android.lib.utils.Toastor;
 
-import org.reactivestreams.Subscriber;
+import java.util.LinkedList;
+import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableOnSubscribe;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
@@ -55,6 +56,5 @@ public abstract class BaseApplication extends Application {
             }
         }).subscribeOn(AndroidSchedulers.mainThread()).subscribe();
     }
-
 
 }

@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException
 import android.text.TextUtils
 import com.guuguo.android.lib.utils.NetWorkUtil
 import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
@@ -41,7 +42,6 @@ object ApiServer {
         return executeRequest(callbackL, request)
     }
 
-
     fun apiGet(httpUrl: String, hashMap: HashMap<String, String>, callbackL: LBaseCallback<*>) {
 
         val builder = Request.Builder()
@@ -49,19 +49,23 @@ object ApiServer {
         val request = builder.build()
         return executeRequest(callbackL, request)
     }
+
     private fun executeRequest(callbackL: LBaseCallback<*>, request: Request) {
         val call = mOkHttpClient.newCall(request)
-
-        return Single.just(call).map { t ->
+        return Single.create<String> { emiter ->
             if (!NetWorkUtil.isNetworkAvailable()) {
-                Single.error<String>(NetworkErrorException())
-                ""
+                emiter.onError(NetworkErrorException())
             } else {
-                t.execute().body().string()
+                try {
+                    emiter.onSuccess(call.execute().body().string())
+                } catch (e: Exception) {
+                    emiter.onError(e)
+                }
             }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callbackL)
     }
+
     /**
      * 为HttpGet请求拼接多个参数
 

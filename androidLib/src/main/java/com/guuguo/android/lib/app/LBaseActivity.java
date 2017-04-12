@@ -13,7 +13,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -40,6 +39,7 @@ import com.guuguo.android.lib.helper.ToolBarHelper;
 import com.guuguo.android.lib.utils.CommonUtil;
 import com.guuguo.android.lib.utils.FileUtil;
 import com.guuguo.android.lib.utils.MemoryLeakUtil;
+import com.guuguo.android.lib.utils.ScreenManager;
 import com.guuguo.android.lib.view.StateDialog;
 import com.guuguo.android.lib.view.WarningDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -99,6 +99,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ScreenManager.INSTANCE.pushActivity(this);
         initFromIntent(getIntent());
         if (fullScreen()) {
             int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -118,7 +119,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         clearApiCall();
         mLoadingDialog = null;
-
+        ScreenManager.INSTANCE.popActivity(this);
         MemoryLeakUtil.fixInputMethodManagerLeak(activity);
         super.onDestroy();
     }
@@ -390,10 +391,12 @@ public abstract class LBaseActivity extends AppCompatActivity {
             public void onBtnClick() {
                 finish();
 //                android.os.Process.killProcess(android.os.Process.myPid());
-                Intent home = new Intent(Intent.ACTION_MAIN);
-                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                home.addCategory(Intent.CATEGORY_HOME);
-                startActivity(home);
+//                Intent home = new Intent(Intent.ACTION_MAIN);
+//                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                home.addCategory(Intent.CATEGORY_HOME);
+//                startActivity(home);
+//                System.exit(0);
+                ScreenManager.INSTANCE.popAllActivityExceptOne(this.getClass());
                 System.exit(0);
             }
         });
