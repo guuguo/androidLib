@@ -21,9 +21,26 @@ public class DateUtil {
         return new SimpleDateFormat(format).format(dateTime);
     }
 
+    /**
+     * 获取秒为单位时间戳的离现在多久
+     *
+     * @param format
+     * @param dateTime
+     * @return
+     */
+    public static String getTimeSpanSecond(String format, long dateTime) {
+        long msTime = getS2MsDateTime(dateTime);
+        return getTimeSpan(format, msTime);
+    }
 
+    /**
+     * 获取毫秒为单位时间戳的离现在多久
+     *
+     * @param format
+     * @param dateTime
+     * @return
+     */
     public static String getTimeSpan(String format, long dateTime) {
-        dateTime = getS2MsDateTime(dateTime);
         long timeSpan = System.currentTimeMillis() - dateTime;
         timeSpan = timeSpan / 1000;
         if (timeSpan < 60)
@@ -48,7 +65,7 @@ public class DateUtil {
     }
 
     public static long getS2MsDateTime(long dateTime) {
-            return dateTime * 1000;
+        return dateTime * 1000;
     }
 
     public static long getMs2SecondDateTime(long dateTime) {
