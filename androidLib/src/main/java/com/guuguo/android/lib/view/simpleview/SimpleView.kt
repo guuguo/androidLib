@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.view
+package com.guuguo.android.lib.view.simpleview
 
 import am.drawable.DoubleCircleDrawable
 import android.content.Context

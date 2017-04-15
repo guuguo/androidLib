@@ -40,8 +40,8 @@ import com.guuguo.android.lib.utils.CommonUtil;
 import com.guuguo.android.lib.utils.FileUtil;
 import com.guuguo.android.lib.utils.MemoryLeakUtil;
 import com.guuguo.android.lib.utils.ScreenManager;
-import com.guuguo.android.lib.view.StateDialog;
-import com.guuguo.android.lib.view.WarningDialog;
+import com.guuguo.android.lib.view.dialog.StateDialog;
+import com.guuguo.android.lib.view.dialog.WarningDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;

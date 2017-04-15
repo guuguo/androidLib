@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.view;
+package com.guuguo.android.lib.view.dialog;
 
 import android.content.Context;
 import android.view.Gravity;

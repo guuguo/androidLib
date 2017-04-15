@@ -9,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
+import java.io.InterruptedIOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -58,6 +59,7 @@ object ApiServer {
             } else {
                 try {
                     emiter.onSuccess(call.execute().body().string())
+                } catch (e: InterruptedIOException) {
                 } catch (e: Exception) {
                     emiter.onError(e)
                 }
