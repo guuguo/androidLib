@@ -10,14 +10,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package com.guuguo.android.lib.view
+package com.guuguo.android.lib.view.simpleview
 
 import android.view.View
 import android.view.View.OnClickListener
 import com.guuguo.android.R
-import com.guuguo.android.R.dimen.hint
-import com.guuguo.android.lib.utils.vary.IVaryViewHelper
-import com.guuguo.android.lib.utils.vary.VaryViewHelper
+import com.guuguo.android.lib.view.simpleview.vary.IVaryViewHelper
+import com.guuguo.android.lib.view.simpleview.vary.VaryViewHelper
 
 
 /**
@@ -31,7 +30,8 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
     var simpleView: SimpleView? = null
         private set
     var isWrapContent: Boolean = true
-    constructor(view: View) : this(VaryViewHelper(view)) 
+
+    constructor(view: View) : this(VaryViewHelper(view))
 
     constructor(view: View, isWrapContent: Boolean = true) : this(VaryViewHelper(view)) {
         this.isWrapContent = isWrapContent
@@ -68,6 +68,10 @@ class SimpleViewHelper(private val helper: IVaryViewHelper) {
 
     fun showEmpty(text: String, hint: String, buttonText: String, onClickListener: OnClickListener?) {
         showImg(R.drawable.empty_cute_girl_box, text, hint, buttonText, onClickListener)
+    }
+
+    fun showWarning(text: String) {
+        showImg(R.drawable.state_warning, "", text, "", null)
     }
 
     fun showEmpty(text: String) {
