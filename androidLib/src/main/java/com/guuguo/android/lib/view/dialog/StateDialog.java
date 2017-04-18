@@ -174,7 +174,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
 
     public StateDialog content(String content) {
         mContent = content;
-        return (StateDialog) this;
+        return this;
     }
 
 
@@ -183,7 +183,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog contentTextColor(int contentTextColor) {
         mContentTextColor = contentTextColor;
-        return (StateDialog) this;
+        return this;
     }
 
     /**
@@ -191,7 +191,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog contentTextSize(float contentTextSize_SP) {
         mContentTextSize = contentTextSize_SP;
-        return (StateDialog) this;
+        return this;
     }
 
     /**
@@ -199,7 +199,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog stateStyle(int stateStyle) {
         mStateStyle = stateStyle;
-        return (StateDialog) this;
+        return this;
     }
 
     /**
@@ -207,7 +207,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog customStateRes(int imgRes) {
         mCustomStateRes = imgRes;
-        return (StateDialog) this;
+        return this;
     }
 
     /**
@@ -215,7 +215,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog cornerRadius(float cornerRadius_DP) {
         mCornerRadius = cornerRadius_DP;
-        return (StateDialog) this;
+        return this;
     }
 
     /**
@@ -223,7 +223,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
      */
     public StateDialog bgColor(int bgColor) {
         mBgColor = bgColor;
-        return (StateDialog) this;
+        return this;
     }
 
 }

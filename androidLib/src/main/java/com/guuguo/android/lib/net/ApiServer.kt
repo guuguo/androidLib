@@ -4,12 +4,10 @@ import android.accounts.NetworkErrorException
 import android.text.TextUtils
 import com.guuguo.android.lib.utils.NetWorkUtil
 import io.reactivex.Single
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
-import java.io.InterruptedIOException
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -59,9 +57,9 @@ object ApiServer {
             } else {
                 try {
                     emiter.onSuccess(call.execute().body().string())
-                } catch (e: InterruptedIOException) {
                 } catch (e: Exception) {
-                    emiter.onError(e)
+                    if (!emiter.isDisposed)
+                        emiter.onError(e)
                 }
             }
         }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
