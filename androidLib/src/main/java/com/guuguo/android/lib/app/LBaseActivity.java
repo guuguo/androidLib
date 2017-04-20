@@ -373,8 +373,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (getBackExit()) {
             exitDialog();
-
-
         } else {
             for (LBaseFragment fragment : mFragments) {
                 if (fragment.getUserVisibleHint() && fragment.onBackPressed()) {
