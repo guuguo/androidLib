@@ -48,6 +48,17 @@ public class FileUtil {
 
     }
 
+    public static void CreateFileFolder(String strFile) {
+        File file = new File(strFile);
+        if (!file.isDirectory())
+            file = file.getParentFile();
+        if (file.exists())
+            return;
+        else
+            file.mkdirs();
+
+    }
+
     public static void deleteFile(File file) {
         if (file.isFile()) {
             file.delete();

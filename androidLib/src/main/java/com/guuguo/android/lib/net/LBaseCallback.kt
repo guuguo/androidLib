@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken
 import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.utils.LogUtil
-import com.guuguo.learnsave.extension.safe
+import com.guuguo.android.lib.extension.safe
 import io.reactivex.SingleObserver
 import java.io.IOException
 import java.net.ConnectException

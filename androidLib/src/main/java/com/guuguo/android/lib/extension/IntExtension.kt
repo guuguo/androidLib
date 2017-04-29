@@ -1,4 +1,4 @@
-package com.guuguo.learnsave.extension
+package com.guuguo.android.lib.extension
 
 import android.content.Context
 import com.guuguo.android.lib.BaseApplication
