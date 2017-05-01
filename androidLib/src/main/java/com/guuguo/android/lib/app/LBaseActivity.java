@@ -433,7 +433,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, 800);
+        dialogCompleteShow(msg, listener, 800);
+    }
+
+    public void dialogCompleteShow(String msg, DialogInterface.OnDismissListener listener, int delayTime) {
+        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, delayTime);
     }
 
     public void dialogMsgShow(String msg, String btnText, final OnBtnClickL listener) {

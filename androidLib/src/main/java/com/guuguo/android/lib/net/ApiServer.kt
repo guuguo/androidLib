@@ -2,13 +2,13 @@ package com.guuguo.android.lib.net
 
 import android.accounts.NetworkErrorException
 import android.text.TextUtils
+import com.guuguo.android.lib.net.LBaseCallback.Companion.gson
 import com.guuguo.android.lib.utils.NetWorkUtil
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -17,28 +17,38 @@ import java.util.concurrent.TimeUnit
  */
 object ApiServer {
     var mOkHttpClient = OkHttpClient.Builder().connectTimeout(7, TimeUnit.SECONDS).build()
-
-    fun apiPostWithImg(httpUrl: String, imgUrls: String, hashMap: HashMap<String, String>, callbackL: LBaseCallback<*>) {
+    fun apiPost(httpUrl: String, imgUrls: String, headers: HashMap<String, String>, formBodyParams: HashMap<String, String>?, jsonBodyParams: HashMap<String, String>?, callbackL: LBaseCallback<*>) {
         val request: Request
-        if (hashMap.isNotEmpty()) {
+        val builder: Request.Builder
+        if (formBodyParams != null && formBodyParams.isNotEmpty()) {
             val lBodyBuilder = MultipartBody.Builder().setType(MultipartBody.FORM)
-            for ((key, value) in hashMap) {
+            for ((key, value) in formBodyParams) {
                 lBodyBuilder.addFormDataPart(key, value + "")
             }
             val img = File(imgUrls)
             if (!TextUtils.isEmpty(imgUrls))
                 lBodyBuilder.addFormDataPart("photo", img.name, RequestBody.create(MediaType.parse("image/png"), img))
             // mImgUrls为存放图片的url集合
-            val builder = Request.Builder()
+            builder = Request.Builder()
             builder.post(lBodyBuilder.build())
             builder.url(httpUrl)
-            request = builder.build()
         } else {
-            request = Request.Builder()
-                    .url(httpUrl)
-                    .build()
+            builder = Request.Builder()
         }
+        if (jsonBodyParams != null && jsonBodyParams.isNotEmpty())
+            builder.post(RequestBody.create(
+                    MediaType.parse("application/json; charset=UTF-8"),
+                    gson.toJson(jsonBodyParams)))// post json提交  
+        for ((key, value) in headers) {
+            builder.addHeader(key, value + "")
+        }
+        request = builder.url(httpUrl)
+                .build()
         return executeRequest(callbackL, request)
+    }
+
+    fun apiPostWithImg(httpUrl: String, imgUrls: String, hashMap: HashMap<String, String>, callbackL: LBaseCallback<*>) {
+        apiPost(httpUrl, imgUrls, HashMap(), hashMap, null, callbackL)
     }
 
     fun apiGet(httpUrl: String, hashMap: HashMap<String, String>, callbackL: LBaseCallback<*>) {

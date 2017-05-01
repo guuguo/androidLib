@@ -2,11 +2,10 @@ package com.guuguo.android.lib.net
 
 import android.accounts.NetworkErrorException
 import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
-import com.guuguo.android.lib.utils.LogUtil
 import com.guuguo.android.lib.extension.safe
+import com.guuguo.android.lib.utils.LogUtil
 import io.reactivex.SingleObserver
 import java.io.IOException
 import java.net.ConnectException
@@ -17,7 +16,7 @@ import java.net.UnknownHostException
  * guodeqing 创造于 16/6/4.
  * 项目 youku
  */
-abstract class LBaseCallback<T>(protected val dataType: TypeToken<T>) : SingleObserver <String> {
+abstract class LBaseCallback<T> : SingleObserver <String> {
 
     companion object {
         val normalDate = "yyyy-MM-dd hh:mm:ss.0"
