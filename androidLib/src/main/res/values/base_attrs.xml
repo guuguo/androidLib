@@ -2,10 +2,10 @@
 <resources>
 
 
-    <attr name="containerBackgroundLayer1" format="reference|color"></attr>
-    <attr name="containerBackgroundLayer2" format="reference|color"></attr>
-    <attr name="myTitleTextColor" format="color"></attr>
-    <attr name="mySubTitleTextColor" format="color"></attr>
+    <attr name="containerBackgroundLayer1" format="reference|color" />
+    <attr name="containerBackgroundLayer2" format="reference|color"/>
+    <attr name="myTitleTextColor" format="color"/>
+    <attr name="mySubTitleTextColor" format="color"/>
     <declare-styleable name="IconTextView">
         <attr name="typeface" format="enum">
             <enum name="material_icon" value="0"/>
