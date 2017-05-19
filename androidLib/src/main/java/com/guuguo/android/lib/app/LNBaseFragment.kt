@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.*
 
@@ -19,11 +20,12 @@ abstract class LNBaseFragment : Fragment() {
     private var isPrepare = false
     var mFirstLazyLoad = true
     protected var contentView: View? = null
-    private val mApiCalls = ArrayList<Disposable>()
+    private val mApiCalls = CompositeDisposable()
 
     protected fun addApiCall(call: Disposable?) {
-        if (call != null)
+        call?.let {
             mApiCalls.add(call)
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -45,17 +47,17 @@ abstract class LNBaseFragment : Fragment() {
     }
     /*toolbar*/
 
-    open fun getToolBar()= activity.getToolBar()
-    open fun getAppBar()= activity.getAppBar()
+    open fun getToolBar() = activity.getToolBar()
+    open fun getAppBar() = activity.getAppBar()
     open protected fun getHeaderTitle() = ""
     open protected fun isNavigationBack() = true
     open protected fun isAppbarPaddingToStatusBar() = true
     open protected fun isStatusBarTextDark() = false
 
+    /*init*/
     protected fun loadData() {}
 
     protected fun initVariable() {}
-
     protected fun initView() {}
 
     protected val menuResId: Int
@@ -87,10 +89,6 @@ abstract class LNBaseFragment : Fragment() {
     }
 
     protected fun clearApiCall() {
-        for (call in mApiCalls) {
-            if (call != null && !call.isDisposed)
-                call.dispose()
-        }
         mApiCalls.clear()
     }
 
