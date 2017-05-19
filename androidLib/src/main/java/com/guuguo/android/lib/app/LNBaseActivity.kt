@@ -59,14 +59,16 @@ abstract class LNBaseActivity : AppCompatActivity() {
      * rxJava订阅管道管理
      * @param call
      */
-    protected fun addApiCall(call: Disposable) {
-        mApiCalls.add(call)
+    protected fun addApiCall(call: Disposable?) {
+        call?.let {
+            mApiCalls.add(call)
+        }
     }
 
 
     /*onCreate*/
 
-    protected fun getLayoutResId() = R.layout.base_activity_simple_back
+    open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
     val activity = this
     open protected fun isFullScreen() = false
     private fun fullScreen(): Boolean {
@@ -112,6 +114,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
         if (isNavigationBack())
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (isNavigationBack())
             when (item.itemId) {
@@ -125,6 +128,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
 //                if (fra.onOptionsItemSelected(item)) return true
         return super.onOptionsItemSelected(item)
     }
+
     protected fun initStatusBar() {
         val appbar = getAppBar()
         if (appbar != null && isAppbarPaddingToStatusBar()) {
@@ -212,8 +216,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
     }
 
 
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         for (fragment in mFragments) {
             fragment.onActivityResult(requestCode, resultCode, data)
@@ -268,15 +270,15 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     }
 
-    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener) {
+    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?) {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1500)
     }
 
-    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener, delayTime: Int) {
+    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    @JvmOverloads fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener, delayTime: Int = 800) {
+    fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int = 800) {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
@@ -293,7 +295,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
         showDialogOnMain(normalDialog)
     }
 
-    private fun dialogStateShow(msg: String, listener: DialogInterface.OnDismissListener, stateStyle: Int, delayTime: Long) {
+    private fun dialogStateShow(msg: String, listener: DialogInterface.OnDismissListener?, stateStyle: Int, delayTime: Long) {
         val stateDialog = StateDialog(activity)
                 .stateStyle(stateStyle)
                 .content(CommonUtil.getSafeString(msg))
@@ -301,7 +303,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
         stateDialog.setCanceledOnTouchOutside(false)
         showDialogOnMain(stateDialog)
         dialogDismiss(delayTime, stateDialog, listener)
-
     }
 
     fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?) {

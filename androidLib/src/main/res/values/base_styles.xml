@@ -131,13 +131,13 @@
     <style name="under_line">
         <item name="android:background">@color/black40</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="under_line_20">
         <item name="android:background">@color/black20</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_width">match_parent</item>
     </style>
 
     <style name="vertical_line">

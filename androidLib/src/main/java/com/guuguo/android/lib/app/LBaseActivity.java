@@ -45,13 +45,13 @@ import com.guuguo.android.lib.view.dialog.WarningDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -84,7 +84,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
         activity = this;
     }
 
-    private List<Disposable> mApiCalls = new ArrayList<>();
+    private CompositeDisposable mApiCalls = new CompositeDisposable();
 
     /**
      * 管控异步网络请求.避免横竖屏切换出错
@@ -125,10 +125,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
     }
 
     protected void clearApiCall() {
-        for (Disposable call : mApiCalls) {
-            if (call != null && !call.isDisposed())
-                call.dispose();
-        }
         mApiCalls.clear();
     }
 
@@ -484,8 +480,11 @@ public abstract class LBaseActivity extends AppCompatActivity {
 
     }
 
-    public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL listener) {
+    public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL confirmListener) {
+        dialogWarningShow(msg, cancelStr, confirmStr, null, confirmListener);
+    }
 
+    public void dialogWarningShow(final String msg, final String cancelStr, final String confirmStr, final OnBtnClickL cancelListener, final OnBtnClickL confirmListener) {
         if (myApplication.isMaterial) {
             AlertDialog alertDialog = new AlertDialog.Builder(activity)
                     .setMessage(msg)
@@ -493,13 +492,15 @@ public abstract class LBaseActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
-                            if (listener != null)
-                                listener.onBtnClick();
+                            if (confirmListener != null)
+                                confirmListener.onBtnClick();
                         }
                     }).setNegativeButton(cancelStr, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
+                            if (cancelListener != null)
+                                cancelListener.onBtnClick();
                         }
                     })
                     .create();
@@ -512,12 +513,19 @@ public abstract class LBaseActivity extends AppCompatActivity {
                     .btnText(cancelStr, confirmStr);
             normalDialog.setCanceledOnTouchOutside(false);
 
-            normalDialog.setOnBtnClickL(null, new OnBtnClickL() {
+            normalDialog.setOnBtnClickL(new OnBtnClickL() {
                 @Override
                 public void onBtnClick() {
                     normalDialog.dismiss();
-                    if (listener != null)
-                        listener.onBtnClick();
+                    if (cancelListener != null)
+                        cancelListener.onBtnClick();
+                }
+            }, new OnBtnClickL() {
+                @Override
+                public void onBtnClick() {
+                    normalDialog.dismiss();
+                    if (confirmListener != null)
+                        confirmListener.onBtnClick();
                 }
             });
             showDialogOnMain(normalDialog);

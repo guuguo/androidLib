@@ -9,6 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -66,7 +67,7 @@ object ApiServer {
                 emiter.onError(NetworkErrorException())
             } else {
                 try {
-                    emiter.onSuccess(call.execute().body().string())
+                    emiter.onSuccess(call.execute().body()!!.string())
                 } catch (e: Exception) {
                     if (!emiter.isDisposed)
                         emiter.onError(e)

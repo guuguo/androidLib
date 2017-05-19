@@ -123,14 +123,16 @@ class SimpleView {
             mLLLayout.layoutParams = params
         }
 
+        mImg.visibility=View.VISIBLE
         /**loading */
         if (mStyle == STYLE.loading) {
             mImg.setImageDrawable(drawable)
             drawable.start()
-            isIconShow = false
         } else if (isIconShow) {
             /**icon */
             mImg.setImageResource(mIconRes)
+        }else{
+            mImg.visibility=View.GONE
         }
 
         /**button */

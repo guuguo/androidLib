@@ -1,6 +1,5 @@
 package com.guuguo.android.lib.utils
 
-import android.provider.SyncStateContract
 import com.orhanobut.logger.Logger
 
 /**
@@ -12,11 +11,14 @@ object LogUtil {
     val NONE = com.orhanobut.logger.LogLevel.NONE
 
     fun init(tag: String, debug: Boolean) {
-        Logger.init(tag)                 // default PRETTYLOGGER or use just init()
+      val setting=  Logger.init(tag)                 // default PRETTYLOGGER or use just init()
                 .methodCount(2)                 // default 2
                 .hideThreadInfo()               // default shown
-                .logLevel(FULL)        // default LogLevel.FULL
                 .methodOffset(0) //default AndroidLogAdapter
+        if (debug)
+            setting.logLevel(FULL)        // default LogLevel.FULL
+        else
+            setting.logLevel(NONE)        // default LogLevel.FULL
     }
 
     fun i(info: String) {

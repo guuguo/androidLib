@@ -2,18 +2,10 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
-import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
-
-import java.util.ArrayList
-
+import android.view.*
 import io.reactivex.disposables.Disposable
+import java.util.*
 
 
 /**
@@ -43,23 +35,28 @@ abstract class LNBaseFragment : Fragment() {
         activity = getActivity() as LNBaseActivity
         initView()
         loadData()
-        activity.supportActionBar?.setTitle(headerTitle)
-        //如果可见 懒加载
+        activity.supportActionBar?.setTitle(getHeaderTitle())
+        //如果准备好 懒加载
         isPrepare = true
         if (userVisibleHint) {
             lazyLoad()
             mFirstLazyLoad = false
         }
     }
+    /*toolbar*/
+
+    open fun getToolBar()= activity.getToolBar()
+    open fun getAppBar()= activity.getAppBar()
+    open protected fun getHeaderTitle() = ""
+    open protected fun isNavigationBack() = true
+    open protected fun isAppbarPaddingToStatusBar() = true
+    open protected fun isStatusBarTextDark() = false
 
     protected fun loadData() {}
 
     protected fun initVariable() {}
 
     protected fun initView() {}
-
-    protected val headerTitle: String?
-        get() = null
 
     protected val menuResId: Int
         get() = 0
@@ -114,12 +111,7 @@ abstract class LNBaseFragment : Fragment() {
             mFirstLazyLoad = false
         }
     }
-
-    val toolbar: Toolbar
-        get() = activity.getToolBar()
-
-    val appbar: AppBarLayout
-        get() = activity.getAppBar()
+//
 
     /**
      * 返回动作,如果返回true,捕捉了返回动作
