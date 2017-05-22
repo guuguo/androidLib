@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.view.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import java.util.*
 
 
 /**
@@ -16,6 +15,7 @@ abstract class LNBaseFragment : Fragment() {
 
     protected val TAG = this.javaClass.simpleName
     protected lateinit var activity: LNBaseActivity
+    protected abstract fun getLayoutResId(): Int
 
     private var isPrepare = false
     var mFirstLazyLoad = true
@@ -26,6 +26,10 @@ abstract class LNBaseFragment : Fragment() {
         call?.let {
             mApiCalls.add(call)
         }
+    }
+
+    open protected fun setLayoutResId(inflater: LayoutInflater?, resId: Int, container: ViewGroup?) {
+        contentView = inflater!!.inflate(resId, container, false)
     }
 
     override fun onAttach(context: Context?) {
@@ -60,14 +64,13 @@ abstract class LNBaseFragment : Fragment() {
     protected fun initVariable() {}
     protected fun initView() {}
 
-    protected val menuResId: Int
-        get() = 0
+    open protected val menuResId = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
         initVariable()
         if (contentView == null) {
-            contentView = inflater!!.inflate(layoutResId, container, false)
+            setLayoutResId(inflater, getLayoutResId(), container)
         }
         return contentView
     }
@@ -122,7 +125,6 @@ abstract class LNBaseFragment : Fragment() {
 
     fun lazyLoad() {}
 
-    protected abstract val layoutResId: Int
 
     val isFullScreen: Boolean
         get() = false

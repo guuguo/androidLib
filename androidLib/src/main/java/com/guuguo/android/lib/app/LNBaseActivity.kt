@@ -34,7 +34,6 @@ import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -50,7 +49,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
     private var mLoadingDialog: StateDialog? = null
     /*fragment*/
 
-    protected var mFragments = ArrayList<LNBaseFragment>()
     private var mFragment: LNBaseFragment? = null
 
     private val mApiCalls = CompositeDisposable()
@@ -70,9 +68,9 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
     val activity = this
-    open protected fun isFullScreen() = false
+    open protected val isFullScreen = false
     private fun fullScreen(): Boolean {
-        return isFullScreen() || mFragment != null && mFragment!!.isFullScreen
+        return isFullScreen || mFragment != null && mFragment!!.isFullScreen
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,8 +92,12 @@ abstract class LNBaseActivity : AppCompatActivity() {
             window.setFlags(flag, flag)
         }
 
-        setContentView(getLayoutResId())
+        setLayoutResId(getLayoutResId())
         init(savedInstanceState)
+    }
+
+    open protected fun setLayoutResId(layoutResId: Int) {
+        setContentView(layoutResId)
     }
 
     /*toolbar*/
@@ -164,7 +166,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
             val trans = supportFragmentManager.beginTransaction()
             trans.replace(R.id.content, mFragment)
             trans.commitAllowingStateLoss()
-            mFragments.add(mFragment!!)
+//            mFragments.add(mFragment!!)
         }
         initVariable(savedInstanceState)
         initToolBar()
@@ -216,23 +218,23 @@ abstract class LNBaseActivity : AppCompatActivity() {
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        for (fragment in mFragments) {
-            fragment.onActivityResult(requestCode, resultCode, data)
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+//        for (fragment in mFragments) {
+//            fragment.onActivityResult(requestCode, resultCode, data)
+//        }
+//        super.onActivityResult(requestCode, resultCode, data)
+//    }
 
 
     override fun onBackPressed() {
         if (backExit) {
             exitDialog()
         } else {
-            for (fragment in mFragments) {
-                if (fragment.userVisibleHint && fragment.onBackPressed()) {
-                    return
-                }
-            }
+//            for (fragment in mFragments) {
+//                if (fragment.userVisibleHint && fragment.onBackPressed()) {
+//                    return
+//                }
+//            }
             super.onBackPressed()
         }
     }
