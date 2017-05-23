@@ -124,7 +124,7 @@ public class NetWorkUtil {
     public static final boolean isWifiEnabled() {
         boolean wifiState = false;
 
-        WifiManager wifiManager = (WifiManager) BaseApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager) BaseApplication.get().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager != null) {
             wifiState = wifiManager.isWifiEnabled();
         }
@@ -139,9 +139,9 @@ public class NetWorkUtil {
     @SuppressWarnings("MissingPermission")
     public static final boolean isNetworkAvailable() {
 
-        if (CommonUtil.hasPermission(BaseApplication.getInstance(), Manifest.permission.INTERNET)
-                && CommonUtil.hasPermission(BaseApplication.getInstance(), Manifest.permission.ACCESS_NETWORK_STATE)) {
-            ConnectivityManager cm = (ConnectivityManager) BaseApplication.getInstance().getApplicationContext()
+        if (CommonUtil.hasPermission(BaseApplication.get(), Manifest.permission.INTERNET)
+                && CommonUtil.hasPermission(BaseApplication.get(), Manifest.permission.ACCESS_NETWORK_STATE)) {
+            ConnectivityManager cm = (ConnectivityManager) BaseApplication.get().getApplicationContext()
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             return netInfo != null && netInfo.isConnected();
@@ -210,9 +210,9 @@ public class NetWorkUtil {
     @SuppressWarnings("MissingPermission")
     public static final int getNetworkType() {
         int result = UNKNOWN;
-        if (CommonUtil.hasPermission(BaseApplication.getInstance(), Manifest.permission.ACCESS_NETWORK_STATE)) {
+        if (CommonUtil.hasPermission(BaseApplication.get(), Manifest.permission.ACCESS_NETWORK_STATE)) {
             ConnectivityManager cm =
-                    (ConnectivityManager) BaseApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    (ConnectivityManager) BaseApplication.get().getSystemService(Context.CONNECTIVITY_SERVICE);
 
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             if (activeNetwork == null) {
@@ -222,7 +222,7 @@ public class NetWorkUtil {
                 result = WIFI_WIFIMAX;
             } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
                 TelephonyManager manager =
-                        (TelephonyManager) BaseApplication.getInstance().getSystemService(Context.TELEPHONY_SERVICE);
+                        (TelephonyManager) BaseApplication.get().getSystemService(Context.TELEPHONY_SERVICE);
                 if (manager.getSimState() == TelephonyManager.SIM_STATE_READY) {
                     switch (manager.getNetworkType()) {
 
@@ -272,7 +272,7 @@ public class NetWorkUtil {
     @SuppressWarnings("MissingPermission")
     public static final String getWifiMAC() {
         String result = "02:00:00:00:00:00";
-        if (CommonUtil.hasPermission(BaseApplication.getInstance(), Manifest.permission.ACCESS_WIFI_STATE)) {
+        if (CommonUtil.hasPermission(BaseApplication.get(), Manifest.permission.ACCESS_WIFI_STATE)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // Hardware ID are restricted in Android 6+
                 // https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
@@ -305,7 +305,7 @@ public class NetWorkUtil {
                     result = wifiInterfaceName.equals(networkInterface.getName()) ? mac : result;
                 }
             } else {
-                WifiManager wm = (WifiManager) BaseApplication.getInstance().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiManager wm = (WifiManager) BaseApplication.get().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 result = wm.getConnectionInfo().getMacAddress();
             }
         }

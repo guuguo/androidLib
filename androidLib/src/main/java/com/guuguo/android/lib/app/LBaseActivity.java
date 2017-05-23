@@ -74,7 +74,7 @@ public abstract class LBaseActivity extends AppCompatActivity {
     private int defaultToolBarView = R.layout.base_toolbar_common;
     private int forceToolBarView = 0;
 
-    private BaseApplication myApplication = BaseApplication.getInstance();
+    private BaseApplication myApplication = BaseApplication.get();
     protected LBaseActivity activity;
     private boolean mIsHidden = false;
     private StateDialog mLoadingDialog;

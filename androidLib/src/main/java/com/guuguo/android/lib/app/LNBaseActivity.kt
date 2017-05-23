@@ -45,7 +45,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
     /*setting*/
     open protected val backExit = false
 
-    private val myApplication = BaseApplication.getInstance()
+    private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null
     /*fragment*/
 
@@ -57,7 +57,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
      * rxJava订阅管道管理
      * @param call
      */
-    protected fun addApiCall(call: Disposable?) {
+    fun addApiCall(call: Disposable?) {
         call?.let {
             mApiCalls.add(call)
         }

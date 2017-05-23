@@ -1,12 +1,8 @@
 package com.guuguo.android.lib;
 
-import android.app.Activity;
 import android.app.Application;
 
 import com.guuguo.android.lib.utils.Toastor;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
@@ -23,7 +19,7 @@ public abstract class BaseApplication extends Application {
     public Toastor toastor;
     public boolean isMaterial = false;
 
-    public static BaseApplication getInstance() {
+    public static BaseApplication get() {
         return INSTANCE;
     }
 

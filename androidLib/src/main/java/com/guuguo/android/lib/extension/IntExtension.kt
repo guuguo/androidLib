@@ -9,11 +9,11 @@ import com.guuguo.android.lib.BaseApplication
 
 
 fun Int.pxToDp(): Int {
-    return (this / BaseApplication.getInstance().resources.displayMetrics.density + 0.5f).toInt()
+    return (this / BaseApplication.get().resources.displayMetrics.density + 0.5f).toInt()
 }
 
 fun Int.dpToPx(): Int {
-    return (this * BaseApplication.getInstance().resources.displayMetrics.density + 0.5f).toInt()
+    return (this * BaseApplication.get().resources.displayMetrics.density + 0.5f).toInt()
 }
 
 @Deprecated("已经过时了", ReplaceWith("dpToPx()"))

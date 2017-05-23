@@ -21,7 +21,7 @@ public class DisplayUtil {
 
     public static float getDensity() {
         if (density <= 0F) {
-            density = BaseApplication.getInstance().getResources().getDisplayMetrics().density;
+            density = BaseApplication.get().getResources().getDisplayMetrics().density;
         }
         return density;
     }
@@ -45,7 +45,7 @@ public class DisplayUtil {
 
     public static int getScreenWidth() {
         if (screenWidthPixels <= 0) {
-            screenWidthPixels = BaseApplication.getInstance().getResources().getDisplayMetrics().widthPixels;
+            screenWidthPixels = BaseApplication.get().getResources().getDisplayMetrics().widthPixels;
         }
         return screenWidthPixels;
     }
@@ -53,7 +53,7 @@ public class DisplayUtil {
 
     public static int getScreenHeight() {
         if (screenHeightPixels <= 0) {
-            screenHeightPixels = BaseApplication.getInstance().getResources().getDisplayMetrics().heightPixels;
+            screenHeightPixels = BaseApplication.get().getResources().getDisplayMetrics().heightPixels;
         }
         return screenHeightPixels;
     }

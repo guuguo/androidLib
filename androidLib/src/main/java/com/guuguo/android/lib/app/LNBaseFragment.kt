@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable
 abstract class LNBaseFragment : Fragment() {
 
     protected val TAG = this.javaClass.simpleName
-    protected lateinit var activity: LNBaseActivity
+    lateinit var activity: LNBaseActivity
     protected abstract fun getLayoutResId(): Int
 
     private var isPrepare = false
@@ -28,8 +28,8 @@ abstract class LNBaseFragment : Fragment() {
         }
     }
 
-    open protected fun setLayoutResId(inflater: LayoutInflater?, resId: Int, container: ViewGroup?) {
-        contentView = inflater!!.inflate(resId, container, false)
+    open protected fun setLayoutResId(inflater: LayoutInflater?, resId: Int, container: ViewGroup?): View {
+        return inflater!!.inflate(resId, container, false)
     }
 
     override fun onAttach(context: Context?) {
@@ -59,18 +59,18 @@ abstract class LNBaseFragment : Fragment() {
     open protected fun isStatusBarTextDark() = false
 
     /*init*/
-    protected fun loadData() {}
+    open protected fun loadData() {}
 
-    protected fun initVariable() {}
-    protected fun initView() {}
+    open protected fun initVariable(savedInstanceState: Bundle?) {}
+    open protected fun initView() {}
 
     open protected val menuResId = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
-        initVariable()
+        initVariable(savedInstanceState)
         if (contentView == null) {
-            setLayoutResId(inflater, getLayoutResId(), container)
+            contentView = setLayoutResId(inflater, getLayoutResId(), container)
         }
         return contentView
     }
