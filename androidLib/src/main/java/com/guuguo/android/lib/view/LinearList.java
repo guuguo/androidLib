@@ -90,7 +90,7 @@ public class LinearList extends LinearLayout {
             ArrayList<LinearLayout> llList = new ArrayList<>();
 
             for (int col = 0; col < columnNum; col++) {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LayoutParams.WRAP_CONTENT);
                 params.weight = 1;
 
                 LinearLayout linearLayout = new LinearLayout(getContext());

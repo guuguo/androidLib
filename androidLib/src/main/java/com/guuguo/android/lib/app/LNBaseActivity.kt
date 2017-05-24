@@ -42,9 +42,6 @@ import java.util.concurrent.TimeUnit
  */
 abstract class LNBaseActivity : AppCompatActivity() {
 
-    /*setting*/
-    open protected val backExit = false
-
     private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null
     /*fragment*/
@@ -69,6 +66,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
     open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
     val activity = this
     open protected val isFullScreen = false
+    open protected val isBackExit = false
     private fun fullScreen(): Boolean {
         return isFullScreen || mFragment != null && mFragment!!.isFullScreen
     }
@@ -227,14 +225,9 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if (backExit) {
+        if (isBackExit) {
             exitDialog()
         } else {
-//            for (fragment in mFragments) {
-//                if (fragment.userVisibleHint && fragment.onBackPressed()) {
-//                    return
-//                }
-//            }
             super.onBackPressed()
         }
     }
