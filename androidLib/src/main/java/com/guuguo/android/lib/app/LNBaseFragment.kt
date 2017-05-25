@@ -41,7 +41,7 @@ abstract class LNBaseFragment : Fragment() {
         activity = getActivity() as LNBaseActivity
         initView()
         loadData()
-        activity.supportActionBar?.setTitle(getHeaderTitle())
+        activity.title=getHeaderTitle()
         //如果准备好 懒加载
         isPrepare = true
         if (userVisibleHint) {
@@ -52,7 +52,7 @@ abstract class LNBaseFragment : Fragment() {
     /*toolbar*/
 
     open fun getToolBar() = activity.getToolBar()
-    open fun getAppBar() = activity.getAppBar()
+//    open fun getAppBar() = activity.getAppBar()
     open protected fun getHeaderTitle() = ""
     open protected fun isNavigationBack() = true
     open protected fun isAppbarPaddingToStatusBar() = true
