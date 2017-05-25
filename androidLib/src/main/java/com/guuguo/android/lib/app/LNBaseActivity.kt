@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -102,7 +103,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     open protected fun getHeaderTitle() = ""
     open fun getToolBar(): Toolbar? = null
-//    open fun getAppBar(): AppBarLayout? = null
+    open fun getAppBar(): AppBarLayout? = null
     open protected fun isNavigationBack() = true
     open protected fun isAppbarPaddingToStatusBar() = true
     open protected fun isStatusBarTextDark() = false
@@ -141,7 +142,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
 //            SystemBarHelper.setPadding(this, getAppBar())
 //        }
 //      
-        SystemBarHelper.tintStatusBar(activity,ContextCompat.getColor(activity,R.color.colorPrimary),0f)
+        SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
         if (isStatusBarTextDark()) {
             SystemBarHelper.setStatusBarDarkMode(activity)
         }
