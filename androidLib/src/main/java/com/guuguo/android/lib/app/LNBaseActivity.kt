@@ -14,10 +14,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.WindowManager
+import android.view.*
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalListDialog
 import com.flyco.systembar.SystemBarHelper
@@ -47,7 +44,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
     private var mLoadingDialog: StateDialog? = null
     /*fragment*/
 
-    private var mFragment: LNBaseFragment? = null
+    var mFragment: LNBaseFragment? = null
 
     private val mApiCalls = CompositeDisposable()
 
@@ -101,9 +98,8 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     /*toolbar*/
 
-    open protected fun getHeaderTitle() = ""
     open fun getToolBar(): Toolbar? = null
-    open fun getAppBar(): AppBarLayout? = null
+    open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = true
     open protected fun isAppbarPaddingToStatusBar() = true
     open protected fun isStatusBarTextDark() = false
@@ -111,15 +107,10 @@ abstract class LNBaseActivity : AppCompatActivity() {
     open protected fun initToolBar() {
         val toolBar = getToolBar()
         setSupportActionBar(toolBar)
-        setTitle(getHeaderTitle())
-
         if (isNavigationBack())
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun setTitle(title: CharSequence?) {
-        supportActionBar?.title = getHeaderTitle()
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (isNavigationBack())
@@ -129,36 +120,35 @@ abstract class LNBaseActivity : AppCompatActivity() {
                     return true
                 }
             }
-//        if (mFragments.size > 0)
-//            for (fra in mFragments)
-//                if (fra.onOptionsItemSelected(item)) return true
+        mFragment?.let {
+            if (mFragment?.onOptionsItemSelected(item)!!)
+                return true
+        }
         return super.onOptionsItemSelected(item)
     }
 
-    protected fun initStatusBar() {
-//        val appbar = getAppBar()
-//        if (appbar != null && isAppbarPaddingToStatusBar()) {
-//            SystemBarHelper.immersiveStatusBar(this, 0f)
-//            SystemBarHelper.setPadding(this, getAppBar())
-//        }
-//      
+    open protected fun initStatusBar() {
         SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
         if (isStatusBarTextDark()) {
             SystemBarHelper.setStatusBarDarkMode(activity)
         }
     }
 
-    /*menu*/
+    /*menu and title*/
+
+    open protected fun getHeaderTitle() = ""
+    override fun setTitle(title: CharSequence?) {
+        supportActionBar?.title = title
+    }
 
     open protected fun getMenuResId() = 0
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        title = getHeaderTitle()
         val res = getMenuResId()
         if (res != 0)
             menuInflater.inflate(res, menu)
 
-//        if (mFragments.size > 0)
-//            for (fra in mFragments)
-//                fra.onCreateOptionsMenu(menu, menuInflater)
+        mFragment?.onCreateOptionsMenu(menu, menuInflater)
         return super.onCreateOptionsMenu(menu)
     }
 

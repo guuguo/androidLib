@@ -3,6 +3,7 @@ package com.guuguo.android.lib.app
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.Toolbar
 import android.view.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -39,9 +40,10 @@ abstract class LNBaseFragment : Fragment() {
 
     protected fun init(view: View) {
         activity = getActivity() as LNBaseActivity
+
+        initToolbar()
         initView()
         loadData()
-        activity.title=getHeaderTitle()
         //如果准备好 懒加载
         isPrepare = true
         if (userVisibleHint) {
@@ -49,22 +51,23 @@ abstract class LNBaseFragment : Fragment() {
             mFirstLazyLoad = false
         }
     }
+
+
     /*toolbar*/
 
-    open fun getToolBar() = activity.getToolBar()
-//    open fun getAppBar() = activity.getAppBar()
-    open protected fun getHeaderTitle() = ""
-    open protected fun isNavigationBack() = true
-    open protected fun isAppbarPaddingToStatusBar() = true
-    open protected fun isStatusBarTextDark() = false
+    open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
+    private fun initToolbar() {
+        getToolBar()?.let {
+            activity.setSupportActionBar(getToolBar()!!)
+        }
+    }
 
     /*init*/
-    open protected fun loadData() {}
 
+    open protected fun loadData() {}
     open protected fun initVariable(savedInstanceState: Bundle?) {}
     open protected fun initView() {}
-
-    open protected val menuResId = 0
+    open protected fun getMenuResId() = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
@@ -74,11 +77,18 @@ abstract class LNBaseFragment : Fragment() {
         }
         return contentView
     }
+    /*menu and title*/
 
+    open protected fun getHeaderTitle() = ""
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        if (menuResId != 0)
-            inflater!!.inflate(menuResId, menu)
+        setTitle(getHeaderTitle())
+        if (getMenuResId() != 0)
+            inflater!!.inflate(getMenuResId(), menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    protected open fun setTitle(title:String) {
+        activity.title = title
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -123,7 +133,10 @@ abstract class LNBaseFragment : Fragment() {
         return false
     }
 
-    fun lazyLoad() {}
+    open fun lazyLoad() {
+        activity.mFragment = this
+        activity.invalidateOptionsMenu()
+    }
 
 
     val isFullScreen: Boolean
