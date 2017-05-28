@@ -8,7 +8,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -82,15 +81,26 @@ abstract class LNBaseActivity : AppCompatActivity() {
             return
         }
 
-        if (fullScreen()) {
-            val flag = WindowManager.LayoutParams.FLAG_FULLSCREEN
-            val window = this.window
-            window.setFlags(flag, flag)
-        }
+        setFullScreen(fullScreen())
 
         setLayoutResId(getLayoutResId())
         init(savedInstanceState)
     }
+
+    fun setFullScreen(boolean: Boolean) {
+        if (boolean) {
+            val params = window.attributes;
+            params.flags = params.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            window.attributes = params;
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {
+            val params = window.attributes;
+            params.flags = params.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
+            window.attributes = params;
+            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+    }
+
 
     open protected fun setLayoutResId(layoutResId: Int) {
         setContentView(layoutResId)
@@ -152,6 +162,11 @@ abstract class LNBaseActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        mFragment?.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     /*init*/
 
     open protected fun initVariable(savedInstanceState: Bundle?) {}
@@ -162,7 +177,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
             val trans = supportFragmentManager.beginTransaction()
             trans.replace(R.id.content, mFragment)
             trans.commitAllowingStateLoss()
-//            mFragments.add(mFragment!!)
         }
         initVariable(savedInstanceState)
         initToolBar()
@@ -213,15 +227,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     }
 
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-//        for (fragment in mFragments) {
-//            fragment.onActivityResult(requestCode, resultCode, data)
-//        }
-//        super.onActivityResult(requestCode, resultCode, data)
-//    }
-
-
     override fun onBackPressed() {
         if (isBackExit) {
             exitDialog()
@@ -234,12 +239,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
         dialogWarningShow("确定退出软件？", "取消", "确定", object : OnBtnClickL {
             override fun onBtnClick() {
                 finish()
-                //                android.os.Process.killProcess(android.os.Process.myPid());
-                //                Intent home = new Intent(Intent.ACTION_MAIN);
-                //                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //                home.addCategory(Intent.CATEGORY_HOME);
-                //                startActivity(home);
-                //                System.exit(0);
                 ScreenManager.popAllActivityExceptOne(this.javaClass)
                 System.exit(0)
             }

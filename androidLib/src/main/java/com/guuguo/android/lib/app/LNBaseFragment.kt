@@ -56,10 +56,11 @@ abstract class LNBaseFragment : Fragment() {
     /*toolbar*/
 
     open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
-    private fun initToolbar() {
+    open protected fun initToolbar() {
         getToolBar()?.let {
             activity.setSupportActionBar(getToolBar()!!)
         }
+        setTitle(getHeaderTitle())
     }
 
     /*init*/
@@ -81,13 +82,12 @@ abstract class LNBaseFragment : Fragment() {
 
     open protected fun getHeaderTitle() = ""
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        setTitle(getHeaderTitle())
         if (getMenuResId() != 0)
             inflater!!.inflate(getMenuResId(), menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    protected open fun setTitle(title:String) {
+    protected open fun setTitle(title: String) {
         activity.title = title
     }
 
@@ -135,7 +135,6 @@ abstract class LNBaseFragment : Fragment() {
 
     open fun lazyLoad() {
         activity.mFragment = this
-        activity.invalidateOptionsMenu()
     }
 
 
