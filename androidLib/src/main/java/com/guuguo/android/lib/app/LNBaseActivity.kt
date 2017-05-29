@@ -119,6 +119,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
         setSupportActionBar(toolBar)
         if (isNavigationBack())
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title = getHeaderTitle()
     }
 
 
@@ -153,7 +154,6 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     open protected fun getMenuResId() = 0
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        title = getHeaderTitle()
         val res = getMenuResId()
         if (res != 0)
             menuInflater.inflate(res, menu)
