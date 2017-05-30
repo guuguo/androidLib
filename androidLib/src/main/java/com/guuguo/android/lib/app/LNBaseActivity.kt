@@ -231,19 +231,25 @@ abstract class LNBaseActivity : AppCompatActivity() {
         if (isBackExit) {
             exitDialog()
         } else {
-            super.onBackPressed()
+            if (mFragment != null && mFragment!!.onBackPressed())
+            else
+                super.onBackPressed()
         }
     }
 
     fun exitDialog() {
         dialogWarningShow("确定退出软件？", "取消", "确定", object : OnBtnClickL {
             override fun onBtnClick() {
-                finish()
-                ScreenManager.popAllActivityExceptOne(this.javaClass)
-                System.exit(0)
+                exit()
             }
         })
 
+    }
+
+    fun exit() {
+        ScreenManager.popAllActivityExceptOne(this.javaClass)
+//        finish()
+//        System.exit(0)
     }
 
     @JvmOverloads fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {

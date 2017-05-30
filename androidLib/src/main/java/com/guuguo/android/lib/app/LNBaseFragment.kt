@@ -129,7 +129,7 @@ abstract class LNBaseFragment : Fragment() {
 
      * @return
      */
-    fun onBackPressed(): Boolean {
+    open fun onBackPressed(): Boolean {
         return false
     }
 

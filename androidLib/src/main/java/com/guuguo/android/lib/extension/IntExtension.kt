@@ -16,6 +16,12 @@ fun Int.dpToPx(): Int {
     return (this * BaseApplication.get().resources.displayMetrics.density + 0.5f).toInt()
 }
 
+fun Int?.safe(): Int {
+    if (this == null)
+        return 0
+    else return this
+}
+
 @Deprecated("已经过时了", ReplaceWith("dpToPx()"))
 fun Int.pxToDp(context: Context): Int {
     return (this / context.resources.displayMetrics.density + 0.5f).toInt()

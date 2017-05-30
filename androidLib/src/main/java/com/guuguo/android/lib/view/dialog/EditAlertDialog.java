@@ -1,11 +1,14 @@
 package com.guuguo.android.lib.view.dialog;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.guuguo.android.R;
 
 /**
  * Created by guodeqing on 6/23/16.
@@ -17,6 +20,7 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
     private EditText mEditTextView;
     private String mEditText;
     private int mInputType = -1;
+    private String mHint = "";
 
 
     public EditAlertDialog(Context context) {
@@ -30,6 +34,7 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
 
         /** EditText */
         mEditTextView = new EditText(mContext);
+        mEditTextView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_edittext));
         mEditTextView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, dp2px(45)));
         mContentLayout.addView(mEditTextView);
 
@@ -50,6 +55,9 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
         if (mInputType != -1) {
             mEditTextView.setInputType(mInputType);
         }
+        if (!mHint.isEmpty()) {
+            mEditTextView.setHint(mHint);
+        }
 
     }
 
@@ -61,13 +69,23 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
         return this;
     }
 
-    public void setInputType(int inputType) {
-        mInputType = inputType;
+    public EditAlertDialog setInputType(int inputType) {
+        this.mInputType = inputType;
+        return this;
+    }
+
+    public EditAlertDialog setHint(String hint) {
+        this.mHint = hint;
+        return this;
     }
 
     public void setEditText(String editText) {
-        mEditText = editText;
-        ;
+        this.mEditText = editText;
+    }
+
+    public void setError(String error) {
+        if (mEditTextView != null)
+            mEditTextView.setError(error);
     }
 
     public String getEditText() {

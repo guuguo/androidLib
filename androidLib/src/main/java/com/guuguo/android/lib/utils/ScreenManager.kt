@@ -18,6 +18,7 @@ object ScreenManager {
             activity.finish()
             activityStack.remove(activity)
         }
+        
     }
 
     //获得当前栈顶Activity
@@ -38,9 +39,6 @@ object ScreenManager {
     fun popAllActivityExceptOne(cls: Class<*>) {
         while (true) {
             val activity = currentActivity() ?: break
-            if (activity.javaClass == cls) {
-                break
-            }
             popActivity(activity)
         }
     }

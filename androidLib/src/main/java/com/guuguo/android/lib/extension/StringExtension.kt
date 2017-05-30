@@ -18,7 +18,8 @@ fun String?.empty(): Boolean {
     else return this.isEmpty();
 }
 
-fun String?.toast() {
+fun String?.toast(): String? {
     if (!isNullOrEmpty())
         BaseApplication.get().toast(this)
+    return this
 }
