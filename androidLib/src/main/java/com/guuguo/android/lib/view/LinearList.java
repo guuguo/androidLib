@@ -69,8 +69,21 @@ public class LinearList extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (observer != null && adapter != null)
+        if (adapter != null)
             adapter.unregisterAdapterDataObserver(observer);
+    }
+
+    public View getItemView(int position) {
+        if (position < 0)
+            position = 0;
+        if (position >= adapter.getItemCount())
+            throw new IndexOutOfBoundsException("position不在范围内");
+        if (columnNum <= 1)
+            return getChildAt(position);
+        else {
+            LinearLayout ll = (LinearLayout) getChildAt(position % columnNum);
+            return ll.getChildAt(position / columnNum);
+        }
     }
 
     private void refreshView(RecyclerView.Adapter adapter) {
@@ -80,7 +93,7 @@ public class LinearList extends LinearLayout {
             int i = 0;
             while (i < adapter.getItemCount()) {
                 RecyclerView.ViewHolder holder = adapter.createViewHolder(this, adapter.getItemViewType(i));
-                initHolderListener(holder, i);
+//                initHolderListener(holder, i);
                 adapter.bindViewHolder(holder, i);
                 this.addView(holder.itemView);
                 i++;
@@ -110,7 +123,7 @@ public class LinearList extends LinearLayout {
                     if (i < adapter.getItemCount()) {
 
                         RecyclerView.ViewHolder holder = adapter.createViewHolder(this, adapter.getItemViewType(i));
-                        initHolderListener(holder, i);
+//                        initHolderListener(holder, i);
                         adapter.bindViewHolder(holder, i);
                         if (i >= llList.size()) {
                             LinearLayout.LayoutParams param = ((LinearLayout.LayoutParams) holder.itemView.getLayoutParams());
@@ -125,27 +138,28 @@ public class LinearList extends LinearLayout {
         }
     }
 
-    public void setHolderListener(HolderListener holderListener) {
-        this.holderListener = holderListener;
-    }
-
-    public interface HolderListener {
-        void itemClick(int position);
-    }
-
-    private HolderListener holderListener;
-
-    private void initHolderListener(RecyclerView.ViewHolder holder, final int position) {
-
-        if (holderListener != null)
-            holder.itemView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holderListener.itemClick(position);
-                }
-            });
-
-    }
+//    public void setHolderListener(HolderListener holderListener) {
+//        this.holderListener = holderListener;
+//    }
+//
+//
+//    public interface HolderListener {
+//        void itemClick(int position);
+//    }
+//
+//    private HolderListener holderListener;
+//
+//    private void initHolderListener(RecyclerView.ViewHolder holder, final int position) {
+//
+//        if (holderListener != null)
+//            holder.itemView.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holderListener.itemClick(position);
+//                }
+//            });
+//
+//    }
 
 
     public void setDivideWidth(int divideWidth) {
