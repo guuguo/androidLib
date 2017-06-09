@@ -2,17 +2,17 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.*
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import me.yokeyword.fragmentation.SupportFragment
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseFragment : Fragment() {
+abstract class LNBaseFragment : SupportFragment() {
 
     protected val TAG = this.javaClass.simpleName
     lateinit var activity: LNBaseActivity

@@ -9,11 +9,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalListDialog
 import com.flyco.systembar.SystemBarHelper
@@ -31,13 +31,14 @@ import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import me.yokeyword.fragmentation.SupportActivity
 import java.util.concurrent.TimeUnit
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseActivity : AppCompatActivity() {
+abstract class LNBaseActivity : SupportActivity() {
 
     private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null
@@ -59,11 +60,19 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
 
     /*onCreate*/
+    val BACK_DEFAULT = 0
+    val BACK_DIALOG_CONFIRM = 1
+    val BACK_WAIT_TIME = 2
+
 
     open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
     val activity = this
     open protected val isFullScreen = false
-    open protected val isBackExit = false
+    open protected val backExitStyle = BACK_DEFAULT
+    // 再点一次退出程序时间设置
+    open protected val backWaitTime = 2000L
+    private var TOUCH_TIME: Long = 0
+    
     private fun fullScreen(): Boolean {
         return isFullScreen || mFragment != null && mFragment!!.isFullScreen
     }
@@ -139,9 +148,11 @@ abstract class LNBaseActivity : AppCompatActivity() {
     }
 
     open protected fun initStatusBar() {
-        SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
-        if (isStatusBarTextDark()) {
-            SystemBarHelper.setStatusBarDarkMode(activity)
+        if (!isFullScreen) {
+            SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
+            if (isStatusBarTextDark()) {
+                SystemBarHelper.setStatusBarDarkMode(activity)
+            }
         }
     }
 
@@ -227,13 +238,25 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        if (isBackExit) {
-            exitDialog()
-        } else {
-            if (mFragment != null && mFragment!!.onBackPressed())
-            else
-                super.onBackPressed()
+
+
+    override fun onBackPressedSupport() {
+        when (backExitStyle) {
+            BACK_DIALOG_CONFIRM ->
+                exitDialog()
+            BACK_WAIT_TIME -> {
+                if (System.currentTimeMillis() - TOUCH_TIME < backWaitTime) {
+                    exit()
+                } else {
+                    TOUCH_TIME = System.currentTimeMillis()
+                    Toast.makeText(this, R.string.press_again_exit, Toast.LENGTH_SHORT).show()
+                }
+            }
+            BACK_DEFAULT -> {
+                if (mFragment != null && mFragment!!.onBackPressed())
+                else
+                    super.onBackPressed()
+            }
         }
     }
 
