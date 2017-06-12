@@ -255,7 +255,7 @@ abstract class LNBaseActivity : SupportActivity() {
             BACK_DEFAULT -> {
                 if (mFragment != null && mFragment!!.onBackPressed())
                 else
-                    super.onBackPressed()
+                    super.onBackPressedSupport()
             }
         }
     }
