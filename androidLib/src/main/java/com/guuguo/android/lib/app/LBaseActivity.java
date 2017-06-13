@@ -133,7 +133,6 @@ public abstract class LBaseActivity extends AppCompatActivity {
         if (mFragment != null) {
             FragmentTransaction trans = getSupportFragmentManager().beginTransaction();
             trans.replace(R.id.content, mFragment);
-            trans.addToBackStack(null);
             trans.commitAllowingStateLoss();
             mFragments.add(mFragment);
         }

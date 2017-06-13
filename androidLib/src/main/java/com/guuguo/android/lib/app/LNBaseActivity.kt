@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseActivity : SupportActivity() {
+abstract class   LNBaseActivity : SupportActivity() {
 
     private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null
