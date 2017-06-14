@@ -46,7 +46,7 @@ abstract class LNBaseFragment : SupportFragment() {
         loadData()
         //如果准备好 懒加载
         isPrepare = true
-        if (userVisibleHint) {
+        if (userVisibleHint && !isHidden) {
             lazyLoad()
             mFirstLazyLoad = false
         }

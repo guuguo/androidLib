@@ -42,11 +42,11 @@ class SimpleView {
 
     constructor(context: Context, viewGroup: ViewGroup?) {
         view = View.inflate(context, R.layout.simple_empty_view, viewGroup)
-        mLLLayout = view.findViewById(R.id.layoutEmpty) as LinearLayout
-        mTvText = view.findViewById(R.id.tv_text) as TextView
-        mTvHint = view.findViewById(R.id.tv_hint) as TextView
-        mImg = view.findViewById(R.id.img) as ImageView
-        mBtn = view.findViewById(R.id.btn_empty) as RoundTextView
+        mLLLayout = view.findViewById<LinearLayout>(R.id.layoutEmpty)
+        mTvText = view.findViewById<TextView>(R.id.tv_text)
+        mTvHint = view.findViewById<TextView>(R.id.tv_hint)
+        mImg = view.findViewById<ImageView>(R.id.img)
+        mBtn = view.findViewById<RoundTextView>(R.id.btn_empty)
         view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(p0: View?) {
                 setUIBeforeShow()
@@ -123,7 +123,7 @@ class SimpleView {
             mLLLayout.layoutParams = params
         }
 
-        mImg.visibility=View.VISIBLE
+        mImg.visibility = View.VISIBLE
         /**loading */
         if (mStyle == STYLE.loading) {
             mImg.setImageDrawable(drawable)
@@ -131,8 +131,8 @@ class SimpleView {
         } else if (isIconShow) {
             /**icon */
             mImg.setImageResource(mIconRes)
-        }else{
-            mImg.visibility=View.GONE
+        } else {
+            mImg.visibility = View.GONE
         }
 
         /**button */

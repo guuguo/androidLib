@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
     lintOptions {
         abortOnError false
     }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 5
         versionName "0.5"
     }
@@ -28,7 +28,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //support
-    ext.support_vesion = "25.3.1"
+    ext.support_vesion = "26.+"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

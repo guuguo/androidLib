@@ -11,24 +11,24 @@ import android.widget.TextView
  */
 
 fun showTipWithAction(view: View, tipText: String, actionText: String, listener: View.OnClickListener) {
-    var snack = Snackbar.make(view, tipText, Snackbar.LENGTH_INDEFINITE).setAction(actionText, listener).setActionTextColor(Color.WHITE)
+    val snack = Snackbar.make(view, tipText, Snackbar.LENGTH_INDEFINITE).setAction(actionText, listener).setActionTextColor(Color.WHITE)
     showSnackBar(snack)
 
 }
 
 fun showTipWithAction(view: View, tipText: String, actionText: String, listener: View.OnClickListener, duration: Int) {
-    var snack = Snackbar.make(view, tipText, duration).setAction(actionText, listener)
+    val snack = Snackbar.make(view, tipText, duration).setAction(actionText, listener)
     showSnackBar(snack)
 
 }
 
 fun showSnackTip(view: View, tipText: String) {
-    var snack = Snackbar.make(view, tipText, Snackbar.LENGTH_SHORT)
+    val snack = Snackbar.make(view, tipText, Snackbar.LENGTH_SHORT)
     showSnackBar(snack)
 }
 
 private fun showSnackBar(snack: Snackbar) {
-    var text = snack.view.findViewById(R.id.snackbar_text) as TextView;
+    val text = snack.view.findViewById<TextView>(R.id.snackbar_text)
     text.setTextColor(Color.WHITE)
     snack.show()
 }
