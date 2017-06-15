@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
+import com.guuguo.android.lib.extension.initNav
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import me.yokeyword.fragmentation.SupportFragment
@@ -57,8 +58,8 @@ abstract class LNBaseFragment : SupportFragment() {
 
     open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
     open protected fun initToolbar() {
-        getToolBar()?.let {
-            activity.setSupportActionBar(getToolBar()!!)
+        if (isNavigationBack()) {
+            getToolBar()?.initNav(activity)
         }
         setTitle(getHeaderTitle())
     }
@@ -69,6 +70,7 @@ abstract class LNBaseFragment : SupportFragment() {
     open protected fun initVariable(savedInstanceState: Bundle?) {}
     open protected fun initView() {}
     open protected fun getMenuResId() = 0
+    open protected fun isNavigationBack() = true
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)

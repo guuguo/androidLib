@@ -19,6 +19,7 @@ import com.flyco.dialog.widget.NormalListDialog
 import com.flyco.systembar.SystemBarHelper
 import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
+import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.utils.CommonUtil
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
@@ -38,7 +39,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class   LNBaseActivity : SupportActivity() {
+abstract class LNBaseActivity : SupportActivity() {
 
     private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null
@@ -72,7 +73,7 @@ abstract class   LNBaseActivity : SupportActivity() {
     // 再点一次退出程序时间设置
     open protected val backWaitTime = 2000L
     private var TOUCH_TIME: Long = 0
-    
+
     private fun fullScreen(): Boolean {
         return isFullScreen || mFragment != null && mFragment!!.isFullScreen
     }
@@ -122,24 +123,24 @@ abstract class   LNBaseActivity : SupportActivity() {
     open protected fun isNavigationBack() = true
     open protected fun isAppbarPaddingToStatusBar() = true
     open protected fun isStatusBarTextDark() = false
-
     open protected fun initToolBar() {
         val toolBar = getToolBar()
-        setSupportActionBar(toolBar)
+//        setSupportActionBar(toolBar)
         if (isNavigationBack())
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            toolBar?.initNav(activity)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = getHeaderTitle()
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (isNavigationBack())
-            when (item.itemId) {
-                android.R.id.home -> {
-                    this.onBackPressed()
-                    return true
-                }
-            }
+//        if (isNavigationBack())
+//            when (item.itemId) {
+//                android.R.id.home -> {
+//                    this.onBackPressed()
+//                    return true
+//                }
+//            }
         mFragment?.let {
             if (mFragment?.onOptionsItemSelected(item)!!)
                 return true
@@ -239,7 +240,6 @@ abstract class   LNBaseActivity : SupportActivity() {
     }
 
 
-
     override fun onBackPressedSupport() {
         when (backExitStyle) {
             BACK_DIALOG_CONFIRM ->
@@ -291,15 +291,11 @@ abstract class   LNBaseActivity : SupportActivity() {
 
     }
 
-    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, 1500)
-    }
-
-    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
+    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500) {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int = 800) {
+    fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800) {
         dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
