@@ -8,7 +8,7 @@ import java.util.*
  */
 fun Date.getDateSimply(): String {
 
-    var format = SimpleDateFormat("yyyy/MM/dd").format(this)
+    var format = SimpleDateFormat("yyyy-MM-dd").format(this)
     when {
         format.equals(Date().date()) ->
             return "今天"

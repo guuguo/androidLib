@@ -125,22 +125,14 @@ abstract class LNBaseActivity : SupportActivity() {
     open protected fun isStatusBarTextDark() = false
     open protected fun initToolBar() {
         val toolBar = getToolBar()
-//        setSupportActionBar(toolBar)
+        setSupportActionBar(toolBar)
         if (isNavigationBack())
             toolBar?.initNav(activity)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = getHeaderTitle()
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (isNavigationBack())
-//            when (item.itemId) {
-//                android.R.id.home -> {
-//                    this.onBackPressed()
-//                    return true
-//                }
-//            }
         mFragment?.let {
             if (mFragment?.onOptionsItemSelected(item)!!)
                 return true
