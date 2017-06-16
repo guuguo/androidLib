@@ -9,7 +9,7 @@ import com.guuguo.android.R
  */
 
 fun Toolbar.initNav(activity:Activity) {
-    setNavigationIcon(R.drawable.abc_ic_arrow_drop_right_black_24dp)
+    setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
     setNavigationOnClickListener { activity.onBackPressed() }
 }
 

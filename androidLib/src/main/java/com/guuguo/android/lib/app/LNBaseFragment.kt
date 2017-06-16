@@ -24,7 +24,7 @@ abstract class LNBaseFragment : SupportFragment() {
     protected var contentView: View? = null
     private val mApiCalls = CompositeDisposable()
 
-    protected fun addApiCall(call: Disposable?) {
+    public fun addApiCall(call: Disposable?) {
         call?.let {
             mApiCalls.add(call)
         }

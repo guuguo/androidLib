@@ -39,7 +39,7 @@ public class VaryViewHelper implements IVaryViewHelper {
         if (view.getParent() != null) {
             parentView = (ViewGroup) view.getParent();
         } else {
-            parentView = (ViewGroup) view.getRootView().findViewById(android.R.id.content);
+            parentView = view.getRootView().findViewById(android.R.id.content);
         }
         int count = parentView.getChildCount();
         for (int index = 0; index < count; index++) {
