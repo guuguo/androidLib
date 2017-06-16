@@ -78,7 +78,7 @@ public class DeviceUtil {
      * @return the phone type
      */
     public static final int getPhoneType() {
-        TelephonyManager tm = (TelephonyManager) BaseApplication.get().getSystemService(BaseApplication.get().TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Utils.getContext().TELEPHONY_SERVICE);
 
         switch (tm.getPhoneType()) {
             case TelephonyManager.PHONE_TYPE_GSM:
@@ -99,9 +99,9 @@ public class DeviceUtil {
      */
     @SuppressWarnings("MissingPermission")
     public static final String getPhoneNo() {
-        TelephonyManager tm = (TelephonyManager) BaseApplication.get().getSystemService(BaseApplication.get().TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Utils.getContext().TELEPHONY_SERVICE);
         String result = null;
-        if (CommonUtil.hasPermission(BaseApplication.get(), Manifest.permission.READ_PHONE_STATE)
+        if (Utils.hasPermission( Manifest.permission.READ_PHONE_STATE)
                 && tm.getLine1Number() != null) {
             result = tm.getLine1Number();
         }
@@ -227,7 +227,7 @@ public class DeviceUtil {
      * @return the manufacturer
      */
     public static final String getManufacturer() {
-        TelephonyManager tm = (TelephonyManager) BaseApplication.get().getSystemService(BaseApplication.get().TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Utils.getContext().TELEPHONY_SERVICE);
         return CommonUtil.checkValidData(
                 CommonUtil.handleIllegalCharacterInResult(Build.MANUFACTURER));
     }
@@ -303,7 +303,7 @@ public class DeviceUtil {
      * @return the screen display id
      */
     public static final String getScreenDisplayID() {
-        WindowManager wm = (WindowManager) BaseApplication.get().getSystemService(BaseApplication.get().WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) Utils.getContext().getSystemService(Utils.getContext().WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         return CommonUtil.checkValidData(String.valueOf(display.getDisplayId()));
     }
@@ -370,9 +370,9 @@ public class DeviceUtil {
      */
     @SuppressWarnings("MissingPermission")
     public static final String getIMEI() {
-        TelephonyManager tm = (TelephonyManager) BaseApplication.get().getSystemService(BaseApplication.get().TELEPHONY_SERVICE);
+        TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Utils.getContext().TELEPHONY_SERVICE);
         String result = null;
-        if (CommonUtil.hasPermission(BaseApplication.get(), Manifest.permission.READ_PHONE_STATE)) {
+        if (Utils.hasPermission(Manifest.permission.READ_PHONE_STATE)) {
             result = tm.getDeviceId();
         }
 
