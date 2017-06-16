@@ -1,6 +1,7 @@
 package com.guuguo.android.lib.utils;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 
 import com.guuguo.android.lib.BaseApplication;
 
@@ -20,5 +21,8 @@ public class Utils {
         if (mContext != null)
             return mContext;
         return BaseApplication.get();
+    }
+    public static boolean hasPermission(final String permission) {
+        return getContext().checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
     }
 }

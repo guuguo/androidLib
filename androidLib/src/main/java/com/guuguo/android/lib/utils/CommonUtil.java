@@ -1,7 +1,5 @@
 package com.guuguo.android.lib.utils;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Looper;
 import android.text.TextUtils;
 
@@ -154,9 +152,7 @@ public class CommonUtil {
         return String.format("%." + retain + "f", num);
     }
 
-    static boolean hasPermission(final Context context, final String permission) {
-        return context.checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
-    }
+
 
     /**
      * 如果是空，返回unknown
@@ -164,7 +160,7 @@ public class CommonUtil {
      * @param data the data
      * @return the string
      */
-    static String checkValidData(final String data) {
+   public static String checkValidData(final String data) {
         String tempData = data;
         if (TextUtils.isEmpty(data)) {
             tempData = NOT_FOUND_VAL;

@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.view
+package com.guuguo.android.lib.ui.imageview
 
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView

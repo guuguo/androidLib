@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.utils;
+package com.guuguo.android.lib.utils.network;
 
 import android.Manifest;
 import android.content.Context;
@@ -8,6 +8,11 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
+import com.guuguo.android.lib.utils.CommonUtil;
+import com.guuguo.android.lib.utils.LogUtil;
+import com.guuguo.android.lib.utils.ShellUtils;
+import com.guuguo.android.lib.utils.Utils;
+
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -16,14 +21,6 @@ import java.net.SocketException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-
-import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 import static android.telephony.TelephonyManager.NETWORK_TYPE_GSM;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_IWLAN;
@@ -35,37 +32,6 @@ import static android.telephony.TelephonyManager.NETWORK_TYPE_TD_SCDMA;
  */
 
 public class NetWorkUtils {
-    /**
-     * The constant UNKNOWN.
-     */
-    public static final int UNKNOWN = 0;
-    /**
-     * The constant WIFI_WIFIMAX.
-     */
-    public static final int WIFI_WIFIMAX = 1;
-    /**
-     * The constant CELLULAR_UNKNOWN.
-     */
-    public static final int CELLULAR_UNKNOWN = 2;
-    /**
-     * The constant CELLULAR_2G.
-     */
-    public static final int CELLULAR_2G = 3;
-    /**
-     * The constant CELLULAR_3G.
-     */
-    public static final int CELLULAR_3G = 4;
-    /**
-     * The constant CELLULAR_4G.
-     */
-    public static final int CELLULAR_4G = 5;
-    /**
-     * The constant CELLULAR_UNIDENTIFIED_GEN.
-     */
-    public static final int CELLULAR_UNIDENTIFIED_GEN = 6;
-    /**
-     * The constant SOCKET_EXCEPTION.
-     */
     public static final String SOCKET_EXCEPTION = "Socket Exception";
 
 
@@ -77,29 +43,29 @@ public class NetWorkUtils {
         NETWORK_UNKNOWN,
         NETWORK_NO
     }
+
+    public static boolean isTypeMobile(NetworkType type) {
+        return (type == NetworkType.NETWORK_4G || type == NetworkType.NETWORK_3G || type == NetworkType.NETWORK_2G);
+    }
+
     /**
      * Instantiates a new Easy  network mod.
      *
-     * @param consumer
+     * @param
      * @return
      */
-    public static Disposable isAvailableByPing(Consumer<Boolean> consumer) {
-        return Single.create(new SingleOnSubscribe<Boolean>() {
-            @Override
-            public void subscribe(SingleEmitter<Boolean> emitter) throws Exception {
-                ShellUtils.CommandResult result = ShellUtils.execCmd("isAvailableByPing -c 1 -w 1 223.5.5.5", false);
-                boolean ret = result.result == 0;
-                if (result.errorMsg != null) {
-                    LogUtil.INSTANCE.i("isAvailableByPing errorMsg " + result.errorMsg);
-                }
-                if (result.successMsg != null) {
-                    LogUtil.INSTANCE.i("isAvailableByPing successMsg " + result.successMsg);
-                }
-                emitter.onSuccess(ret);
-
-            }
-        }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(consumer);
+    public static boolean isAvailableByPing() {
+        ShellUtils.CommandResult result = ShellUtils.execCmd("isAvailableByPing -c 1 -w 1 223.5.5.5", false);
+        boolean ret = result.result == 0;
+        if (result.errorMsg != null) {
+            LogUtil.INSTANCE.i("isAvailableByPing errorMsg " + result.errorMsg);
+        }
+        if (result.successMsg != null) {
+            LogUtil.INSTANCE.i("isAvailableByPing successMsg " + result.successMsg);
+        }
+        return ret;
     }
+
     /**
      * 获取活动网络信息
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
@@ -113,12 +79,16 @@ public class NetWorkUtils {
     /**
      * 判断网络是否连接
      * <p>需添加权限 {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>}</p>
+     * true 添加 ping测试, false 直接根据Android系统的结果
      *
      * @return {@code true}: 是<br>{@code false}: 否
      */
-    public static boolean isConnected() {
+    public static boolean isConnected(boolean needReliable) {
         NetworkInfo info = getActiveNetworkInfo();
-        return info != null && info.isConnected();
+        if (info != null && info.isConnected()) {
+            return !needReliable || isAvailableByPing();
+        }
+        return false;
     }
 
     /**
@@ -126,6 +96,7 @@ public class NetWorkUtils {
      *
      * @return the boolean
      */
+
     public static final boolean isWifiEnabled() {
         boolean wifiState = false;
 
@@ -144,8 +115,8 @@ public class NetWorkUtils {
     @SuppressWarnings("MissingPermission")
     public static final boolean isNetworkAvailable() {
 
-        if (CommonUtil.hasPermission(Utils.getContext(), Manifest.permission.INTERNET)
-                && CommonUtil.hasPermission(Utils.getContext(), Manifest.permission.ACCESS_NETWORK_STATE)) {
+        if (Utils.hasPermission(Manifest.permission.INTERNET)
+                && Utils.hasPermission(Manifest.permission.ACCESS_NETWORK_STATE)) {
             ConnectivityManager cm = (ConnectivityManager) Utils.getContext().getApplicationContext()
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
@@ -313,7 +284,7 @@ public class NetWorkUtils {
     @SuppressWarnings("MissingPermission")
     public static final String getWifiMAC() {
         String result = "02:00:00:00:00:00";
-        if (CommonUtil.hasPermission(Utils.getContext(), Manifest.permission.ACCESS_WIFI_STATE)) {
+        if (Utils.hasPermission(Manifest.permission.ACCESS_WIFI_STATE)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 // Hardware ID are restricted in Android 6+
                 // https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id

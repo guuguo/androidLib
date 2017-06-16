@@ -3,7 +3,7 @@ package com.guuguo.android.lib.net
 import android.accounts.NetworkErrorException
 import android.text.TextUtils
 import com.guuguo.android.lib.net.LBaseCallback.Companion.gson
-import com.guuguo.android.lib.utils.NetWorkUtils
+import com.guuguo.android.lib.utils.network.NetWorkUtils
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
