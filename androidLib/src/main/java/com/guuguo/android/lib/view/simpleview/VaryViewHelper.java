@@ -10,7 +10,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
  */
-package com.guuguo.android.lib.view.simpleview.vary;
+package com.guuguo.android.lib.view.simpleview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ import android.view.ViewGroup;
  *
  * @author LuckyJayce
  */
-public class VaryViewHelper implements IVaryViewHelper {
+public class VaryViewHelper {
     private View view;
     private ViewGroup parentView;
     private int viewIndex;
@@ -51,17 +51,14 @@ public class VaryViewHelper implements IVaryViewHelper {
         currentView = view;
     }
 
-    @Override
     public View getCurrentLayout() {
         return currentView;
     }
 
-    @Override
     public void restoreView() {
         showLayout(view);
     }
 
-    @Override
     public void showLayout(View view) {
         if (parentView == null) {
             init();
@@ -78,22 +75,18 @@ public class VaryViewHelper implements IVaryViewHelper {
         }
     }
 
-    @Override
     public void showLayout(int layoutId) {
         showLayout(inflate(layoutId));
     }
 
-    @Override
     public View inflate(int layoutId) {
         return LayoutInflater.from(view.getContext()).inflate(layoutId, null);
     }
 
-    @Override
     public Context getContext() {
         return view.getContext();
     }
 
-    @Override
     public View getView() {
         return view;
     }

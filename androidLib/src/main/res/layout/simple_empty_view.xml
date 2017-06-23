@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutEmpty"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="20dp"
-    android:paddingTop="20dp">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/layoutEmpty"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:background="@color/white"
+              android:gravity="center"
+              android:orientation="vertical"
+              android:paddingBottom="20dp"
+              android:paddingTop="20dp">
 
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="115dp"
         android:layout_height="122dp"
-        android:src="@drawable/empty_cute_girl_box" />
+        android:src="@drawable/empty_cute_girl_box"/>
+
 
     <TextView
         android:id="@+id/tv_text"
@@ -24,18 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="找不到数据"
-        android:textColor="#333232"
-        android:textSize="14sp"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/tv_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="找不到数据"
         android:textColor="#999999"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
     <com.flyco.roundview.RoundTextView
         android:id="@+id/btn_empty"
@@ -57,7 +48,7 @@
         app:rv_isRippleEnable="false"
         app:rv_strokeColor="@color/green"
         app:rv_strokeWidth="1px"
-        app:rv_textPressColor="@color/white" />
+        app:rv_textPressColor="@color/white"/>
 
 
 </LinearLayout>

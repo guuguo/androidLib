@@ -1,14 +1,9 @@
 package com.guuguo.android.lib.view.simpleview
 
-import am.drawable.DoubleCircleDrawable
 import android.content.Context
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import com.flyco.roundview.RoundTextView
 import com.guuguo.android.R
 
 //import com.wang.avi.AVLoadingIndicatorView
@@ -19,7 +14,6 @@ import com.guuguo.android.R
 class SimpleView {
 
     private var text: String = ""
-    private var hint: String = ""
     private var mOnClickListener: View.OnClickListener? = null
     private var mBtnText: String = ""
     private var isIconShow = true
@@ -27,14 +21,8 @@ class SimpleView {
     private var isWrapContent = true
     private var mStyle: Int = STYLE.normal
 
-    private val mLLLayout: LinearLayout
-    private val mImg: ImageView
-    private val mTvText: TextView
-    private val mTvHint: TextView
-    private val mBtn: RoundTextView
-//    private val mLoadingVIew: AVLoadingIndicatorView
-
     val view: View
+    val viewHolder: SimpleViewHolder
 
     constructor(context: Context) : this(context, null)
 
@@ -42,11 +30,7 @@ class SimpleView {
 
     constructor(context: Context, viewGroup: ViewGroup?) {
         view = View.inflate(context, R.layout.simple_empty_view, viewGroup)
-        mLLLayout = view.findViewById<LinearLayout>(R.id.layoutEmpty)
-        mTvText = view.findViewById<TextView>(R.id.tv_text)
-        mTvHint = view.findViewById<TextView>(R.id.tv_hint)
-        mImg = view.findViewById<ImageView>(R.id.img)
-        mBtn = view.findViewById<RoundTextView>(R.id.btn_empty)
+        viewHolder = SimpleViewHolder(view)
         view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(p0: View?) {
                 setUIBeforeShow()
@@ -56,7 +40,7 @@ class SimpleView {
             }
 
         })
-        drawable = DoubleCircleDrawable(context.resources.getDisplayMetrics().density)
+        drawable = DoubleCircleDrawable(context.resources.displayMetrics.density)
     }
 
     object STYLE {
@@ -79,9 +63,8 @@ class SimpleView {
         return this
     }
 
-    fun hint(text: String): SimpleView {
-        this.hint = text
-        return this
+    fun invalidate() {
+        view.invalidate()
     }
 
     fun btnText(text: String): SimpleView {
@@ -112,57 +95,46 @@ class SimpleView {
     private fun setUIBeforeShow() {
         /**wrap_content */
         if (!isWrapContent) {
-            val params = mLLLayout.layoutParams
+            val params = viewHolder.mLLLayout.layoutParams
             params.width = ViewGroup.LayoutParams.MATCH_PARENT
             params.height = ViewGroup.LayoutParams.MATCH_PARENT
-            mLLLayout.layoutParams = params
+            viewHolder.mLLLayout.layoutParams = params
         } else {
-            val params = mLLLayout.layoutParams
+            val params = viewHolder.mLLLayout.layoutParams
             params.width = ViewGroup.LayoutParams.MATCH_PARENT
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            mLLLayout.layoutParams = params
+            viewHolder.mLLLayout.layoutParams = params
         }
 
-        mImg.visibility = View.VISIBLE
+        viewHolder.mImg.visibility = View.VISIBLE
         /**loading */
         if (mStyle == STYLE.loading) {
-            mImg.setImageDrawable(drawable)
+            viewHolder.mImg.setImageDrawable(drawable)
             drawable.start()
         } else if (isIconShow) {
             /**icon */
-            mImg.setImageResource(mIconRes)
+            viewHolder.mImg.setImageResource(mIconRes)
         } else {
-            mImg.visibility = View.GONE
+            viewHolder.mImg.visibility = View.GONE
         }
 
         /**button */
         if (TextUtils.isEmpty(mBtnText))
-            mBtn.visibility = View.GONE
+            viewHolder.mBtn.visibility = View.GONE
         else {
-            mBtn.visibility = View.VISIBLE
-            mBtn.text = mBtnText
+            viewHolder.mBtn.visibility = View.VISIBLE
+            viewHolder.mBtn.text = mBtnText
             if (mOnClickListener != null)
-                mBtn.setOnClickListener(mOnClickListener)
+                viewHolder.mBtn.setOnClickListener(mOnClickListener)
         }
 
         /**text */
         if (!TextUtils.isEmpty(text)) {
-            mTvText.visibility = View.VISIBLE
-            mTvText.text = text
-        } else if (TextUtils.isEmpty(hint)) {
-            hint = "没有数据"
+            viewHolder.mTvText.visibility = View.VISIBLE
+            viewHolder.mTvText.text = text
         } else {
-            mTvText.visibility = View.GONE
+            viewHolder.mTvText.visibility = View.GONE
         }
-
-        /**hint */
-        if (!TextUtils.isEmpty(hint)) {
-            mTvHint.visibility = View.VISIBLE
-            mTvHint.text = hint
-        } else {
-            mTvHint.visibility = View.GONE
-        }
-
 
     }
 }
