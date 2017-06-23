@@ -20,7 +20,7 @@ fun Date.getDateSimply(): String {
 }
 
 /**
- * 获取毫秒为单位时间戳的离现在多久
+ * 获取该时间离现在多久
 
  * @param format
  * *
@@ -53,8 +53,24 @@ fun Date.getTimeSpan(): String {
     return timeSpan.toString() + "年前"
 }
 
-fun Date.date(): String {
-    return SimpleDateFormat("yyyy/MM/dd").format(this)
+/**
+ * 获取毫秒为单位时间戳的离现在多久
+
+ * @param format
+ * *
+ * @param dateTime
+ * *
+ * @return
+ */
+fun Date.getTimeSpanUntilDay(): String {
+    val timeSpan = getTimeSpan()
+    if (timeSpan.contains("月") || timeSpan.contains("年"))
+        return date('-')
+    else return timeSpan
+}
+
+fun Date.date(char: Char = '/'): String {
+    return SimpleDateFormat("yyyy${char}MM${char}dd").format(this)
 }
 
 fun Date.year(): String {
