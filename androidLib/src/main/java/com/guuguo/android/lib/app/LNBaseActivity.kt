@@ -20,6 +20,7 @@ import com.flyco.systembar.SystemBarHelper
 import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
+import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.CommonUtil
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
@@ -161,7 +162,6 @@ abstract class LNBaseActivity : SupportActivity() {
         val res = getMenuResId()
         if (res != 0)
             menuInflater.inflate(res, menu)
-
         mFragment?.onCreateOptionsMenu(menu, menuInflater)
         return super.onCreateOptionsMenu(menu)
     }
@@ -241,7 +241,7 @@ abstract class LNBaseActivity : SupportActivity() {
                     exit()
                 } else {
                     TOUCH_TIME = System.currentTimeMillis()
-                    Toast.makeText(this, R.string.press_again_exit, Toast.LENGTH_SHORT).show()
+                    getString(R.string.press_again_exit).toast()
                 }
             }
             BACK_DEFAULT -> {

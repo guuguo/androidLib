@@ -1,5 +1,7 @@
 <!--?xml version=1.0 encoding=utf-8?-->
 <resources>
+    <color name="colorRipple">#AA4d92FF</color>
+
     <color name="mired">#E34F1B</color>
     <color name="migray">#f3f3f3</color>
     <color name="blue">#5ca4de</color>
