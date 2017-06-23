@@ -362,6 +362,7 @@ abstract class LNBaseActivity : SupportActivity() {
                             try {
                                 listener.onDismiss(dialog)
                             } catch (e: Exception) {
+                                e.printStackTrace()
                             }
 
                     }
