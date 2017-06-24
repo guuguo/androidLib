@@ -1,23 +1,11 @@
 package com.guuguo.android.lib.extension
 
-import com.guuguo.android.lib.utils.DateUtil.fromDate
 import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by 大哥哥 on 2016/10/21 0021.
  */
-fun Date.getDateSimply(): String {
-    var format = SimpleDateFormat("yyyy-MM-dd").format(this)
-    when {
-        format.equals(Date().date()) ->
-            return "今天"
-        format.equals(Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000).date()) ->
-            return "昨天"
-        else ->
-            return format
-    }
-}
 
 /**
  * 获取该时间离现在多久

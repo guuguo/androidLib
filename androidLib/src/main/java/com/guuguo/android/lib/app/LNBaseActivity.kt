@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalListDialog
 import com.flyco.systembar.SystemBarHelper
@@ -21,12 +20,12 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
+import com.guuguo.android.lib.ui.dialog.StateDialog
+import com.guuguo.android.lib.ui.dialog.WarningDialog
 import com.guuguo.android.lib.utils.CommonUtil
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.ScreenManager
-import com.guuguo.android.lib.view.dialog.StateDialog
-import com.guuguo.android.lib.view.dialog.WarningDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver

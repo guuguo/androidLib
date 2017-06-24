@@ -1,31 +1,34 @@
 package com.guuguo.android.lib.utils
 
-import com.orhanobut.logger.Logger
+import android.util.Log
 
 /**
  * Created by mimi on 2017-01-02.
  */
 
 object LogUtil {
-    val FULL = com.orhanobut.logger.LogLevel.FULL
-    val NONE = com.orhanobut.logger.LogLevel.NONE
-
-    fun init(tag: String, debug: Boolean) {
-      val setting=  Logger.init(tag)                 // default PRETTYLOGGER or use just init()
-                .methodCount(2)                 // default 2
-                .hideThreadInfo()               // default shown
-                .methodOffset(0) //default AndroidLogAdapter
-        if (debug)
-            setting.logLevel(FULL)        // default LogLevel.FULL
-        else
-            setting.logLevel(NONE)        // default LogLevel.FULL
+    var debug = true
+    private val TAG by lazy { AppUtil.getAppName() }
+    fun init(debug: Boolean) {
+        this.debug = debug
     }
 
     fun i(info: String) {
-        Logger.i(info)
+        Log.i(TAG, info)
     }
 
-    fun e(e: Throwable, msg: String) {
-        Logger.e(e, msg)
+    fun d(info: String) {
+        if (debug)
+            Log.i(TAG, info)
+    }
+
+    fun e(msg: String, e: Throwable? = null) {
+        if (debug)
+            Log.e(TAG, msg, e)
+    }
+
+    fun w(msg: String, e: Throwable? = null) {
+        if (debug)
+            Log.w(TAG, msg, e)
     }
 }

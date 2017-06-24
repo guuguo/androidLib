@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.view.dialog;
+package com.guuguo.android.lib.ui.dialog;
 
 import android.content.Context;
 import android.graphics.Color;

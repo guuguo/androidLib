@@ -1,6 +1,5 @@
 package com.guuguo.android.lib.extension
 
-import android.content.Context
 import com.guuguo.android.lib.BaseApplication
 
 /**
@@ -20,14 +19,4 @@ fun Int?.safe(): Int {
     if (this == null)
         return 0
     else return this
-}
-
-@Deprecated("已经过时了", ReplaceWith("dpToPx()"))
-fun Int.pxToDp(context: Context): Int {
-    return (this / context.resources.displayMetrics.density + 0.5f).toInt()
-}
-
-@Deprecated("已经过时了", ReplaceWith("dpToPx()"))
-fun Int.dpToPx(context: Context): Int {
-    return (this * context.resources.displayMetrics.density + 0.5f).toInt()
 }
