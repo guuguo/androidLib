@@ -10,9 +10,11 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import android.text.TextUtils
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.ViewGroup
+import android.view.WindowManager
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalListDialog
 import com.flyco.systembar.SystemBarHelper
@@ -20,20 +22,15 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
+import com.guuguo.android.lib.ui.dialog.DialogHelper
 import com.guuguo.android.lib.ui.dialog.StateDialog
-import com.guuguo.android.lib.ui.dialog.WarningDialog
-import com.guuguo.android.lib.utils.CommonUtil
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.ScreenManager
 import com.tbruyelle.rxpermissions2.RxPermissions
-import io.reactivex.Completable
-import io.reactivex.CompletableObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import me.yokeyword.fragmentation.SupportActivity
-import java.util.concurrent.TimeUnit
 
 
 /**
@@ -67,7 +64,7 @@ abstract class LNBaseActivity : SupportActivity() {
 
 
     open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
-    val activity = this
+    var activity = this
     open protected val isFullScreen = false
     open protected val backExitStyle = BACK_DEFAULT
     // 再点一次退出程序时间设置
@@ -80,7 +77,8 @@ abstract class LNBaseActivity : SupportActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //入栈到pushActivity      
+               //入栈到pushActivity    
+        activity = this
         ScreenManager.pushActivity(this)
         initFromIntent(intent)
         if (!isTaskRoot
@@ -191,8 +189,9 @@ abstract class LNBaseActivity : SupportActivity() {
     override fun onDestroy() {
         clearApiCall()
         mLoadingDialog = null
-        ScreenManager.popActivity(this)
+        ScreenManager.popActivity(activity)
         MemoryLeakUtil.fixInputMethodManagerLeak(activity)
+        DialogHelper.clearCalls(activity)
         super.onDestroy()
     }
 
@@ -252,123 +251,39 @@ abstract class LNBaseActivity : SupportActivity() {
     }
 
     fun exitDialog() {
-        dialogWarningShow("确定退出软件？", "取消", "确定", object : OnBtnClickL {
-            override fun onBtnClick() {
-                exit()
-            }
-        })
-
+        dialogWarningShow("确定退出软件？", "取消", "确定", OnBtnClickL { exit() })
     }
 
     fun exit() {
-        ScreenManager.popAllActivityExceptOne(this.javaClass)
-//        finish()
-//        System.exit(0)
+        ScreenManager.popAllActivity()
     }
 
-    @JvmOverloads fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {
-        var msg = msg
-        if (TextUtils.isEmpty(msg))
-            msg = "加载中"
-        if (mLoadingDialog == null)
-            mLoadingDialog = StateDialog(activity)
-        mLoadingDialog!!.stateStyle(StateDialog.STATE_STYLE.loading)
-                .content(msg)
-
-        if (maxDelay > 0)
-            dialogDismiss(maxDelay, mLoadingDialog, listener)
-        mLoadingDialog!!.setCanceledOnTouchOutside(canTouchCancel)
-        showDialogOnMain(mLoadingDialog!!)
-
+    fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {
+        DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
     fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.error, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, StateDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800) {
-        dialogStateShow(msg, listener, StateDialog.STATE_STYLE.success, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, StateDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?) {
-        val normalDialog = WarningDialog(activity)
-                .contentGravity(Gravity.CENTER)
-                .content(CommonUtil.getSafeString(msg))
-                .btnNum(1)
-                .btnText(btnText)
-        normalDialog.setOnBtnClickL(OnBtnClickL {
-            normalDialog.dismiss()
-            listener?.onBtnClick()
-        })
-        showDialogOnMain(normalDialog)
-    }
-
-    private fun dialogStateShow(msg: String, listener: DialogInterface.OnDismissListener?, stateStyle: Int, delayTime: Long) {
-        val stateDialog = StateDialog(activity)
-                .stateStyle(stateStyle)
-                .content(CommonUtil.getSafeString(msg))
-
-        stateDialog.setCanceledOnTouchOutside(false)
-        showDialogOnMain(stateDialog)
-        dialogDismiss(delayTime, stateDialog, listener)
+        DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
     fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?) {
-        val normalDialog = WarningDialog(activity)
-                .contentGravity(Gravity.CENTER)
-                .content(CommonUtil.getSafeString(msg))
-                .btnNum(2)
-                .btnText(cancelStr, confirmStr)
-        normalDialog.setCanceledOnTouchOutside(false)
-
-        normalDialog.setOnBtnClickL(null, OnBtnClickL {
-            normalDialog.dismiss()
-            listener?.onBtnClick()
-        })
-        showDialogOnMain(normalDialog)
+        DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 
     fun showDialogOnMain(dialog: Dialog) {
-        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe(object : CompletableObserver {
-            override fun onSubscribe(d: Disposable) {
-                addApiCall(d)
-            }
-
-            override fun onComplete() {
-                try {
-                    dialog.show()
-                } catch (e: Exception) {
-                }
-
-            }
-
-            override fun onError(e: Throwable) {}
-        })
+        DialogHelper.showDialogOnMain(activity, dialog)
     }
 
-    @JvmOverloads fun dialogDismiss(delay: Long = 0, dialog: Dialog? = mLoadingDialog, listener: DialogInterface.OnDismissListener? = null) {
-        Completable.complete().delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {
-                        addApiCall(d)
-                    }
-
-                    override fun onComplete() {
-                        if (isValidContext(activity) && dialog != null) {
-                            dialog.dismiss()
-                        }
-                        if (listener != null)
-                            try {
-                                listener.onDismiss(dialog)
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-
-                    }
-
-                    override fun onError(e: Throwable) {}
-                }
-                )
+    fun dialogDismiss() {
+        DialogHelper.dialogDismiss(activity)
     }
 
     fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
@@ -376,7 +291,7 @@ abstract class LNBaseActivity : SupportActivity() {
             val rxPermissions = RxPermissions(this)
             rxPermissions.request(Manifest.permission.CAMERA)
                     .subscribe { granted ->
-                        if (granted!!) { // Always true pre-M
+                        if (granted) { // Always true pre-M
                             val strings = arrayOf("拍照", "从相册中选取")
                             val listDialog = NormalListDialog(activity, strings).title("请选择")
                             listDialog.layoutAnimation(null)

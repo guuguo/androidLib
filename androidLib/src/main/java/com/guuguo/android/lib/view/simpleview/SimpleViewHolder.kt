@@ -30,7 +30,7 @@ class SimpleViewHolder(var view: View) {
         return this
     }
 
-    fun state(text: String, imgRes: Int = 0, btnText: String? = ""): SimpleViewHolder {
+    fun state(text: String, imgRes: Int = 0, btnText: String? = "", listener: View.OnClickListener? = null): SimpleViewHolder {
         if (imgRes == 0)
             mImg.visibility = View.GONE
         else {
@@ -42,6 +42,7 @@ class SimpleViewHolder(var view: View) {
         else {
             mBtn.visibility = View.VISIBLE
             mBtn.text = btnText
+            mBtn.setOnClickListener (listener)
         }
         mTvText.text = text
         return this

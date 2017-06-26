@@ -11,13 +11,17 @@ class Preference<T>(val context: Context, val default: T) : ReadWriteProperty<An
     val prefs by lazy {
         context.getSharedPreferences("order", Context.MODE_PRIVATE)
     }
-
+    var mValue: T? = null
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        return findPreference(property.name, default)
+        if (mValue == null)
+            mValue = findPreference(property.name, default)
+        return mValue!!
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        putPreference(property.name, value)
+        if (mValue != value)
+            putPreference(property.name, value)
+        mValue=value
     }
 
     private fun <U> findPreference(name: String, default: U): U = with(prefs) {

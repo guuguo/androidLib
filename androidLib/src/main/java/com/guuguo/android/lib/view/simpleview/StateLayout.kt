@@ -24,24 +24,24 @@ class StateLayout : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
     }
 
-    fun showErrorWithImage(text: String, btnText: String? = "", imgRes: Int = R.drawable.state_error) {
+    fun showErrorWithImage(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
         initContentView()
-        showSimpleView().state(text, imgRes, btnText)
+        showSimpleView().state(text, imgRes, btnText,listener)
     }
 
-    fun showError(text: String, btnText: String? = "") {
+    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null) {
         initContentView()
-        showSimpleView().state(text, 0, btnText)
+        showSimpleView().state(text, 0, btnText,listener)
     }
 
-    fun showEmpty(text: String, btnText: String? = "") {
+    fun showEmpty(text: String, btnText: String? = "", listener: OnClickListener? = null) {
         initContentView()
-        showSimpleView().state(text, 0, btnText)
+        showSimpleView().state(text, 0, btnText,listener)
     }
 
-    fun showEmptyWithImage(text: String, btnText: String? = "", imgRes: Int = R.drawable.empty_cute_girl_box) {
+    fun showEmptyWithImage(text: String, btnText: String? = "", listener: OnClickListener, imgRes: Int = R.drawable.empty_cute_girl_box) {
         initContentView()
-        showSimpleView().state(text, 0, btnText)
+        showSimpleView().state(text, imgRes, btnText,listener)
     }
 
     fun showLoading(message: String) {

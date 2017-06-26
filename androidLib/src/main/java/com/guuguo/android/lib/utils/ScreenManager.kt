@@ -13,33 +13,23 @@ object ScreenManager {
     //退出栈顶Activity
     private var activityStack: Stack<Activity> = Stack<Activity>()
 
-    fun popActivity(activity: Activity?) {
-        if (activity != null) {
-            activity.finish()
-            activityStack.remove(activity)
-        }
-        
+    fun popActivity(): Activity {
+        return activityStack.pop()
     }
 
-    //获得当前栈顶Activity
-
-    fun currentActivity(): Activity? {
-        if (activityStack.size == 0)
-            return null
-        val activity = activityStack.lastElement()
-        return activity
+    fun popActivity(activity: Activity) {
+        activityStack.remove(activity)
     }
 
     //将当前Activity推入栈中
     fun pushActivity(activity: Activity) {
-        activityStack.add(activity)
+        activityStack.push(activity)
     }
 
     //退出栈中所有Activity
-    fun popAllActivityExceptOne(cls: Class<*>) {
-        while (true) {
-            val activity = currentActivity() ?: break
-            popActivity(activity)
+    fun popAllActivity() {
+        while (!activityStack.empty()) {
+            popActivity().finish()
         }
     }
 }

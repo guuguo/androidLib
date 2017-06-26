@@ -8,7 +8,8 @@ import android.view.Gravity
 import com.flyco.dialog.listener.OnBtnClickL
 import com.guuguo.android.lib.utils.CommonUtil
 import io.reactivex.Completable
-import io.reactivex.CompletableObserver
+import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -20,7 +21,9 @@ import java.util.concurrent.TimeUnit
  */
 object DialogHelper {
     val callMaps = HashMap<Context, CompositeDisposable>()
-    private var mLoadingDialog: StateDialog? = null
+    //    private var mLoadingDialog: StateDialog? = null
+    private var mLoadingDialogs = HashMap<Context, StateDialog>()
+    private var mDialogs = HashMap<Context, ArrayList<Dialog>>()
 
     fun addCall(context: Context, dispose: Disposable) {
         if (callMaps.containsKey(context))
@@ -35,21 +38,28 @@ object DialogHelper {
     fun clearCalls(context: Context) {
         callMaps[context]?.clear()
         callMaps.remove(context)
+        mLoadingDialogs[context]?.dismiss()
+        mLoadingDialogs.remove(context)
+        mDialogs[context]?.forEach { it.dismiss() }
+        mDialogs.remove(context)
     }
 
     fun dialogLoadingShow(context: Context, msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {
         var msg = msg
         if (TextUtils.isEmpty(msg))
             msg = "加载中"
-        if (mLoadingDialog == null)
-            mLoadingDialog = StateDialog(context)
-        mLoadingDialog!!.stateStyle(StateDialog.STATE_STYLE.loading)
+        var loading = mLoadingDialogs[context]
+        if (loading == null) {
+            loading = StateDialog(context)
+            mLoadingDialogs.put(context, loading)
+        }
+        loading.stateStyle(StateDialog.STATE_STYLE.loading)
                 .content(msg)
 
         if (maxDelay > 0)
-            dialogDismiss(context, maxDelay, mLoadingDialog, listener)
-        mLoadingDialog!!.setCanceledOnTouchOutside(canTouchCancel)
-        showDialogOnMain(context, mLoadingDialog!!)
+            dialogDismiss(context, maxDelay, loading, listener)
+        loading.setCanceledOnTouchOutside(canTouchCancel)
+        showDialogOnMain(context, loading)
     }
 
     fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: OnBtnClickL?) {
@@ -59,8 +69,7 @@ object DialogHelper {
                 .btnNum(1)
                 .btnText(btnText)
         normalDialog.setOnBtnClickL(OnBtnClickL {
-            normalDialog.dismiss()
-            listener?.onBtnClick()
+            dialogDismiss(context, 0, normalDialog, DialogInterface.OnDismissListener { listener?.onBtnClick() })
         })
         showDialogOnMain(context, normalDialog)
     }
@@ -91,25 +100,37 @@ object DialogHelper {
     }
 
     fun showDialogOnMain(context: Context, dialog: Dialog) {
-        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe(object : CompletableObserver {
-            override fun onSubscribe(d: Disposable) {}
-            override fun onError(e: Throwable) {}
-            override fun onComplete() {
-                dialog.show()
+        Single.just(dialog).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            d ->
+            d.show()
+            if (mDialogs[context] == null) {
+                val list = arrayListOf(dialog)
+                mDialogs.put(context, list)
+            } else {
+                mDialogs[context]?.add(dialog)
             }
-        })
+        }
     }
 
-    fun dialogDismiss(context: Context, delay: Long = 0, dialog: Dialog? = mLoadingDialog, listener: DialogInterface.OnDismissListener? = null) {
-        Completable.complete().delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : CompletableObserver {
-                    override fun onSubscribe(d: Disposable) {
-                        addCall(context, d)
+    fun dialogDismiss() {
+        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe { mLoadingDialogs.forEach { it.value.dismiss() } }
+    }
+
+    fun dialogDismiss(context: Context) {
+        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe { mLoadingDialogs[context]?.dismiss() }
+    }
+
+    fun dialogDismiss(context: Context, delay: Long = 0, dialog: Dialog, listener: DialogInterface.OnDismissListener? = null) {
+        Single.just(dialog).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : SingleObserver <Dialog> {
+                    override fun onSuccess(d: Dialog) {
+                        d.dismiss()
+                        listener?.onDismiss(d)
+                        mDialogs[context]?.remove(dialog)
                     }
 
-                    override fun onComplete() {
-                        dialog?.dismiss()
-                        listener?.onDismiss(dialog)
+                    override fun onSubscribe(d: Disposable) {
+                        addCall(context, d)
                     }
 
                     override fun onError(e: Throwable) {}
