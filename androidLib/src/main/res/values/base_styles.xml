@@ -1,7 +1,7 @@
 <resources>
 
     <!-- 日间模式 -->
-    <style name="AppTheme.day" parent="AppTheme">
+    <style name="MyTheme.day" parent="MyTheme">
         <item name="android:windowBackground">@color/day_main_base_bg</item>
         <item name="containerBackgroundLayer2">@color/day_main_front_bg</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -17,7 +17,7 @@
         <item name="android:actionBarSize">@dimen/actionbar_size</item>
     </style>
     <!-- 夜间模式 -->
-    <style name="AppTheme.night" parent="AppTheme">
+    <style name="MyTheme.night" parent="MyTheme">
         <item name="android:windowBackground">@color/night_main_bg</item>
         <item name="containerBackgroundLayer2">@color/night_main_front_bg</item>
         <item name="colorPrimary">@color/night_actionbar_background</item>
@@ -86,7 +86,7 @@
         <item name="contentInsetStartWithNavigation">0dp</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MyTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="actionMenuTextColor">@color/white100</item>

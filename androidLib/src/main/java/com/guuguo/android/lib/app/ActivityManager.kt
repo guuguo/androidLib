@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.utils
+package com.guuguo.android.lib.app
 
 import android.app.Activity
 import java.util.*
@@ -8,7 +8,7 @@ import java.util.*
  * 项目 order
  */
 
-object ScreenManager {
+object ActivityManager {
 
     //退出栈顶Activity
     private var activityStack: Stack<Activity> = Stack<Activity>()

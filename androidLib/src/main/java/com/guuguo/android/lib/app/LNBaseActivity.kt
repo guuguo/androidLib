@@ -26,7 +26,6 @@ import com.guuguo.android.lib.ui.dialog.DialogHelper
 import com.guuguo.android.lib.ui.dialog.StateDialog
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
-import com.guuguo.android.lib.utils.ScreenManager
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -79,7 +78,7 @@ abstract class LNBaseActivity : SupportActivity() {
         super.onCreate(savedInstanceState)
                //入栈到pushActivity    
         activity = this
-        ScreenManager.pushActivity(this)
+        ActivityManager.pushActivity(this)
         initFromIntent(intent)
         if (!isTaskRoot
                 && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
@@ -189,7 +188,7 @@ abstract class LNBaseActivity : SupportActivity() {
     override fun onDestroy() {
         clearApiCall()
         mLoadingDialog = null
-        ScreenManager.popActivity(activity)
+        ActivityManager.popActivity(activity)
         MemoryLeakUtil.fixInputMethodManagerLeak(activity)
         DialogHelper.clearCalls(activity)
         super.onDestroy()
@@ -255,7 +254,7 @@ abstract class LNBaseActivity : SupportActivity() {
     }
 
     fun exit() {
-        ScreenManager.popAllActivity()
+        ActivityManager.popAllActivity()
     }
 
     fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {

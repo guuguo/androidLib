@@ -140,7 +140,7 @@ abstract class LNBaseFragment : SupportFragment() {
     }
 
 
-    val isFullScreen: Boolean
+   open val isFullScreen: Boolean
         get() = false
 
     val isToolBarOverlay: Boolean
