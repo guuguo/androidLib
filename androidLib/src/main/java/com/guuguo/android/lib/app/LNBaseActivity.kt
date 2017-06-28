@@ -138,7 +138,7 @@ abstract class LNBaseActivity : SupportActivity() {
     }
 
     open protected fun initStatusBar() {
-        if (!isFullScreen) {
+        if (!fullScreen()) {
             SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
             if (isStatusBarTextDark()) {
                 SystemBarHelper.setStatusBarDarkMode(activity)

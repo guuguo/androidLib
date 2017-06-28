@@ -24,7 +24,7 @@ abstract class LNBaseFragment : SupportFragment() {
     protected var contentView: View? = null
     private val mApiCalls = CompositeDisposable()
 
-     fun addApiCall(call: Disposable?) {
+    fun addApiCall(call: Disposable?) {
         call?.let {
             mApiCalls.add(call)
         }
@@ -61,7 +61,9 @@ abstract class LNBaseFragment : SupportFragment() {
         if (isNavigationBack()) {
             getToolBar()?.initNav(activity)
         }
-        setTitle(getHeaderTitle())
+        val str = getHeaderTitle()
+        if (str != null)
+            setTitle(str)
     }
 
     /*init*/
@@ -82,7 +84,7 @@ abstract class LNBaseFragment : SupportFragment() {
     }
     /*menu and title*/
 
-    open protected fun getHeaderTitle() = ""
+    open protected fun getHeaderTitle(): String? = null
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         if (getMenuResId() != 0)
             inflater!!.inflate(getMenuResId(), menu)
@@ -140,7 +142,7 @@ abstract class LNBaseFragment : SupportFragment() {
     }
 
 
-   open val isFullScreen: Boolean
+    open val isFullScreen: Boolean
         get() = false
 
     val isToolBarOverlay: Boolean
