@@ -13,8 +13,17 @@ object LogUtil {
         this.debug = debug
     }
 
+    fun i(tag: String = TAG, info: String) {
+        Log.i(tag, info)
+    }
+
     fun i(info: String) {
         Log.i(TAG, info)
+    }
+
+    fun d(tag: String = TAG, info: String) {
+        if (debug)
+            Log.i(tag, info)
     }
 
     fun d(info: String) {
@@ -25,6 +34,16 @@ object LogUtil {
     fun e(msg: String, e: Throwable? = null) {
         if (debug)
             Log.e(TAG, msg, e)
+    }
+
+    fun e(tag: String, msg: String, e: Throwable? = null) {
+        if (debug)
+            Log.e(tag, msg, e)
+    }
+
+    fun w(tag: String, msg: String, e: Throwable? = null) {
+        if (debug)
+            Log.w(tag, msg, e)
     }
 
     fun w(msg: String, e: Throwable? = null) {
