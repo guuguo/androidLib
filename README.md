@@ -15,7 +15,6 @@ compile "com.android.support:appcompat-v7:$support_vesion"
 compile "com.android.support:design:$support_vesion"
 compile 'com.android.support.constraint:constraint-layout:1.0.2'
 //function 
-compile 'com.orhanobut:logger:1.15'
 compile 'com.squareup.okhttp3:okhttp:3.8.0'
 compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
 compile 'com.google.code.gson:gson:2.8.0'
