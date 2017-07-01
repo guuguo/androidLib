@@ -1,11 +1,11 @@
 工具类库
 =======
-[![](https://jitpack.io/v/GUUGUO/androidLib.svg)](https://jitpack.io/#GUUGUO/androidLib)
+[![](https://jitpack.io/v/guuguo/androidLib.svg)](https://jitpack.io/#guuguo/androidLib)
 
 简化自己的 安卓开发工作
 # 使用
 ```groovy
-compile "com.github.GUUGUO:androidLib:$version" // version 是 jitpack 徽章的 version
+compile "com.github.guuguo.androidLib:androidLib:$version" // version 是 jitpack 徽章的 version
 ```
 
 
