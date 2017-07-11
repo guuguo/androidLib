@@ -79,7 +79,7 @@ public class LinearList extends LinearLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (adapter != null)
+        if (adapter != null && adapter.hasObservers())
             adapter.unregisterAdapterDataObserver(observer);
     }
 

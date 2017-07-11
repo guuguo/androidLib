@@ -14,11 +14,13 @@ object LogUtil {
     }
 
     fun i(tag: String = TAG, info: String) {
-        Log.i(tag, info)
+        if (debug)
+            Log.i(tag, info)
     }
 
     fun i(info: String) {
-        Log.i(TAG, info)
+        if (debug)
+            Log.i(TAG, info)
     }
 
     fun d(tag: String = TAG, info: String) {

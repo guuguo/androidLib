@@ -11,6 +11,7 @@ android {
         targetSdkVersion 26
         versionCode 8
         versionName "0.13"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -49,26 +50,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'me.yokeyword:fragmentation:0.10.6'
 }
-//ext {
-//    bintrayRepo = 'maven'
-//    bintrayName = 'lib'
-//    publishedGroupId = 'com.guuguo.android'
-//    libraryName = 'lib'
-//    artifact = 'lib'
-//    libraryDescription = 'Android develope helper'
-//    siteUrl = 'https://github.com/GUUGUO/MyAndroidLib'
-//    gitUrl = 'https://github.com/GUUGUO/MyAndroidLib.git'
-//    libraryVersion = '0.5'
-//    developerId = 'guuguo'
-//    developerName = '郭德清'
-//    developerEmail = '1152168009@qq.com'
-//    licenseName = 'The Apache Software License, Version 2.0'
-//    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//    allLicenses = ["Apache-2.0"]
-//}
-//repositories {
-//    mavenCentral()
-//}
 
 repositories {
     jcenter()

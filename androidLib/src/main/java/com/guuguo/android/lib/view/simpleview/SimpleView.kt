@@ -8,9 +8,6 @@ import com.guuguo.android.R
 
 //import com.wang.avi.AVLoadingIndicatorView
 
-/**
- * Created by Barry on 16/5/28.
- */
 class SimpleView {
 
     private var text: String = ""

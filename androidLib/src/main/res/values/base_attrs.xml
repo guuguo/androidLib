@@ -2,7 +2,7 @@
 <resources>
 
 
-    <attr name="containerBackgroundLayer1" format="reference|color" />
+    <attr name="containerBackgroundLayer1" format="reference|color"/>
     <attr name="containerBackgroundLayer2" format="reference|color"/>
     <attr name="myTitleTextColor" format="color"/>
     <attr name="mySubTitleTextColor" format="color"/>
@@ -26,5 +26,8 @@
         <attr name="srv_enableSpringEffectWhenFling" format="boolean"/>
         <attr name="srv_releaseBackAnimDuration" format="integer"/>
         <attr name="srv_flingBackAnimDuration" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="MySearchView">
+        <attr name="msv_hint" format="string"/>
     </declare-styleable>
 </resources>
