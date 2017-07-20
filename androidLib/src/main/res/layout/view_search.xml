@@ -47,7 +47,6 @@
         android:singleLine="true"
         android:textColor="@color/black80"
         android:textColorHint="@color/black40"
-        android:textCursorDrawable="@null"
         android:textSize="16sp"/>
 
 </com.flyco.roundview.RoundRelativeLayout>

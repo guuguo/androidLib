@@ -76,7 +76,7 @@ abstract class LNBaseActivity : SupportActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-               //入栈到pushActivity    
+        //入栈到pushActivity    
         activity = this
         ActivityManager.pushActivity(this)
         initFromIntent(intent)
@@ -194,7 +194,7 @@ abstract class LNBaseActivity : SupportActivity() {
         super.onDestroy()
     }
 
-    protected fun clearApiCall() {
+    fun clearApiCall() {
         mApiCalls.clear()
     }
 

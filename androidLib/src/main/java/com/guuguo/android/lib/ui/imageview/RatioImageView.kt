@@ -7,9 +7,7 @@ import com.guuguo.android.R
 
 /**
  * 一个能保持比例的 ImageView
- * TODO: 暂时只支持维持宽度适应高度
- *
- * @author XiNGRZ
+ * @author guuguo
  */
 class RatioImageView : AppCompatImageView {
 
@@ -45,7 +43,6 @@ class RatioImageView : AppCompatImageView {
             val width = MeasureSpec.getSize(widthMeasureSpec)
             var height = MeasureSpec.getSize(heightMeasureSpec)
 
-            // TODO: 现在只支持固定宽度
             if (width > 0) {
                 height = (width.toFloat() / ratio).toInt()
             }

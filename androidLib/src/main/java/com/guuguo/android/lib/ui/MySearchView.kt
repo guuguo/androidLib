@@ -26,6 +26,40 @@ class MySearchView : FrameLayout {
     var hint: String = "搜索"
 
     fun searchText(): String = holder.edtSearch?.text?.toString().safe()
+    fun addSearchText(str: String, selected: Boolean = false) {
+        holder.edtSearch?.let {
+            it.text.append(str)
+            if (selected)
+                it.setSelection(it.text.length - str.length, it.text.length)
+        }
+    }
+
+    fun clearSearchText() {
+        holder.edtSearch?.setText("")
+    }
+
+    fun focus() {
+        holder.edtSearch?.requestFocus()
+    }
+
+    fun replaceSelectionSearchText(str: String) {
+        holder.edtSearch?.let {
+            it.text.replace(it.selectionStart, it.selectionEnd, str)
+        }
+    }
+
+    fun delete() {
+        holder.edtSearch?.let {
+            if (it.selectionStart == it.selectionEnd && it.selectionStart != 0)
+                it.text.delete(it.selectionStart - 1, it.selectionStart)
+            else
+                it.text.delete(it.selectionStart, it.selectionEnd)
+        }
+    }
+
+    fun searchText(str: String) {
+        holder.edtSearch?.setText(str)
+    }
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)

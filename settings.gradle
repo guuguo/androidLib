@@ -1,1 +1,1 @@
-include ':androidLib', ':demo',':progress-lib'
+include ':androidLib', ':demo', ':progress'

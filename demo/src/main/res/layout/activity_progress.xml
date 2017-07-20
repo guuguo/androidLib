@@ -8,16 +8,6 @@
     android:padding="10dp"
     tools:context="top.guuguo.myapplication.MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:onClick="onSimpleViewClick"
-        android:text="simple view"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-     />
 
     <TextView
         android:layout_width="match_parent"
@@ -25,9 +15,12 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:onClick="onProgressClick"
-        android:text="progress"
+        android:text="simple view"
         android:textColor="@color/white"
-        android:textSize="16sp"
-  />
+        android:textSize="16sp" />
+
+    <top.guuguo.progress.view.ProgressRing
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
