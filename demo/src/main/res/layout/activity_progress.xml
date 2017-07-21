@@ -19,7 +19,7 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
-    <top.guuguo.progress.view.ProgressRing
+    <com.guuguo.android.lib.view.progress.ProgressRing
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

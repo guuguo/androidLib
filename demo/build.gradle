@@ -30,6 +30,5 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':androidLib')
-    compile project(':progress')
     testCompile 'junit:junit:4.12'
 }

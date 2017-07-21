@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.extension
 
+import android.graphics.Color
 import com.guuguo.android.lib.BaseApplication
 
 /**
@@ -19,4 +20,21 @@ fun Int?.safe(): Int {
     if (this == null)
         return 0
     else return this
+}
+
+//color
+/**
+ * 修改颜色透明度
+ * @param color
+ * *
+ * @param alpha
+ * *
+ * @return
+ */
+fun Int.changeAlpha(alpha: Int): Int {
+    val red = Color.red(this)
+    val green = Color.green(this)
+    val blue = Color.blue(this)
+
+    return Color.argb(alpha, red, green, blue)
 }

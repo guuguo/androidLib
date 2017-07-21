@@ -1,4 +1,4 @@
-package top.guuguo.progress.view;
+package com.guuguo.android.lib.view.progress;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,8 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import top.guuguo.progress.R;
-import top.guuguo.progress.util.DensityUtil;
+import com.guuguo.android.R;
+import com.guuguo.android.lib.utils.DisplayUtil;
+
 
 /**
  * Created by guodeqing on 16/4/5.
@@ -22,8 +23,8 @@ public class CircleProgressBar extends View {
      * id:&:R.color.
      */
     private Paint mPaint;
-    private int progress ;
-    private int max ;
+    private int progress;
+    private int max;
     private int animateProgress = 0;
 
     //width
@@ -60,9 +61,9 @@ public class CircleProgressBar extends View {
     }
 
     protected void initByAttributes(TypedArray attributes) {
-        progressbarWidth = attributes.getInteger(R.styleable.CircleProgressBar_cpb_progressbar_width, DensityUtil.dip2px(getContext(), 4));
+        progressbarWidth = attributes.getInteger(R.styleable.CircleProgressBar_cpb_progressbar_width, DisplayUtil.dip2px(4));
         backgroundBarWidth = attributes.getInteger(R.styleable.CircleProgressBar_cpb_background_bar_width, progressbarWidth);
-        
+
         progress = attributes.getInteger(R.styleable.CircleProgressBar_cpb_progress, 0);
         max = attributes.getInteger(R.styleable.CircleProgressBar_cpb_max, 100);
 
