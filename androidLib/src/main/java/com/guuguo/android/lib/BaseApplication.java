@@ -26,8 +26,8 @@ public abstract class BaseApplication extends Application {
     public void onCreate() {
         Utils.init(this);
         INSTANCE = this;
-        super.onCreate();
         init();
+        super.onCreate();
     }
 
     protected abstract void init();

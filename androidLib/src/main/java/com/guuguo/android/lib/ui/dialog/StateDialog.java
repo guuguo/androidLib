@@ -2,12 +2,12 @@ package com.guuguo.android.lib.ui.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,7 +60,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
         public static final int error = 2;
     }
 
-    protected ImageView mIvState;
+    protected AppCompatImageView mIvState;
     protected int mCustomStateRes = 0;
 
 
@@ -94,7 +94,7 @@ public class StateDialog extends BaseDialog<StateDialog> {
         mLlContainer.setOrientation(LinearLayout.VERTICAL);
 
         /** stateImage **/
-        mIvState = new ImageView(context);
+        mIvState = new AppCompatImageView(context);
 
 
         /** content */

@@ -66,9 +66,12 @@ abstract class LNBaseActivity : SupportActivity() {
     var activity = this
     open protected val isFullScreen = false
     open protected val backExitStyle = BACK_DEFAULT
-    // 再点一次退出程序时间设置
     open protected val backWaitTime = 2000L
     private var TOUCH_TIME: Long = 0
+
+    open fun finishActivitySupport(): Boolean {
+        return false
+    }
 
     private fun fullScreen(): Boolean {
         return isFullScreen || mFragment != null && mFragment!!.isFullScreen
@@ -89,7 +92,6 @@ abstract class LNBaseActivity : SupportActivity() {
         }
 
         setFullScreen(fullScreen())
-
         setLayoutResId(getLayoutResId())
         init(savedInstanceState)
     }
@@ -107,7 +109,6 @@ abstract class LNBaseActivity : SupportActivity() {
             window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
-
 
     open protected fun setLayoutResId(layoutResId: Int) {
         setContentView(layoutResId)
@@ -242,9 +243,16 @@ abstract class LNBaseActivity : SupportActivity() {
                 }
             }
             BACK_DEFAULT -> {
-                if (mFragment != null && mFragment!!.onBackPressed())
-                else
-                    super.onBackPressedSupport()
+                if (mFragment != null && mFragment!!.onBackPressedSupport())
+                else {
+                    if (supportFragmentManager.backStackEntryCount > 1) {
+                        pop()
+                    } else {
+                        if (!finishActivitySupport()) {
+                            finish()
+                        }
+                    }
+                }
             }
         }
     }
