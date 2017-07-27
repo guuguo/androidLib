@@ -229,7 +229,6 @@ abstract class LNBaseActivity : SupportActivity() {
 
     }
 
-
     override fun onBackPressedSupport() {
         when (backExitStyle) {
             BACK_DIALOG_CONFIRM ->
@@ -245,16 +244,28 @@ abstract class LNBaseActivity : SupportActivity() {
             BACK_DEFAULT -> {
                 if (mFragment != null && mFragment!!.onBackPressedSupport())
                 else {
-                    if (supportFragmentManager.backStackEntryCount > 1) {
-                        pop()
-                    } else {
-                        if (!finishActivitySupport()) {
-                            finish()
-                        }
-                    }
+                    super.onBackPressedSupport()
                 }
             }
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+    }
+    open fun overridePendingTransition() {
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+    }
+
+    override fun startActivity(intent: Intent?) {
+        super.startActivity(intent)
+        overridePendingTransition()
+    }
+
+    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
+        super.startActivityForResult(intent, requestCode)
+        overridePendingTransition()
     }
 
     fun exitDialog() {
