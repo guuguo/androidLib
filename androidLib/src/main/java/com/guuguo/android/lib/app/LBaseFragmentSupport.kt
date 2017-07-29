@@ -2,21 +2,21 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.guuguo.android.lib.extension.initNav
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import me.yokeyword.fragmentation.SupportFragment
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseFragment : Fragment() {
+abstract class LBaseFragmentSupport : SupportFragment() {
 
     protected val TAG = this.javaClass.simpleName
-    lateinit var activity: LNBaseActivity
+    lateinit var activity: LBaseActivitySupport
     protected abstract fun getLayoutResId(): Int
 
     private var isPrepare = false
@@ -36,11 +36,11 @@ abstract class LNBaseFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        this.activity = context as LNBaseActivity
+        this.activity = context as LBaseActivitySupport
     }
 
     protected fun init(view: View) {
-        activity = getActivity() as LNBaseActivity
+        activity = getActivity() as LBaseActivitySupport
 
         initToolbar()
         initView()

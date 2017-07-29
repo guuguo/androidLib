@@ -30,18 +30,19 @@ import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import me.yokeyword.fragmentation.SupportActivity
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseActivity : AppCompatActivity() {
+abstract class LBaseActivitySupport : SupportActivity() {
 
     private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null
     /*fragment*/
 
-    var mFragment: LNBaseFragment? = null
+    var mFragment: LBaseFragmentSupport? = null
 
     private val mApiCalls = CompositeDisposable()
 
@@ -211,7 +212,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
                 return
             }
             try {
-                mFragment = clz.newInstance() as LNBaseFragment
+                mFragment = clz.newInstance() as LBaseFragmentSupport
                 val args = data.extras
 
                 if (args != null) {
@@ -229,7 +230,7 @@ abstract class LNBaseActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressedSupport() {
         when (backExitStyle) {
             BACK_DIALOG_CONFIRM ->
                 exitDialog()
@@ -242,13 +243,32 @@ abstract class LNBaseActivity : AppCompatActivity() {
                 }
             }
             BACK_DEFAULT -> {
-                if (mFragment != null && mFragment!!.onBackPressed())
+                if (mFragment != null && mFragment!!.onBackPressedSupport())
                 else {
-                    super.onBackPressed()
+                    super.onBackPressedSupport()
                 }
             }
-        }   
+        }
     }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+    }
+    open fun overridePendingTransition() {
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+    }
+
+    override fun startActivity(intent: Intent?) {
+        super.startActivity(intent)
+        overridePendingTransition()
+    }
+
+    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
+        super.startActivityForResult(intent, requestCode)
+        overridePendingTransition()
+    }
+
     fun exitDialog() {
         dialogWarningShow("确定退出软件？", "取消", "确定", OnBtnClickL { exit() })
     }
