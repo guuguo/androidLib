@@ -84,7 +84,8 @@ object DialogHelper {
         dialogDismiss(context, delayTime, stateDialog, listener)
     }
 
-    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?) {
+    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?, cancelListener: OnBtnClickL?=null)
+    {
         val normalDialog = WarningDialog(context)
                 .contentGravity(Gravity.CENTER)
                 .content(CommonUtil.getSafeString(msg))
@@ -92,7 +93,7 @@ object DialogHelper {
                 .btnText(cancelStr, confirmStr)
         normalDialog.setCanceledOnTouchOutside(false)
 
-        normalDialog.setOnBtnClickL(null, OnBtnClickL {
+        normalDialog.setOnBtnClickL(cancelListener, OnBtnClickL {
             normalDialog.dismiss()
             listener?.onBtnClick()
         })

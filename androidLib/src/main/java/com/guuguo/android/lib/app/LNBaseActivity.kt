@@ -276,7 +276,9 @@ abstract class LNBaseActivity : AppCompatActivity() {
     fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?) {
         DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
-
+    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?,cancelListener: OnBtnClickL?) {
+        DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener,cancelListener)
+    }
     fun showDialogOnMain(dialog: Dialog) {
         DialogHelper.showDialogOnMain(activity, dialog)
     }

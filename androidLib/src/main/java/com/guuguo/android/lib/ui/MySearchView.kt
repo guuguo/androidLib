@@ -57,8 +57,13 @@ class MySearchView : FrameLayout {
         }
     }
 
-    fun searchText(str: String) {
-        holder.edtSearch?.setText(str)
+    fun searchText(str: String, selected: Boolean = false) {
+        holder.edtSearch?.let {
+            it.setText(str)
+            if (selected)
+                it.selectAll()
+        }
+
     }
 
     constructor(context: Context) : this(context, null)
@@ -68,11 +73,11 @@ class MySearchView : FrameLayout {
     }
 
     private fun init(context: Context, attrs: AttributeSet?) {
-        val layout = LayoutInflater.from(context).inflate(R.layout.view_search, this, false)
-        holder = ViewHolder(layout)
-        obtainAttributes(context, attrs)
-        initView()
-        this.addView(layout)
+            val layout = LayoutInflater.from(context).inflate(R.layout.view_search, this, false)
+            holder = ViewHolder(layout)
+            obtainAttributes(context, attrs)
+            initView()
+            this.addView(layout)
     }
 
     private fun obtainAttributes(context: Context, attrs: AttributeSet?) {
