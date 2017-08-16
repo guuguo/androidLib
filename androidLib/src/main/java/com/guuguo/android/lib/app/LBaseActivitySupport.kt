@@ -251,7 +251,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+        overridePendingTransition()
     }
     open fun overridePendingTransition() {
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)

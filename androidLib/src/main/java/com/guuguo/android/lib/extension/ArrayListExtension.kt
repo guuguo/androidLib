@@ -13,3 +13,10 @@ fun <T> List<T>?.safe(): List<T> {
         return this;
     }
 }
+fun <K,V> Map<K,V>?.safe(): Map<K,V> {
+    if (this == null)
+        return HashMap()
+    else {
+        return this;
+    }
+}

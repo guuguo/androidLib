@@ -16,19 +16,23 @@
         <item name="containerBackgroundLayer1">@color/day_main_base_bg</item>
         <item name="android:actionBarSize">@dimen/actionbar_size</item>
     </style>
-    <!-- 夜间模式 -->
-    <style name="MyTheme.night" parent="MyTheme">
-        <item name="android:windowBackground">@color/night_main_bg</item>
-        <item name="containerBackgroundLayer2">@color/night_main_front_bg</item>
-        <item name="colorPrimary">@color/night_actionbar_background</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="myTitleTextColor">@color/night_title_text</item>
-        <item name="android:textColor">@color/night_text</item>
-        <item name="android:textColorHint">@color/night_hint</item>
-        <item name="android:textColorLink">@color/night_hint</item>
-        <item name="containerBackgroundLayer1">@color/night_main_bg</item>
-
+    <!-- 日间模式 -->
+    <style name="MyTheme.day.background" parent="MyTheme.day">
+        <item name="android:windowBackground">@color/day_main_base_bg</item>
     </style>
+    <!--&lt;!&ndash; 夜间模式 &ndash;&gt;-->
+    <!--<style name="MyTheme.night" parent="MyTheme">-->
+    <!--<item name="android:windowBackground">@color/night_main_bg</item>-->
+    <!--<item name="containerBackgroundLayer2">@color/night_main_front_bg</item>-->
+    <!--<item name="colorPrimary">@color/night_actionbar_background</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--<item name="myTitleTextColor">@color/night_title_text</item>-->
+    <!--<item name="android:textColor">@color/night_text</item>-->
+    <!--<item name="android:textColorHint">@color/night_hint</item>-->
+    <!--<item name="android:textColorLink">@color/night_hint</item>-->
+    <!--<item name="containerBackgroundLayer1">@color/night_main_bg</item>-->
+
+    <!--</style>-->
 
     <style name="MyDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowFrame">@null</item>

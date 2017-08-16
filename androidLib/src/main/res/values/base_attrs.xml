@@ -32,23 +32,35 @@
     </declare-styleable>
 
     <declare-styleable name="CircleProgressBar">
-        <attr name="cpb_progress" format="integer" />
-        <attr name="cpb_max" format="integer" />
-        <attr name="cpb_progressbar_width" format="dimension" />
-        <attr name="cpb_background_bar_width" format="dimension" />
-        <attr name="cpb_progressbar_color" format="color" />
-        <attr name="cpb_background_bar_color" format="color" />
+        <attr name="cpb_progress" format="integer"/>
+        <attr name="cpb_max" format="integer"/>
+        <attr name="cpb_progressbar_width" format="dimension"/>
+        <attr name="cpb_background_bar_width" format="dimension"/>
+        <attr name="cpb_progressbar_color" format="color"/>
+        <attr name="cpb_background_bar_color" format="color"/>
     </declare-styleable>
     <declare-styleable name="ProgressRing">
-        <attr name="cr_progress" format="integer" />
-        <attr name="cr_progressbar_width" format="dimension" />
-        <attr name="cr_progressbar_start_color" format="color" />
-        <attr name="cr_progressbar_end_color" format="color" />
-        <attr name="cr_background_bar_start_color" format="color" />
-        <attr name="cr_background_bar_mid_color" format="color" />
-        <attr name="cr_background_bar_end_color" format="color" />
-        <attr name="cr_start_angle" format="integer" />
-        <attr name="cr_sweep_angle" format="integer" />
-        <attr name="cr_anim_show" format="boolean" />
+        <attr name="cr_progress" format="integer"/>
+        <attr name="cr_progressbar_width" format="dimension"/>
+        <attr name="cr_progressbar_start_color" format="color"/>
+        <attr name="cr_progressbar_end_color" format="color"/>
+        <attr name="cr_background_bar_start_color" format="color"/>
+        <attr name="cr_background_bar_mid_color" format="color"/>
+        <attr name="cr_background_bar_end_color" format="color"/>
+        <attr name="cr_start_angle" format="integer"/>
+        <attr name="cr_sweep_angle" format="integer"/>
+        <attr name="cr_anim_show" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="singleLine" format="boolean"></attr>
+        <attr name="maxLines" format="integer"></attr>
+        <attr name="divideSpace" format="dimension"></attr>
+        <attr name="columnNumbers" format="integer"></attr>
+        <attr name="rowNumbers" format="integer"></attr>
+        <attr name="cutLineWidth" format="dimension"></attr>
+        <attr name="cutLineColor" format="color"></attr>
+        <attr name="cutLine" format="boolean"></attr>
+        <attr name="lineCenter" format="boolean"></attr>
     </declare-styleable>
 </resources>
