@@ -5,8 +5,10 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
-import com.flyco.roundview.RoundTextView;
+import com.guuguo.android.R;
+import com.guuguo.android.lib.view.roundview.RoundTextView;
 
+@Deprecated
 public class IconRoundTextView extends RoundTextView {
     private  int type=0;
 
@@ -25,7 +27,7 @@ public class IconRoundTextView extends RoundTextView {
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, com.guuguo.android.R.styleable.IconTextView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconTextView);
         type = typedArray.getInt(com.guuguo.android.R.styleable.IconTextView_typeface, 0);
         setType();
         typedArray.recycle();

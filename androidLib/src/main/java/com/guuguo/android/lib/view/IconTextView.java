@@ -3,10 +3,10 @@ package com.guuguo.android.lib.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
-
-public class IconTextView extends TextView {
+@Deprecated
+public class IconTextView extends AppCompatTextView {
     private  int type=0;
 
     public IconTextView(Context context, AttributeSet attrs, int defStyle) {

@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by mimi on 2016-12-22.
+ * mimi 创造于 2016-12-22.
+ * 项目 diary
  */
 
 public class FlowLayout extends ViewGroup {

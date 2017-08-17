@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
+import com.guuguo.android.R;
+
 public class RoundViewDelegate {
     private View view;
     private Context context;
@@ -41,21 +43,21 @@ public class RoundViewDelegate {
     }
 
     private void obtainAttributes(Context context, AttributeSet attrs) {
-        TypedArray ta = context.obtainStyledAttributes(attrs, com.flyco.roundview.R.styleable.RoundTextView);
-        backgroundColor = ta.getColor(com.flyco.roundview.R.styleable.RoundTextView_rv_backgroundColor, Color.TRANSPARENT);
-        backgroundPressColor = ta.getColor(com.flyco.roundview.R.styleable.RoundTextView_rv_backgroundPressColor, Integer.MAX_VALUE);
-        cornerRadius = ta.getDimensionPixelSize(com.flyco.roundview.R.styleable.RoundTextView_rv_cornerRadius, 0);
-        strokeWidth = ta.getDimensionPixelSize(com.flyco.roundview.R.styleable.RoundTextView_rv_strokeWidth, 0);
-        strokeColor = ta.getColor(com.flyco.roundview.R.styleable.RoundTextView_rv_strokeColor, Color.TRANSPARENT);
-        strokePressColor = ta.getColor(com.flyco.roundview.R.styleable.RoundTextView_rv_strokePressColor, Integer.MAX_VALUE);
-        textPressColor = ta.getColor(com.flyco.roundview.R.styleable.RoundTextView_rv_textPressColor, Integer.MAX_VALUE);
-        isRadiusHalfHeight = ta.getBoolean(com.flyco.roundview.R.styleable.RoundTextView_rv_isRadiusHalfHeight, false);
-        isWidthHeightEqual = ta.getBoolean(com.flyco.roundview.R.styleable.RoundTextView_rv_isWidthHeightEqual, false);
-        cornerRadius_TL = ta.getDimensionPixelSize(com.flyco.roundview.R.styleable.RoundTextView_rv_cornerRadius_TL, 0);
-        cornerRadius_TR = ta.getDimensionPixelSize(com.flyco.roundview.R.styleable.RoundTextView_rv_cornerRadius_TR, 0);
-        cornerRadius_BL = ta.getDimensionPixelSize(com.flyco.roundview.R.styleable.RoundTextView_rv_cornerRadius_BL, 0);
-        cornerRadius_BR = ta.getDimensionPixelSize(com.flyco.roundview.R.styleable.RoundTextView_rv_cornerRadius_BR, 0);
-        isRippleEnable = ta.getBoolean(com.flyco.roundview.R.styleable.RoundTextView_rv_isRippleEnable, true);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundTextView);
+        backgroundColor = ta.getColor(R.styleable.RoundTextView_rv_backgroundColor, Color.TRANSPARENT);
+        backgroundPressColor = ta.getColor(R.styleable.RoundTextView_rv_backgroundPressColor, Integer.MAX_VALUE);
+        cornerRadius = ta.getDimensionPixelSize(R.styleable.RoundTextView_rv_cornerRadius, 0);
+        strokeWidth = ta.getDimensionPixelSize(R.styleable.RoundTextView_rv_strokeWidth, 0);
+        strokeColor = ta.getColor(R.styleable.RoundTextView_rv_strokeColor, Color.TRANSPARENT);
+        strokePressColor = ta.getColor(R.styleable.RoundTextView_rv_strokePressColor, Integer.MAX_VALUE);
+        textPressColor = ta.getColor(R.styleable.RoundTextView_rv_textPressColor, Integer.MAX_VALUE);
+        isRadiusHalfHeight = ta.getBoolean(R.styleable.RoundTextView_rv_isRadiusHalfHeight, false);
+        isWidthHeightEqual = ta.getBoolean(R.styleable.RoundTextView_rv_isWidthHeightEqual, false);
+        cornerRadius_TL = ta.getDimensionPixelSize(R.styleable.RoundTextView_rv_cornerRadius_TL, 0);
+        cornerRadius_TR = ta.getDimensionPixelSize(R.styleable.RoundTextView_rv_cornerRadius_TR, 0);
+        cornerRadius_BL = ta.getDimensionPixelSize(R.styleable.RoundTextView_rv_cornerRadius_BL, 0);
+        cornerRadius_BR = ta.getDimensionPixelSize(R.styleable.RoundTextView_rv_cornerRadius_BR, 0);
+        isRippleEnable = ta.getBoolean(R.styleable.RoundTextView_rv_isRippleEnable, true);
 
         ta.recycle();
     }

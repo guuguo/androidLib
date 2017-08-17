@@ -1,12 +1,8 @@
-package com.guuguo.android.lib.view;
+package com.guuguo.android.lib.view.roundview;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
-import android.widget.Button;
-import android.widget.ImageButton;
-
-import com.flyco.roundview.RoundViewDelegate;
 
 /** 用于需要圆角矩形框背景的TextView的情况,减少直接使用TextView时引入的shape资源文件 */
 public class RoundImageButton extends AppCompatImageButton {

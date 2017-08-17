@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 /** 用于需要圆角矩形框背景的ConstraintLayout 的情况,减少直接使用ConstraintLayout 时引入的shape资源文件 */
 public class RoundConstraintLayout extends ConstraintLayout {
-    private com.flyco.roundview.RoundViewDelegate delegate;
+    private RoundViewDelegate delegate;
 
     public RoundConstraintLayout(Context context) {
         this(context, null);
@@ -14,11 +14,11 @@ public class RoundConstraintLayout extends ConstraintLayout {
 
     public RoundConstraintLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        delegate = new com.flyco.roundview.RoundViewDelegate(this, context, attrs);
+        delegate = new RoundViewDelegate(this, context, attrs);
     }
 
     /** use delegate to set attr */
-    public com.flyco.roundview.RoundViewDelegate getDelegate() {
+    public RoundViewDelegate getDelegate() {
         return delegate;
     }
 

@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.flyco.roundview.RoundTextView
 import com.guuguo.android.R
+import com.guuguo.android.lib.view.roundview.RoundTextView
 
 /**
  * mimi 创造于 2017-06-17.

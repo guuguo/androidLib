@@ -17,6 +17,13 @@ import java.util.ArrayList;
  * Created by mimi on 2016-12-22.
  */
 
+/**
+ * @author guuguo
+ * @see FlowLayout
+ * @deprecated 这个类是用linearLayout嵌套实现的布局，性能会有局限，且功能不够丰富.
+ * 请使用 {@link FlowLayout}
+ */
+@Deprecated
 public class LinearList extends LinearLayout {
     /***
      * 列数

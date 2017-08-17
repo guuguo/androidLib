@@ -6,7 +6,7 @@ import android.widget.RelativeLayout;
 
 /** 用于需要圆角矩形框背景的RelativeLayout的情况,减少直接使用RelativeLayout时引入的shape资源文件 */
 public class RoundRelativeLayout extends RelativeLayout {
-    private com.flyco.roundview.RoundViewDelegate delegate;
+    private RoundViewDelegate delegate;
 
     public RoundRelativeLayout(Context context) {
         this(context, null);
@@ -14,11 +14,11 @@ public class RoundRelativeLayout extends RelativeLayout {
 
     public RoundRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        delegate = new com.flyco.roundview.RoundViewDelegate(this, context, attrs);
+        delegate = new RoundViewDelegate(this, context, attrs);
     }
 
     /** use delegate to set attr */
-    public com.flyco.roundview.RoundViewDelegate getDelegate() {
+    public RoundViewDelegate getDelegate() {
         return delegate;
     }
 
