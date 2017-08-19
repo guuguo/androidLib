@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +16,8 @@ import com.guuguo.android.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.View.MeasureSpec.EXACTLY;
 
 /**
  * mimi 创造于 2016-12-22.
@@ -97,6 +100,11 @@ public class FlowLayout extends ViewGroup {
      */
     private boolean mIsCenter;
 
+    /**
+     * 网格布局子布局平均宽度
+     */
+    private int gridChildAvWidth = 0;
+    private int gridChildAvHeight = 0;
 
     private ArrayList<RecyclerView.ViewHolder> viewHolders = new ArrayList();
 
@@ -140,9 +148,12 @@ public class FlowLayout extends ViewGroup {
             setFlowMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
+
+
     private void setGridMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // 获得它的父容器为它设置的测量模式和大小
         int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        Log.i("FlowLayout", "sizeWidth:" + sizeWidth);
         int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
         int modeWidth = MeasureSpec.getMode(widthMeasureSpec);
         int modeHeight = MeasureSpec.getMode(heightMeasureSpec);
@@ -159,15 +170,26 @@ public class FlowLayout extends ViewGroup {
         }
         int maxChildHeight = 0;
         int maxHeight = 0;
+        gridChildAvWidth = (int) ((sizeWidth - (mColumnNumbers - 1) * mDividerSpace - paddingLeft - paddingRight) / mColumnNumbers);
+        gridChildAvHeight = (int) ((sizeHeight - (mRowNumbers - 1) * mDividerSpace - paddingTop - paddingBottom) / mRowNumbers);
+
         //统计最大高度/最大宽度
         for (int i = 0; i < mRowNumbers; i++) {
             for (int j = 0; j < mColumnNumbers; j++) {
                 final View child = getChildAt(i * mColumnNumbers + j);
                 if (child != null) {
                     if (child.getVisibility() != GONE) {
-                        int widthSpec = MeasureSpec.makeMeasureSpec(sizeWidth / mColumnNumbers, MeasureSpec.EXACTLY);
-                        int height = MeasureSpec.makeMeasureSpec(sizeHeight, MeasureSpec.UNSPECIFIED);
-                        measureChild(child, widthSpec, height);
+                        int widthSpec = MeasureSpec.makeMeasureSpec(gridChildAvWidth, MeasureSpec.EXACTLY);
+                        int heightSpec;
+                        if (modeHeight != MeasureSpec.EXACTLY) {
+                            heightSpec = MeasureSpec.makeMeasureSpec(sizeHeight, MeasureSpec.UNSPECIFIED);
+                            child.measure(widthSpec, heightSpec);
+                            gridChildAvHeight = child.getMeasuredHeight();
+                        } else {
+                            heightSpec = MeasureSpec.makeMeasureSpec(gridChildAvHeight, MeasureSpec.EXACTLY);
+                            child.measure(widthSpec, heightSpec);
+                        }
+//                        measureChildWithMargins(child, widthSpec, 0, heightSpec, 0);
                         // 得到child的lp
                         MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
                         maxChildHeight = Math.max(maxChildHeight, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
@@ -179,7 +201,7 @@ public class FlowLayout extends ViewGroup {
         }
         int heightResult = (int) (maxHeight + mDividerSpace * (mRowNumbers - 1) + paddingBottom + paddingTop);
 
-        setMeasuredDimension(sizeWidth, (modeHeight == MeasureSpec.EXACTLY) ? sizeHeight : heightResult);
+        setMeasuredDimension(sizeWidth, (modeHeight == EXACTLY) ? sizeHeight : heightResult);
     }
 
     @Override
@@ -193,24 +215,28 @@ public class FlowLayout extends ViewGroup {
 
     private void setGridLayout() {
 //        mCheckedViews.clear();
-        mCurrentItemIndex = -1;
-        int sizeWidth = getWidth();
-        int sizeHeight = getHeight();
-        //子View的平均宽高 默认所有View宽高一致
-        View tempChild = getChildAt(0);
-        MarginLayoutParams lp = (MarginLayoutParams) tempChild.getLayoutParams();
-        int childAvWidth = (int) ((sizeWidth - getPaddingLeft() - getPaddingRight() - mDividerSpace * (mColumnNumbers - 1)) / mColumnNumbers) - lp.leftMargin - lp.rightMargin;
-        int childAvHeight = (int) ((sizeHeight - getPaddingTop() - getPaddingBottom() - mDividerSpace * (mRowNumbers - 1)) / mRowNumbers) - lp.topMargin - lp.bottomMargin;
-        for (int i = 0; i < mRowNumbers; i++) {
-            for (int j = 0; j < mColumnNumbers; j++) {
-                final View child = getChildAt(i * mColumnNumbers + j);
-                if (child != null) {
-                    mCurrentItemIndex++;
-                    if (child.getVisibility() != View.GONE) {
+        Log.i("FlowLayout", "layoutWidth:" + getWidth());
+
+        if (getChildCount() > 0) {
+            mCurrentItemIndex = -1;
+            int sizeWidth = getWidth();
+            int sizeHeight = getHeight();
+            //子View的平均宽高 默认所有View宽高一致
+            View tempChild = getChildAt(0);
+            MarginLayoutParams lp = (MarginLayoutParams) tempChild.getLayoutParams();
+//            int childAvWidth = tempChild.getMeasuredWidth(); //(int) ((sizeHeight - getPaddingTop() - getPaddingBottom() - mDividerSpace * (mRowNumbers - 1)) / mRowNumbers) - lp.topMargin - lp.bottomMargin;
+//            int childAvHeight = tempChild.getMeasuredHeight(); //(int) ((sizeHeight - getPaddingTop() - getPaddingBottom() - mDividerSpace * (mRowNumbers - 1)) / mRowNumbers) - lp.topMargin - lp.bottomMargin;
+            for (int i = 0; i < mRowNumbers; i++) {
+                for (int j = 0; j < mColumnNumbers; j++) {
+                    final View child = getChildAt(i * mColumnNumbers + j);
+                    if (child != null) {
+                        mCurrentItemIndex++;
+                        if (child.getVisibility() != View.GONE) {
 //                        setChildClickOperation(child, -1);
-                        int childLeft = (int) (getPaddingLeft() + j * (childAvWidth + mDividerSpace)) + j * (lp.leftMargin + lp.rightMargin) + lp.leftMargin;
-                        int childTop = (int) (getPaddingTop() + i * (childAvHeight + mDividerSpace)) + i * (lp.topMargin + lp.bottomMargin) + lp.topMargin;
-                        child.layout(childLeft, childTop, childLeft + childAvWidth, childAvHeight + childTop);
+                            int childLeft = (int) (getPaddingLeft() + j * (gridChildAvWidth + mDividerSpace) + j * (lp.leftMargin + lp.rightMargin) + lp.leftMargin);
+                            int childTop = (int) (getPaddingTop() + i * (gridChildAvHeight + mDividerSpace) + i * (lp.topMargin + lp.bottomMargin) + lp.topMargin);
+                            child.layout(childLeft, childTop, childLeft + gridChildAvWidth, gridChildAvHeight + childTop);
+                        }
                     }
                 }
             }
@@ -297,9 +323,9 @@ public class FlowLayout extends ViewGroup {
             }
 
         }
-        setMeasuredDimension((modeWidth == MeasureSpec.EXACTLY) ? sizeWidth
-                : width, (modeHeight == MeasureSpec.EXACTLY) ? sizeHeight
-                : height+paddingTop+paddingBottom);
+        setMeasuredDimension((modeWidth == EXACTLY) ? sizeWidth
+                : width, (modeHeight == EXACTLY) ? sizeHeight
+                : height + paddingTop + paddingBottom);
     }
 
     /**
@@ -474,7 +500,7 @@ public class FlowLayout extends ViewGroup {
             View view = views.get(i);
             addView(view);
         }
-        requestLayout();
+//        requestLayout();
     }
 
     /**
@@ -614,7 +640,6 @@ public class FlowLayout extends ViewGroup {
             mAdapter.bindViewHolder(holder, i);
             this.addView(holder.itemView);
         }
-        requestLayout();
     }
 
     /**
@@ -767,15 +792,6 @@ public class FlowLayout extends ViewGroup {
         return new MarginLayoutParams(super.generateDefaultLayoutParams());
     }
 
-//
-//    public void setAdapter(RecyclerView.Adapter value) {
-//        this.adapter = value;
-//        if (adapter != null && !adapter.hasObservers())
-//            adapter.registerAdapterDataObserver(observer);
-//    }
-
-   
-
     @NonNull
     private RecyclerView.AdapterDataObserver observer = new RecyclerView.AdapterDataObserver() {
         @Override
@@ -799,81 +815,4 @@ public class FlowLayout extends ViewGroup {
         if (mAdapter != null && mAdapter.hasObservers())
             mAdapter.unregisterAdapterDataObserver(observer);
     }
-//
-//
-//    public View getItemView(int position) {
-//        if (position < 0)
-//            position = 0;
-//        if (position >= adapter.getItemCount())
-//            throw new IndexOutOfBoundsException("position不在范围内");
-//        if (mColumnNumbers <= 1)
-//            return getChildAt(position);
-//        else {
-//            LinearLayout ll = (LinearLayout) getChildAt(position % mColumnNumbers);
-//            return ll.getChildAt(position / mColumnNumbers);
-//        }
-//    }
-
-//    private void refreshView(RecyclerView.Adapter adapter) {
-//        this.removeAllViews();
-//        viewHolders.clear();
-//        if (mColumnNumbers <= 1) {//列数小于等于一行，linear
-//            setOrientation(VERTICAL);
-//            int i = 0;
-//            while (i < adapter.getItemCount()) {
-//                RecyclerView.ViewHolder holder = adapter.createViewHolder(this, adapter.getItemViewType(i));
-//                viewHolders.add(holder);
-//                adapter.bindViewHolder(holder, i);
-//                this.addView(holder.itemView);
-//                i++;
-//            }
-//        } else {//列数大于等于一行，grid
-//            setOrientation(HORIZONTAL);
-//            ArrayList<LinearLayout> llList = new ArrayList<>();
-//
-//            for (int col = 0; col < mColumnNumbers; col++) {
-//                LayoutParams params = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-//                params.weight = 1;
-//
-//                LinearLayout linearLayout = new LinearLayout(getContext());
-//                linearLayout.setOrientation(VERTICAL);
-//                if (col > 0)
-//                    params.setMargins(divideWidth, 0, 0, 0);
-//                else {
-//                    params.setMargins(0, 0, 0, 0);
-//                }
-//                linearLayout.setLayoutParams(params);
-//                llList.add(linearLayout);
-//                this.addView(linearLayout);
-//            }
-//            int i = 0;
-//            while (i < adapter.getItemCount()) {
-//                for (LinearLayout ll : llList) {
-//                    if (i < adapter.getItemCount()) {
-//
-//                        RecyclerView.ViewHolder holder = adapter.createViewHolder(this, adapter.getItemViewType(i));
-//                        viewHolders.add(holder);
-//                        adapter.bindViewHolder(holder, i);
-//                        if (i >= llList.size()) {
-//                            LayoutParams param = ((LayoutParams) holder.itemView.getLayoutParams());
-//                            param.setMargins(0, divideWidth, 0, 0);
-//                            holder.itemView.setLayoutParams(param);
-//                        }
-//                        ll.addView(holder.itemView);
-//                        i++;
-//                    }
-//                }
-//            }
-//        }
-//    }
-
-//    public void setDivideWidth(int divideWidth) {
-//        this.divideWidth = divideWidth;
-//    }
-//
-//    public void setmColumnNumbers(int mColumnNumbers) {
-//        this.mColumnNumbers = mColumnNumbers;
-//    }
-
-
 }

@@ -64,7 +64,7 @@
                 android:textColor="#757575"
                 android:textSize="16sp" />
             <!-- 【必设】确认按钮tag：beta_confirm_button-->
-            <com.flyco.roundview.RoundTextView
+            <com.guuguo.android.lib.view.roundview.RoundTextView
                 android:tag="beta_confirm_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
