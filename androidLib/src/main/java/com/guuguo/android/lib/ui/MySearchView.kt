@@ -1,6 +1,7 @@
 package com.guuguo.android.lib.ui
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -18,6 +19,18 @@ import com.guuguo.android.lib.extension.safe
  */
 
 class MySearchView : FrameLayout {
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        val attributes = context.theme.obtainStyledAttributes(attrs, R.styleable.MySearchView, defStyleAttr, 0)
+        initAttr(context, attributes)
+        attributes.recycle()
+        initView()
+    }
+    private fun initAttr(context: Context, attributes: TypedArray) {
+        hint = attributes.getString(R.styleable.MySearchView_msv_hint).safe("搜索")
+    }
+
     var onBackClick: (v: View) -> Unit = {}
     var onTextChange: (str: String) -> Unit = {}
     var searchClick: (str: String) -> Unit = {}
@@ -66,27 +79,17 @@ class MySearchView : FrameLayout {
 
     }
 
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(context, attrs)
-    }
-
-    private fun init(context: Context, attrs: AttributeSet?) {
-            val layout = LayoutInflater.from(context).inflate(R.layout.view_search, this, false)
-            holder = ViewHolder(layout)
-            obtainAttributes(context, attrs)
-            initView()
-            this.addView(layout)
-    }
 
     private fun obtainAttributes(context: Context, attrs: AttributeSet?) {
         val ta = context.obtainStyledAttributes(attrs, R.styleable.MySearchView)
-        hint = ta?.getString(R.styleable.MySearchView_msv_hint).safe("搜索")
         ta.recycle()
     }
 
     private fun initView() {
+        val layout = LayoutInflater.from(context).inflate(R.layout.view_search, this, false)
+        holder = ViewHolder(layout)
+        this.addView(layout)
+
         holder.edtSearch.hint = hint
 
         holder.btnBack.setOnClickListener { v -> onBackClick(v) }

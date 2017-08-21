@@ -13,6 +13,7 @@ import com.guuguo.android.R
  * 项目 androidLib
  */
 class StateLayout : FrameLayout {
+    
     var contentView: View? = null
     var currentView: View? = null
     var simpleView: View? = null
