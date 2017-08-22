@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.ui
+package com.guuguo.android.lib.view
 
 import android.content.Context
 import android.content.res.TypedArray

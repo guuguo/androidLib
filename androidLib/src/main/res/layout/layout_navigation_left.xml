@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.guuguo.android.lib.view.roundview.RoundFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="40dp"
+    android:layout_height="80dp"
+    app:rv_cornerRadius_BR="40dp"
+    app:rv_cornerRadius_TR="40dp"
+    android:layout_gravity="center_vertical|left"
+    android:layout_marginLeft="-40dp"
+    app:rv_backgroundColor="@color/blue_deep"
+   >
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:tint="@color/white"
+        app:srcCompat="@drawable/ic_navigation_arrow_left"/>
+
+</com.guuguo.android.lib.view.roundview.RoundFrameLayout>
