@@ -9,13 +9,13 @@ import android.widget.LinearLayout;
  * Created by guodeqing on 6/23/16.
  */
 @SuppressWarnings("depreion")
-public class CustomtAlertDialog extends MyDialog<CustomtAlertDialog> {
+public class CustomAlertDialog extends MyDialog<CustomAlertDialog> {
 
 
     private FrameLayout mContentLayout;
     protected View mContentView;
 
-    public CustomtAlertDialog(Context context) {
+    public CustomAlertDialog(Context context) {
         super(context);
     }
 
@@ -45,7 +45,7 @@ public class CustomtAlertDialog extends MyDialog<CustomtAlertDialog> {
 
 
     // --->属性设置
-    public CustomtAlertDialog contentView(View content) {
+    public CustomAlertDialog contentView(View content) {
         this.mContentView = content;
         return this;
     }

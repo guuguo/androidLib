@@ -95,6 +95,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         setLayoutResId(getLayoutResId())
         init(savedInstanceState)
     }
+
     fun setFullScreen(boolean: Boolean) {
         if (boolean) {
             val params = window.attributes;
@@ -253,6 +254,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         super.finish()
         overridePendingTransition()
     }
+
     open fun overridePendingTransition() {
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
     }

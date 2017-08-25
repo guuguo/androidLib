@@ -140,7 +140,7 @@ public class CommonUtil {
     }
 
     //返回数字字符串，如果等于整数返回不保留的整数，不等于保留retain位
-    public static String getGoodDoubleString(double num, int retain) {
+    public static String getGoodFloatString(float num, int retain) {
         if (num == (int) num)
             return (int) num + "";
         else

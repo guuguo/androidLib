@@ -17,6 +17,8 @@ import com.guuguo.android.R;
 public class EditAlertDialog extends MyDialog<EditAlertDialog> {
 
     private FrameLayout mContentLayout;
+
+
     private EditText mEditTextView;
     private String mEditText;
     private int mInputType = -1;
@@ -25,6 +27,11 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
 
     public EditAlertDialog(Context context) {
         super(context);
+    }
+
+
+    public EditText getEditTextView() {
+        return mEditTextView;
     }
 
     @Override
@@ -52,13 +59,12 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
         if (!TextUtils.isEmpty(mEditText)) {
             mEditTextView.setText(mEditText);
         }
-        if (mInputType != -1) {
-            mEditTextView.setInputType(mInputType);
-        }
         if (!mHint.isEmpty()) {
             mEditTextView.setHint(mHint);
         }
-
+        if (mInputType != -1) {
+            mEditTextView.setInputType(mInputType);
+        }
     }
 
     /**
