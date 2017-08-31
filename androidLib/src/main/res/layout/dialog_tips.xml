@@ -6,7 +6,7 @@
     android:background="#6000"
     android:gravity="center">
 
-    <com.flyco.roundview.RoundLinearLayout
+    <com.guuguo.android.lib.view.roundview.RoundLinearLayout
         app:rv_backgroundColor="#FFF"
         android:layout_margin="40dp"
         android:layout_width="match_parent"
@@ -80,5 +80,5 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-    </com.flyco.roundview.RoundLinearLayout>
+    </com.guuguo.android.lib.view.roundview.RoundLinearLayout>
 </RelativeLayout>

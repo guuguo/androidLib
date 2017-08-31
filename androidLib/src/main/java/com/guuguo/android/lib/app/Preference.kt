@@ -32,8 +32,9 @@ class Preference<T>(val context: Context, var default: T, var typeToken: TypeTok
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        if (mValue != value)
-            putPreference(property.name, value)
+        if (mValue != value || when (value) {is Long, is String, is Int, is Boolean, is Float -> false
+            else -> true
+        }) putPreference(property.name, value)
         mValue = value
     }
 
@@ -46,7 +47,7 @@ class Preference<T>(val context: Context, var default: T, var typeToken: TypeTok
             is Float -> getFloat(name, default)
             else -> {
                 if (typeToken != null) {
-                    gson.fromJson<U>(getString(name, ""), typeToken!!.type)
+                    gson.fromJson<U>(getString(name, ""), typeToken!!.type) ?: default
                 } else {
                     throw IllegalArgumentException("typeToken is null")
                 }

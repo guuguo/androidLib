@@ -29,7 +29,6 @@ import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import me.yokeyword.fragmentation.SupportActivity
 
 
 /**

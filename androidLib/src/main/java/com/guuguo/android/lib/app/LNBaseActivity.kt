@@ -28,6 +28,7 @@ import com.guuguo.android.lib.ui.dialog.StateDialog
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -35,7 +36,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseActivity : AppCompatActivity() {
+abstract class LNBaseActivity : RxAppCompatActivity() {
 
     private val myApplication = BaseApplication.get()
     private var mLoadingDialog: StateDialog? = null

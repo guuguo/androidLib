@@ -15,8 +15,7 @@ fun String?.safe(default: String = ""): String {
 }
 
 fun String?.toast(): String? {
-    if (!isNullOrEmpty())
-        BaseApplication.get().toast(this)
+    BaseApplication.get().toast(this.safe("(空字符串)"))
     return this
 }
 

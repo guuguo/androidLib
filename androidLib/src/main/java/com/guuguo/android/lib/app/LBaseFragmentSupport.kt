@@ -7,7 +7,6 @@ import android.view.*
 import com.guuguo.android.lib.extension.initNav
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import me.yokeyword.fragmentation.SupportFragment
 
 
 /**

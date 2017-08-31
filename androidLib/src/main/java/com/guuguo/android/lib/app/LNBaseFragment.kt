@@ -2,10 +2,10 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.guuguo.android.lib.extension.initNav
+import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LNBaseFragment : Fragment() {
+abstract class LNBaseFragment : RxFragment() {
 
     protected val TAG = this.javaClass.simpleName
     lateinit var activity: LNBaseActivity
