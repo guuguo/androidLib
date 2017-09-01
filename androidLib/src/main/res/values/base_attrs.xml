@@ -53,15 +53,22 @@
     </declare-styleable>
 
     <declare-styleable name="FlowLayout">
-        <attr name="singleLine" format="boolean"></attr>
-        <attr name="maxLines" format="integer"></attr>
-        <attr name="divideSpace" format="dimension"></attr>
-        <attr name="columnNumbers" format="integer"></attr>
-        <attr name="rowNumbers" format="integer"></attr>
-        <attr name="cutLineWidth" format="dimension"></attr>
-        <attr name="cutLineColor" format="color"></attr>
-        <attr name="cutLine" format="boolean"></attr>
-        <attr name="lineCenter" format="boolean"></attr>
+        <attr name="singleLine" format="boolean"/>
+        <attr name="maxLines" format="integer"/>
+        <attr name="divideSpace" format="dimension"/>
+        <attr name="columnNumbers" format="integer"/>
+        <attr name="rowNumbers" format="integer"/>
+        <attr name="cutLineWidth" format="dimension"/>
+        <attr name="cutLineColor" format="color"/>
+        <attr name="cutLine" format="boolean"/>
+        <attr name="lineCenter" format="boolean"/>
+    </declare-styleable>
+
+
+    <!--************ QMUILoading ***********-->
+    <declare-styleable name="QMUILoadingView">
+        <attr name="qmui_loading_view_size" format="dimension"/>
+        <attr name="android:color"/>
     </declare-styleable>
 
 </resources>

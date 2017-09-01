@@ -9,7 +9,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -23,10 +22,10 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
-import com.guuguo.android.lib.ui.dialog.DialogHelper
-import com.guuguo.android.lib.ui.dialog.StateDialog
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
+import com.guuguo.android.lib.widget.dialog.DialogHelper
+import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
@@ -39,7 +38,7 @@ import io.reactivex.disposables.Disposable
 abstract class LNBaseActivity : RxAppCompatActivity() {
 
     private val myApplication = BaseApplication.get()
-    private var mLoadingDialog: StateDialog? = null
+    private var mLoadingDialog: TipDialog? = null
     /*fragment*/
 
     var mFragment: LNBaseFragment? = null
@@ -263,11 +262,11 @@ abstract class LNBaseActivity : RxAppCompatActivity() {
     }
 
     fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500) {
-        DialogHelper.dialogStateShow(activity, msg, listener, StateDialog.STATE_STYLE.error, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800) {
-        DialogHelper.dialogStateShow(activity, msg, listener, StateDialog.STATE_STYLE.success, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?) {

@@ -178,4 +178,5 @@
         <attr name="rv_cornerRadius_BR"/>
         <attr name="rv_isRippleEnable"/>
     </declare-styleable>
+
 </resources>

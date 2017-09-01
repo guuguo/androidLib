@@ -8,4 +8,6 @@
     <dimen name="actionbar_size">56dp</dimen>
     <dimen name="dialog_width">300dp</dimen>
     <dimen name="text_size">14sp</dimen>
+    <dimen name="dialog_recycler_item_height">65sp</dimen>
+
 </resources>

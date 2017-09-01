@@ -22,8 +22,8 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
-import com.guuguo.android.lib.ui.dialog.DialogHelper
-import com.guuguo.android.lib.ui.dialog.StateDialog
+import com.guuguo.android.lib.widget.dialog.DialogHelper
+import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -37,7 +37,7 @@ import io.reactivex.disposables.Disposable
 abstract class LBaseActivitySupport : SupportActivity() {
 
     private val myApplication = BaseApplication.get()
-    private var mLoadingDialog: StateDialog? = null
+    private var mLoadingDialog: TipDialog? = null
     /*fragment*/
 
     var mFragment: LBaseFragmentSupport? = null
@@ -281,11 +281,11 @@ abstract class LBaseActivitySupport : SupportActivity() {
     }
 
     fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500) {
-        DialogHelper.dialogStateShow(activity, msg, listener, StateDialog.STATE_STYLE.error, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800) {
-        DialogHelper.dialogStateShow(activity, msg, listener, StateDialog.STATE_STYLE.success, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?) {
