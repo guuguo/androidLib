@@ -681,25 +681,6 @@ public class FlowLayout extends ViewGroup {
         return mColumnNumbers;
     }
 
-//    /**
-//     * 设置行数
-//     *
-//     * @param rowNumbers
-//     */
-//    public void setRowNumbers(int rowNumbers) {
-//        mRowNumbers = rowNumbers;
-//        requestLayout();
-//    }
-
-//    /**
-//     * 得到行数
-//     *
-//     * @return
-//     */
-//    public int getRowNumbers() {
-//        return mRowNumbers;
-//    }
-
     /**
      * 设置分割线的宽度
      *
