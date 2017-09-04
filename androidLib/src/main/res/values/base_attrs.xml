@@ -58,10 +58,7 @@
         <attr name="divideSpace" format="dimension"/>
         <attr name="columnNumbers" format="integer"/>
         <attr name="rowNumbers" format="integer"/>
-        <attr name="cutLineWidth" format="dimension"/>
-        <attr name="cutLineColor" format="color"/>
-        <attr name="cutLine" format="boolean"/>
-        <attr name="lineCenter" format="boolean"/>
+        <attr name="dividerColor" format="color"/>
     </declare-styleable>
 
 
