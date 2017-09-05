@@ -26,8 +26,12 @@ public class DividerTextView extends AppCompatTextView {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        Drawable bg = DividerDelegate.fromAttributeSet(this, context, attrs);
+        final Drawable bg = DividerDelegate.fromAttributeSet(DividerTextView.this, context, attrs);
         setBackgroundDrawable(bg);
     }
 
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
 }

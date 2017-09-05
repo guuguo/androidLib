@@ -21,7 +21,6 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -62,8 +61,9 @@ public class DividerDrawable extends Drawable {
     private int endMargin = 0;
     private int margin = -1;
 
-    @ColorInt
-    private int dividerColor = DEFAULT_COLOR;
+    public void setColor(int color) {
+        backgroundPaint.setColor(color);
+    }
 
     public int getAlignType() {
         return alignType;
@@ -94,22 +94,24 @@ public class DividerDrawable extends Drawable {
     }
 
     public void setDividerColor(int dividerColor) {
-        this.dividerColor = dividerColor;
         paint.setColor(dividerColor);
     }
 
     private final Paint paint;
+    private final Paint backgroundPaint;
 
     public DividerDrawable() {
         paint = new Paint();
+        backgroundPaint = new Paint();
     }
 
- 
+
     @Override
     public void draw(@NonNull Canvas canvas) {
         final int w = canvas.getWidth();
         final int h = canvas.getHeight();
         int[] layouted = layout(w, h);
+        canvas.drawRect(getBounds(), backgroundPaint);
         canvas.drawRect(layouted[0], layouted[1], layouted[2], layouted[3], paint);
     }
 

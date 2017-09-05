@@ -76,7 +76,6 @@ class MySearchView : FrameLayout {
             if (selected)
                 it.selectAll()
         }
-
     }
 
 

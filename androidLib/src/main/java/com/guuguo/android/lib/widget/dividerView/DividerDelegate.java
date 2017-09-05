@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -95,28 +94,29 @@ public class DividerDelegate {
         int textColorPress = typedArray.getColor(R.styleable.DividerTextView_dv_textColorPress, Integer.MAX_VALUE);
         boolean isRipple = typedArray.getBoolean(R.styleable.DividerTextView_dv_isRipple, false);
 
+        backgroundColorPress = backgroundColorPress == Integer.MAX_VALUE ? backgroundColor : backgroundColorPress;
+        dividerColorFocus = dividerColorFocus == Integer.MAX_VALUE ? dividerColor : dividerColorFocus;
+        
         Drawable resultDrawable;
         DividerDrawable drawableNormal = getDividerDrawable(typedArray, dividerColor);
-        DividerDrawable drawableFocus = dividerColorFocus == Integer.MAX_VALUE ? drawableNormal : getDividerDrawable(typedArray, dividerColorFocus);
-
-        GradientDrawable gd_background = new GradientDrawable();
-        GradientDrawable gd_background_press = new GradientDrawable();
+        DividerDrawable drawableFocus = getDividerDrawable(typedArray, dividerColorFocus);
+        drawableNormal.setColor(backgroundColor);
+        drawableFocus.setColor(backgroundColorPress);
+        
+        getDividerDrawable(typedArray, dividerColorFocus);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && isRipple) {
-            gd_background.setColor(backgroundColor);
-            RippleDrawable rippleDrawable = new RippleDrawable(getPressedColorSelector(backgroundColor, backgroundColorPress), getLayerDrawable(gd_background, drawableNormal), null);
+            RippleDrawable rippleDrawable = new RippleDrawable(getPressedColorSelector(backgroundColor, backgroundColorPress), drawableNormal, null);
             resultDrawable = rippleDrawable;
         } else {
             StateListDrawable bg = new StateListDrawable();
-            gd_background.setColor(backgroundColor);
-            bg.addState(new int[]{-android.R.attr.state_pressed, -android.R.attr.state_focused}, getLayerDrawable(gd_background_press, drawableNormal));
-            gd_background_press.setColor(backgroundColorPress == Integer.MAX_VALUE ? backgroundColor : backgroundColorPress);
-            Drawable focusDrawable = getLayerDrawable(gd_background_press, drawableFocus);
-            bg.addState(new int[]{android.R.attr.state_pressed}, focusDrawable);
-            bg.addState(new int[]{android.R.attr.state_focused}, focusDrawable);
+            bg.addState(new int[]{-android.R.attr.state_pressed, -android.R.attr.state_focused}, drawableNormal);
+            bg.addState(new int[]{android.R.attr.state_pressed}, drawableFocus);
+            bg.addState(new int[]{android.R.attr.state_focused}, drawableFocus);
             resultDrawable = bg;
         }
-        if (view instanceof TextView && textColorPress != Integer.MAX_VALUE) {
+        if (view instanceof TextView && textColorPress != Integer.MAX_VALUE)
+        {
             ColorStateList textColors = ((TextView) view).getTextColors();
             ColorStateList colorStateList = new ColorStateList(
                     new int[][]{new int[]{-android.R.attr.state_pressed}, new int[]{android.R.attr.state_pressed}},
