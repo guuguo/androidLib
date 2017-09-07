@@ -9,5 +9,9 @@
 
     <include layout="@layout/base_toolbar_common" />
 
-  
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 </LinearLayout>

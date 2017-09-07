@@ -22,10 +22,10 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
-import com.guuguo.android.lib.widget.dialog.DialogHelper
-import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
+import com.guuguo.android.lib.widget.dialog.DialogHelper
+import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

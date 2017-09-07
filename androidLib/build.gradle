@@ -28,6 +28,8 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':dividerview')
+
     //support
     ext.support_vesion = "26.+"
     compile "com.android.support:appcompat-v7:$support_vesion"

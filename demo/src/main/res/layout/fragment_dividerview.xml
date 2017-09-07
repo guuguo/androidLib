@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/migray"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="top.guuguo.myapplication.MainActivity">
+
+    <com.guuguo.android.lib.widget.roundview.RoundFlowLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        app:columnNumbers="2"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius="3dp"
+        app:rv_strokeColor="@color/blue"
+        app:rv_strokeWidth="1dp">
+
+        <top.guuguo.dividerview.DividerTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/blue"
+            app:dv_align="dv_RC"
+            app:dv_dividerColor="@color/blue"
+            app:dv_dividerWidth="1dp"
+            app:dv_margin="5dp" />
+
+        <top.guuguo.dividerview.DividerTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/blue"
+            app:dv_align="dv_BC"
+            app:dv_dividerColor="@color/blue"
+            app:dv_dividerWidth="1dp"
+            app:dv_margin="5dp" />
+
+        <top.guuguo.dividerview.DividerTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/blue"
+            app:dv_align="dv_TC"
+            app:dv_dividerColor="@color/blue"
+            app:dv_dividerWidth="1dp"
+            app:dv_margin="5dp" />
+
+        <top.guuguo.dividerview.DividerTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/blue"
+            app:dv_align="dv_LC"
+            app:dv_dividerColor="@color/blue"
+            app:dv_dividerWidth="1dp"
+            app:dv_margin="5dp" />
+    </com.guuguo.android.lib.widget.roundview.RoundFlowLayout>
+
+    <top.guuguo.dividerview.DividerTextView
+        android:id="@+id/dtv_click_add_divider"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="点击切换"
+        android:textColor="@color/blue"
+        app:dv_backgroundColorPress="@color/black20"
+        app:dv_textColorPress="@color/black"
+        app:dv_backgroundColor="@color/white"
+        />
+
+</LinearLayout>

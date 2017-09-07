@@ -1,1 +1,1 @@
-include ':androidLib', ':demo'
+include ':androidLib', ':demo', ':dividerview'

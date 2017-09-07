@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.guuguo.android.lib.widget.roundview.RoundFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_margin="10dp"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="20dp"
+    app:columnNumbers="0"
+    app:divideSpace="20dp"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius="3dp"
+    app:rv_strokeColor="@color/black20"
+    app:rv_strokeWidth="1px"
     tools:context="top.guuguo.myapplication.MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:padding="10dp"
         android:layout_height="80dp"
-        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:onClick="onSimpleViewClick"
-        android:text="simple view"
+        android:onClick="OnDividerViewClick"
+        android:text="DividerView"
         android:textColor="@color/white"
         android:textSize="16sp"
-     />
+        app:rv_backgroundColor="@color/green_4DC0A4"
+        app:rv_cornerRadius="3dp" />
 
-    <TextView
-        android:layout_width="match_parent"
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:padding="10dp"
         android:layout_height="80dp"
-        android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:onClick="onProgressClick"
-        android:text="progress"
-        android:textColor="@color/white"
+        android:text="ProgressView"
+        android:textColor="@color/black80"
         android:textSize="16sp"
-  />
-</LinearLayout>
+        app:rv_backgroundColor="@color/migray"
+        app:rv_backgroundPressColor="@color/colorPrimary"
+        app:rv_cornerRadius="3dp"
+        app:rv_strokeColor="@color/black20"
+        app:rv_strokePressColor="@color/black20"
+        app:rv_strokeWidth="1px"
+        app:rv_textPressColor="@color/colorPrimary" />
+
+
+</com.guuguo.android.lib.widget.roundview.RoundFlowLayout>

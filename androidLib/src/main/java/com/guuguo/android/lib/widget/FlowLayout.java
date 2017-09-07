@@ -156,8 +156,9 @@ public class FlowLayout extends ViewGroup {
         //最终的宽高值
         mAllViews.clear();
         //推测行数
+        mRowNumbers = getChildCount() % mColumnNumbers == 0 ? getChildCount() / mColumnNumbers : (getChildCount() / mColumnNumbers + 1);
         if (mRowNumbers == 0) {
-            mRowNumbers = getChildCount() % mColumnNumbers == 0 ? getChildCount() / mColumnNumbers : (getChildCount() / mColumnNumbers + 1);
+            mRowNumbers++;
         }
         int maxChildHeight = 0;
         int maxHeight = 0;
@@ -172,23 +173,23 @@ public class FlowLayout extends ViewGroup {
             for (int j = 0; j < mColumnNumbers; j++) {
                 final View child = getChildAt(i * mColumnNumbers + j);
                 if (child != null) {
+                    MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
 
                     mAllViews.get(i).add(child);
                     if (child.getVisibility() != GONE) {
-                        measureChild(child, widthMeasureSpec, heightMeasureSpec);
                         int widthSpec;
-                        widthSpec = MeasureSpec.makeMeasureSpec(widthGridChildAv, MeasureSpec.EXACTLY);
+                        widthSpec = getChildMeasureSpec(widthMeasureSpec, sizeWidth - widthGridChildAv, lp.width);
                         int heightSpec;
                         if (modeHeight != MeasureSpec.EXACTLY) {
-                            heightSpec = MeasureSpec.makeMeasureSpec(sizeHeight, MeasureSpec.UNSPECIFIED);
-                            measureChild(child, widthSpec, heightSpec);
-                            heightGridChildAv = child.getMeasuredHeight();
+//                            heightSpec = MeasureSpec.makeMeasureSpec(sizeHeight, MeasureSpec.UNSPECIFIED);
+                            heightSpec = getChildMeasureSpec(heightMeasureSpec, paddingTop + paddingBottom, lp.height);
+                            child.measure(widthSpec, heightSpec);
+                            heightGridChildAv = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
                         } else {
-                            heightSpec = MeasureSpec.makeMeasureSpec(heightGridChildAv, MeasureSpec.EXACTLY);
-                            measureChild(child, widthSpec, heightSpec);
+                            heightSpec = getChildMeasureSpec(heightMeasureSpec, sizeHeight - heightGridChildAv, lp.height);
+                            child.measure(widthSpec, heightSpec);
                         }
                         // 得到child的lp
-                        MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
                         maxChildHeight = Math.max(maxChildHeight, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
                     }
                 }
@@ -197,7 +198,6 @@ public class FlowLayout extends ViewGroup {
             maxChildHeight = 0;
         }
         int heightResult = maxHeight + mDividerSpace * (mRowNumbers - 1) + paddingBottom + paddingTop;
-
         setMeasuredDimension(sizeWidth, (modeHeight == EXACTLY) ? sizeHeight : heightResult);
     }
 
@@ -214,7 +214,7 @@ public class FlowLayout extends ViewGroup {
                         int centerHorizonSpace = 0;
                         if (stayMaxWidth > child.getMeasuredWidth())
                             centerHorizonSpace = (stayMaxWidth - child.getWidth()) / 2;
-                        int childLeft = (int) (getPaddingLeft() + j * (widthGridChildAv + mDividerSpace) + lp.leftMargin + centerHorizonSpace);
+                        int childLeft = getPaddingLeft() + j * (widthGridChildAv + mDividerSpace) + lp.leftMargin + centerHorizonSpace;
 
                         if (isHeightAvg) {
                             int stayMaxHeight = heightGridChildAv - lp.topMargin - lp.bottomMargin;
@@ -277,14 +277,14 @@ public class FlowLayout extends ViewGroup {
             MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
             int childWidth = child.getMeasuredWidth();
             int childHeight = child.getMeasuredHeight();
-            int childPlaceHeight = childHeight + lp.topMargin + lp.bottomMargin + mDividerSpace;
-            int childPlaceWidth = childWidth + lp.leftMargin + lp.rightMargin + mDividerSpace;
+            int childPlaceHeight = childHeight + lp.topMargin + lp.bottomMargin;
+            int childPlaceWidth = childWidth + lp.leftMargin + lp.rightMargin;
             // 如果已经需要换行
-            if (currentLineLayoutWidth + childPlaceWidth + getPaddingRight() > getMeasuredWidth()) {
+            if (currentLineLayoutWidth + childPlaceWidth + getPaddingRight() > sizeWidth) {
                 //换行后当前行高
                 currentLineLayoutWidth = getPaddingLeft();
                 //已布局行高加上该行最大行高
-                lastLineHeight += maxChildLineHeight;
+                lastLineHeight += (maxChildLineHeight + mDividerSpace);
                 //最大行高归零
                 maxChildLineHeight = 0;
 
@@ -294,6 +294,9 @@ public class FlowLayout extends ViewGroup {
             /**
              * 布局该child
              */
+            if (currentLineLayoutWidth != getPaddingLeft()) {
+                currentLineLayoutWidth += mDividerSpace;
+            }
             int childLeft = currentLineLayoutWidth + lp.leftMargin;
             int childTop = lastLineHeight + lp.topMargin;
             currentLineLayoutWidth += childPlaceWidth;
