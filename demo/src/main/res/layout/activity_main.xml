@@ -25,7 +25,7 @@
         android:text="DividerView"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:rv_backgroundColor="@color/green_4DC0A4"
+        app:rv_backgroundColor="@color/color_green"
         app:rv_cornerRadius="3dp" />
 
     <com.guuguo.android.lib.widget.roundview.RoundTextView
@@ -46,5 +46,21 @@
         app:rv_strokeWidth="1px"
         app:rv_textPressColor="@color/colorPrimary" />
 
-
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:onClick="onFlowLayoutClick"
+        android:text="FlowLayout"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:rv_isRippleEnable="true"
+        app:rv_backgroundColor="@color/color_red_ccfa3c55"
+        app:rv_backgroundPressColor="@color/colorPrimary"
+        app:rv_cornerRadius="3dp"
+        app:rv_strokeColor="@color/black20"
+        app:rv_strokePressColor="@color/black20"
+        app:rv_strokeWidth="1px"
+        app:rv_textPressColor="@color/colorPrimary" />
 </com.guuguo.android.lib.widget.roundview.RoundFlowLayout>

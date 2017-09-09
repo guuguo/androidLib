@@ -9,7 +9,7 @@
     app:rv_cornerRadius_TR="40dp"
     android:layout_gravity="center_vertical|left"
     android:layout_marginLeft="-40dp"
-    app:rv_backgroundColor="@color/blue_deep"
+    app:rv_backgroundColor="@color/color_blue_deep"
    >
 
     <ImageView

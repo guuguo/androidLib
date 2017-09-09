@@ -1,1 +1,3 @@
-include ':androidLib', ':demo', ':dividerview'
+include ':androidLib', ':demo'/*,':dividerview'
+project(':dividerview').projectDir = new File('../dividerview/')
+include ':dividerview:dividerviewLib'*/

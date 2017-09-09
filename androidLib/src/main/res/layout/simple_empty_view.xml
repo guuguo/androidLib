@@ -23,7 +23,8 @@
         android:id="@+id/tv_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
         android:text="找不到数据"
         android:textColor="#999999"
         android:textSize="18sp"/>

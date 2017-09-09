@@ -1,23 +1,15 @@
 <!--?xml version=1.0 encoding=utf-8?-->
 <resources>
-    <color name="colorRipple">#AA4d92FF</color>
 
-    <color name="mired">#E34F1B</color>
-    <color name="migray">#f3f3f3</color>
-    <color name="GreyWhite">#F7F7F7</color>
-    <color name="blue">#5ca4de</color>
-    <color name="blue_deep">#0154B2</color>
 
+
+<!--
     <color name="red30">#4dE34F1B</color>
-    <color name="white">#FFFFFF</color>
-    <color name="blue30">#4d92FF</color>
     <color name="font_light">#848484</color>
-    <color name="gold">#FFD700</color>
     <color name="pink">#E46AA3</color>
-    <color name="green">#32c27d</color>
     <color name="remark_content">#E3E7E9</color>
     <color name="remark_item">#ffffff</color>
-    <color name="red">#f23131</color>
+-->
 
     <color name="transparent">#00000000</color>
     <color name="light">#FFEEEEEE</color>
@@ -27,64 +19,37 @@
     <color name="gray60">#99333333</color>
     <color name="gray80">#cc333333</color>
     
-    <color name="global_bg">#9000</color>
-    <color name="color_green_01d9ae">#01D9AE</color>
-    <color name="color_activity_blue_bg">#389fff</color>
-    <color name="split_line_grey_color_d9d9d9">#D9D9D9</color>
-    <color name="green_4DC0A4">#4DC0A4</color>
-    <color name="gray7">#c5c4c4</color>
-    
-    <color name="im_list_select_hover">#dbdbdb</color>
-    <color name="color_aaaaaa_content_text">#ffaaaaaa</color>
-    <color name="title_color_01d9ae">#01D9AE</color>
-    <color name="color_b3b3b3">#b3b3b3</color>
+    <color name="red">#f23131</color>
+    <color name="mired">#E34F1B</color>
+    <color name="color_red_orange">#E34F1B</color>
     <color name="color_red_ccfa3c55">#ccfa3c55</color>
-    <color name="color_black_b3000000">#b3000000</color>
-    
+
     <color name="color_gray_d9d9d9">#d9d9d9</color>
     <color name="color_grey_eaeaea">#eaeaea</color>
     <color name="color_grey_999999">#999999</color>
     <color name="color_grey_555555">#555555</color>
 
+    <color name="green">#32c27d</color>
     <color name="color_green">#11A884</color>
+    <color name="color_green_4DC0A4">#4DC0A4</color>
+    <color name="color_green_01d9ae">#01D9AE</color>
     <color name="color_green_disable">#a2efe0</color>
     <color name="color_green_00d3a9">#ff00D3A9</color>
+    
+    <color name="blue">#5ca4de</color>
+    <color name="blue30">#4d92FF</color>
+    <color name="color_blue_light">#389fff</color>
+    <color name="color_blue_deep">#0154B2</color>
     <color name="color_blue_0888ff">#0888ff</color>
-    <color name="action_bar_black_title_1f1f1f">#1f1f1f</color>
-    <color name="action_bar_black_title_color">#252525</color>
-    <color name="contact_search_hit">#02d3a9</color>
-    <color name="color_black_333333_90_transparent">#e5333333</color>
-    <color name="color_black_000000_88_transparent">#e0000000</color>
 
     <!-- main bg color -->
-    <color name="main_bg_color">#FFFFFF</color>
-
-    <!-- session -->
-    <color name="color_message_default_bg">#e9ecf0</color>
-    <color name="input_panel_text_color_757572">#757572</color>
-    <color name="color_gray_cbd0d8">#cbd0d8</color>
-
-    <!-- image picker -->
-    <color name="color_split_line_d9d9d9">#d9d9d9</color>
-    <color name="color_split_line_cccccc">#cccccc</color>
-
-    <!-- contact -->
-    <color name="contact_list_hover">#d9d9d9</color>
-    <color name="contact_letter_idx_bg">#33000000</color>
-    <color name="contacts_letters_color">#80807c</color>
-    <color name="color_background">#ECF1F5</color>
-    <color name="press_mask">#33000000</color>
-    <color name="color_grey_ababab">#ababab</color>
-    <color name="color_yellow_796413">#796413</color>
-    <color name="color_yellow_b39729">#b39729</color>
-
-    <!-- setting -->
-    <color name="color_black_ff333333">#ff333333</color>
-    <color name="color_black_ff666666">#ff666666</color>
-    <color name="color_black_ff999999">#ff999999</color>
     <color name="color_gray_bfc2c5">#bfc2c5</color>
     
-    <color name="white100">#ffffffff</color>
+    <color name="black20_opaque">#ff333333</color>
+    <color name="black40_opaque">#ff666666</color>
+    <color name="black60_opaque">#ff999999</color>
+    
+    <color name="white10">#16ffffff</color>
     <color name="white20">#33ffffff</color>
     <color name="white30">#4dffffff</color>
     <color name="white40">#66ffffff</color>
@@ -92,7 +57,9 @@
     <color name="white70">#b3ffffff</color>
     <color name="white80">#ccffffff</color>
     <color name="white90">#e6ffffff</color>
-    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="white100">#ffffffff</color>
+
     <color name="black10">#16000000</color>
     <color name="black20">#33000000</color>
     <color name="black30">#4d000000</color>
@@ -101,9 +68,18 @@
     <color name="black60">#99000000</color>
     <color name="black70">#b3000000</color>
     <color name="black80">#cc000000</color>
+    <color name="black">#ff000000</color>
 
+    <color name="gold">#FFD700</color>
     <color name="orange">#f57f19</color>
     <color name="float_transparent">#00000000</color>
+    
+    <color name="main_bg_color">#FFFFFF</color>
+    <color name="colorRipple">#AA4d92FF</color>
+    <color name="gray_bg">#f3f3f3</color>
+    <color name="gray_bg_light">#F7F7F7</color>
+    <color name="migray">#f3f3f3</color>
+    <color name="GreyWhite">#F7F7F7</color>
     
     <!--主色调-->
     <color name="colorPrimaryRed">#F25D8E</color>

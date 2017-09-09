@@ -69,12 +69,15 @@ public class FlowLayout extends ViewGroup {
     /**
      * 是否每行居中处理
      */
-    private boolean mIsCenter;
+    private int mLineAlign = LineAlignLeft;
     /**
      * 行数
      */
     private int mRowNumbers;
 
+    public static final int LineAlignLeft = 0;
+    public static final int LineAlignCenter = 1;
+    public static final int LineAlignRight = 2;
     /**
      * 分割区域颜色
      */
@@ -121,6 +124,8 @@ public class FlowLayout extends ViewGroup {
         setDividerSpace((int) ta.getDimension(R.styleable.FlowLayout_divideSpace, 0));
         mColumnNumbers = ta.getInteger(R.styleable.FlowLayout_columnNumbers, 0);
         mRowNumbers = ta.getInteger(R.styleable.FlowLayout_rowNumbers, 0);
+        mLineAlign = ta.getInteger(R.styleable.FlowLayout_lineAlign, 0);
+
         if (mColumnNumbers != 0) {
             mIsGridMode = true;
         }
@@ -280,7 +285,8 @@ public class FlowLayout extends ViewGroup {
             int childPlaceHeight = childHeight + lp.topMargin + lp.bottomMargin;
             int childPlaceWidth = childWidth + lp.leftMargin + lp.rightMargin;
             // 如果已经需要换行
-            if (currentLineLayoutWidth + childPlaceWidth + getPaddingRight() > sizeWidth) {
+            if (currentLineLayoutWidth + childPlaceWidth + getPaddingRight() + mDividerSpace > sizeWidth) {
+                offsetLineView(sizeWidth, currentLine, currentLineLayoutWidth);
                 //换行后当前行高
                 currentLineLayoutWidth = getPaddingLeft();
                 //已布局行高加上该行最大行高
@@ -290,6 +296,7 @@ public class FlowLayout extends ViewGroup {
 
                 currentLine++;
                 mAllViews.add(new ArrayList<View>());
+
             }
             /**
              * 布局该child
@@ -304,8 +311,34 @@ public class FlowLayout extends ViewGroup {
 
             viewLayoutRectMap.put(child, new Rect(childLeft, childTop, childLeft + child.getMeasuredWidth(), child.getMeasuredHeight() + childTop));
             mAllViews.get(currentLine).add(child);
+            if (i == getChildCount() - 1) {
+                offsetLineView(sizeWidth, currentLine, currentLineLayoutWidth);
+            }
         }
         setMeasuredDimension(sizeWidth, lastLineHeight + maxChildLineHeight + getPaddingBottom());
+    }
+
+    private void offsetLineView(int sizeWidth, int currentLine, int currentLineLayoutWidth) {
+        switch (mLineAlign) {
+            case LineAlignLeft:
+                break;
+            case LineAlignCenter:
+                int centerOffset = (sizeWidth - currentLineLayoutWidth - getPaddingRight()) / 2;
+                for (View childView : mAllViews.get(currentLine)) {
+                    Rect rect = viewLayoutRectMap.get(childView);
+                    rect.left += centerOffset;
+                    rect.right += centerOffset;
+                }
+                break;
+            case LineAlignRight:
+                int rightOffset = (sizeWidth - currentLineLayoutWidth - getPaddingRight());
+                for (View childView : mAllViews.get(currentLine)) {
+                    Rect rect = viewLayoutRectMap.get(childView);
+                    rect.left += rightOffset;
+                    rect.right += rightOffset;
+                }
+                break;
+        }
     }
 
     /**
@@ -429,83 +462,6 @@ public class FlowLayout extends ViewGroup {
     public int getColumnNumbers() {
         return mColumnNumbers;
     }
-
-    /**
-     * 设置分割线的宽度
-     *
-     * @param width
-     */
-    public void setCutLineWidth(float width) {
-        mCutLineWidth = width;
-        invalidate();
-    }
-
-    /**
-     * 获取分割线的宽度
-     *
-     * @return
-     */
-    public float getCutLineWidth() {
-        return mCutLineWidth;
-    }
-
-    /**
-     * 设置分割线的颜色
-     *
-     * @param color
-     */
-    public void setCutLineColor(int color) {
-        mCutLineColor = color;
-        invalidate();
-    }
-
-    /**
-     * 获取分割线的颜色
-     *
-     * @return
-     */
-    public int getCutLineColor() {
-        return mCutLineColor;
-    }
-
-    /**
-     * 设置分割线
-     *
-     * @param isCutLine true 设置 false 不设置
-     */
-    public void setCutLine(boolean isCutLine) {
-        mIsCutLine = isCutLine;
-        invalidate();
-    }
-
-    /**
-     * 是否设置了分割线
-     *
-     * @return
-     */
-    public boolean hasCutLine() {
-        return mIsCutLine;
-    }
-
-    /**
-     * 设置是否进行行居中显示
-     *
-     * @param isCenter
-     */
-    public void setLineCenter(boolean isCenter) {
-        mIsCenter = isCenter;
-        requestLayout();
-    }
-
-    /**
-     * 是否设置了行居中显示
-     *
-     * @return
-     */
-    public boolean isLineCenter() {
-        return mIsCenter;
-    }
-
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
