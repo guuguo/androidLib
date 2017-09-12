@@ -1,8 +1,6 @@
 package com.guuguo.android.lib.extension
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.ViewTreeObserver
