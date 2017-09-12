@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+//apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -26,12 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
-    kapt {
-        generateStubs = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
+//    kapt {
+//        generateStubs = true
+//    }
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -72,7 +72,7 @@ dependencies {
     
     compile 'am.drawable:drawable:1.4.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+//    kapt "com.android.databinding:compiler:$android_plugin_version"
 
 //    compile 'me.yokeyword:fragmentation:1.1.1'
     compile 'me.yokeyword:fragmentation-core:1.1.3'
