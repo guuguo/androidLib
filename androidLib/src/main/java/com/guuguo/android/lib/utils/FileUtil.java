@@ -46,14 +46,14 @@ public class FileUtil {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(BaseApplication.get(), AppUtil.getPackageName() + ".fileprovider", apkFile);
+            Uri contentUri = FileProvider.getUriForFile(BaseApplication.Companion.get(), AppUtil.getPackageName() + ".fileprovider", apkFile);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-        if (BaseApplication.get().getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
-            BaseApplication.get().startActivity(intent);
+        if (BaseApplication.Companion.get().getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
+            BaseApplication.Companion.get().startActivity(intent);
         }
     }
 

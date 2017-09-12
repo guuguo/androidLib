@@ -5,3 +5,6 @@ package com.guuguo.android.lib.extension
 * 项目 androidLib
 */
 
+/**
+ * Extension method to simplify view binding.
+ */

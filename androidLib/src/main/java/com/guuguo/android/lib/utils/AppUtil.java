@@ -22,7 +22,7 @@ public class AppUtil {
      * @return the activity name
      */
     public static final String getActivityName() {
-        return checkValidData(BaseApplication.get().getClass().getSimpleName());
+        return checkValidData(BaseApplication.Companion.get().getClass().getSimpleName());
     }
 
     /**
@@ -31,7 +31,7 @@ public class AppUtil {
      * @return the package name
      */
     public static final String getPackageName() {
-        return checkValidData(BaseApplication.get().getPackageName());
+        return checkValidData(BaseApplication.Companion.get().getPackageName());
     }
 
     /**
@@ -42,7 +42,7 @@ public class AppUtil {
     public static final String getStore() {
         String result = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
-            result = BaseApplication.get().getPackageManager().getInstallerPackageName(BaseApplication.get().getPackageName());
+            result = BaseApplication.Companion.get().getPackageManager().getInstallerPackageName(BaseApplication.Companion.get().getPackageName());
         }
         return checkValidData(result);
     }
@@ -54,10 +54,10 @@ public class AppUtil {
      */
     public static final String getAppName() {
         String result;
-        final PackageManager pm = BaseApplication.get().getPackageManager();
+        final PackageManager pm = BaseApplication.Companion.get().getPackageManager();
         ApplicationInfo ai = null;
         try {
-            ai = pm.getApplicationInfo(BaseApplication.get().getPackageName(), 0);
+            ai = pm.getApplicationInfo(BaseApplication.Companion.get().getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
         }
         result = ai != null ? (String) pm.getApplicationLabel(ai) : null;
@@ -72,7 +72,7 @@ public class AppUtil {
     public static final String getAppVersion() {
         String result = null;
         try {
-            result = BaseApplication.get().getPackageManager().getPackageInfo(BaseApplication.get().getPackageName(), 0).versionName;
+            result = BaseApplication.Companion.get().getPackageManager().getPackageInfo(BaseApplication.Companion.get().getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
         }
         return checkValidData(result);
@@ -86,8 +86,8 @@ public class AppUtil {
     public static final int getAppVersionCode() {
         int result = 0;
         try {
-            result = BaseApplication.get().getPackageManager()
-                    .getPackageInfo(BaseApplication.get().getPackageName(), 0).versionCode;
+            result = BaseApplication.Companion.get().getPackageManager()
+                    .getPackageInfo(BaseApplication.Companion.get().getPackageName(), 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
         }
         return result;
@@ -101,6 +101,6 @@ public class AppUtil {
      * @return the boolean
      */
     public static final boolean isAppInstalled(String packageName) {
-        return BaseApplication.get().getPackageManager().getLaunchIntentForPackage(packageName) != null;
+        return BaseApplication.Companion.get().getPackageManager().getLaunchIntentForPackage(packageName) != null;
     }
 }

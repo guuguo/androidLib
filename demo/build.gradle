@@ -50,4 +50,5 @@ dependencies {
     })
     compile project(':androidLib')
     testCompile 'junit:junit:4.12'
+    
 }

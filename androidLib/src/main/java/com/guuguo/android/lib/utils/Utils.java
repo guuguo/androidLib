@@ -20,7 +20,7 @@ public class Utils {
     public static Context getContext() {
         if (mContext != null)
             return mContext;
-        return BaseApplication.get();
+        return BaseApplication.Companion.get();
     }
     public static boolean hasPermission(final String permission) {
         return getContext().checkCallingOrSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;

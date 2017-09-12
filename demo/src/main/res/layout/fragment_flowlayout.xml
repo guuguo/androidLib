@@ -19,7 +19,7 @@
             android:layout_marginTop="20dp"
             android:text="1.网格布局" />
 
-        <com.guuguo.android.lib.widget.FlowLayout
+        <top.guuguo.flowlayout.FlowLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -141,7 +141,7 @@
                     android:textColor="@color/black80"
                     android:textSize="16sp" />
             </LinearLayout>
-        </com.guuguo.android.lib.widget.FlowLayout>
+        </top.guuguo.flowlayout.FlowLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                 android:text="颜色分类"
                 android:textSize="20sp" />
 
-            <com.guuguo.android.lib.widget.FlowLayout
+            <top.guuguo.flowlayout.FlowLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -197,7 +197,7 @@
                     android:text="银色白面（送皮带）"
                     app:rv_backgroundColor="#f5f5f5"
                     app:rv_cornerRadius="10dp" />
-            </com.guuguo.android.lib.widget.FlowLayout>
+            </top.guuguo.flowlayout.FlowLayout>
         </LinearLayout>
 
         <TextView
@@ -205,10 +205,149 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
-            android:text="2.兴趣标签" />
+            android:text="3.兴趣标签" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"></LinearLayout>
+            android:layout_height="500dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <top.guuguo.dividerview.DividerLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                app:dv_align="dv_BC"
+                app:dv_dividerColor="@color/black20"
+                app:dv_dividerWidth="1px"
+                app:dv_margin="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="不可选"
+                    android:textColor="@color/color_green" />
+
+                <top.guuguo.flowlayout.FlowLayout
+                    android:id="@+id/fl_no_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    app:checkType="none"
+                    android:layout_marginRight="20dp"
+                    android:padding="15dp"
+                    app:divideSpace="10dp"
+                    app:lineAlign="center" />
+
+            </top.guuguo.dividerview.DividerLinearLayout>
+            <top.guuguo.dividerview.DividerLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                app:dv_align="dv_BC"
+                app:dv_dividerColor="@color/black20"
+                app:dv_dividerWidth="1px"
+                app:dv_margin="20dp">
+                <!--如果需要能选择要使用FlowAdapter添加数据-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="可单选"
+                    android:textColor="@color/color_yellow_dark" />
+
+                <top.guuguo.flowlayout.FlowLayout
+                    android:id="@+id/fl_single_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:checkType="single"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="15dp"
+                    app:divideSpace="10dp"
+                    app:lineAlign="center" />
+            </top.guuguo.dividerview.DividerLinearLayout>
+
+            <top.guuguo.dividerview.DividerLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                app:dv_align="dv_BC"
+                app:dv_dividerColor="@color/black20"
+                app:dv_dividerWidth="1px"
+                app:dv_margin="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="可多选"
+                    android:textColor="@color/color_green_dark" />
+
+                <top.guuguo.flowlayout.FlowLayout
+                    android:id="@+id/fl_multi_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    app:checkType="multi"
+                    android:layout_marginRight="20dp"
+                    android:padding="15dp"
+                    app:divideSpace="10dp"
+                    app:lineAlign="center" />
+            </top.guuguo.dividerview.DividerLinearLayout>
+
+            <top.guuguo.dividerview.DividerLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                app:dv_align="dv_BC"
+                app:dv_dividerColor="@color/black20"
+                app:dv_dividerWidth="1px"
+                app:dv_margin="20dp">
+                <!--如果需要能限制多选，需要代码设置 flowAdapter.set-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="限3个"
+                    android:textColor="@color/color_blue_0888ff" />
+                <top.guuguo.flowlayout.FlowLayout
+                    android:id="@+id/fl_multi_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="15dp"
+                    app:divideSpace="10dp"
+                    app:lineAlign="center" />
+            </top.guuguo.dividerview.DividerLinearLayout>
+
+            <top.guuguo.dividerview.DividerLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="限5个"
+                    android:textColor="@color/color_purple" />
+
+                <top.guuguo.flowlayout.FlowLayout
+                    android:id="@+id/fl_multi_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:padding="15dp"
+                    app:divideSpace="10dp"
+                    app:lineAlign="center" />
+            </top.guuguo.dividerview.DividerLinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

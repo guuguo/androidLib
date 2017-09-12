@@ -28,19 +28,26 @@
     <color name="color_grey_eaeaea">#eaeaea</color>
     <color name="color_grey_999999">#999999</color>
     <color name="color_grey_555555">#555555</color>
+    
+    <color name="color_yellow">#11A884</color>
+    <color name="color_yellow_dark">#f8b871</color>
 
     <color name="green">#32c27d</color>
-    <color name="color_green">#11A884</color>
-    <color name="color_green_4DC0A4">#4DC0A4</color>
-    <color name="color_green_01d9ae">#01D9AE</color>
+    <color name="color_green">#77db74</color>
+    <color name="color_green_dark">#4DC0A4</color>
+    <color name="color_green_light">#01D9AE</color>
     <color name="color_green_disable">#a2efe0</color>
     <color name="color_green_00d3a9">#ff00D3A9</color>
-    
+
+
     <color name="blue">#5ca4de</color>
-    <color name="blue30">#4d92FF</color>
+    <color name="color_blue">#4d92FF</color>
     <color name="color_blue_light">#389fff</color>
     <color name="color_blue_deep">#0154B2</color>
+    <color name="color_blue_dark">#0154B2</color>
     <color name="color_blue_0888ff">#0888ff</color>
+
+    <color name="color_purple">#a9adf0</color>
 
     <!-- main bg color -->
     <color name="color_gray_bfc2c5">#bfc2c5</color>
@@ -72,7 +79,6 @@
 
     <color name="gold">#FFD700</color>
     <color name="orange">#f57f19</color>
-    <color name="float_transparent">#00000000</color>
     
     <color name="main_bg_color">#FFFFFF</color>
     <color name="colorRipple">#AA4d92FF</color>

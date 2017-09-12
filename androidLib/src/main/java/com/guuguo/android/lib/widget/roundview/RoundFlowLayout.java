@@ -3,7 +3,8 @@ package com.guuguo.android.lib.widget.roundview;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.guuguo.android.lib.widget.FlowLayout;
+import top.guuguo.flowlayout.FlowLayout;
+
 
 /**
  * 用于需要圆角矩形框背景的ConstraintLayout 的情况,减少直接使用ConstraintLayout 时引入的shape资源文件

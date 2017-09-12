@@ -2,75 +2,60 @@
 <resources>
 
 
-    <attr name="containerBackgroundLayer1" format="reference|color"/>
-    <attr name="containerBackgroundLayer2" format="reference|color"/>
-    <attr name="myTitleTextColor" format="color"/>
-    <attr name="mySubTitleTextColor" format="color"/>
+    <attr name="containerBackgroundLayer1" format="reference|color" />
+    <attr name="containerBackgroundLayer2" format="reference|color" />
+    <attr name="myTitleTextColor" format="color" />
+    <attr name="mySubTitleTextColor" format="color" />
     <declare-styleable name="IconTextView">
         <attr name="typeface" format="enum">
-            <enum name="material_icon" value="0"/>
-            <enum name="font_awesome" value="1"/>
+            <enum name="material_icon" value="0" />
+            <enum name="font_awesome" value="1" />
         </attr>
     </declare-styleable>
     <declare-styleable name="LinearList">
-        <attr name="columnNum" format="integer"/>
-        <attr name="divideWidth" format="dimension"/>
+        <attr name="columnNum" format="integer" />
+        <attr name="divideWidth" format="dimension" />
     </declare-styleable>
     <declare-styleable name="RatioImageView">
-        <attr name="riv_origin_width" format="dimension"/>
-        <attr name="riv_origin_height" format="dimension"/>
+        <attr name="riv_origin_width" format="dimension" />
+        <attr name="riv_origin_height" format="dimension" />
     </declare-styleable>
     <!--SpringRecyclerView-->
     <declare-styleable name="SpringRecyclerView">
-        <attr name="srv_enableSpringEffectWhenDrag" format="boolean"/>
-        <attr name="srv_enableSpringEffectWhenFling" format="boolean"/>
-        <attr name="srv_releaseBackAnimDuration" format="integer"/>
-        <attr name="srv_flingBackAnimDuration" format="integer"/>
+        <attr name="srv_enableSpringEffectWhenDrag" format="boolean" />
+        <attr name="srv_enableSpringEffectWhenFling" format="boolean" />
+        <attr name="srv_releaseBackAnimDuration" format="integer" />
+        <attr name="srv_flingBackAnimDuration" format="integer" />
     </declare-styleable>
     <declare-styleable name="MySearchView">
-        <attr name="msv_hint" format="string"/>
+        <attr name="msv_hint" format="string" />
     </declare-styleable>
 
     <declare-styleable name="CircleProgressBar">
-        <attr name="cpb_progress" format="integer"/>
-        <attr name="cpb_max" format="integer"/>
-        <attr name="cpb_progressbar_width" format="dimension"/>
-        <attr name="cpb_background_bar_width" format="dimension"/>
-        <attr name="cpb_progressbar_color" format="color"/>
-        <attr name="cpb_background_bar_color" format="color"/>
+        <attr name="cpb_progress" format="integer" />
+        <attr name="cpb_max" format="integer" />
+        <attr name="cpb_progressbar_width" format="dimension" />
+        <attr name="cpb_background_bar_width" format="dimension" />
+        <attr name="cpb_progressbar_color" format="color" />
+        <attr name="cpb_background_bar_color" format="color" />
     </declare-styleable>
     <declare-styleable name="ProgressRing">
-        <attr name="cr_progress" format="integer"/>
-        <attr name="cr_progressbar_width" format="dimension"/>
-        <attr name="cr_progressbar_start_color" format="color"/>
-        <attr name="cr_progressbar_end_color" format="color"/>
-        <attr name="cr_background_bar_start_color" format="color"/>
-        <attr name="cr_background_bar_mid_color" format="color"/>
-        <attr name="cr_background_bar_end_color" format="color"/>
-        <attr name="cr_start_angle" format="integer"/>
-        <attr name="cr_sweep_angle" format="integer"/>
-        <attr name="cr_anim_show" format="boolean"/>
+        <attr name="cr_progress" format="integer" />
+        <attr name="cr_progressbar_width" format="dimension" />
+        <attr name="cr_progressbar_start_color" format="color" />
+        <attr name="cr_progressbar_end_color" format="color" />
+        <attr name="cr_background_bar_start_color" format="color" />
+        <attr name="cr_background_bar_mid_color" format="color" />
+        <attr name="cr_background_bar_end_color" format="color" />
+        <attr name="cr_start_angle" format="integer" />
+        <attr name="cr_sweep_angle" format="integer" />
+        <attr name="cr_anim_show" format="boolean" />
     </declare-styleable>
-
-    <declare-styleable name="FlowLayout">
-        <attr name="singleLine" format="boolean"/>
-        <attr name="maxLines" format="integer"/>
-        <attr name="divideSpace" format="dimension"/>
-        <attr name="columnNumbers" format="integer"/>
-        <attr name="rowNumbers" format="integer"/>
-        <attr name="dividerColor" format="color"/>
-        <attr name="lineAlign" format="enum">
-            <enum name="left" value="0"/>
-            <enum name="center" value="1"/>
-            <enum name="right" value="2"/>
-        </attr>
-    </declare-styleable>
-
 
     <!--************ QMUILoading ***********-->
     <declare-styleable name="QMUILoadingView">
-        <attr name="qmui_loading_view_size" format="dimension"/>
-        <attr name="android:color"/>
+        <attr name="qmui_loading_view_size" format="dimension" />
+        <attr name="android:color" />
     </declare-styleable>
 
 </resources>

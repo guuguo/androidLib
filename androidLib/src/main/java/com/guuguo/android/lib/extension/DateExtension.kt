@@ -16,8 +16,8 @@ import java.util.*
  * *
  * @return
  */
-fun Date.getTimeSpan(): String {
-    var timeSpan = System.currentTimeMillis() - time
+fun Date.getTimeSpan(timeStamp: Long = System.currentTimeMillis()): String {
+    var timeSpan = timeStamp - time
     timeSpan = timeSpan / 1000
     if (timeSpan < 60)
         return timeSpan.toString() + "秒前"
