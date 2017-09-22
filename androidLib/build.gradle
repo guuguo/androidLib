@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 17
-        versionName "0.30"
+        versionCode 18
+        versionName "0.31"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -46,7 +46,7 @@ dependencies {
     compile 'com.github.guuguo:dividerView:1.0'
     compile 'com.github.guuguo:flowlayout:1.1' // jitpack version 
     //support
-    ext.support_vesion = "26.0.0-beta1"
+    ext.support_vesion = "26.+"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

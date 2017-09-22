@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by guodeqing on 16/5/31.
  */
+@Deprecated("用LBaseFragmentSupport吧")
 abstract class LNBaseFragment : RxFragment() {
 
     protected val TAG = this.javaClass.simpleName

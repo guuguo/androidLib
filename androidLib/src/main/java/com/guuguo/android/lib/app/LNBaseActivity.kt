@@ -35,6 +35,7 @@ import io.reactivex.disposables.Disposable
 /**
  * Created by guodeqing on 16/5/31.
  */
+@Deprecated("用LBaseActivitySupport吧")
 abstract class LNBaseActivity : RxAppCompatActivity() {
 
     private val myApplication = BaseApplication.get()

@@ -2,6 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.guuguo.android.lib.extension.initNav
@@ -99,6 +100,7 @@ abstract class LBaseFragmentSupport : SupportFragment() {
         init(view!!)
     }
 
+    @CallSuper
     override fun onDestroyView() {
         clearApiCall()
         super.onDestroyView()

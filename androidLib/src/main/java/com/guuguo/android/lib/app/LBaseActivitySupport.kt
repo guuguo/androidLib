@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -91,6 +92,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         }
 
         setFullScreen(fullScreen())
+        initVariable(savedInstanceState)
         setLayoutResId(getLayoutResId())
         init(savedInstanceState)
     }
@@ -118,7 +120,6 @@ abstract class LBaseActivitySupport : SupportActivity() {
     open fun getToolBar(): Toolbar? = null
     open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = true
-    open protected fun isAppbarPaddingToStatusBar() = true
     open protected fun isStatusBarTextDark() = false
     open protected fun initToolBar() {
         val toolBar = getToolBar()
@@ -167,24 +168,23 @@ abstract class LBaseActivitySupport : SupportActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    /*init*/
-
     open protected fun initVariable(savedInstanceState: Bundle?) {}
     open protected fun initView() {}
     open protected fun loadData() {}
+    @CallSuper
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
             val trans = supportFragmentManager.beginTransaction()
             trans.replace(R.id.content, mFragment)
             trans.commitAllowingStateLoss()
         }
-        initVariable(savedInstanceState)
         initToolBar()
         initStatusBar()
         initView()
         loadData()
     }
 
+    @CallSuper
     override fun onDestroy() {
         clearApiCall()
         mLoadingDialog = null
