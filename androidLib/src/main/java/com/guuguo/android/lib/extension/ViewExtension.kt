@@ -77,3 +77,6 @@ fun View.getLayoutInflater() = context.inflater
 fun View.showSnackbar(snackbarText: String, timeLength: Int) {
     Snackbar.make(this, snackbarText, timeLength).show()
 }
+fun View.getNameAndHashCode(): String {
+    return javaClass.simpleName + "@" + Integer.toHexString(System.identityHashCode(this))
+}
