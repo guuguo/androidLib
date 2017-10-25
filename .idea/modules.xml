@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/androidLib.iml" filepath="$PROJECT_DIR$/androidLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidLib/androidLib-androidLib.iml" filepath="$PROJECT_DIR$/androidLib/androidLib-androidLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
-      <module fileurl="file://E:\guodeqing\myDevelope\android studio project\androidLib\progress-lib\progress-lib.iml" filepath="E:\guodeqing\myDevelope\android studio project\androidLib\progress-lib\progress-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/progress-lib/progress-lib.iml" filepath="$PROJECT_DIR$/progress-lib/progress-lib.iml" />
     </modules>
   </component>
 </project>

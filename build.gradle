@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        android_plugin_version = '3.0.0-beta6'
+        android_plugin_version = '2.3.3'
         kotlin_version = '1.1.4-3'
     }
     repositories {
@@ -12,7 +12,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta6'
+        classpath "com.android.tools.build:gradle:$android_plugin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

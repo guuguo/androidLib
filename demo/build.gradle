@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
     }
@@ -44,13 +44,13 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.github.guuguo:dividerView:1.0'
-    compile 'com.github.guuguo:flowlayout:1.11' // jitpack version 
+    compile 'com.github.guuguo:flowlayout:1.11'
+    // jitpack version 
     compile project(':androidLib')
     testCompile 'junit:junit:4.12'
-
 }
