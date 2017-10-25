@@ -16,9 +16,9 @@ public class FontManager {
     private static final String TAG = FontManager.class.getName();
     
     public static Typeface getTypeface(Context context, String fontName)  {
-        if (typefaceHashMap.containsKey(fontName))
+        if (typefaceHashMap.containsKey(fontName)) {
             return typefaceHashMap.get(fontName);
-        else {
+        } else {
             try {
             Typeface typeface = Typeface.createFromAsset(context.getResources().getAssets(), fontName);
             typefaceHashMap.put(fontName, typeface);

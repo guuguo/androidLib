@@ -31,8 +31,9 @@ public class CustomAlertDialog extends MyDialog<CustomAlertDialog> {
     @Override
     protected void initCustomContent() {
         /** content */
-        if (mContentView != null && mContentLayout.indexOfChild(mContentView) == -1)
+        if (mContentView != null && mContentLayout.indexOfChild(mContentView) == -1) {
             mContentLayout.addView(mContentView);
+        }
         if (mStyle == STYLE_ONE) {
 //            mContentLayout.setPadding(dp2px(15), dp2px(10), dp2px(15), dp2px(10));
             mTvContent.setMinHeight(dp2px(120));

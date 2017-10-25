@@ -67,9 +67,14 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
         }
     }
 
+
     /**
      * set style(设置style)
+     *
+     * @param style
+     * @return
      */
+    @Override
     public EditAlertDialog style(int style) {
         this.mStyle = style;
         return this;
@@ -90,13 +95,15 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
     }
 
     public void setError(String error) {
-        if (mEditTextView != null)
+        if (mEditTextView != null) {
             mEditTextView.setError(error);
+        }
     }
 
     public String getEditText() {
-        if (mEditTextView != null)
+        if (mEditTextView != null) {
             return mEditTextView.getText().toString();
+        }
         return null;
     }
 }

@@ -43,8 +43,9 @@ public class DateUtil {
     public static String getTimeSpan(String format, long dateTime) {
         long timeSpan = System.currentTimeMillis() - dateTime;
         timeSpan = timeSpan / 1000;
-        if (timeSpan < 60)
+        if (timeSpan < 60) {
             return timeSpan + "秒前";
+        }
         timeSpan /= 60;
         if (timeSpan < 60) {
             return timeSpan + "分钟前";

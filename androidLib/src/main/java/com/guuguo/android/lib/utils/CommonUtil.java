@@ -30,8 +30,9 @@ public class CommonUtil {
     public static int log(int n) {
         int a = 0;
         while (n % 2 == 0) {
-            if (n % 2 != 0)
+            if (n % 2 != 0) {
                 return -1;
+            }
             n = n / 2;
             a++;
         }
@@ -68,8 +69,9 @@ public class CommonUtil {
     /**
      * 只encode中文
      */
+    public static final Pattern ENCODE_PATTERN = Pattern.compile("[\\u4e00-\\u9fa5]+");
     public static String encode(String sourceString) {
-        Pattern pattern = Pattern.compile("[\\u4e00-\\u9fa5]+");
+        Pattern pattern = ENCODE_PATTERN;
         Matcher matcher = pattern.matcher(sourceString);
         while (matcher.find()) {
             String s1 = matcher.group();
@@ -125,26 +127,29 @@ public class CommonUtil {
 
     //如果字符串为空，返回“”
     public static String getSafeString(String str) {
-        if (TextUtils.isEmpty(str))
+        if (TextUtils.isEmpty(str)) {
             return "";
-        else
+        } else {
             return str;
+        }
     }
 
     //如果列表为null，返回空链表
     public static List getSafeList(List list) {
-        if (list == null)
+        if (list == null) {
             return new ArrayList<>();
-        else
+        } else {
             return list;
+        }
     }
 
     //返回数字字符串，如果等于整数返回不保留的整数，不等于保留retain位
     public static String getGoodFloatString(float num, int retain) {
-        if (num == (int) num)
+        if (num == (int) num) {
             return (int) num + "";
-        else
+        } else {
             return getDoubleString(num, retain);
+        }
     }
 
     // double2 string boliu retain位小数

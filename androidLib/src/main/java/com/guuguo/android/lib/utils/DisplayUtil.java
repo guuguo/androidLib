@@ -27,8 +27,9 @@ public class DisplayUtil {
     }
 
     public static int designedDP2px(float designedDp) {
-        if (screenWidthPixels < 0)
+        if (screenWidthPixels < 0) {
             getScreenWidth();
+        }
         if (px2dip(screenWidthPixels) != 320) {
             designedDp = designedDp * px2dip(screenWidthPixels) / 320f;
         }

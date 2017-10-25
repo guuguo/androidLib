@@ -11,13 +11,13 @@ import java.util.regex.Pattern
  */
 
 fun String?.safe(default: String = ""): String {
-    if (this == null)
-        return default;
-    else return this;
+    if (this.isNullOrEmpty())
+        return default
+    else return this!!;
 }
 
 fun String?.toast(isShortToast: Boolean = true): String? {
-    BaseApplication.get().toast(this.safe("(空字符串)"),isShortToast)
+    BaseApplication.get().toast(this.safe("(空字符串)"), isShortToast)
     return this
 }
 
@@ -29,6 +29,14 @@ fun String?.log(tag: String = ""): String? {
 
     return this
 }
+
+
+fun Throwable?.log(msg: String = "", tag: String = "") {
+    if (tag.isNullOrEmpty())
+        LogUtil.e(msg, this)
+    else LogUtil.e(tag, msg, this)
+}
+
 fun String.sha1() = encrypt(this, "SHA-1")
 fun String.md5() = encrypt(this, "MD5")
 
@@ -38,10 +46,19 @@ fun String?.isEmail(): Boolean {
     val m = p.matcher(this.safe())
     return m.matches()
 }
+
+fun String?.isUrl(): Boolean {
+    val str = "(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]"
+    val p = Pattern.compile(str)
+    val m = p.matcher(this.safe())
+    return m.matches()
+}
+
 fun String.isPhone(): Boolean {
     val p = "^1([34578])\\d{9}\$".toRegex()
     return matches(p)
 }
+
 fun String.isNumeric(): Boolean {
     val p = "^[0-9]+$".toRegex()
     return matches(p)
@@ -63,6 +80,7 @@ private fun encrypt(string: String?, type: String): String {
         ""
     }
 }
+
 private fun bytes2Hex(bts: ByteArray): String {
     var des = ""
     var tmp: String

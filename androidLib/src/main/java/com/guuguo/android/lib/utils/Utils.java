@@ -18,8 +18,9 @@ public class Utils {
     }
 
     public static Context getContext() {
-        if (mContext != null)
+        if (mContext != null) {
             return mContext;
+        }
         return BaseApplication.Companion.get();
     }
     public static boolean hasPermission(final String permission) {

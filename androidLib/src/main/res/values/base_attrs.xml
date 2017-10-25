@@ -12,10 +12,6 @@
             <enum name="font_awesome" value="1" />
         </attr>
     </declare-styleable>
-    <declare-styleable name="LinearList">
-        <attr name="columnNum" format="integer" />
-        <attr name="divideWidth" format="dimension" />
-    </declare-styleable>
     <declare-styleable name="RatioImageView">
         <attr name="riv_origin_width" format="dimension" />
         <attr name="riv_origin_height" format="dimension" />

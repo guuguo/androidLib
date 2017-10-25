@@ -194,9 +194,20 @@ abstract class LBaseActivitySupport : SupportActivity() {
         super.onDestroy()
     }
 
+    override fun onPause() {
+        super.onPause()
+        ActivityManager.popActivity(activity)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        ActivityManager.pushActivity(activity)
+    }
+
     fun clearApiCall() {
         mApiCalls.clear()
     }
+
 
     /**
      * 判断是否 fragment activity

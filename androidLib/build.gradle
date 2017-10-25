@@ -43,17 +43,17 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile 'com.github.guuguo:dividerView:1.0'
-    compile 'com.github.guuguo:flowLayout:1.11' // jitpack version 
+//    compile 'com.github.guuguo:dividerView:1.0'
+//    compile 'com.github.guuguo:flowlayout:1.11' // jitpack version 
     //support
-    ext.support_vesion = "26.+"
+    ext.support_vesion = "26.1.0"
     compile "com.android.support:appcompat-v7:$support_vesion"
     compile "com.android.support:design:$support_vesion"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta3'
     //function 
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.google.code.gson:gson:2.8.2'
     //rxjava
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.1'

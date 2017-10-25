@@ -45,8 +45,9 @@ public class Converter {
         int index = 0;
         int pos = 0;
         for (byte b : raw) {
-            if (pos >= len)
+            if (pos >= len) {
                 break;
+            }
             pos++;
             int v = b & 0xFF;
             hex[index++] = HEX_CHAR_TABLE[v >>> 4];

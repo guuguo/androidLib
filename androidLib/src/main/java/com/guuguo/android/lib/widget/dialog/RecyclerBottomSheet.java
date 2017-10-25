@@ -91,10 +91,11 @@ public class RecyclerBottomSheet<T> extends BottomSheetDialog {
     private void init() {
         View bottomView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_recycler_bottom_sheet, null);
         RecyclerView recyclerView = bottomView.findViewById(R.id.recycler);
-        if (colume == 1)
+        if (colume == 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        else
+        } else {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), colume));
+        }
         recyclerView.setAdapter(adapter);
         setContentView(bottomView);
     }
@@ -117,8 +118,9 @@ public class RecyclerBottomSheet<T> extends BottomSheetDialog {
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onItemClickListener != null)
+                    if (onItemClickListener != null) {
                         onItemClickListener.itemClick(i);
+                    }
                 }
             });
             bindItemViewListener.bindViewData(myViewHolder.itemView, items.get(i));

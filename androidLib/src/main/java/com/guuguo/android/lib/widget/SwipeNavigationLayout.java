@@ -102,7 +102,9 @@ public class SwipeNavigationLayout extends FrameLayout {
         if (showType == 0 || showType == -1) {
             Log.i("onInterceptTouchEvent", "showType2：" + showType);
             return super.dispatchTouchEvent(ev);
-        } else return true;
+        } else {
+            return true;
+        }
     }
 
 
@@ -136,12 +138,14 @@ public class SwipeNavigationLayout extends FrameLayout {
             if (showType != 0) {
                 float trans = (e2.getX() - startX) * 0.6f;
                 if (showType == 1) {
-                    if (trans > navigationView.getWidth())
+                    if (trans > navigationView.getWidth()) {
                         trans = navigationView.getWidth();
+                    }
                     navigationView.setTranslationX(trans);
                 } else if (showType == 2) {
-                    if (trans < -navigationView.getWidth())
+                    if (trans < -navigationView.getWidth()) {
                         trans = -navigationView.getWidth();
+                    }
                     navigationView.setTranslationX(trans);
                 }
                 return true;

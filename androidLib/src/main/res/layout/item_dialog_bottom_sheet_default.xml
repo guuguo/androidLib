@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<top.guuguo.dividerview.DividerTextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tv_content"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dialog_recycler_item_height"
-    android:background="?android:attr/selectableItemBackground"
-    android:gravity="center"
-    app:dv_align="dv_BC"
-    app:dv_backgroundColor="@color/white"
-    app:dv_backgroundColorPress="@color/black10"
-    app:dv_dividerColor="@color/black20"
-    app:dv_dividerWidth="1px"
-    app:dv_margin="8dp"
-    tools:text="item 1"
-    />
+    android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center"
+        tools:text="item 1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/black20" />
+</LinearLayout>

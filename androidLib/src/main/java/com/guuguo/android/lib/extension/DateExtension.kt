@@ -72,3 +72,11 @@ fun Date.month(): String {
 fun Date.day(): String {
     return SimpleDateFormat("dd").format(this)
 }
+
+fun Date.formatTime(format: String): String {
+    return SimpleDateFormat(format).format(this)
+}
+
+fun Date.formatTime(format: SimpleDateFormat): String {
+    return format.format(this)
+}

@@ -64,8 +64,9 @@ public class InputMethodUtils {
                 .getSystemService(Context.INPUT_METHOD_SERVICE)));
         imm.hideSoftInputFromWindow(view.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
-        if (clearFocus)
+        if (clearFocus) {
             view.clearFocus();
+        }
     }
 
     /**

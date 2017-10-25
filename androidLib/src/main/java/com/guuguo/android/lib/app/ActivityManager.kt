@@ -16,7 +16,9 @@ object ActivityManager {
     fun popActivity(): Activity {
         return activityStack.pop()
     }
-
+    fun peek(): Activity {
+        return activityStack.peek()
+    }
     fun popActivity(activity: Activity) {
         activityStack.remove(activity)
     }

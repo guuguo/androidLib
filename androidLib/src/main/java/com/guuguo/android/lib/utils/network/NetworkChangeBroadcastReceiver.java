@@ -40,7 +40,9 @@ public class NetworkChangeBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Log.d("uploadtest", "onReceive");
-        if(timer == null) timer = new Timer();
+        if(timer == null) {
+            timer = new Timer();
+        }
 
         justNetworkChanged = true;
 

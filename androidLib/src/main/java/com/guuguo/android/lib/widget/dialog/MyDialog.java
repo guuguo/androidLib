@@ -78,8 +78,9 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
 
 
         /** llcontainer **/
-        if (!mIsDfaultWidth)
+        if (!mIsDfaultWidth) {
             mLlContainer.setLayoutParams(new ViewGroup.LayoutParams(getContext().getResources().getDimensionPixelSize(R.dimen.dialog_width), ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
 
         /** title */
         mTvTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,

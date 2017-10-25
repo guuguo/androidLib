@@ -170,8 +170,9 @@ public class TipDialog extends BaseDialog<TipDialog> {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (mCancel)
+        if (mCancel) {
             dismiss();
+        }
         return super.dispatchTouchEvent(ev);
     }
 
