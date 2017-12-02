@@ -31,6 +31,7 @@ class RatioImageView : AppCompatImageView {
     fun setOriginalSize(originalWidth: Int, originalHeight: Int) {
         this.originalWidth = originalWidth
         this.originalHeight = originalHeight
+ 
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

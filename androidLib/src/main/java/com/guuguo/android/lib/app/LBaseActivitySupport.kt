@@ -28,8 +28,11 @@ import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.widget.dialog.DialogHelper
 import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -284,7 +287,13 @@ abstract class LBaseActivitySupport : SupportActivity() {
     }
 
     fun exit() {
-        ActivityManager.popAllActivity()
+        val home = Intent(Intent.ACTION_MAIN)
+        home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        home.addCategory(Intent.CATEGORY_HOME)
+        startActivity(home)
+        Completable.complete().delay(200,TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe{
+            ActivityManager.popAllActivity()
+        }
     }
 
     fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {
@@ -318,13 +327,13 @@ abstract class LBaseActivitySupport : SupportActivity() {
     fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
         if (FileUtil.isExternalStorageMounted()) {
             val rxPermissions = RxPermissions(this)
-            rxPermissions.request(Manifest.permission.CAMERA)
+            rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .subscribe { granted ->
                         if (granted) { // Always true pre-M
                             val strings = arrayOf("拍照", "从相册中选取")
                             val listDialog = NormalListDialog(activity, strings).title("请选择")
                             listDialog.layoutAnimation(null)
-                            listDialog.setOnOperItemClickL { parent, view, position, id ->
+                            listDialog.setOnOperItemClickL { _, _, position, _ ->
                                 if (position == 0)
                                     takePhotoListener.onClick(listDialog, position)
                                 else if (position == 1)

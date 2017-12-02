@@ -8,4 +8,5 @@
     <external-path
         name="beta_external_files_path"
         path="Android/data/"/>
+    <files-path path="" name="camera_photos" />
 </paths>

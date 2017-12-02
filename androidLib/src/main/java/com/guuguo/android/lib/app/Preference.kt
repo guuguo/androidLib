@@ -1,4 +1,4 @@
-package com.guuguo.android.util
+package com.guuguo.android.lib.app
 
 import android.content.Context
 import com.google.gson.GsonBuilder
@@ -17,7 +17,7 @@ class Preference<T>(val context: Context, var default: T, var typeToken: TypeTok
         var dateFormat = "yyyy-MM-dd hh:mm:ss"
         var gson = GsonBuilder().setDateFormat(dateFormat).create()
         fun init(appName: String) {
-            this.appName = appName
+            Companion.appName = appName
         }
     }
 
