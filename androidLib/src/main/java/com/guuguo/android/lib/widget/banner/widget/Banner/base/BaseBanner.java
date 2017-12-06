@@ -257,7 +257,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
     /**
      * 覆写这个方法设置标题
      */
-    public void onTitleSlect(TextView tv, int position) {
+    public void onTitleSelect(TextView tv, int position) {
     }
 
     /**
@@ -411,7 +411,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             mCurrentPositon = position % mDatas.size();
 
             setCurrentIndicator(mCurrentPositon);
-            onTitleSlect(mTvTitle, mCurrentPositon);
+            onTitleSelect(mTvTitle, mCurrentPositon);
             mLlBottomBar.setVisibility(mCurrentPositon == mDatas.size() - 1 && !mIsBarShowWhenLast ? GONE : VISIBLE);
 
             mLastPositon = mCurrentPositon;
@@ -440,7 +440,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             mCurrentPositon = 0;
         }
 
-        onTitleSlect(mTvTitle, mCurrentPositon);
+        onTitleSelect(mTvTitle, mCurrentPositon);
         setViewPager();
         //create indicator
         View indicatorViews = onCreateIndicator();

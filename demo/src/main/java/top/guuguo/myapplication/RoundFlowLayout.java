@@ -1,7 +1,10 @@
-package com.guuguo.android.lib.widget.roundview;
+package top.guuguo.myapplication;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+
+import com.guuguo.android.lib.widget.roundview.RoundViewDelegate;
 
 import top.guuguo.flowlayout.FlowLayout;
 
@@ -33,7 +36,7 @@ public class RoundFlowLayout extends FlowLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (delegate.isWidthHeightEqual() && getWidth() > 0 && getHeight() > 0) {
             int max = Math.max(getWidth(), getHeight());
-            int measureSpec = MeasureSpec.makeMeasureSpec(max, MeasureSpec.EXACTLY);
+            int measureSpec = View.MeasureSpec.makeMeasureSpec(max, View.MeasureSpec.EXACTLY);
             super.onMeasure(measureSpec, measureSpec);
             return;
         }

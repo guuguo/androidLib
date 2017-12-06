@@ -9,7 +9,7 @@ class BaseTitleActivity : LBaseActivitySupport() {
     }
 
     override fun getToolBar(): Toolbar? {
-        return findViewById(R.id.id_tool_bar) as Toolbar
+        return findViewById<Toolbar>(R.id.id_tool_bar) as Toolbar
     }
 
     override fun getHeaderTitle(): String {

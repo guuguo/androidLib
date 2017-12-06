@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.guuguo.android.lib.widget.roundview.RoundFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<top.guuguo.myapplication.RoundFlowLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -63,4 +63,21 @@
         app:rv_strokePressColor="@color/black20"
         app:rv_strokeWidth="1px"
         app:rv_textPressColor="@color/colorPrimary" />
-</com.guuguo.android.lib.widget.roundview.RoundFlowLayout>
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:onClick="onBannerClick"
+        android:text="Banner"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:rv_isRippleEnable="true"
+        app:rv_backgroundColor="@color/color_red_ccfa3c55"
+        app:rv_backgroundPressColor="@color/colorPrimary"
+        app:rv_cornerRadius="3dp"
+        app:rv_strokeColor="@color/black20"
+        app:rv_strokePressColor="@color/black20"
+        app:rv_strokeWidth="1px"
+        app:rv_textPressColor="@color/colorPrimary" />
+</top.guuguo.myapplication.RoundFlowLayout>

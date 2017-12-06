@@ -9,7 +9,7 @@
     android:padding="10dp"
     tools:context="top.guuguo.myapplication.MainActivity">
 
-    <com.guuguo.android.lib.widget.roundview.RoundFlowLayout
+    <top.guuguo.myapplication.RoundFlowLayout
         android:layout_marginTop="30dp"
         android:layout_width="200dp"
         android:layout_height="80dp"
@@ -67,7 +67,7 @@
             app:dv_dividerColor="@color/blue"
             app:dv_dividerWidth="1dp"
             app:dv_margin="5dp" />
-    </com.guuguo.android.lib.widget.roundview.RoundFlowLayout>
+    </top.guuguo.myapplication.RoundFlowLayout>
 
     <top.guuguo.dividerview.DividerTextView
         android:id="@+id/dtv_click_add_divider"

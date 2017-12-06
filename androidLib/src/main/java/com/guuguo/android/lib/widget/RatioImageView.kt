@@ -24,14 +24,13 @@ class RatioImageView : AppCompatImageView {
     }
 
     private fun initAttr(context: Context, attributes: TypedArray) {
-        originalWidth = attributes.getDimensionPixelSize(R.styleable.RatioImageView_riv_origin_width, 0)
-        originalHeight = attributes.getDimensionPixelSize(R.styleable.RatioImageView_riv_origin_height, 0)
+        setOriginalSize(attributes.getDimensionPixelSize(R.styleable.RatioImageView_riv_origin_width, 0),
+                attributes.getDimensionPixelSize(R.styleable.RatioImageView_riv_origin_height, 0))
     }
 
     fun setOriginalSize(originalWidth: Int, originalHeight: Int) {
         this.originalWidth = originalWidth
         this.originalHeight = originalHeight
- 
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -45,6 +44,7 @@ class RatioImageView : AppCompatImageView {
                 height = (width.toFloat() / ratio).toInt()
             }
 
+            layoutParams.height=height
             setMeasuredDimension(width, height)
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
