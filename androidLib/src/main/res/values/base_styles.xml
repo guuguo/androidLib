@@ -15,6 +15,8 @@
         <item name="android:textColorLink">@color/day_hint</item>
         <item name="containerBackgroundLayer1">@color/day_main_base_bg</item>
         <item name="android:actionBarSize">@dimen/actionbar_size</item>
+        <item name="android:textColorPrimary">@color/day_text</item>
+        <item name="android:textColorSecondary">@color/day_sub_title_text</item>
     </style>
     <!-- 日间模式 -->
     <style name="MyTheme.day.background" parent="MyTheme.day">

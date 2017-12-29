@@ -115,7 +115,8 @@ abstract class LBaseActivitySupport : SupportActivity() {
     }
 
     open protected fun setLayoutResId(layoutResId: Int) {
-        setContentView(layoutResId)
+        if (layoutResId != 0)
+            setContentView(layoutResId)
     }
 
     /*toolbar*/
@@ -291,7 +292,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         home.addCategory(Intent.CATEGORY_HOME)
         startActivity(home)
-        Completable.complete().delay(200,TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe{
+        Completable.complete().delay(200, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
             ActivityManager.popAllActivity()
         }
     }

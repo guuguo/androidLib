@@ -4,11 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.devbrackets.android.exomedia.ui.widget.VideoView
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.log
 import kotlinx.android.synthetic.main.fragment_recycler_banner.*
+import top.guuguo.myapplication.view.CardScaleHelper
+import top.guuguo.myapplication.view.SimpleVideoView
 
 class RecyclerBannerFragment : LBaseFragmentSupport() {
 
@@ -41,6 +42,7 @@ class RecyclerBannerFragment : LBaseFragmentSupport() {
 
     override fun initView() {
         super.initView()
+        CardScaleHelper().attachToRecyclerView(rv_banner.recyclerView)
     }
 
     /**
@@ -60,60 +62,66 @@ class RecyclerBannerFragment : LBaseFragmentSupport() {
                 }
             }
         }
-//        rv_banner.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-//                super.onScrollStateChanged(recyclerView, newState)
-//                newState.toString().log("Banner")
-//                if (newState != 0) {
-//                    currentVideoView?.stopPlayback()
-//                } else {
-//                    Completable.complete().delay(200, TimeUnit.MILLISECONDS)
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribe {
-//                                currentVideoView?.start()
-//                            }
-//                }
-//            }
-//
-//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                "dx:$dx".toString().log("Banner")
-//
-//            }
-//        })
-        rv_banner.setRvAutoPlaying(false)
+        rv_banner.setRvAutoPlaying(true)
         rv_banner.setOnPageSelectListener { i ->
             "OnPageSelectListener:$i".log()
             val bean = newslist[i]
-            currentVideoView?.pause()
-            currentVideoView = videoViewMap[bean.url]
-            currentVideoView?.start()
+            currentPlayer?.pause()
+            currentPlayer = videoViewMap[bean.url]
+            currentPlayer?.resume()
         }
         rv_banner.setItemLayoutResId(R.layout.item_simple_image)
         rv_banner.setRvBannerData(newslist)
         rv_banner.setOnSwitchRvBannerListener { i, view ->
             val bean = newslist[i]
-            val videoView = view.findViewById<VideoView>(R.id.video_view)
+            val videoView = view.findViewById<SimpleVideoView>(R.id.video_view)
             if (bean.url.isEmpty()) {
-                Glide.with(videoView).load(R.drawable.bg_zueet_ad_default).into(videoView.previewImageView)
+                Glide.with(videoView).load(R.drawable.bg_zueet_ad_default).into(videoView.previewImage)
             } else {
-                Glide.with(videoView).load(bean.url).into(videoView.previewImageView)
+                Glide.with(videoView).load(bean.url).into(videoView.previewImage)
                 if (bean.isVideo) {
-                    videoView.reset()
-                    videoView.setVideoPath(bean.url)
-                    if (i == 0)
-                        videoView.setOnPreparedListener {
-                            videoView.start()
-                            currentVideoView = videoView
+                    videoView.onStateChangeListener = object : SimpleVideoView.OnStateChangeListener {
+                        override fun onVideoPrepare() {
+                            if (i == 0) {
+                                videoView.resume()
+                                currentPlayer = videoView
+                            }
                         }
+                        override fun onVideoComplete() {
+                            videoView.seekTo(0L)
+                            videoView.pause()
+                        }
+
+                        override fun onVideoLoading() {}
+                        override fun onVideoStart() {}
+                        override fun onVideoPause() {}
+                    }
+                    videoView.init(activity, bean.url)
+
                     videoViewMap.put(bean.url, videoView)
+
                 }
             }
         }
         lastList = newslist
     }
 
-    var currentVideoView: VideoView? = null
-    var videoViewMap: HashMap<String, VideoView> = hashMapOf()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        videoViewMap.forEach { it.value.release() }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        currentPlayer?.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        currentPlayer?.resume()
+    }
+
+    var currentPlayer: SimpleVideoView? = null
+    var videoViewMap: HashMap<String, SimpleVideoView> = hashMapOf()
 
 }

@@ -2,13 +2,12 @@
 
 buildscript {
     ext {
-        android_plugin_version = '3.1.0-alpha04'
-        kotlin_version = '1.1.51'
+        android_plugin_version = '3.0.1'
+        kotlin_version = '1.2.0'
     }
     repositories {
         mavenCentral()
         jcenter()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         google()
     }
     dependencies {
@@ -23,9 +22,6 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven {
-            url 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
     }
 }
 repositories {

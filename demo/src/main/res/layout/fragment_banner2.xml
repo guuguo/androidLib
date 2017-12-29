@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.guuguo.android.lib.widget.SwipeNavigationLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="top.guuguo.myapplication.MainActivity">
+
+    <top.guuguo.myapplication.view.SimpleVideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </top.guuguo.myapplication.view.SimpleVideoView>
+</com.guuguo.android.lib.widget.SwipeNavigationLayout>

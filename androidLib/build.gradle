@@ -1,18 +1,17 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.2'
     lintOptions {
         abortOnError false
     }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
-        versionCode 18
-        versionName "0.31"
+        targetSdkVersion 27
+        versionCode 31
+        versionName "0.34"
     }
 
     buildTypes {
@@ -36,9 +35,9 @@ dependencies {
 //    compile 'com.github.guuguo:dividerView:1.0'
 //    compile 'com.github.guuguo:flowlayout:1.11' // jitpack version 
     //support
-    ext.support_vesion = "26.1.0"
-    compile "com.android.support:appcompat-v7:$support_vesion"
-    compile "com.android.support:design:$support_vesion"
+    ext.support_version = "27.0.2"
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:design:$support_version"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     //function 
@@ -55,18 +54,9 @@ dependencies {
 
     //Rxlifecycle
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.0'
-//    compile ('com.trello.rxlifecycle2:rxlifecycle-android:2.2.0'){
-//        exclude group: 'com.android.support'
-//    }
-//    // If you want to bind to Android-specific lifecycles
     compile ('com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'){
         exclude group: 'com.android.support'
     }
-//    // If you want pre-written Activities and Fragments you can subclass as providers
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.0'
-//    // If you want to use Navi for providers
-//    compile 'com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.0' // If you want to use Kotlin syntax
-
 
     compile 'am.drawable:drawable:1.4.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

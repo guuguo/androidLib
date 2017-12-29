@@ -79,15 +79,9 @@ public class SwipeNavigationLayout extends FrameLayout {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
             if (navigationView != null) {
                 if (navigationView.getTranslationX() >= navigationView.getWidth()) {
-                    if (navigationListener != null) {
-                        navigationListener.navigationBack();
-                    }
-                    alphaRemoveNavigation();
+                    toPrevious();
                 } else if (navigationView.getTranslationX() <= -navigationView.getWidth()) {
-                    if (navigationListener != null) {
-                        navigationListener.navigationNext();
-                    }
-                    alphaRemoveNavigation();
+                    toNext();
                 } else {
                     ObjectAnimator animator = ObjectAnimator
                             .ofFloat(navigationView, "translationX", navigationView.getTranslationX(), 0F)
@@ -105,6 +99,19 @@ public class SwipeNavigationLayout extends FrameLayout {
         } else {
             return true;
         }
+    }
+    public void toNext() {
+        if (navigationListener != null) {
+            navigationListener.navigationNext();
+        }
+        alphaRemoveNavigation();
+    }
+
+    public void toPrevious() {
+        if (navigationListener != null) {
+            navigationListener.navigationBack();
+        }
+        alphaRemoveNavigation();
     }
 
 

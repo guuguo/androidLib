@@ -75,7 +75,7 @@ abstract class LNBaseFragment : RxFragment() {
     open protected fun getMenuResId() = 0
     open protected fun isNavigationBack() = true
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
         initVariable(savedInstanceState)
         if (contentView == null) {
@@ -96,9 +96,9 @@ abstract class LNBaseFragment : RxFragment() {
         activity.title = title
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        init(view!!)
+        init(view)
     }
 
     override fun onDestroyView() {

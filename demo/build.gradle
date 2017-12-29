@@ -61,4 +61,7 @@ dependencies {
     compile 'com.google.android.exoplayer:exoplayer-core:2.6.0'
     compile 'com.google.android.exoplayer:exoplayer-dash:2.6.0'
     compile 'com.google.android.exoplayer:exoplayer-ui:2.6.0'
+
+    compile 'com.github.florent37:viewanimator:1.0.5'
+
 }

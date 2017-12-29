@@ -13,11 +13,13 @@ import com.guuguo.android.lib.utils.LogUtil;
 import com.guuguo.android.lib.utils.ShellUtils;
 import com.guuguo.android.lib.utils.Utils;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
@@ -55,15 +57,26 @@ public class NetWorkUtils {
      * @return
      */
     public static boolean isAvailableByPing() {
-        ShellUtils.CommandResult result = ShellUtils.execCmd("isAvailableByPing -c 1 -w 1 223.5.5.5", false);
-        boolean ret = result.result == 0;
-        if (result.errorMsg != null) {
-            LogUtil.INSTANCE.i("isAvailableByPing errorMsg " + result.errorMsg);
+        boolean isNet=false;
+        InetAddress in;
+        in = null;
+        // Definimos la ip de la cual haremos el ping
+        try {
+            in = InetAddress.getByName("202.108.22.5");
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
-        if (result.successMsg != null) {
-            LogUtil.INSTANCE.i("isAvailableByPing successMsg " + result.successMsg);
+        // Definimos un tiempo en el cual ha de responder
+        try {
+            if (in.isReachable(1000)) {
+                isNet=true;
+            } else {
+                isNet=false;
+            }
+        } catch (IOException e) {
+            LogUtil.INSTANCE.i("isAvailableByPing errorMsg " +  e.getMessage());
         }
-        return ret;
+        return isNet;
     }
 
     /**
