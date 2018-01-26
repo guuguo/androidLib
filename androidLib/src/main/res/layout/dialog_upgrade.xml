@@ -106,7 +106,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:tag="beta_cancel_button"
-                android:text="cancel"
+                android:text="@string/cancel"
                 android:textColor="#757575"
                 android:textSize="16sp" />
 
@@ -121,7 +121,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:tag="beta_confirm_button"
-                android:text="confirm"
+                android:text="@string/ok"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"

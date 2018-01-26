@@ -74,7 +74,7 @@ class RecyclerBannerFragment : LBaseFragmentSupport() {
         rv_banner.setRvBannerData(newslist)
         rv_banner.setOnSwitchRvBannerListener { i, view ->
             val bean = newslist[i]
-            val videoView = view.findViewById<SimpleVideoView>(R.id.video_view)
+            val videoView = view.findViewById<SimpleVideoView>(R.id.image_view)
             if (bean.url.isEmpty()) {
                 Glide.with(videoView).load(R.drawable.bg_zueet_ad_default).into(videoView.previewImage)
             } else {

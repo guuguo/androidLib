@@ -15,6 +15,6 @@ class MainActivity : LBaseActivitySupport() {
         FlowLayoutFragment.intentTo(activity)
     }
     fun onBannerClick(v:View){
-        Banner2Fragment.intentTo(activity)
+        NavigatorLayoutFragment.intentTo(activity)
     }
 }

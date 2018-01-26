@@ -25,7 +25,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : 
         val inflate = View.inflate(context, R.layout.item_simple_image2, null)
 
         val bean = mDatas[position]
-        val videoView: SimpleVideoView = inflate.findViewById<SimpleVideoView>(R.id.video_view)
+        val videoView: SimpleVideoView = inflate.findViewById<SimpleVideoView>(R.id.image_view)
 
         if (mDatas.size == 1 && bean.url.isNotEmpty()) {
             Glide.with(context).load(R.drawable.bg_zueet_ad_default).into(videoView.previewImage)

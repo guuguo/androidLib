@@ -30,8 +30,6 @@ import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
 
@@ -45,19 +43,6 @@ abstract class LBaseActivitySupport : SupportActivity() {
     /*fragment*/
 
     var mFragment: LBaseFragmentSupport? = null
-
-    private val mApiCalls = CompositeDisposable()
-
-    /**
-     * rxJava订阅管道管理
-     * @param call
-     */
-    fun addApiCall(call: Disposable?) {
-        call?.let {
-            mApiCalls.add(call)
-        }
-    }
-
 
     /*onCreate*/
     val BACK_DEFAULT = 0
@@ -190,7 +175,6 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     @CallSuper
     override fun onDestroy() {
-        clearApiCall()
         mLoadingDialog = null
         ActivityManager.popActivity(activity)
         MemoryLeakUtil.fixInputMethodManagerLeak(activity)
@@ -207,11 +191,6 @@ abstract class LBaseActivitySupport : SupportActivity() {
         super.onResume()
         ActivityManager.pushActivity(activity)
     }
-
-    fun clearApiCall() {
-        mApiCalls.clear()
-    }
-
 
     /**
      * 判断是否 fragment activity

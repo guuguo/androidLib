@@ -2,12 +2,9 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.CallSuper
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.guuguo.android.lib.extension.initNav
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 
 /**
@@ -22,13 +19,6 @@ abstract class LBaseFragmentSupport : SupportFragment() {
     private var isPrepare = false
     var mFirstLazyLoad = true
     protected var contentView: View? = null
-    private val mApiCalls = CompositeDisposable()
-
-    fun addApiCall(call: Disposable?) {
-        call?.let {
-            mApiCalls.add(call)
-        }
-    }
 
     open protected fun setLayoutResId(inflater: LayoutInflater?, resId: Int, container: ViewGroup?): View {
         return inflater!!.inflate(resId, container, false)
@@ -41,7 +31,6 @@ abstract class LBaseFragmentSupport : SupportFragment() {
 
     protected fun init(view: View) {
         activity = getActivity() as LBaseActivitySupport
-
         initToolbar()
         initView()
         loadData()
@@ -99,17 +88,6 @@ abstract class LBaseFragmentSupport : SupportFragment() {
         super.onViewCreated(view, savedInstanceState)
         init(view)
     }
-
-    @CallSuper
-    override fun onDestroyView() {
-        clearApiCall()
-        super.onDestroyView()
-    }
-
-    protected fun clearApiCall() {
-        mApiCalls.clear()
-    }
-
 
     //如果准备好并可见,而且没有懒加载过 懒加载
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

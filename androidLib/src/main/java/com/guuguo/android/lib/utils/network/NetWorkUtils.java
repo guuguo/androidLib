@@ -49,35 +49,35 @@ public class NetWorkUtils {
     public static boolean isTypeMobile(NetworkType type) {
         return (type == NetworkType.NETWORK_4G || type == NetworkType.NETWORK_3G || type == NetworkType.NETWORK_2G);
     }
-
-    /**
-     * Instantiates a new Easy  network mod.
-     *
-     * @param
-     * @return
-     */
-    public static boolean isAvailableByPing() {
-        boolean isNet=false;
-        InetAddress in;
-        in = null;
-        // Definimos la ip de la cual haremos el ping
-        try {
-            in = InetAddress.getByName("202.108.22.5");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        // Definimos un tiempo en el cual ha de responder
-        try {
-            if (in.isReachable(1000)) {
-                isNet=true;
-            } else {
-                isNet=false;
-            }
-        } catch (IOException e) {
-            LogUtil.INSTANCE.i("isAvailableByPing errorMsg " +  e.getMessage());
-        }
-        return isNet;
-    }
+//
+//    /**
+//     * Instantiates a new Easy  network mod.
+//     *
+//     * @param
+//     * @return
+//     */
+//    public static boolean isAvailableByPing() {
+//        boolean isNet=false;
+//        InetAddress in;
+//        in = null;
+//        // Definimos la ip de la cual haremos el ping
+//        try {
+//            in = InetAddress.getByName("202.108.22.5");
+//        } catch (UnknownHostException e) {
+//            e.printStackTrace();
+//        }
+//        // Definimos un tiempo en el cual ha de responder
+//        try {
+//            if (in.isReachable(1000)) {
+//                isNet=true;
+//            } else {
+//                isNet=false;
+//            }
+//        } catch (IOException e) {
+//            LogUtil.INSTANCE.i("isAvailableByPing errorMsg " +  e.getMessage());
+//        }
+//        return isNet;
+//    }
 
     /**
      * 获取活动网络信息
@@ -99,7 +99,7 @@ public class NetWorkUtils {
     public static boolean isConnected(boolean needReliable) {
         NetworkInfo info = getActiveNetworkInfo();
         if (info != null && info.isConnected()) {
-            return !needReliable || isAvailableByPing();
+            return !needReliable ;
         }
         return false;
     }

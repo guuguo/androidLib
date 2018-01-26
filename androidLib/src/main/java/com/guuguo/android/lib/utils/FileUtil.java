@@ -1267,7 +1267,7 @@ public class FileUtil {
      * @return 合适内存大小
      */
     @SuppressLint("DefaultLocale")
-    private static String byte2FitMemorySize(final long byteNum) {
+    public static String byte2FitMemorySize(final long byteNum) {
         if (byteNum < 0) {
             return "shouldn't be less than zero!";
         } else if (byteNum < 1024) {
@@ -1280,7 +1280,28 @@ public class FileUtil {
             return String.format("%.3fGB", (double) byteNum / 1073741824 + 0.0005);
         }
     }
-
+    /**
+     * 字节数转合适内存大小
+     * <p>保留decimalLength位小数</p>
+     *
+     * @param decimalLength 保留的小数数量
+     * @param byteNum 字节数
+     * @return 合适内存大小
+     */
+    @SuppressLint("DefaultLocale")
+    public static String byte2FitMemorySize(final long byteNum, int decimalLength) {
+        if (byteNum < 0) {
+            return "shouldn't be less than zero!";
+        } else if (byteNum < 1024) {
+            return String.format("%."+decimalLength+"fB", (double) byteNum + 0.0005);
+        } else if (byteNum < 1048576) {
+            return String.format("%."+decimalLength+"fKB", (double) byteNum / 1024 + 0.0005);
+        } else if (byteNum < 1073741824) {
+            return String.format("%."+decimalLength+"fMB", (double) byteNum / 1048576 + 0.0005);
+        } else {
+            return String.format("%."+decimalLength+"fGB", (double) byteNum / 1073741824 + 0.0005);
+        }
+    }
     private static boolean isSpace(final String s) {
         if (s == null) {
             return true;

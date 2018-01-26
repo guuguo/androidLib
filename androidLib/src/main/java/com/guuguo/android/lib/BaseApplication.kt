@@ -11,10 +11,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
  * Created by guodeqing on 16/3/7.
  */
 abstract class BaseApplication : Application() {
+    init {
+        INSTANCE = this
+    }
 
     override fun onCreate() {
         Utils.init(this)
-        INSTANCE = this
         init()
         super.onCreate()
     }
@@ -32,9 +34,7 @@ abstract class BaseApplication : Application() {
     }
 
     companion object {
-
-         lateinit var INSTANCE: BaseApplication
-
+       private lateinit var INSTANCE: BaseApplication
         fun get(): BaseApplication {
             return INSTANCE
         }

@@ -78,7 +78,11 @@ fun Date?.formatTime(format: String): String {
         return ""
     return SimpleDateFormat(format).format(this)
 }
-
+fun Long?.formatTime(format: String): String {
+    if (this == null)
+        return ""
+    return SimpleDateFormat(format).format(Date(this))
+}
 fun Date.formatTime(format: SimpleDateFormat): String {
     return format.format(this)
 }

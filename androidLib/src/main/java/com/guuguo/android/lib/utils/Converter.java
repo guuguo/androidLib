@@ -15,6 +15,7 @@ package com.guuguo.android.lib.utils;
 //--------   -------------------  -------------      --------------------------
 //13SEP2011  James Shen                 	         Initial Creation
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Convert help class.
  * <hr>
@@ -34,10 +35,10 @@ public class Converter {
     // 13SEP2011 James Shen Initial Creation
     // //////////////////////////////////////////////////////////////////////////
     /**
-     * convert a byte arrary to hex string
+     * convert a byte array to hex string
      *
-     * @param raw byte arrary
-     * @param len lenght of the arrary.
+     * @param raw byte array
+     * @param len convert length of the array.
      * @return hex string.
      */
     public static String getHexString(byte[] raw, int len) {
@@ -55,6 +56,13 @@ public class Converter {
         }
         return new String(hex);
     }
+
+    /**
+     * convert a byte array to int result
+     *
+     * @param src byte array
+     * @return result int.
+     */
     public static int bytesToInt2(byte[] src) {
         int value;
         value = (int) ( ((src[0] & 0xFF)<<24)

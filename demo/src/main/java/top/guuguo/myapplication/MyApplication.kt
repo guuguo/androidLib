@@ -9,7 +9,7 @@ import com.guuguo.android.lib.BaseApplication
 class MyApplication : BaseApplication() {
     companion object {
         val instance by lazy {
-            BaseApplication.INSTANCE as MyApplication
+            BaseApplication.get() as MyApplication
         }
     }
 
