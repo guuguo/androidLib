@@ -1,9 +1,8 @@
-package com.guuguo.android.lib.app
+package com.guuguo.android.lib.utils
 
 import android.content.Context
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.guuguo.android.lib.utils.Utils
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

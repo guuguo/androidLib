@@ -1,7 +1,6 @@
 package com.guuguo.android.lib.extension
 
 import com.guuguo.android.lib.BaseApplication
-import com.guuguo.android.lib.utils.LogUtil
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.regex.Pattern
@@ -21,21 +20,6 @@ fun String?.toast(isShortToast: Boolean = true): String? {
     return this
 }
 
-fun String?.log(tag: String = ""): String? {
-    if (!isNullOrEmpty())
-        if (tag.isNullOrEmpty())
-            LogUtil.i(this!!)
-        else LogUtil.i(tag, this!!)
-
-    return this
-}
-
-
-fun Throwable?.log(msg: String = "", tag: String = "") {
-    if (tag.isNullOrEmpty())
-        LogUtil.e(msg, this)
-    else LogUtil.e(tag, msg, this)
-}
 
 fun String.sha1() = encrypt(this, "SHA-1")
 fun String.md5() = encrypt(this, "MD5")

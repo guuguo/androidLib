@@ -4,14 +4,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '27.0.1'
+    buildToolsVersion '27.0.3'
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
     }
     defaultConfig {
         applicationId "top.guuguo.myapplication"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -46,8 +46,9 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile 'com.github.guuguo:dividerView:1.0'
-    compile 'com.github.guuguo:flowlayout:1.11'
+    compile 'com.github.guuguo:dividerView:1.0.2'
+    compile 'com.github.guuguo:flowlayout:1.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     // jitpack version 
     compile project(':androidLib')
     testCompile 'junit:junit:4.12'

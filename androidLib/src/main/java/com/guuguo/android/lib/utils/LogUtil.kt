@@ -1,6 +1,7 @@
 package com.guuguo.android.lib.utils
 
 import android.util.Log
+import com.guuguo.android.lib.extension.Klog
 
 /**
  * Created by mimi on 2017-01-02.
@@ -11,6 +12,7 @@ object LogUtil {
     private val TAG by lazy { AppUtil.getAppName() }
     fun init(debug: Boolean) {
         this.debug = debug
+        Klog.getSettings().setLogEnable(debug).setBorderEnable(true)
     }
 
     fun i(tag: String = TAG, info: String) {

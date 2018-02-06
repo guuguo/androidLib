@@ -22,7 +22,11 @@ fun Int?.safe(): Int {
         return 0
     else return this
 }
-
+fun Boolean?.safe(): Boolean {
+    if (this == null)
+        return false
+    else return this
+}
 fun Long.getFitSize(byte2FitMemorySize: Int = 1): String = FileUtil.byte2FitMemorySize(this, byte2FitMemorySize)
 //color
 /**
