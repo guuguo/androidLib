@@ -44,7 +44,7 @@ object DialogHelper {
         mDialogs.remove(context)
     }
 
-    fun dialogLoadingShow(context: Context, msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null) {
+    fun dialogLoadingShow(context: Context, msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null): TipDialog? {
         var msg = msg
         if (TextUtils.isEmpty(msg))
             msg = "加载中"
@@ -60,9 +60,10 @@ object DialogHelper {
             dialogDismiss(context, maxDelay, loading, listener)
         loading.setCanceledOnTouchOutside(canTouchCancel)
         showDialogOnMain(context, loading)
+        return loading
     }
 
-    fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: OnBtnClickL?) {
+    fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
         val normalDialog = WarningDialog(context)
                 .contentGravity(Gravity.CENTER)
                 .content(CommonUtil.getSafeString(msg))
@@ -72,9 +73,10 @@ object DialogHelper {
             dialogDismiss(context, 0, normalDialog, DialogInterface.OnDismissListener { listener?.onBtnClick() })
         })
         showDialogOnMain(context, normalDialog)
+        return normalDialog
     }
 
-    fun dialogStateShow(context: Context, msg: String, listener: DialogInterface.OnDismissListener?, stateStyle: Int, delayTime: Long) {
+    fun dialogStateShow(context: Context, msg: String, listener: DialogInterface.OnDismissListener?, stateStyle: Int, delayTime: Long): TipDialog? {
         val stateDialog = TipDialog(context)
                 .stateStyle(stateStyle)
                 .content(CommonUtil.getSafeString(msg))
@@ -82,10 +84,10 @@ object DialogHelper {
         stateDialog.setCanceledOnTouchOutside(false)
         showDialogOnMain(context, stateDialog)
         dialogDismiss(context, delayTime, stateDialog, listener)
+        return stateDialog
     }
 
-    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?, cancelListener: OnBtnClickL?=null)
-    {
+    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?, cancelListener: OnBtnClickL?=null): WarningDialog? {
         val normalDialog = WarningDialog(context)
                 .contentGravity(Gravity.CENTER)
                 .content(CommonUtil.getSafeString(msg))
@@ -98,6 +100,7 @@ object DialogHelper {
             listener?.onBtnClick()
         })
         showDialogOnMain(context, normalDialog)
+        return normalDialog
     }
 
     fun showDialogOnMain(context: Context, dialog: Dialog) {
