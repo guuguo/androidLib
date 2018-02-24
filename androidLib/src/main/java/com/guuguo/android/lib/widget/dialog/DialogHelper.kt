@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.widget.dialog
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -87,7 +88,7 @@ object DialogHelper {
         return stateDialog
     }
 
-    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?, cancelListener: OnBtnClickL?=null): WarningDialog? {
+    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?, cancelListener: OnBtnClickL? = null): WarningDialog? {
         val normalDialog = WarningDialog(context)
                 .contentGravity(Gravity.CENTER)
                 .content(CommonUtil.getSafeString(msg))
@@ -104,8 +105,11 @@ object DialogHelper {
     }
 
     fun showDialogOnMain(context: Context, dialog: Dialog) {
-        Single.just(dialog).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            d ->
+        if (context is Activity)
+            if (context.isDestroyed) {
+                return
+            }
+        Single.just(dialog).observeOn(AndroidSchedulers.mainThread()).subscribe { d ->
             d.show()
             if (mDialogs[context] == null) {
                 val list = arrayListOf(dialog)
@@ -117,17 +121,27 @@ object DialogHelper {
     }
 
     fun dialogDismiss() {
-        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe { mLoadingDialogs.forEach { it.value.dismiss() } }
+        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe { mLoadingDialogs.forEach { dialogDismiss(it.key) } }
     }
 
     fun dialogDismiss(context: Context) {
+        if (context is Activity)
+            if (context.isDestroyed) {
+                mLoadingDialogs.remove(context)
+                return
+            }
         Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe { mLoadingDialogs[context]?.dismiss() }
     }
 
     fun dialogDismiss(context: Context, delay: Long = 0, dialog: Dialog, listener: DialogInterface.OnDismissListener? = null) {
         Single.just(dialog).delay(delay, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : SingleObserver <Dialog> {
+                .subscribe(object : SingleObserver<Dialog> {
                     override fun onSuccess(d: Dialog) {
+                        if (context is Activity)
+                            if (context.isDestroyed) {
+                                mDialogs.remove(context)
+                                return
+                            }
                         d.dismiss()
                         listener?.onDismiss(d)
                         mDialogs[context]?.remove(dialog)
