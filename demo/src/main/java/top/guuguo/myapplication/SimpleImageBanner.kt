@@ -11,6 +11,7 @@ import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.widget.banner.widget.Banner.BaseIndicatorBanner
 import com.guuguo.android.lib.widget.banner.widget.LoopViewPager.FixedSpeedScroller
 import io.reactivex.Completable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import top.guuguo.myapplication.animation.AlphaPageTransformer
 import top.guuguo.myapplication.animation.DefaultPageTransformer

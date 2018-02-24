@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\guuguo\\develope\\androidStudioProject\\androidLib\\progress\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xxxhdpi-v4\\heart_rat_progress_bg.png",
+        "source": "D:\\guuguo\\develope\\androidStudioProject\\androidLib\\progress\\build\\intermediates\\bundles\\debug\\res\\mipmap-xxxhdpi-v4\\heart_rat_progress_bg.png"
+    },
+    {
+        "merged": "D:\\guuguo\\develope\\androidStudioProject\\androidLib\\progress\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xxxhdpi-v4\\progress_instrument_bg.png",
+        "source": "D:\\guuguo\\develope\\androidStudioProject\\androidLib\\progress\\build\\intermediates\\bundles\\debug\\res\\mipmap-xxxhdpi-v4\\progress_instrument_bg.png"
+    },
+    {
+        "merged": "D:\\guuguo\\develope\\androidStudioProject\\androidLib\\progress\\build\\intermediates\\res\\merged\\androidTest\\debug\\mipmap-xxxhdpi-v4\\guuguo.png",
+        "source": "D:\\guuguo\\develope\\androidStudioProject\\androidLib\\progress\\build\\intermediates\\bundles\\debug\\res\\mipmap-xxxhdpi-v4\\guuguo.png"
+    }
+]
