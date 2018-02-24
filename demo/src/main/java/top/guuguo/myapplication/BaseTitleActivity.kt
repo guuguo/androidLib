@@ -8,9 +8,7 @@ class BaseTitleActivity : LBaseActivitySupport() {
         return R.layout.activity_base_title
     }
 
-    override fun getToolBar(): Toolbar? {
-        return findViewById<Toolbar>(R.id.id_tool_bar) as Toolbar
-    }
+    override fun getToolBar(): Toolbar= findViewById(R.id.id_tool_bar)
 
     override fun getHeaderTitle(): String {
         return "simple view"
