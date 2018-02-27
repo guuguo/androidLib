@@ -105,16 +105,6 @@ abstract class LBaseFragmentSupport : SupportFragment() {
             mFirstLazyLoad = false
         }
     }
-//
-
-    /**
-     * 返回动作,如果返回true,捕捉了返回动作
-
-     * @return
-     */
-    open fun onBackPressed(): Boolean {
-        return false
-    }
 
     open fun lazyLoad() {
         activity.mFragment = this
@@ -124,6 +114,4 @@ abstract class LBaseFragmentSupport : SupportFragment() {
     open val isFullScreen: Boolean
         get() = false
 
-    val isToolBarOverlay: Boolean
-        get() = false
 }

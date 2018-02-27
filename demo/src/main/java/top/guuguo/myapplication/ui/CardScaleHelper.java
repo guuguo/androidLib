@@ -1,4 +1,4 @@
-package top.guuguo.myapplication.view;
+package top.guuguo.myapplication.ui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ededed"
     android:orientation="vertical"
-    tools:context="top.guuguo.myapplication.MainActivity">
+    tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
     <top.guuguo.myapplication.RecyclerViewBanner
         android:id="@+id/rv_banner"

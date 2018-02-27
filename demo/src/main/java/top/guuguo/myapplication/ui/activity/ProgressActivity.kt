@@ -1,8 +1,9 @@
-package top.guuguo.myapplication
+package top.guuguo.myapplication.ui.activity
 
 import android.app.Activity
 import android.content.Intent
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import top.guuguo.myapplication.R
 
 class ProgressActivity : LBaseActivitySupport() {
     override fun getLayoutResId() = R.layout.activity_progress

@@ -1,4 +1,4 @@
-package top.guuguo.myapplication
+package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,8 @@ import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import kotlinx.android.synthetic.main.fragment_dividerview.*
 import top.guuguo.dividerview.DividerDrawable
+import top.guuguo.myapplication.R
+import top.guuguo.myapplication.ui.activity.BaseTitleActivity
 
 class DividerViewFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_dividerview

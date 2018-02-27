@@ -1,4 +1,4 @@
-package top.guuguo.myapplication
+package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
 import android.content.Intent
@@ -15,6 +15,8 @@ import com.guuguo.android.lib.widget.roundview.RoundTextView
 import kotlinx.android.synthetic.main.fragment_flowlayout.*
 import top.guuguo.flowlayout.FlowAdapter
 import top.guuguo.flowlayout.FlowLayout
+import top.guuguo.myapplication.R
+import top.guuguo.myapplication.ui.activity.BaseTitleActivity
 
 class FlowLayoutFragment : LBaseFragmentSupport() {
     val bookStr = arrayOf("影视", "读书", "音乐")
@@ -34,18 +36,6 @@ class FlowLayoutFragment : LBaseFragmentSupport() {
         val multiCheck5Adapter = setAdapterViews(fl_multi_5, interestStr, R.color.color_purple)
         multiCheck5Adapter.setCheckLimit(5)
     }
-
-//    private fun setViews(view: FlowLayout, strS: Array<String>, @ColorRes colorRes: Int) {
-//        val color = activity.getColorCompat(colorRes)
-//        view.setAllViews(strS.map {
-//            val view = activity.inflateLayout(R.layout.item_tag, fl_book, false)
-//            val tv = view.findViewById<RoundTextView>(R.id.tv_content)
-//            tv.text = it
-//            tv.setTextColor(color)
-//            tv.delegate.strokeColor = color
-//            view
-//        })
-//    }
 
     private fun setAdapterViews(view: FlowLayout, strS: Array<String>, @ColorRes colorRes: Int): FlowAdapter<String> {
         val color = activity.getColorCompat(colorRes)

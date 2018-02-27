@@ -1,7 +1,8 @@
-package top.guuguo.myapplication
+package top.guuguo.myapplication.ui.activity
 
 import android.support.v7.widget.Toolbar
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import top.guuguo.myapplication.R
 
 class BaseTitleActivity : LBaseActivitySupport() {
     override fun getLayoutResId(): Int {

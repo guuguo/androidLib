@@ -14,7 +14,7 @@
     app:rv_cornerRadius="3dp"
     app:rv_strokeColor="@color/black20"
     app:rv_strokeWidth="1px"
-    tools:context="top.guuguo.myapplication.MainActivity">
+    tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
     <com.guuguo.android.lib.widget.roundview.RoundTextView
         android:layout_width="wrap_content"

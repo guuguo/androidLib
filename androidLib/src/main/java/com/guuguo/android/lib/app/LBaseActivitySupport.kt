@@ -3,11 +3,13 @@ package com.guuguo.android.lib.app
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.app.Fragment
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.annotation.CallSuper
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
@@ -31,6 +33,7 @@ import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
 
@@ -39,7 +42,7 @@ import java.util.concurrent.TimeUnit
  */
 abstract class LBaseActivitySupport : SupportActivity() {
 
-    private val myApplication = BaseApplication.get()
+    open fun getApp() = BaseApplication.get()
     private var mLoadingDialog: TipDialog? = null
     /*fragment*/
 
@@ -50,7 +53,6 @@ abstract class LBaseActivitySupport : SupportActivity() {
     val BACK_DIALOG_CONFIRM = 1
     val BACK_WAIT_TIME = 2
 
-
     open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
     var activity = this
     open protected val isFullScreen = false
@@ -58,19 +60,12 @@ abstract class LBaseActivitySupport : SupportActivity() {
     open protected val backWaitTime = 2000L
     private var TOUCH_TIME: Long = 0
 
-    open fun finishActivitySupport(): Boolean {
-        return false
-    }
-
-    private fun fullScreen(): Boolean {
-        return isFullScreen || mFragment != null && mFragment!!.isFullScreen
-    }
+    private fun fullScreen(): Boolean =
+            isFullScreen || mFragment != null && mFragment!!.isFullScreen
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //入栈到pushActivity    
         activity = this
-        ActivityManager.pushActivity(this)
         initFromIntent(intent)
         if (!isTaskRoot
                 && intent.hasCategory(Intent.CATEGORY_LAUNCHER)
@@ -177,20 +172,9 @@ abstract class LBaseActivitySupport : SupportActivity() {
     @CallSuper
     override fun onDestroy() {
         mLoadingDialog = null
-        ActivityManager.popActivity(activity)
         MemoryLeakUtil.fixInputMethodManagerLeak(activity)
         DialogHelper.clearCalls(activity)
         super.onDestroy()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        ActivityManager.popActivity(activity)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        ActivityManager.pushActivity(activity)
     }
 
     /**
@@ -273,24 +257,25 @@ abstract class LBaseActivitySupport : SupportActivity() {
         home.addCategory(Intent.CATEGORY_HOME)
         startActivity(home)
         Completable.complete().delay(200, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            ActivityManager.popAllActivity()
+            //            ActivityManager.popAllActivity()
+            BaseApplication.get().mActivityLifecycle.clear()
         }
     }
 
     fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null): TipDialog? {
-      return  DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
+        return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
     fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500): TipDialog? {
-        return  DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
+        return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800): TipDialog? {
-        return  DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
+        return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
-        return  DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
+        return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
     fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
@@ -323,11 +308,11 @@ abstract class LBaseActivitySupport : SupportActivity() {
                             }
                             showDialogOnMain(listDialog)
                         } else {
-                            myApplication.toast("拍照权限被拒绝")
+                            "拍照权限被拒绝".toast()
                         }
                     }
         } else {
-            myApplication.toast("未检测到外部sd卡")
+            "未检测到外部sd卡".toast()
         }
     }
 
@@ -350,6 +335,26 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
         val SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO"
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
+
+        fun intentTo(activity: Activity, targetCode: Int, map: HashMap<String, Any>,targetFragment: Class<Fragment>, targetActivity: Class<Activity>) {
+            val intent = Intent(activity,targetActivity)
+            intent.putExtra(SIMPLE_ACTIVITY_INFO, Fragment::class.java)
+
+            val bundle = Bundle()
+            map.forEach {
+                when (it.value) {
+                    is String -> bundle.putString(it.key, it.value as String)
+                    is Int -> bundle.putInt(it.key, it.value as Int)
+                    is Float -> bundle.putFloat(it.key, it.value as Float)
+                    is Parcelable -> bundle.putParcelable(it.key, it.value as Parcelable)
+                    is Serializable -> bundle.putSerializable(it.key, it.value as Serializable)
+                }
+            }
+
+            intent.putExtras(bundle)
+
+            activity.startActivityForResult(intent, targetCode)
+        }
     }
 }
 

@@ -7,10 +7,10 @@
     android:background="@color/migray"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="top.guuguo.myapplication.MainActivity">
+    tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
 
-    <com.guuguo.android.lib.view.progress.ProgressRing
+    <com.guuguo.android.lib.widget.progress.ProgressRing
         android:id="@+id/pr_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="top.guuguo.myapplication.MainActivity">
+    tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
     <include layout="@layout/base_toolbar_common" />
 
