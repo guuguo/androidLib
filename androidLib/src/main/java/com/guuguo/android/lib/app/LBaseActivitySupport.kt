@@ -3,7 +3,6 @@ package com.guuguo.android.lib.app
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
-import android.app.Fragment
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -11,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.CallSuper
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -336,12 +336,12 @@ abstract class LBaseActivitySupport : SupportActivity() {
         val SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO"
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
-        fun intentTo(activity: Activity, targetCode: Int, map: HashMap<String, Any>,targetFragment: Class<Fragment>, targetActivity: Class<Activity>) {
-            val intent = Intent(activity,targetActivity)
-            intent.putExtra(SIMPLE_ACTIVITY_INFO, Fragment::class.java)
+        fun <F : Fragment, A : Activity> intentTo(activity: Activity, map: HashMap<String, Any>?, targetFragment: Class<F>, targetActivity: Class<A>, targetCode: Int = 0) {
+            val intent = Intent(activity, targetActivity)
+            intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 
             val bundle = Bundle()
-            map.forEach {
+            map?.forEach {
                 when (it.value) {
                     is String -> bundle.putString(it.key, it.value as String)
                     is Int -> bundle.putInt(it.key, it.value as Int)
@@ -352,8 +352,10 @@ abstract class LBaseActivitySupport : SupportActivity() {
             }
 
             intent.putExtras(bundle)
-
-            activity.startActivityForResult(intent, targetCode)
+            if (targetCode == 0)
+                activity.startActivity(intent)
+            else
+                activity.startActivityForResult(intent, targetCode)
         }
     }
 }
