@@ -53,7 +53,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
     val BACK_DIALOG_CONFIRM = 1
     val BACK_WAIT_TIME = 2
 
-    open protected fun getLayoutResId() = R.layout.nbase_activity_simple_back
+    open protected fun getLayoutResId() = R.layout.base_activity_simple_back
     var activity = this
     open protected val isFullScreen = false
     open protected val backExitStyle = BACK_DEFAULT

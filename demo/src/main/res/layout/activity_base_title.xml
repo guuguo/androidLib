@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
-    <include layout="@layout/base_toolbar_common" />
+    <include layout="@layout/base_include_toolbar_common" />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/content"

@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.widget.simpleview
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import com.guuguo.android.R
@@ -13,74 +14,54 @@ import com.guuguo.android.R
  */
 class SimpleViewHelper(private val helper: VaryViewHelper) {
 
-    var simpleView: SimpleView? = null
-        private set
+    //    var simpleView: SimpleView? = null
+//        private set
     var isWrapContent: Boolean = true
 
     constructor(view: View) : this(VaryViewHelper(view))
 
-    constructor(view: View, isWrapContent: Boolean = true) : this(VaryViewHelper(view)) {
-        this.isWrapContent = isWrapContent
-    }
-
-    @JvmOverloads fun showError(errorText: String, buttonText: String, onClickListener: OnClickListener? = null) {
-        showImg(R.drawable.state_error, errorText,  buttonText, onClickListener)
-    }
-
-    @JvmOverloads fun showLoading(text: String) {
-        simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(isWrapContent)
-        simpleView!!.text(text)
-                .style(SimpleView.STYLE.loading)
-        requestSimpleView()
-    }
-
-    fun requestSimpleView() {
-        simpleView!!.view.invalidate()
-        helper.showLayout(simpleView?.view)
-    }
-
-    fun showImg(iconRes: Int, text: String, buttonText: String, onClickListener: OnClickListener?) {
-        simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(isWrapContent)
-        simpleView!!.text(text)
-                .icon(iconRes)
-                .btnText(buttonText)
-                .btnListener(onClickListener)
-
-        requestSimpleView()
-    }
-
-    fun showEmpty(text: String,  buttonText: String, onClickListener: OnClickListener?) {
-        showImg(R.drawable.empty_cute_girl_box, text,  buttonText, onClickListener)
-    }
-
-    fun showWarning(text: String) {
-        showImg(R.drawable.state_warning, text, "", null)
-    }
-
-    fun showEmpty(text: String) {
-        showEmpty( text, "", null)
-    }
-
-    fun showEmpty(isIconShow: Boolean, text: String,  buttonText: String, onClickListener: OnClickListener?) {
-
-        simpleView = SimpleView(helper.context)
-        simpleView!!.setWrapContent(isWrapContent)
-        simpleView!!.text(text)
-                .setIconShow(isIconShow)
-                .btnText(buttonText)
-                .btnListener(onClickListener)
-
-        requestSimpleView()
-    }
 
     fun showView(view: View) {
         helper.showLayout(view)
     }
 
+    var simpleView: SimpleView? = null
+    var viewHolder: SimpleViewHolder? = null
+
+
+    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
+        showState(text, btnText, listener, imgRes)
+    }
+
+    fun showEmpty(text: String, btnText: String? = "", listener: OnClickListener?=null, imgRes: Int = R.drawable.empty_cute_girl_box) {
+        showState(text, btnText, listener, imgRes)
+    }
+
+    fun showText(text: String) {
+        showState(text)
+    }
+
+
+    fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = 0) {
+        showSimpleView().state(text, imgRes, btnText, listener)
+    }
+
+    fun showLoading(message: String) {
+        showSimpleView().loading(message)
+    }
+
     fun restore() {
         helper.restoreView()
+    }
+
+
+    private fun showSimpleView(): SimpleViewHolder {
+        if (simpleView == null) {
+            simpleView = SimpleView(helper.context)
+            viewHolder = simpleView!!.viewHolder
+        }
+        helper.showLayout(simpleView!!.view)
+        return viewHolder!!
     }
 
 }

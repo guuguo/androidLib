@@ -28,7 +28,7 @@ public class RecyclerBottomSheet<T> extends BottomSheetDialog {
     @IntRange(from = 1)
     int colume = 1;
     @LayoutRes
-    int itemLayoutRes = R.layout.item_dialog_bottom_sheet_default;
+    int itemLayoutRes = R.layout.base_recycle_item_dialog_bottom_sheet;
 
     private List<T> items = new ArrayList();
     private BindItemViewListener bindItemViewListener = new BindItemViewListener<T>() {
@@ -89,7 +89,7 @@ public class RecyclerBottomSheet<T> extends BottomSheetDialog {
     DefaultAdapter adapter = new DefaultAdapter();
 
     private void init() {
-        View bottomView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_recycler_bottom_sheet, null);
+        View bottomView = LayoutInflater.from(getContext()).inflate(R.layout.base_dialog_recycler_bottom_sheet, null);
         RecyclerView recyclerView = bottomView.findViewById(R.id.recycler);
         if (colume == 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

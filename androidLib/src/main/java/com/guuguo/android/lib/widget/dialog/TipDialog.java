@@ -14,8 +14,7 @@ import android.widget.TextView;
 import com.flyco.dialog.utils.CornerUtils;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.guuguo.android.R;
-
-import am.drawable.DoubleCircleDrawable;
+import com.guuguo.android.lib.widget.simpleview.DoubleCircleDrawable;
 
 /**
  * Created by mimi on 2016-11-10.

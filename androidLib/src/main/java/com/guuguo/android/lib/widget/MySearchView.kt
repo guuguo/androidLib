@@ -85,7 +85,7 @@ class MySearchView : FrameLayout {
     }
 
     private fun initView() {
-        val layout = LayoutInflater.from(context).inflate(R.layout.view_search, this, false)
+        val layout = LayoutInflater.from(context).inflate(R.layout.base_include_search, this, false)
         holder = ViewHolder(layout)
         this.addView(layout)
 

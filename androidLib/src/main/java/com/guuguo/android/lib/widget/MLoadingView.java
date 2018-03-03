@@ -19,7 +19,7 @@ import com.guuguo.android.lib.utils.DisplayUtil;
  * @author cginechen
  * @date 2016-09-21
  */
-public class QMUILoadingView extends View {
+public class MLoadingView extends View {
 
     private int mSize;
     private int mPaintColor;
@@ -29,24 +29,24 @@ public class QMUILoadingView extends View {
     private static final int LINE_COUNT = 12;
     private static final int DEGREE_PER_LINE = 360 / LINE_COUNT;
 
-    public QMUILoadingView(Context context) {
+    public MLoadingView(Context context) {
         this(context, null);
     }
 
-    public QMUILoadingView(Context context, AttributeSet attrs) {
+    public MLoadingView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public QMUILoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MLoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.QMUILoadingView, defStyleAttr, 0);
-        mSize = array.getDimensionPixelSize(R.styleable.QMUILoadingView_qmui_loading_view_size, DisplayUtil.dip2px(32));
-        mPaintColor = array.getInt(R.styleable.QMUILoadingView_android_color, Color.WHITE);
+        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.MLoadingView, defStyleAttr, 0);
+        mSize = array.getDimensionPixelSize(R.styleable.MLoadingView_qmui_loading_view_size, DisplayUtil.dip2px(32));
+        mPaintColor = array.getInt(R.styleable.MLoadingView_android_color, Color.WHITE);
         array.recycle();
         initPaint();
     }
 
-    public QMUILoadingView(Context context, int size, int color) {
+    public MLoadingView(Context context, int size, int color) {
         super(context);
         mSize = size;
         mPaintColor = color;

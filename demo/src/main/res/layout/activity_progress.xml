@@ -23,4 +23,8 @@
         app:cr_progressbar_start_color="#33FF4081"
         app:cr_progressbar_width="8dp" />
 
+    <com.guuguo.android.lib.widget.simpleview.StateLayout
+        android:id="@+id/state"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.guuguo.android.lib.widget.simpleview.StateLayout>
 </LinearLayout>

@@ -24,7 +24,7 @@ import android.view.ViewGroup;
  */
 public class VaryViewHelper {
     private View view;
-    private ViewGroup parentView;
+    public ViewGroup parentView;
     private int viewIndex;
     private ViewGroup.LayoutParams params;
     private View currentView;
@@ -32,6 +32,7 @@ public class VaryViewHelper {
     public VaryViewHelper(View view) {
         super();
         this.view = view;
+        init();
     }
 
     private void init() {
@@ -59,20 +60,17 @@ public class VaryViewHelper {
         showLayout(view);
     }
 
-    public void showLayout(View view) {
-        if (parentView == null) {
-            init();
-        }
-        this.currentView = view;
+    public void showLayout(View targetView) {
         // 如果已经是那个view，那就不需要再进行替换操作了
-        if (parentView.getChildAt(viewIndex) != view) {
+        if (parentView.getChildAt(viewIndex) != targetView) {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null) {
-                parent.removeView(view);
+                parent.removeView(targetView);
             }
             parentView.removeViewAt(viewIndex);
-            parentView.addView(view, viewIndex, params);
+            parentView.addView(targetView, viewIndex, params);
         }
+        this.currentView = targetView;
     }
 
     public void showLayout(int layoutId) {

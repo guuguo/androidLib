@@ -49,7 +49,7 @@
     </declare-styleable>
 
     <!--************ QMUILoading ***********-->
-    <declare-styleable name="QMUILoadingView">
+    <declare-styleable name="MLoadingView">
         <attr name="qmui_loading_view_size" format="dimension" />
         <attr name="android:color" />
     </declare-styleable>
