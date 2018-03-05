@@ -20,9 +20,8 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
     }
 
     public void clear() {
-        for (Activity activity : mActivityList) {
-           activity.finish();
-        }
+        for (int i = mActivityList.size() - 1; i >= 0; i--)
+            mActivityList.get(i).finish();
         mActivityList.clear();
     }
 

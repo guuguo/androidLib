@@ -256,9 +256,10 @@ abstract class LBaseActivitySupport : SupportActivity() {
         home.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         home.addCategory(Intent.CATEGORY_HOME)
         startActivity(home)
-        Completable.complete().delay(200, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
+        Completable.complete().delay(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
             //            ActivityManager.popAllActivity()
             BaseApplication.get().mActivityLifecycle.clear()
+
         }
     }
 
