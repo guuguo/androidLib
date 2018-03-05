@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks {
 
-    private List<Activity> mActivityList;
+    public List<Activity> mActivityList;
 
     public ActivityLifecycle() {
         mActivityList = new LinkedList<>();

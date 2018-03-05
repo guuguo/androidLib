@@ -3,10 +3,7 @@ package com.guuguo.android.lib
 import android.app.Application
 import android.os.Build
 import com.guuguo.android.lib.app.ActivityLifecycle
-import com.guuguo.android.lib.utils.ToastUtil
 import com.guuguo.android.lib.utils.Utils
-import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
 
 
 /**
