@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.extension
 
+import android.content.res.Resources
 import android.graphics.Color
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.utils.FileUtil
@@ -10,11 +11,11 @@ import com.guuguo.android.lib.utils.FileUtil
 
 
 fun Int.pxToDp(): Int {
-    return (this / BaseApplication.get().resources.displayMetrics.density + 0.5f).toInt()
+    return (this / Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 }
 
 fun Int.dpToPx(): Int {
-    return (this * BaseApplication.get().resources.displayMetrics.density + 0.5f).toInt()
+    return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 }
 
 fun Int?.safe(): Int {

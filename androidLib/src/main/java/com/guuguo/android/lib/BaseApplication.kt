@@ -2,7 +2,9 @@ package com.guuguo.android.lib
 
 import android.app.Application
 import android.os.Build
+import android.os.Handler
 import com.guuguo.android.lib.app.ActivityLifecycle
+import com.guuguo.android.lib.utils.AppUtil
 import com.guuguo.android.lib.utils.Utils
 
 
@@ -18,14 +20,25 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
 
     override fun onCreate() {
 
+        Thread.setDefaultUncaughtExceptionHandler(this)
         Utils.init(this)
 
-        Thread.setDefaultUncaughtExceptionHandler(this)
-        mActivityLifecycle = ActivityLifecycle()
-        registerActivityLifecycleCallbacks(mActivityLifecycle)
-
+        initThread()
+        initLyfecycle()
         init()
         super.onCreate()
+    }
+
+    private fun initThread() {
+        sHandler = Handler(mainLooper)
+        mMainThread = Thread.currentThread()
+    }
+
+    fun getCurrentActivity() = if (mActivityLifecycle.mActivityList.isEmpty()) null else mActivityLifecycle.mActivityList.last()
+
+    private fun initLyfecycle() {
+        mActivityLifecycle = ActivityLifecycle()
+        registerActivityLifecycleCallbacks(mActivityLifecycle)
     }
 
 
@@ -53,8 +66,23 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
 
     protected abstract fun init()
 
+
     companion object {
-       private lateinit var INSTANCE: BaseApplication
+        private lateinit var mMainThread: Thread
+        private lateinit var sHandler: Handler
+        fun getHandler(): Handler {
+            return sHandler
+        }
+
+        fun runOnUiThread(runnable: Runnable) {
+            if (Thread.currentThread() !== mMainThread) {
+                sHandler.post(runnable)
+            } else {
+                runnable.run()
+            }
+        }
+
+        private lateinit var INSTANCE: BaseApplication
         fun get(): BaseApplication {
             return INSTANCE
         }

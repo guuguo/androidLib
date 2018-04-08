@@ -49,14 +49,13 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     compile 'com.github.guuguo:dividerView:1.0.2'
-    compile 'com.github.guuguo:flowlayout:1.2'
+    compile 'com.github.guuguo:flowlayout:1.12.3'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation project(':androidLib')
     testCompile 'junit:junit:4.12'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.github.bumptech.glide:glide:4.2.0'
-//    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
     compile 'com.github.florent37:viewanimator:1.0.5'
 
 

@@ -101,7 +101,6 @@ abstract class LBaseActivitySupport : SupportActivity() {
     }
 
     /*toolbar*/
-
     open fun getToolBar(): Toolbar? = null
     open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = true

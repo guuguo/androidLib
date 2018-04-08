@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.utils;
 
+import android.content.res.Resources;
 import android.view.View;
 
 import com.guuguo.android.lib.BaseApplication;
@@ -21,7 +22,7 @@ public class DisplayUtil {
 
     public static float getDensity() {
         if (density <= 0F) {
-            density = BaseApplication.Companion.get().getResources().getDisplayMetrics().density;
+            density = Resources.getSystem().getDisplayMetrics().density;
         }
         return density;
     }
@@ -46,7 +47,7 @@ public class DisplayUtil {
 
     public static int getScreenWidth() {
         if (screenWidthPixels <= 0) {
-            screenWidthPixels = BaseApplication.Companion.get().getResources().getDisplayMetrics().widthPixels;
+            screenWidthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
         }
         return screenWidthPixels;
     }
@@ -54,7 +55,7 @@ public class DisplayUtil {
 
     public static int getScreenHeight() {
         if (screenHeightPixels <= 0) {
-            screenHeightPixels = BaseApplication.Companion.get().getResources().getDisplayMetrics().heightPixels;
+            screenHeightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
         }
         return screenHeightPixels;
     }
