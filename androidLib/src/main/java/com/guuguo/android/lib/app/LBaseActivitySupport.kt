@@ -102,6 +102,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     /*toolbar*/
     open fun getToolBar(): Toolbar? = null
+
     open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = true
     open protected fun isStatusBarTextDark() = false
@@ -336,7 +337,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         val SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO"
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
-        fun <F : Fragment, A : Activity> intentTo(activity: Activity, map: HashMap<String, Any>?, targetFragment: Class<F>, targetActivity: Class<A>, targetCode: Int = 0) {
+        fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, Any>? = null, targetCode: Int = 0) {
             val intent = Intent(activity, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 
