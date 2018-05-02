@@ -2,6 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.Manifest
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -256,9 +257,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         home.addCategory(Intent.CATEGORY_HOME)
         startActivity(home)
         Completable.complete().delay(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            //            ActivityManager.popAllActivity()
             BaseApplication.get().mActivityLifecycle.clear()
-
         }
     }
 
