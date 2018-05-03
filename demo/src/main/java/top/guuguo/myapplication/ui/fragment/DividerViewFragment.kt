@@ -36,11 +36,7 @@ class DividerViewFragment : LBaseFragmentSupport() {
 
     companion object {
         fun intentTo(activity: Activity) {
-            val intent = Intent(activity, BaseTitleActivity::class.java)
-            intent.putExtra(LBaseActivitySupport.SIMPLE_ACTIVITY_INFO, DividerViewFragment::class.java)
-            val bundle = Bundle()
-            intent.putExtras(bundle)
-            activity.startActivity(intent)
+            LBaseActivitySupport.intentTo(activity,DividerViewFragment::class.java,BaseTitleActivity::class.java)
         }
     }
 }
