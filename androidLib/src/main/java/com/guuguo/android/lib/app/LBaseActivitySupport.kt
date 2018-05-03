@@ -112,7 +112,10 @@ abstract class LBaseActivitySupport : SupportActivity() {
         setSupportActionBar(toolBar)
         if (isNavigationBack())
             toolBar?.initNav(activity)
-        title = getHeaderTitle()
+        getHeaderTitle()?.let {
+            title = it
+        }
+
     }
 
 
@@ -135,7 +138,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     /*menu and title*/
 
-    open protected fun getHeaderTitle() = ""
+    open protected fun getHeaderTitle():String? = ""
     override fun setTitle(title: CharSequence?) {
         supportActionBar?.title = title
     }

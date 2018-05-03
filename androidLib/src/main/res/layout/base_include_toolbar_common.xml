@@ -8,6 +8,7 @@
     <android.support.v7.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/id_tool_bar"
         android:layout_width="match_parent"
+        app:layout_scrollFlags="scroll|enterAlways"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:theme="@style/Toolbar.Dark"
