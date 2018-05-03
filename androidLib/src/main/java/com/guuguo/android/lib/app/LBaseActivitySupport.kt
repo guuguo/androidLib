@@ -21,13 +21,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalListDialog
-import com.flyco.systembar.SystemBarHelper
 import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
+import com.guuguo.android.lib.utils.SystemBarHelper
 import com.guuguo.android.lib.widget.dialog.DialogHelper
 import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.dialog.WarningDialog

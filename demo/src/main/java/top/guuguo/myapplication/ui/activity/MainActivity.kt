@@ -6,6 +6,7 @@ import top.guuguo.myapplication.ui.fragment.NavigatorLayoutFragment
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.ui.fragment.DividerViewFragment
 import top.guuguo.myapplication.ui.fragment.FlowLayoutFragment
+import top.guuguo.myapplication.ui.fragment.WaveViewFragment
 
 class MainActivity : LBaseActivitySupport() {
     override fun getLayoutResId() = R.layout.activity_main
@@ -21,5 +22,8 @@ class MainActivity : LBaseActivitySupport() {
     }
     fun onBannerClick(v:View){
         NavigatorLayoutFragment.intentTo(activity)
+    }
+    fun onWaveClick(v:View){
+        WaveViewFragment.intentTo(activity)
     }
 }

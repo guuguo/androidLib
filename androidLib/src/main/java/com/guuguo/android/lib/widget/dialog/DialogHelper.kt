@@ -132,7 +132,7 @@ object DialogHelper {
 
     fun dialogDismiss(context: Context) {
         if (context is Activity)
-            if (context.isDestroyed) {
+            if (context.isFinishing) {
                 mLoadingDialogs.remove(context)
                 return
             }
@@ -144,7 +144,7 @@ object DialogHelper {
                 .subscribe(object : SingleObserver<Dialog> {
                     override fun onSuccess(d: Dialog) {
                         if (context is Activity)
-                            if (context.isDestroyed) {
+                            if (context.isFinishing) {
                                 mDialogs.remove(context)
                                 return
                             }
