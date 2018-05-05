@@ -50,7 +50,7 @@ dependencies {
 
     compile 'com.github.guuguo:dividerView:1.0.2'
     compile 'com.github.guuguo:flowlayout:1.12.3'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation project(':androidLib')
     testCompile 'junit:junit:4.12'
 

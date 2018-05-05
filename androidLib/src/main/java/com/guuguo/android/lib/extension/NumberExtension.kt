@@ -48,7 +48,7 @@ fun Int.changeAlpha(alpha: Int): Int {
 
 /**
  * 获取格式化 保留[decimalLength] 位数的小数点，[intOptimization]true 代表整数不显示小数点
- /
+ */
 fun Number.formatDecimal(decimalLength: Int = 1, intOptimization: Boolean = true): String {
     if (intOptimization && this.toFloat() - this.toInt() == 0f)
         return this.toInt().toString()

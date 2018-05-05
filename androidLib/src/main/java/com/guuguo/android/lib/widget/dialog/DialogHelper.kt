@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.view.Gravity
 import com.flyco.dialog.listener.OnBtnClickL
@@ -46,7 +47,7 @@ object DialogHelper {
         mDialogs.remove(context)
     }
 
-    fun dialogLoadingShow(context: Context, msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null): TipDialog? {
+    fun dialogLoadingShow(context: Context, msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null, drawable: Drawable? = null): TipDialog? {
         var msg = msg
         if (TextUtils.isEmpty(msg))
             msg = "加载中"
@@ -55,6 +56,8 @@ object DialogHelper {
             loading = TipDialog(context)
             mLoadingDialogs.put(context, loading)
         }
+        drawable?.let { loading.setLoadDrawable(it) }
+
         loading.stateStyle(TipDialog.STATE_STYLE.loading)
                 .content(msg)
 

@@ -138,7 +138,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     /*menu and title*/
 
-    open protected fun getHeaderTitle():String? = ""
+    open protected fun getHeaderTitle(): String? = ""
     override fun setTitle(title: CharSequence?) {
         supportActionBar?.title = title
     }
@@ -265,27 +265,27 @@ abstract class LBaseActivitySupport : SupportActivity() {
         }
     }
 
-    fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null): TipDialog? {
+    open fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null): TipDialog? {
         return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
-    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500): TipDialog? {
+    open fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800): TipDialog? {
+    open fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+    open fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
+    open fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 
-    fun showDialogOnMain(dialog: Dialog) {
+    open fun showDialogOnMain(dialog: Dialog) {
         DialogHelper.showDialogOnMain(activity, dialog)
     }
 
@@ -293,7 +293,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         DialogHelper.dialogDismiss(activity)
     }
 
-    fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
+    open fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
         if (FileUtil.isExternalStorageMounted()) {
             val rxPermissions = RxPermissions(this)
             rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
