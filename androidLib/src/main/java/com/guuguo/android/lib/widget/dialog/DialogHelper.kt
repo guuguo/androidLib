@@ -7,6 +7,7 @@ import android.content.DialogInterface
 import android.text.TextUtils
 import android.view.Gravity
 import com.flyco.dialog.listener.OnBtnClickL
+import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.utils.CommonUtil
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -61,6 +62,7 @@ object DialogHelper {
             dialogDismiss(context, maxDelay, loading, listener)
         loading.setCanceledOnTouchOutside(canTouchCancel)
         showDialogOnMain(context, loading)
+        "dialogLoadingShow".log()
         return loading
     }
 
@@ -74,6 +76,7 @@ object DialogHelper {
             dialogDismiss(context, 0, normalDialog, DialogInterface.OnDismissListener { listener?.onBtnClick() })
         })
         showDialogOnMain(context, normalDialog)
+        "dialogMsgShow".log()
         return normalDialog
     }
 
@@ -85,6 +88,7 @@ object DialogHelper {
         stateDialog.setCanceledOnTouchOutside(false)
         showDialogOnMain(context, stateDialog)
         dialogDismiss(context, delayTime, stateDialog, listener)
+        "dialogStateShow".log()
         return stateDialog
     }
 
@@ -101,12 +105,14 @@ object DialogHelper {
             listener?.onBtnClick()
         })
         showDialogOnMain(context, normalDialog)
+        "dialogWarningShow".log()
         return normalDialog
     }
 
     fun showDialogOnMain(context: Context, dialog: Dialog) {
         if (context is Activity)
-            if (context.isDestroyed) {
+            if (context.isFinishing) {
+                "activity already finished,can not open dialog".log()
                 return
             }
         Single.just(dialog).observeOn(AndroidSchedulers.mainThread()).subscribe { d ->
@@ -126,7 +132,7 @@ object DialogHelper {
 
     fun dialogDismiss(context: Context) {
         if (context is Activity)
-            if (context.isDestroyed) {
+            if (context.isFinishing) {
                 mLoadingDialogs.remove(context)
                 return
             }
@@ -138,7 +144,7 @@ object DialogHelper {
                 .subscribe(object : SingleObserver<Dialog> {
                     override fun onSuccess(d: Dialog) {
                         if (context is Activity)
-                            if (context.isDestroyed) {
+                            if (context.isFinishing) {
                                 mDialogs.remove(context)
                                 return
                             }

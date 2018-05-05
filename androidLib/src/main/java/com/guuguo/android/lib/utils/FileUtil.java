@@ -61,7 +61,6 @@ public class FileUtil {
     public static boolean isExternalStorageMounted() {
         String sts = Environment.getExternalStorageState();
         return sts.equals(Environment.MEDIA_MOUNTED);
-
     }
 
     public static void CreateFileFolder(String strFile) {

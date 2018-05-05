@@ -2,6 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.Manifest
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -20,13 +21,13 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import com.flyco.dialog.listener.OnBtnClickL
 import com.flyco.dialog.widget.NormalListDialog
-import com.flyco.systembar.SystemBarHelper
 import com.guuguo.android.R
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
+import com.guuguo.android.lib.utils.SystemBarHelper
 import com.guuguo.android.lib.widget.dialog.DialogHelper
 import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.dialog.WarningDialog
@@ -111,7 +112,10 @@ abstract class LBaseActivitySupport : SupportActivity() {
         setSupportActionBar(toolBar)
         if (isNavigationBack())
             toolBar?.initNav(activity)
-        title = getHeaderTitle()
+        getHeaderTitle()?.let {
+            title = it
+        }
+
     }
 
 
@@ -134,7 +138,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     /*menu and title*/
 
-    open protected fun getHeaderTitle() = ""
+    open protected fun getHeaderTitle():String? = ""
     override fun setTitle(title: CharSequence?) {
         supportActionBar?.title = title
     }
@@ -257,9 +261,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
         home.addCategory(Intent.CATEGORY_HOME)
         startActivity(home)
         Completable.complete().delay(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            //            ActivityManager.popAllActivity()
             BaseApplication.get().mActivityLifecycle.clear()
-
         }
     }
 
