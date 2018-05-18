@@ -2,6 +2,8 @@ package com.guuguo.android.lib.widget.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -14,7 +16,8 @@ import android.widget.TextView;
 import com.flyco.dialog.utils.CornerUtils;
 import com.flyco.dialog.widget.base.BaseDialog;
 import com.guuguo.android.R;
-import com.guuguo.android.lib.widget.simpleview.DoubleCircleDrawable;
+import com.guuguo.android.lib.widget.drawable.CircularDrawable;
+import com.guuguo.android.lib.widget.drawable.DoubleCircleDrawable;
 
 /**
  * Created by mimi on 2016-11-10.
@@ -51,7 +54,12 @@ public class TipDialog extends BaseDialog<TipDialog> {
      * stateStyle
      */
     protected int mStateStyle;
-    private DoubleCircleDrawable loadDrawable;
+
+    public void setLoadDrawable(Drawable loadDrawable) {
+        this.loadDrawable = loadDrawable;
+    }
+
+    private Drawable loadDrawable;
 
     public static class STATE_STYLE {
         public static final int noIcon = 4;
@@ -84,10 +92,10 @@ public class TipDialog extends BaseDialog<TipDialog> {
     public TipDialog(Context context) {
         super(context, true);
         /** init */
-        mCornerRadius = 10;
+        mCornerRadius = 6;
         mContentTextSize = 16;
         mContentTextColor = Color.parseColor("#ffffff");
-        mBgColor = Color.parseColor("#88000000");
+        mBgColor = Color.parseColor("#AA000000");
 
         widthScale(1f);
         dimEnabled(false);
@@ -107,17 +115,18 @@ public class TipDialog extends BaseDialog<TipDialog> {
 
         /** llcontainer **/
         mLlContainer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        mLlContainer.setPadding(dp2px(15), dp2px(15), dp2px(15), dp2px(15));
+        mLlContainer.setPadding(dp2px(10), dp2px(20), dp2px(10), dp2px(20));
         mLlContainer.setMinimumWidth(dp2px(150));
         mLlContainer.setGravity(Gravity.CENTER);
 
         /** stateImage **/
-        mIvState.setLayoutParams(new ViewGroup.LayoutParams(dp2px(42), dp2px(42)));
+        mIvState.setLayoutParams(new ViewGroup.LayoutParams(dp2px(44), dp2px(44)));
         mIvState.setColorFilter(mContentTextColor);
         mLlContainer.addView(mIvState);
 
         /** loadingView **/
-        loadDrawable = new DoubleCircleDrawable(getContext().getResources().getDisplayMetrics().density);
+        if(loadDrawable==null)
+            loadDrawable = new CircularDrawable();
 
         /** content */
         mTvContent.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -138,7 +147,8 @@ public class TipDialog extends BaseDialog<TipDialog> {
             switch (mStateStyle) {
                 case STATE_STYLE.loading:
                     mIvState.setImageDrawable(loadDrawable);
-                    loadDrawable.start();
+                    if (loadDrawable instanceof Animatable)
+                        ((Animatable) loadDrawable).start();
                     break;
                 case STATE_STYLE.error:
                     mIvState.setImageResource(R.drawable.qmui_icon_notify_error);

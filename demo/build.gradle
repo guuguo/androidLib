@@ -4,14 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
     }
     defaultConfig {
         applicationId "top.guuguo.myapplication"
         minSdkVersion 17
-        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -46,17 +44,17 @@ kapt {
     generateStubs = false
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    compile 'com.github.guuguo:dividerView:1.0.2'
-    compile 'com.github.guuguo:flowlayout:1.12.3'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.github.guuguo:dividerView:1.0.2'
+    implementation 'com.github.guuguo:flowlayout:1.12.3'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation project(':androidLib')
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.github.bumptech.glide:glide:4.2.0'
-    compile 'com.github.florent37:viewanimator:1.0.5'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.github.bumptech.glide:glide:4.2.0'
+    implementation 'com.github.florent37:viewanimator:1.0.5'
 
 
 }

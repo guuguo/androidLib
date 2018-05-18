@@ -17,10 +17,10 @@ import com.trello.rxlifecycle2.android.FragmentEvent
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LBaseFragmentSupport : SupportFragment(),IView<FragmentEvent>{
+abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
 
     protected val TAG = this.javaClass.simpleName
-    lateinit var activity: LBaseActivitySupport
+    override lateinit var activity: LBaseActivitySupport
     protected abstract fun getLayoutResId(): Int
 
     private var isPrepare = false
@@ -125,15 +125,15 @@ abstract class LBaseFragmentSupport : SupportFragment(),IView<FragmentEvent>{
         return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
-    override  fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
+    override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    override  fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
+    override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override  fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 

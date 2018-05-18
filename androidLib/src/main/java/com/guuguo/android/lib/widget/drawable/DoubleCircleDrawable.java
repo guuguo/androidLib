@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.simpleview;
+package com.guuguo.android.lib.widget.drawable;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;

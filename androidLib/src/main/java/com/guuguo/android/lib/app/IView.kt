@@ -30,4 +30,5 @@ interface IView<E>  : LifecycleProvider<E>{
 
     fun dialogDismiss()
 
+    var activity:LBaseActivitySupport
 }

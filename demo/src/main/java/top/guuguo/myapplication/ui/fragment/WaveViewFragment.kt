@@ -19,7 +19,10 @@ class WaveViewFragment : LBaseFragmentSupport() {
     override fun getHeaderTitle()="waveView"
     override fun initView() {
         super.initView()
-
+        wave_view.addWaves(arrayOf(
+                CustomMultiWaveView.WaveBean(1000f, 4500, 48.dpToPx())
+                , CustomMultiWaveView.WaveBean(1000f, 4200, 44.dpToPx())
+                , CustomMultiWaveView.WaveBean(1000f, 3800, 40.dpToPx(),Color.WHITE)))
         wave_view.start()
     }
 

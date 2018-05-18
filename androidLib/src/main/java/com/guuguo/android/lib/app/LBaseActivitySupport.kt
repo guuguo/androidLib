@@ -54,11 +54,11 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     val BACK_DIALOG_CONFIRM = 1
     val BACK_WAIT_TIME = 2
 
-    open protected fun getLayoutResId() = R.layout.base_activity_simple_back
-    var activity = this
-    open protected val isFullScreen = false
-    open protected val backExitStyle = BACK_DEFAULT
-    open protected val backWaitTime = 2000L
+    protected open fun getLayoutResId() = R.layout.base_activity_simple_back
+    override var activity = this
+    protected open val isFullScreen = false
+    protected open val backExitStyle = BACK_DEFAULT
+    protected open val backWaitTime = 2000L
     private var TOUCH_TIME: Long = 0
 
     private fun fullScreen(): Boolean =
@@ -121,7 +121,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         mFragment?.let {
-            if (it.onOptionsItemSelected(item))
+            if (mFragment?.onOptionsItemSelected(item)!!)
                 return true
         }
         return super.onOptionsItemSelected(item)
@@ -137,8 +137,8 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     }
 
     /*menu and title*/
-    open protected fun getHeaderTitle(): String? = ""
 
+    open protected fun getHeaderTitle(): String? = ""
     override fun setTitle(title: CharSequence?) {
         supportActionBar?.title = title
     }
@@ -238,7 +238,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     }
 
     open fun overridePendingTransition() {
-//        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
     }
 
     override fun startActivity(intent: Intent?) {
@@ -265,25 +265,26 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         }
     }
 
-   override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?): TipDialog? {
+    override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?): TipDialog? {
         return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
-    override  fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
+    override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    override  fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? , delayTime: Int): TipDialog? {
+    override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override  fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
     override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
+
     override
     fun showDialogOnMain(dialog: Dialog) {
         DialogHelper.showDialogOnMain(activity, dialog)
@@ -293,7 +294,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         DialogHelper.dialogDismiss(activity)
     }
 
-    fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
+    open fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
         if (FileUtil.isExternalStorageMounted()) {
             val rxPermissions = RxPermissions(this)
             rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
