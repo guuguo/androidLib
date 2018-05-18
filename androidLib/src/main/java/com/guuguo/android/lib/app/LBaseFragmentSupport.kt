@@ -1,16 +1,23 @@
 package com.guuguo.android.lib.app
 
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
+import com.flyco.dialog.listener.OnBtnClickL
 import com.guuguo.android.lib.extension.initNav
+import com.guuguo.android.lib.widget.dialog.DialogHelper
+import com.guuguo.android.lib.widget.dialog.TipDialog
+import com.guuguo.android.lib.widget.dialog.WarningDialog
+import com.trello.rxlifecycle2.android.FragmentEvent
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LBaseFragmentSupport : SupportFragment() {
+abstract class LBaseFragmentSupport : SupportFragment(),IView<FragmentEvent>{
 
     protected val TAG = this.javaClass.simpleName
     lateinit var activity: LBaseActivitySupport
@@ -57,11 +64,11 @@ abstract class LBaseFragmentSupport : SupportFragment() {
 
     /*init*/
 
-    open protected fun loadData() {}
-    open protected fun initVariable(savedInstanceState: Bundle?) {}
-    open protected fun initView() {}
-    open protected fun getMenuResId() = 0
-    open protected fun isNavigationBack() = true
+    override fun loadData() {}
+    protected open fun initVariable(savedInstanceState: Bundle?) {}
+    protected open fun initView() {}
+    protected open fun getMenuResId() = 0
+    protected open fun isNavigationBack() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
@@ -114,4 +121,31 @@ abstract class LBaseFragmentSupport : SupportFragment() {
     open val isFullScreen: Boolean
         get() = false
 
+    override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?): TipDialog? {
+        return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
+    }
+
+    override  fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
+        return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
+    }
+
+    override  fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
+        return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
+    }
+
+    override  fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+        return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
+    }
+
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
+        return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
+    }
+
+    override fun showDialogOnMain(dialog: Dialog) {
+        DialogHelper.showDialogOnMain(activity, dialog)
+    }
+
+    override fun dialogDismiss() {
+        DialogHelper.dialogDismiss(activity)
+    }
 }

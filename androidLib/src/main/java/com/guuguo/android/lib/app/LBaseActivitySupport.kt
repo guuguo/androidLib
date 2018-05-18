@@ -2,7 +2,6 @@ package com.guuguo.android.lib.app
 
 import android.Manifest
 import android.app.Activity
-import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -32,6 +31,7 @@ import com.guuguo.android.lib.widget.dialog.DialogHelper
 import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.trello.rxlifecycle2.android.ActivityEvent
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.Serializable
@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LBaseActivitySupport : SupportActivity() {
+abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
 
     open fun getApp() = BaseApplication.get()
     private var mLoadingDialog: TipDialog? = null
@@ -121,7 +121,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         mFragment?.let {
-            if (mFragment?.onOptionsItemSelected(item)!!)
+            if (it.onOptionsItemSelected(item))
                 return true
         }
         return super.onOptionsItemSelected(item)
@@ -137,8 +137,8 @@ abstract class LBaseActivitySupport : SupportActivity() {
     }
 
     /*menu and title*/
+    open protected fun getHeaderTitle(): String? = ""
 
-    open protected fun getHeaderTitle():String? = ""
     override fun setTitle(title: CharSequence?) {
         supportActionBar?.title = title
     }
@@ -159,7 +159,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
 
     open protected fun initVariable(savedInstanceState: Bundle?) {}
     open protected fun initView() {}
-    open protected fun loadData() {}
+    override fun loadData() {}
     @CallSuper
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
@@ -238,7 +238,7 @@ abstract class LBaseActivitySupport : SupportActivity() {
     }
 
     open fun overridePendingTransition() {
-        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+//        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
     }
 
     override fun startActivity(intent: Intent?) {
@@ -265,31 +265,31 @@ abstract class LBaseActivitySupport : SupportActivity() {
         }
     }
 
-    fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null): TipDialog? {
+   override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?): TipDialog? {
         return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
-    fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 1500): TipDialog? {
+    override  fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800): TipDialog? {
+    override  fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? , delayTime: Int): TipDialog? {
         return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+    override  fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
-
+    override
     fun showDialogOnMain(dialog: Dialog) {
         DialogHelper.showDialogOnMain(activity, dialog)
     }
 
-    fun dialogDismiss() {
+    override fun dialogDismiss() {
         DialogHelper.dialogDismiss(activity)
     }
 

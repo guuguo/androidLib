@@ -10,10 +10,10 @@
     tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
     <top.guuguo.myapplication.RoundFlowLayout
-        android:layout_marginTop="30dp"
         android:layout_width="200dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         app:columnNumbers="2"
         app:rv_backgroundColor="@color/white"
         app:rv_cornerRadius="3dp"
@@ -78,9 +78,55 @@
         android:gravity="center"
         android:text="点击切换"
         android:textColor="@color/blue"
-        app:dv_backgroundColorPress="@color/black20"
-        app:dv_textColorPress="@color/black"
         app:dv_backgroundColor="@color/white"
-        />
+        app:dv_backgroundColorPress="@color/black20"
+        app:dv_textColorPress="@color/black" />
 
+    <top.guuguo.dividerview.DividerTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_local_florist_black_24dp"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_navigation_arrow_right"
+        android:drawableTint="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="可怕"
+        app:dv_align="dv_BC"
+        app:dv_backgroundColor="@color/white"
+        app:dv_dividerColor="@color/black20"
+        app:dv_dividerWidth="1px" />
+
+    <top.guuguo.dividerview.DividerTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableLeft="@drawable/ic_local_florist_black_24dp"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_navigation_arrow_right"
+        android:drawableTint="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="可怕"
+        app:dv_align="dv_BC"
+        app:dv_backgroundColor="@color/white"
+        app:dv_dividerColor="@color/black20"
+        app:dv_dividerWidth="1px" />
+    <top.guuguo.dividerview.DividerTextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawableLeft="@drawable/ic_local_florist_black_24dp"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_navigation_arrow_right"
+        android:drawableTint="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="可怕"
+        app:dv_align="dv_BC"
+        app:dv_backgroundColor="@color/white"
+        app:dv_dividerColor="@color/black20"
+        app:dv_dividerWidth="1px" />
 </LinearLayout>
