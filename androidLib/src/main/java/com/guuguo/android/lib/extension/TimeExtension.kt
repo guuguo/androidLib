@@ -16,29 +16,29 @@ import java.util.*
  * *
  * @return
  */
-fun Date.getTimeSpan(timeStamp: Long = System.currentTimeMillis(), suffix: String = "前"): String {
+fun Date.getTimeSpan(timeStamp: Long = System.currentTimeMillis(), suffix: String = "前",prefix:String=""): String {
     var timeSpan = timeStamp - time
-    timeSpan = timeSpan / 1000
+    timeSpan /= 1000
     if (timeSpan < 60)
-        return timeSpan.toString() + "秒$suffix"
+        return prefix+timeSpan.toString() + "秒$suffix"
     timeSpan /= 60
     if (timeSpan < 60) {
-        return timeSpan.toString() + "分钟$suffix"
+        return prefix+timeSpan.toString() + "分钟$suffix"
     }
     timeSpan /= 60
     if (timeSpan < 24) {
-        return timeSpan.toString() + "小时$suffix"
+        return prefix+timeSpan.toString() + "小时$suffix"
     }
     timeSpan /= 24
     if (timeSpan < 30) {
-        return timeSpan.toString() + "天$suffix"
+        return prefix+timeSpan.toString() + "天$suffix"
     }
     timeSpan = (timeSpan / 30.42).toLong()
     if (timeSpan < 12) {
-        return timeSpan.toString() + "月$suffix"
+        return prefix+timeSpan.toString() + "月$suffix"
     }
     timeSpan /= 12
-    return timeSpan.toString() + "年$suffix"
+    return prefix+timeSpan.toString() + "年$suffix"
 }
 
 /**
