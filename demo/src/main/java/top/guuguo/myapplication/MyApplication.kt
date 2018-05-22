@@ -1,6 +1,7 @@
 package top.guuguo.myapplication
 
 import com.guuguo.android.lib.BaseApplication
+import com.guuguo.android.lib.utils.LogUtil
 
 /**
  * mimi 创造于 2017-07-20.
@@ -14,5 +15,6 @@ class MyApplication : BaseApplication() {
     }
 
     override fun init() {
+        LogUtil.init(true)
     }
 }

@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Handler
 import com.guuguo.android.lib.app.ActivityLifecycle
 import com.guuguo.android.lib.utils.AppUtil
+import com.guuguo.android.lib.utils.LogUtil
 import com.guuguo.android.lib.utils.Utils
 
 
@@ -22,7 +23,6 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
 
         Thread.setDefaultUncaughtExceptionHandler(this)
         Utils.init(this)
-
         initThread()
         initLyfecycle()
         init()

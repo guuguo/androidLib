@@ -3,6 +3,8 @@ package top.guuguo.myapplication.ui.activity
 import android.content.DialogInterface
 import android.view.View
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.extension.doAvoidDouble
+import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.widget.dialog.DialogHelper
 import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.drawable.CircularDrawable
@@ -15,27 +17,43 @@ import top.guuguo.myapplication.ui.fragment.WaveViewFragment
 class MainActivity : LBaseActivitySupport() {
     override fun getLayoutResId() = R.layout.activity_main
     fun onProgressClick(v: View) {
-        ProgressActivity.intentTo(activity)
+        v.doAvoidDouble {
+            ProgressActivity.intentTo(activity)
+        }
     }
+
     fun OnDividerViewClick(v: View) {
-        DividerViewFragment.intentTo(activity);
+        v.doAvoidDouble {
+            DividerViewFragment.intentTo(activity);
+        }
     }
 
     fun onFlowLayoutClick(v: View) {
-        FlowLayoutFragment.intentTo(activity)
+        v.doAvoidDouble {
+            FlowLayoutFragment.intentTo(activity)
+        }
     }
-    fun onBannerClick(v:View){
-        NavigatorLayoutFragment.intentTo(activity)
+
+    fun onBannerClick(v: View) {
+        v.doAvoidDouble {
+            NavigatorLayoutFragment.intentTo(activity)
+        }
     }
-    fun onWaveClick(v:View){
-        WaveViewFragment.intentTo(activity)
+
+    fun onWaveClick(v: View) {
+        v.doAvoidDouble {
+            WaveViewFragment.intentTo(activity)
+        }
     }
-    fun onDialogShow(v:View){
-        dialogLoadingShow("")
+
+    fun onDialogShow(v: View) {
+        v.doAvoidDouble {
+            dialogLoadingShow("")
+        }
     }
 
     override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?): TipDialog? {
-        return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener,CircularDrawable())
+        return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener, CircularDrawable())
 
     }
 

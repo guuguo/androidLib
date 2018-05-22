@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/androidLib.iml" filepath="$PROJECT_DIR$/androidLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidLib/androidLib-androidLib.iml" filepath="$PROJECT_DIR$/androidLib/androidLib-androidLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../zueetTP/orderpad/orderpad.iml" filepath="$PROJECT_DIR$/../zueetTP/orderpad/orderpad.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../zueetTP/orderpadcloud/orderpadcloud.iml" filepath="$PROJECT_DIR$/../zueetTP/orderpadcloud/orderpadcloud.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../zueetTP/zueetTP.iml" filepath="$PROJECT_DIR$/../zueetTP/zueetTP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zueetTP-androidLib.iml" filepath="$PROJECT_DIR$/zueetTP-androidLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
     </modules>
   </component>
 </project>
