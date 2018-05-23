@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:onClick="onDialogShow"
-        android:text="loading"
+        android:text="dialog"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:rv_isRippleEnable="true"

@@ -68,18 +68,6 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
     }
 
 
-    /**
-     * set style(设置style)
-     *
-     * @param style
-     * @return
-     */
-    @Override
-    public EditAlertDialog style(int style) {
-        this.mStyle = style;
-        return this;
-    }
-
     public EditAlertDialog setInputType(int inputType) {
         this.mInputType = inputType;
         return this;

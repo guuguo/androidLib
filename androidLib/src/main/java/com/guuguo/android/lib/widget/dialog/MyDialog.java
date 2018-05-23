@@ -47,11 +47,26 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
      */
     protected int mDividerColor = Color.parseColor("#DCDCDC");
 
-    public static final int STYLE_ONE = 0;
-    public static final int STYLE_TWO = 1;
-    protected int mStyle = STYLE_ONE;
+    /**
+     * btn mButtonType(按钮类型0是内部)
+     */
+
+    static final int BTN_STYLE_FLAT = 0;
+    static final int BTN_STYLE_OUTLINE = 1;
+    static final int BTN_STYLE_RAISED = 2;
+
+    private int mButtonType = BTN_STYLE_FLAT;
+
     private int mPrimaryBtnColor;
+    private int mPrimaryBtnPressColor;
     private boolean mIsDfaultWidth = false;
+
+    public static class DialogSetting {
+        int primaryBtnColor = 0;
+        int primaryBtnPressColor = 0;
+        int cornerRadius = 0;
+        int isTitleShow = 0;
+    }
 
     public MyDialog(Context context) {
         super(context);
@@ -67,8 +82,9 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         mRightBtnTextColor = Color.parseColor("#ffffff");
         mMiddleBtnTextColor = Color.parseColor("#ffffff");
 
+        mPrimaryBtnPressColor = Color.parseColor("#e12020");
         mPrimaryBtnColor = ContextCompat.getColor(context, R.color.colorPrimary); //Color.parseColor("#f23131");
-        mCornerRadius = 10;
+        mCornerRadius = 5;
         /** default value*/
     }
 
@@ -102,6 +118,7 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         mLlContainer.addView(mVLineHorizontal);
 
         /** btns */
+
         mTvBtnLeft.setLayoutParams(new LinearLayout.LayoutParams(0, dp2px(43), 1));
         mLlBtns.addView(mTvBtnLeft);
 
@@ -119,6 +136,7 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         mTvBtnRight.setLayoutParams(new LinearLayout.LayoutParams(0, dp2px(43), 1));
         mLlBtns.addView(mTvBtnRight);
 
+
         mLlContainer.addView(mLlBtns);
 
         return mLlContainer;
@@ -134,66 +152,74 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
 
 
         /** title */
-        if (mStyle == STYLE_ONE) {
-            mTvTitle.setMinHeight(dp2px(48));
-            mTvTitle.setGravity(Gravity.CENTER_VERTICAL);
-            mTvTitle.setPadding(dp2px(15), dp2px(5), dp2px(0), dp2px(5));
-            mTvTitle.setVisibility(mIsTitleShow ? View.VISIBLE : View.GONE);
-        } else if (mStyle == STYLE_TWO) {
-            mTvTitle.setGravity(Gravity.CENTER);
-            mTvTitle.setPadding(dp2px(0), dp2px(15), dp2px(0), dp2px(0));
-        }
+        mTvTitle.setMinHeight(dp2px(48));
+        mTvTitle.setGravity(Gravity.CENTER_VERTICAL);
+        mTvTitle.setPadding(dp2px(15), dp2px(5), dp2px(0), dp2px(5));
+        mTvTitle.setVisibility(mIsTitleShow ? View.VISIBLE : View.GONE);
+
 
         /** title underline */
         mVLineTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 dp2px(mTitleLineHeight)));
         mVLineTitle.setBackgroundColor(mTitleLineColor);
-        mVLineTitle.setVisibility(mIsTitleShow && mStyle == STYLE_ONE ? View.VISIBLE : View.GONE);
+        mVLineTitle.setVisibility(mIsTitleShow ? View.VISIBLE : View.GONE);
 
         /** content */
 
-        if (mStyle == STYLE_ONE) {
-            mTvContent.setPadding(dp2px(15), dp2px(30), dp2px(15), dp2px(30));
-            mTvContent.setMinHeight(dp2px(120));
-            mTvContent.setGravity(mContentGravity);
-        } else if (mStyle == STYLE_TWO) {
-            mTvContent.setPadding(dp2px(15), dp2px(30), dp2px(15), dp2px(30));
-            mTvContent.setMinHeight(dp2px(120));
-            mTvContent.setGravity(Gravity.CENTER);
-        }
+        mTvContent.setPadding(dp2px(15), dp2px(30), dp2px(15), dp2px(30));
+        mTvContent.setMinHeight(dp2px(120));
+        mTvContent.setGravity(mContentGravity);
+
         initCustomContent();
         /** btns */
-        mVLineHorizontal.setBackgroundColor(mDividerColor);
-        mVLineVertical.setBackgroundColor(mDividerColor);
-        mVLineVertical2.setBackgroundColor(mDividerColor);
-
-        if (mBtnNum == 1) {
-            mTvBtnLeft.setVisibility(View.GONE);
-            mTvBtnRight.setVisibility(View.GONE);
-            mVLineVertical.setVisibility(View.GONE);
-            mVLineVertical2.setVisibility(View.GONE);
-        } else if (mBtnNum == 2) {
-            mTvBtnMiddle.setVisibility(View.GONE);
-            mVLineVertical.setVisibility(View.GONE);
-        }
-
         /**set background color and corner radius */
         float radius = dp2px(mCornerRadius);
         mLlContainer.setBackgroundDrawable(CornerUtils.cornerDrawable(mBgColor, radius));
         mTvBtnLeft.setBackgroundDrawable(CornerUtils.btnSelector(radius, mBgColor, mBtnPressColor, 0));
-        mTvBtnRight.setBackgroundDrawable(CornerUtils.btnSelector(radius, mPrimaryBtnColor, Color.parseColor("#e12020"), 1));
+        mTvBtnRight.setBackgroundDrawable(CornerUtils.btnSelector(radius, mPrimaryBtnColor, mPrimaryBtnPressColor, 1));
         mTvBtnMiddle.setBackgroundDrawable(CornerUtils.btnSelector(mBtnNum == 1 ? radius : 0, mBgColor, mBtnPressColor, -1));
         mTvBtnMiddle.setTextColor(Color.BLACK);
+
+        switch (mButtonType) {
+            case BTN_STYLE_FLAT: {
+                mVLineHorizontal.setBackgroundColor(mDividerColor);
+                mVLineVertical.setBackgroundColor(mDividerColor);
+                mVLineVertical2.setBackgroundColor(mDividerColor);
+
+                if (mBtnNum == 1) {
+                    mTvBtnLeft.setVisibility(View.GONE);
+                    mTvBtnRight.setVisibility(View.GONE);
+                    mVLineVertical.setVisibility(View.GONE);
+                    mVLineVertical2.setVisibility(View.GONE);
+                } else if (mBtnNum == 2) {
+                    mTvBtnMiddle.setVisibility(View.GONE);
+                    mVLineVertical.setVisibility(View.GONE);
+                }
+                break;
+            }
+            case BTN_STYLE_OUTLINE: {
+                mVLineHorizontal.setBackgroundColor(Color.TRANSPARENT);
+                mVLineVertical.setBackgroundColor(Color.TRANSPARENT);
+                mVLineVertical2.setBackgroundColor(Color.TRANSPARENT);
+
+                if (mBtnNum == 1) {
+                    mTvBtnLeft.setVisibility(View.GONE);
+                    mTvBtnRight.setVisibility(View.GONE);
+                    mVLineVertical.setVisibility(View.GONE);
+                    mVLineVertical2.setVisibility(View.GONE);
+//                    ((LinearLayout.LayoutParams) mTvBtnMiddle.getLayoutParams()).setMargins(dp2px(8), dp2px(8), dp2px(8), dp2px(8));
+//                    mTvBtnMiddle.setBackgroundDrawable(CornerUtils.btnSelector(dp2px(30), mBgColor, mBtnPressColor, -1));
+                }
+            }
+        }
+
+
     }
 
 
     // --->属性设置
-
-    /**
-     * set style(设置style)
-     */
-    public T style(int style) {
-        this.mStyle = style;
+    public T btnType(int buttonType) {
+        this.mButtonType = buttonType;
         return (T) this;
     }
 

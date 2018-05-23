@@ -28,6 +28,7 @@ object DialogHelper {
     private var mLoadingDialogs = HashMap<Context, TipDialog>()
     private var mDialogs = HashMap<Context, ArrayList<Dialog>>()
 
+    private var dialogSetting:String=""
     fun addCall(context: Context, dispose: Disposable) {
         if (callMaps.containsKey(context))
             callMaps[context]?.add(dispose)

@@ -10,6 +10,9 @@ android {
         minSdkVersion 17
         versionCode 39
         versionName "1.0.6.5"
+
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true    // Enable RS support
     }
 
     buildTypes {

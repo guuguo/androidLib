@@ -8,11 +8,8 @@ import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.widget.dialog.DialogHelper
 import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.drawable.CircularDrawable
-import top.guuguo.myapplication.ui.fragment.NavigatorLayoutFragment
 import top.guuguo.myapplication.R
-import top.guuguo.myapplication.ui.fragment.DividerViewFragment
-import top.guuguo.myapplication.ui.fragment.FlowLayoutFragment
-import top.guuguo.myapplication.ui.fragment.WaveViewFragment
+import top.guuguo.myapplication.ui.fragment.*
 
 class MainActivity : LBaseActivitySupport() {
     override fun getLayoutResId() = R.layout.activity_main
@@ -48,7 +45,7 @@ class MainActivity : LBaseActivitySupport() {
 
     fun onDialogShow(v: View) {
         v.doAvoidDouble {
-            dialogLoadingShow("")
+            DialogFragment.intentTo(activity)
         }
     }
 
