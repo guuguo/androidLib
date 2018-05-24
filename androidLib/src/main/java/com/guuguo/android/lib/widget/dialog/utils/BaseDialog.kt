@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.dialog.v2
+package com.guuguo.android.lib.widget.dialog.utils
 
 import android.app.Dialog
 import android.content.Context
@@ -90,7 +90,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     /** set Ui data or logic opreation before attatched window(在对话框显示之前,设置界面数据或者逻辑)  */
     abstract fun setUiBeforShow()
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(mTag, "onCreate")
         mDisplayMetrics = mContext.resources.displayMetrics
         mMaxHeight = (mDisplayMetrics.heightPixels - StatusBarUtils.getHeight(mContext)).toFloat()

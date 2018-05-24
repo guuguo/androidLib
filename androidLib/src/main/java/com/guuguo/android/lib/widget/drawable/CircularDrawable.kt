@@ -20,7 +20,8 @@ class CircularDrawable() : Drawable(), Animatable {
     private var mProgress = 0
     private var mAnimateAngle: Float = 0.toFloat()
     private val mInterpolator = LinearInterpolator()
-    private var color = Color.argb(100, 255, 255, 255)
+    var mRoundColor = Color.argb(100, 255, 255, 255)
+    var mIndicatorColor = Color.WHITE
 
     private var mBufferCircleBgBitmap: Bitmap? = null
     private var mBufferCircleFgBitmap: Bitmap? = null
@@ -65,27 +66,27 @@ class CircularDrawable() : Drawable(), Animatable {
         if (mBufferCircleBgBitmap == null) {
             val radius = Math.min(canvas.width, canvas.height) / 2
 
-            mPaint.color = color
+            mPaint.color = mRoundColor
             mBufferCircleBgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888);
             val mBufferCircleBgCanvas = Canvas(mBufferCircleBgBitmap)
             mBufferCircleBgCanvas.drawCircle(canvas.width * 0.5f, canvas.height * 0.5f, radius - mPadding, mPaint)
 
 
 
-            mPaint.color = Color.WHITE
+            mPaint.color = mIndicatorColor
             val rectF = RectF(mPadding, mPadding, canvas.width - mPadding, canvas.height - mPadding)
             mBufferCircleFgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888);
             val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap)
             mBufferCircleFgCanvas.drawArc(rectF, 0f, 60f, false, mPaint)//第四个参数是否显示半径
         }
-        canvas.drawBitmap(mBufferCircleBgBitmap,0f,0f,mPaint)
+        canvas.drawBitmap(mBufferCircleBgBitmap, 0f, 0f, mPaint)
 
         canvas.save()
-        canvas.translate(canvas.width/2f,canvas.height/2f)
+        canvas.translate(canvas.width / 2f, canvas.height / 2f)
         canvas.rotate(mAnimateAngle)
-        canvas.translate(-canvas.width/2f,-canvas.height/2f)
+        canvas.translate(-canvas.width / 2f, -canvas.height / 2f)
 
-        canvas.drawBitmap(mBufferCircleFgBitmap,0f,0f,mPaint)
+        canvas.drawBitmap(mBufferCircleFgBitmap, 0f, 0f, mPaint)
         canvas.restore()
     }
 

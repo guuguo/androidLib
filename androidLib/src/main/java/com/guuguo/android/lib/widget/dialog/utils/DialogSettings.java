@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.dialog.v2;
+package com.guuguo.android.lib.widget.dialog.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,9 @@ public class DialogSettings {
 
     public static List<BaseDialog> dialogList = new ArrayList<>();         //对话框队列，当一个对话框处于启动状态时，它是阻塞的，除非关掉它，下一个对话框才会显示
 
+    /** 白底黑字 */
     public static final int THEME_LIGHT = 0;
+    /** 黑底白字 */
     public static final int THEME_DARK = 1;
 
     public static final int TYPE_MATERIAL = 0;

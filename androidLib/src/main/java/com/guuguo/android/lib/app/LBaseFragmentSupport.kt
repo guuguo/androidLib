@@ -9,7 +9,6 @@ import android.view.*
 import com.flyco.dialog.listener.OnBtnClickL
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.widget.dialog.DialogHelper
-import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.trello.rxlifecycle2.android.FragmentEvent
 
@@ -121,16 +120,16 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     open val isFullScreen: Boolean
         get() = false
 
-    override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?): TipDialog? {
-        return DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
+    override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?) {
+        DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
-    override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
-        return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
+    override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
+        DialogHelper.dialogStateShow(activity, msg, listener, TTipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
-    override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int): TipDialog? {
-        return DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
+    override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
+        DialogHelper.dialogStateShow(activity, msg, listener, TTipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
@@ -146,6 +145,6 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     }
 
     override fun dialogDismiss() {
-        DialogHelper.dialogDismiss(activity)
+        DialogHelper.dialogDismiss()
     }
 }

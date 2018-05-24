@@ -1,8 +1,9 @@
-package com.guuguo.android.lib.widget.dialog.v2
+package com.guuguo.android.lib.widget.dialog.utils
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.support.v7.app.AlertDialog
 import android.util.TypedValue
@@ -12,7 +13,10 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.guuguo.android.R
-import com.guuguo.android.lib.widget.dialog.v2.DialogSettings.*
+import com.guuguo.android.lib.widget.dialog.utils.DialogSettings.*
+import com.guuguo.android.lib.widget.dialog.utils.TipDialog.STATE_STYLE.customBitmap
+import com.guuguo.android.lib.widget.dialog.utils.TipDialog.STATE_STYLE.customDrawable
+import com.guuguo.android.lib.widget.drawable.CircularDrawable
 
 class TipDialog : BaseDialog<TipDialog> {
     private constructor(mContext: Context) : super(mContext) {
@@ -26,6 +30,7 @@ class TipDialog : BaseDialog<TipDialog> {
     override fun onCreateView(): View {
         val view = layoutInflater.inflate(R.layout.dialog_tip, null)
         widthRatio(0f)
+        dimEnabled(false)
         return view
     }
 
@@ -42,7 +47,6 @@ class TipDialog : BaseDialog<TipDialog> {
                 blur_front_color = Color.argb(200, 0, 0, 0)
             }
         }
-
         boxInfo = createView.findViewById<View>(R.id.box_info) as RelativeLayout
         image = createView.findViewById<View>(R.id.image) as ImageView
         txtInfo = createView.findViewById<View>(R.id.txt_info) as TextView
@@ -72,8 +76,25 @@ class TipDialog : BaseDialog<TipDialog> {
             } else {
                 image!!.setImageResource(R.mipmap.img_finish)
             }
+            in arrayOf(STATE_STYLE.loading, STATE_STYLE.customDrawable) -> {
+                image!!.setImageDrawable(customDrawable);
+                customDrawable?.let {
+                    if (it is CircularDrawable) it.apply {
+                        when (tip_theme) {
+                            THEME_DARK -> {
+                                mRoundColor = Color.parseColor("#66FFFFFF"); mIndicatorColor = Color.WHITE
+                            }
+                            else -> {
+                                mRoundColor = Color.parseColor("#66000000"); mIndicatorColor = Color.BLACK
+                            }
+                        }
+                    }
+                    if (it is Animatable)
+                        it.start();
+
+                }
+            }
             STATE_STYLE.customBitmap -> image!!.setImageBitmap(customBitmap)
-            STATE_STYLE.customDrawable -> image!!.setImageDrawable(customDrawable)
         }
 
         if (!tip!!.isEmpty()) {
@@ -86,6 +107,7 @@ class TipDialog : BaseDialog<TipDialog> {
             txtInfo!!.setTextSize(TypedValue.COMPLEX_UNIT_DIP, tip_text_size.toFloat())
         }
     }
+
 
     private var mStateStyle = 0
 
@@ -128,27 +150,25 @@ class TipDialog : BaseDialog<TipDialog> {
     companion object {
 
         var tipDialog: TipDialog? = null
-
-        fun show(context: Context, tip: String, stateStyle: Int = STATE_STYLE.warning, customDrawable: Drawable? = null, customBitmap: Bitmap? = null): TipDialog {
-            synchronized(TipDialog::class.java) {
+        fun show(context: Context, tip: String, stateStyle: Int = STATE_STYLE.loading, customDrawable: Drawable? = null, customBitmap: Bitmap? = null): TipDialog {
+            synchronized(TipDialog::class.java)
+            {
                 val style =
                         when (tip_theme) {
-                            THEME_LIGHT ->  R.style.lightMode
-                            else ->   R.style.darkMode
+                            THEME_LIGHT -> R.style.lightMode
+                            else -> R.style.darkMode
                         }
-                return TipDialog(context,style )
+                return TipDialog(context, style)
                         .tip(tip)
                         .stateStyle(stateStyle)
                         .also {
                             it.customBitmap = customBitmap
-                            it.customDrawable = customDrawable
+                            it.customDrawable = if (customDrawable == null) CircularDrawable() else customDrawable
                             tipDialog = it
                             it.show()
                         }
-
             }
         }
-
     }
 
 }//Fast Function

@@ -15,7 +15,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         app:columnNumbers="3">
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_theme"
+            android:text="切换主题" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.dialog.v2;
+package com.guuguo.android.lib.widget.dialog.utils;
 
 import android.app.Activity;
 import android.content.Context;
