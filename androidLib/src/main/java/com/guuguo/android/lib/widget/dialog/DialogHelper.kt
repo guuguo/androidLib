@@ -10,8 +10,6 @@ import com.flyco.dialog.listener.OnBtnClickL
 import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.utils.CommonUtil
-import com.guuguo.android.lib.widget.dialog.utils.TipDialog
-import com.guuguo.android.lib.widget.dialog.utils.TipDialog.STATE_STYLE.customDrawable
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.SingleObserver

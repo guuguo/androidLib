@@ -19,7 +19,7 @@ import com.guuguo.android.lib.widget.roundview.RoundTextView
 
 class SimpleViewHolder(var view: View) {
     val mLayout: ViewGroup = view.findViewById(R.id.layoutEmpty)
-    val mImg: ImageView = view.findViewById(R.id.img)
+    val mImg: ImageView = view.findViewById(R.id.imageView)
     val mTvText: TextView = view.findViewById(R.id.tv_text)
     val mBtn: RoundTextView = view.findViewById(R.id.btn_empty)
 

@@ -1,5 +1,7 @@
 package com.guuguo.android.lib.widget.dialog.utils;
 
+import com.guuguo.android.lib.widget.dialog.BaseDialog;
+
 import java.util.ArrayList;
 import java.util.List;
 

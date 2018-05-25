@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.dialog.utils
+package com.guuguo.android.lib.widget.dialog
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -14,8 +14,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.lib.widget.dialog.utils.DialogSettings.*
-import com.guuguo.android.lib.widget.dialog.utils.TipDialog.STATE_STYLE.customBitmap
-import com.guuguo.android.lib.widget.dialog.utils.TipDialog.STATE_STYLE.customDrawable
+import com.guuguo.android.lib.widget.dialog.utils.BlurView
 import com.guuguo.android.lib.widget.drawable.CircularDrawable
 
 class TipDialog : BaseDialog<TipDialog> {

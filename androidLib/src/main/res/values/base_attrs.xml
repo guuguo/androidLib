@@ -63,9 +63,38 @@
     <declare-styleable name="RealtimeBlurView">
         <attr name="realtimeBlurRadius" format="dimension"/>
         <attr name="realtimeDownsampleFactor" format="float"/>
-        <attr name="realtimeOverlayColor" format="color"/>
+        <attr name="realtimeOverlayColor" format="reference|color"/>
         <attr name="xRadius" format="dimension"/>
         <attr name="yRadius" format="dimension"/>
+    </declare-styleable>
+
+
+    <!--************ FunctionTextView ***********-->
+    <!-- drawable 资源的宽-->
+    <attr name="ftv_drawableWidth" format="dimension"/>
+    <!-- drawable 资源的高-->
+    <attr name="ftv_drawableHeight" format="dimension"/>
+    <!-- drawable 图片资源-->
+    <attr name="ftv_drawableSrc" format="reference"/>
+    <!-- drawable 图片着色颜色-->
+    <attr name="ftv_drawableTint" format="reference|color"/>
+    <!-- drawable 资源偏向文字的位置-->
+    <attr name="ftv_drawableAlign" format="enum">
+        <enum name="left" value="0" />
+        <enum name="top" value="1" />
+        <enum name="right" value="2" />
+        <enum name="bottom" value="3" />
+    </attr>
+    <declare-styleable name="FunctionTextView">
+        <attr name="android:text"/>
+        <attr name="android:textColor"/>
+        <attr name="android:textSize"/>
+        <attr name="android:drawablePadding"/>
+        <attr name="ftv_drawableTint"/>
+        <attr name="ftv_drawableSrc"/>
+        <attr name="ftv_drawableAlign"/>
+        <attr name="ftv_drawableWidth"/>
+        <attr name="ftv_drawableHeight"/>
     </declare-styleable>
 
 </resources>

@@ -14,7 +14,7 @@
 
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -37,9 +37,9 @@
         android:gravity="center"
         android:text="找不到数据"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/img"
-        app:layout_constraintStart_toStartOf="@+id/img"
-        app:layout_constraintTop_toBottomOf="@id/img" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
 
     <com.guuguo.android.lib.widget.roundview.RoundTextView
         android:id="@+id/btn_empty"

@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.dialog.utils
+package com.guuguo.android.lib.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager.LayoutParams
 import android.widget.LinearLayout
+import com.guuguo.android.lib.widget.dialog.utils.StatusBarUtils
 
 abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     constructor(mContext: Context) : super(mContext) {

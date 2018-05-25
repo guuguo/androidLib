@@ -9,6 +9,7 @@ import android.view.*
 import com.flyco.dialog.listener.OnBtnClickL
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.widget.dialog.DialogHelper
+import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.trello.rxlifecycle2.android.FragmentEvent
 
@@ -125,11 +126,11 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     }
 
     override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
-        DialogHelper.dialogStateShow(activity, msg, listener, TTipDialog.STATE_STYLE.error, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
-        DialogHelper.dialogStateShow(activity, msg, listener, TTipDialog.STATE_STYLE.success, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {

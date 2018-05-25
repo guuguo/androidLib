@@ -28,6 +28,7 @@ import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.SystemBarHelper
 import com.guuguo.android.lib.widget.dialog.DialogHelper
+import com.guuguo.android.lib.widget.dialog.TipDialog
 import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle2.android.ActivityEvent
@@ -43,7 +44,7 @@ import java.util.concurrent.TimeUnit
 abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
 
     open fun getApp() = BaseApplication.get()
-    private var mLoadingDialog: TTipDialog? = null
+    private var mLoadingDialog: TipDialog? = null
     /*fragment*/
 
     var mFragment: LBaseFragmentSupport? = null
@@ -269,11 +270,11 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     }
 
     override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
-         DialogHelper.dialogStateShow(activity, msg, listener, TTipDialog.STATE_STYLE.error, delayTime.toLong())
+         DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
-         DialogHelper.dialogStateShow(activity, msg, listener, TTipDialog.STATE_STYLE.success, delayTime.toLong())
+         DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
     override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
