@@ -1,11 +1,10 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
-import com.flyco.dialog.listener.OnBtnClickL
+import com.guuguo.android.dialog.utils.DialogSettings
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
-import com.guuguo.android.lib.widget.dialog.utils.DialogSettings
 import kotlinx.android.synthetic.main.fragment_dialog.*
 import top.guuguo.myapplication.R
 
@@ -26,8 +25,7 @@ class DialogFragment : LBaseFragmentSupport() {
         btn_message.setOnClickListener { dialogMsgShow("天气很好", "知道了", null) }
 //        btn_message.setOnClickListener {  TipDialog.show(activity,"可以了",TipDialog.STATE_STYLE.loading) }
         btn_warning.setOnClickListener {
-            dialogWarningShow("确定继续吗", "取消", "确定", OnBtnClickL {
-            })
+            dialogWarningShow("确定继续吗", "取消", "确定")
         }
         btn_success.setOnClickListener { dialogCompleteShow("可以了") }
     }

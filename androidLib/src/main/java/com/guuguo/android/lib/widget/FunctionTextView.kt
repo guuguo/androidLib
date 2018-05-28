@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.TypedValue
 import android.view.Gravity
@@ -35,6 +36,7 @@ class FunctionTextView : LinearLayout {
         text = attributes.getString(R.styleable.FunctionTextView_android_text).safe("")
         textSize = attributes.getDimension(R.styleable.FunctionTextView_android_textSize, 12.dpToPx().toFloat())
         textColor = attributes.getColor(R.styleable.FunctionTextView_android_textColor, Color.BLACK)
+        textStyle= attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
         drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint , 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
 
@@ -47,6 +49,7 @@ class FunctionTextView : LinearLayout {
     var text: String = ""
     var textSize: Float = 0f
     var textColor: Int = Color.BLACK
+    var textStyle: Int = Typeface.NORMAL
     var drawableTint: Int = 0
     /**
      * left "0" />
@@ -97,6 +100,7 @@ class FunctionTextView : LinearLayout {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         textView.text = text
         textView.setTextColor(textColor)
+        textView.typeface = Typeface.defaultFromStyle(textStyle);//加粗
 
         val textViewParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
             when (drawableAlign) {

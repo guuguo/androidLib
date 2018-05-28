@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.utils.DisplayUtil
-import com.guuguo.android.lib.widget.drawable.DoubleCircleDrawable
+import com.guuguo.android.drawable.DoubleCircleDrawable
 import com.guuguo.android.lib.widget.roundview.RoundTextView
 
 /**
@@ -23,7 +23,7 @@ class SimpleViewHolder(var view: View) {
     val mTvText: TextView = view.findViewById(R.id.tv_text)
     val mBtn: RoundTextView = view.findViewById(R.id.btn_empty)
 
-    fun loading(msg: String, loadingDrawable: Drawable = DoubleCircleDrawable(DisplayUtil.getDensity())): SimpleViewHolder {
+    fun loading(msg: String, loadingDrawable: Drawable = com.guuguo.android.drawable.DoubleCircleDrawable(DisplayUtil.getDensity())): SimpleViewHolder {
         mImg.visibility = View.VISIBLE
         mBtn.visibility = View.GONE
         mImg.layoutParams.width=50.dpToPx()

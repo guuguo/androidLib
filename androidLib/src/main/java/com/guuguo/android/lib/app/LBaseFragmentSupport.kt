@@ -6,11 +6,10 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
-import com.flyco.dialog.listener.OnBtnClickL
+import com.guuguo.android.dialog.TipDialog
+import com.guuguo.android.dialog.WarningDialog
+import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.extension.initNav
-import com.guuguo.android.lib.widget.dialog.DialogHelper
-import com.guuguo.android.lib.widget.dialog.TipDialog
-import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.trello.rxlifecycle2.android.FragmentEvent
 
 
@@ -133,11 +132,11 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
         DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: (()->Unit)?): WarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (()->Unit)?): WarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 

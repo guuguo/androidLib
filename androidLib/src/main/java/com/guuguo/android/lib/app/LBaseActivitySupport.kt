@@ -14,22 +14,18 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.ViewGroup
-import android.view.WindowManager
-import com.flyco.dialog.listener.OnBtnClickL
-import com.flyco.dialog.widget.NormalListDialog
+import android.view.*
 import com.guuguo.android.R
+import com.guuguo.android.dialog.NormalListDialog
+import com.guuguo.android.dialog.TipDialog
+import com.guuguo.android.dialog.WarningDialog
+import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.SystemBarHelper
-import com.guuguo.android.lib.widget.dialog.DialogHelper
-import com.guuguo.android.lib.widget.dialog.TipDialog
-import com.guuguo.android.lib.widget.dialog.WarningDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle2.android.ActivityEvent
 import io.reactivex.Completable
@@ -252,7 +248,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     }
 
     fun exitDialog() {
-        dialogWarningShow("确定退出软件？", "取消", "确定", OnBtnClickL { exit() })
+        dialogWarningShow("确定退出软件？", "取消", "确定", { exit() })
     }
 
     fun exit() {
@@ -277,11 +273,11 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
          DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: (()->Unit)?): WarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog? {
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (()->Unit)?): WarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 

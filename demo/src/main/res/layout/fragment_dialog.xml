@@ -60,6 +60,7 @@
             app:ftv_drawableTint="@color/white"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:textStyle="bold"
             app:ftv_drawableAlign="top"
             app:ftv_drawableHeight="25dp"
             app:ftv_drawableSrc="@drawable/qmui_icon_notify_info"

@@ -54,19 +54,6 @@
         <attr name="android:color" />
     </declare-styleable>
 
-    <!--************ dialog ***********-->
-    <declare-styleable name="CustomFrameLayoutAttr">
-        <attr name="layout_maxWidth" format="dimension"/>
-        <attr name="layout_maxHeight" format="dimension"/>
-    </declare-styleable>
-
-    <declare-styleable name="RealtimeBlurView">
-        <attr name="realtimeBlurRadius" format="dimension"/>
-        <attr name="realtimeDownsampleFactor" format="float"/>
-        <attr name="realtimeOverlayColor" format="reference|color"/>
-        <attr name="xRadius" format="dimension"/>
-        <attr name="yRadius" format="dimension"/>
-    </declare-styleable>
 
 
     <!--************ FunctionTextView ***********-->
@@ -87,6 +74,7 @@
     </attr>
     <declare-styleable name="FunctionTextView">
         <attr name="android:text"/>
+        <attr name="android:textStyle"/>
         <attr name="android:textColor"/>
         <attr name="android:textSize"/>
         <attr name="android:drawablePadding"/>

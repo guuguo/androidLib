@@ -2,8 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.app.Dialog
 import android.content.DialogInterface
-import com.flyco.dialog.listener.OnBtnClickL
-import com.guuguo.android.lib.widget.dialog.WarningDialog
+import com.guuguo.android.dialog.WarningDialog
 import com.trello.rxlifecycle2.LifecycleProvider
 
 /**
@@ -12,7 +11,7 @@ import com.trello.rxlifecycle2.LifecycleProvider
  * @author : guuguo
  * @since 2018/5/18
  */
-interface IView<E>  : LifecycleProvider<E>{
+interface IView<E> : LifecycleProvider<E> {
     fun loadData()
 
     fun dialogLoadingShow(msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null)
@@ -21,13 +20,13 @@ interface IView<E>  : LifecycleProvider<E>{
 
     fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800)
 
-    fun dialogMsgShow(msg: String, btnText: String, listener: OnBtnClickL?): WarningDialog?
+    fun dialogMsgShow(msg: String, btnText: String, listener: (() -> Unit)?): WarningDialog?
 
-    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: OnBtnClickL?): WarningDialog?
+    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)? = null): WarningDialog?
 
     fun showDialogOnMain(dialog: Dialog)
 
     fun dialogDismiss()
 
-    var activity:LBaseActivitySupport
+    var activity: LBaseActivitySupport
 }
