@@ -100,6 +100,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     /*toolbar*/
     open fun getToolBar(): Toolbar? = null
 
+    open fun getBackIconRes(): Int = R.drawable.ic_arrow_back_24dp
     open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = true
     open protected fun isStatusBarTextDark() = false
@@ -107,7 +108,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         val toolBar = getToolBar()
         setSupportActionBar(toolBar)
         if (isNavigationBack())
-            toolBar?.initNav(activity)
+            toolBar?.initNav(activity, getBackIconRes())
         getHeaderTitle()?.let {
             title = it
         }
@@ -336,7 +337,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         val SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO"
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
-        fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, Any>? = null, targetCode: Int = 0) {
+        fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
             val intent = Intent(activity, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 

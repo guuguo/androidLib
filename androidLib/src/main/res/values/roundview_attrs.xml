@@ -163,7 +163,7 @@
         <attr name="rv_cornerRadius_BR"/>
         <attr name="rv_isRippleEnable"/>
     </declare-styleable>
-    <declare-styleable name="RoundImageButton">
+    <declare-styleable name="RoundBgImageView">
         <attr name="rv_backgroundColor"/>
         <attr name="rv_backgroundPressColor"/>
         <attr name="rv_cornerRadius"/>

@@ -12,6 +12,7 @@ import android.graphics.Typeface
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
@@ -36,8 +37,8 @@ class FunctionTextView : LinearLayout {
         text = attributes.getString(R.styleable.FunctionTextView_android_text).safe("")
         textSize = attributes.getDimension(R.styleable.FunctionTextView_android_textSize, 12.dpToPx().toFloat())
         textColor = attributes.getColor(R.styleable.FunctionTextView_android_textColor, Color.BLACK)
-        textStyle= attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
-        drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint , 0)
+        textStyle = attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
+        drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint, 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
 
         drawableAlign = attributes.getInt(R.styleable.FunctionTextView_ftv_drawableAlign, 0)
@@ -70,7 +71,7 @@ class FunctionTextView : LinearLayout {
     lateinit var imageView: ImageView
     lateinit var textView: TextView
     private fun initView() {
-        gravity=Gravity.CENTER
+        gravity = Gravity.CENTER
         textView = TextView(context)
         imageView = ImageView(context)
 
@@ -85,23 +86,27 @@ class FunctionTextView : LinearLayout {
             ALIGN_RIGHT -> orientation = HORIZONTAL
             ALIGN_BOTTOM -> orientation = VERTICAL
         }
-        if (drawableTint !=0)
-            drawable?.let {
+        drawable?.also {
+            imageView.visibility = View.VISIBLE
+            if (drawableTint != 0) {
                 val wrapped = DrawableCompat.wrap(it)
                 DrawableCompat.setTint(wrapped, drawableTint)
                 imageView.setImageDrawable(wrapped)
+            } else {
+                imageView.setImageDrawable(drawable)
             }
-        else {
-            imageView.setImageDrawable(drawable)
-        }
+        } ?: { imageView.visibility = View.GONE }.invoke()
 
         val imageViewParams = LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
-
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-        textView.text = text
-        textView.setTextColor(textColor)
-        textView.typeface = Typeface.defaultFromStyle(textStyle);//加粗
-
+        if (text.isEmpty()) {
+            textView.visibility = View.GONE
+        } else {
+            textView.visibility = View.VISIBLE
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+            textView.text = text
+            textView.setTextColor(textColor)
+            textView.typeface = Typeface.defaultFromStyle(textStyle);//加粗
+        }
         val textViewParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
             when (drawableAlign) {
                 ALIGN_LEFT -> marginStart = drawablePadding.toInt()

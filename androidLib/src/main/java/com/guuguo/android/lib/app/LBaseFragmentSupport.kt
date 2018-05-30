@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
+import com.guuguo.android.R
 import com.guuguo.android.dialog.TipDialog
 import com.guuguo.android.dialog.WarningDialog
 import com.guuguo.android.dialog.utils.DialogHelper
@@ -34,7 +35,6 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
         super.onAttach(context)
         this.activity = context as LBaseActivitySupport
     }
-
     protected fun init(view: View) {
         activity = getActivity() as LBaseActivitySupport
         initToolbar()
@@ -50,11 +50,12 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
 
 
     /*toolbar*/
+    open fun getBackIconRes(): Int = R.drawable.ic_arrow_back_24dp
 
     open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
     open protected fun initToolbar() {
         if (isNavigationBack()) {
-            getToolBar()?.initNav(activity)
+            getToolBar()?.initNav(activity,getBackIconRes())
         }
         val str = getHeaderTitle()
         if (str != null)
