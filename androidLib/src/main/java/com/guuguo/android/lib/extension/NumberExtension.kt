@@ -18,16 +18,11 @@ fun Int.dpToPx(): Int {
     return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 }
 
-fun Int?.safe(): Int {
-    if (this == null)
-        return 0
-    else return this
-}
-fun Boolean?.safe(): Boolean {
-    if (this == null)
-        return false
-    else return this
-}
+fun Int?.safe(default: Int = 0)= this ?: default
+fun Long?.safe(default: Long = 0) = this ?: default
+fun Boolean?.safe(default: Boolean = false) = this ?: default
+fun Float?.safe(default: Float = 0f) = this ?: default
+
 fun Long.getFitSize(byte2FitMemorySize: Int = 1): String = FileUtil.byte2FitMemorySize(this, byte2FitMemorySize)
 //color
 /**

@@ -26,6 +26,7 @@ fun String?.toast(isShortToast: Boolean = true): String? {
 }
 
 
+
 fun String.sha1() = encrypt(this, "SHA-1")
 fun String.md5() = encrypt(this, "MD5")
 
