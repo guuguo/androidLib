@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 BiliBili Inc.
  */
-package com.guuguo.android.lib.utils;
+package com.guuguo.android.lib.utils.systembar;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

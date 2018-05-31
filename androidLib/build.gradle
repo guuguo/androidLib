@@ -38,7 +38,6 @@ dependencies {
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
     api 'io.reactivex.rxjava2:rxjava:2.1.12'
     api 'com.artemzin.rxjava:proguard-rules:1.2.7.0'
-    api 'com.flyco.systembar:FlycoSystemBar_Lib:1.0.0@aar'
     api 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
     api 'com.android.support.constraint:constraint-layout:1.1.0'
     api ('com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'){
