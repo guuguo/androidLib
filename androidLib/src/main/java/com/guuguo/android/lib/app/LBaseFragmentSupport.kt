@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.guuguo.android.R
-import com.guuguo.android.dialog.TipDialog
-import com.guuguo.android.dialog.WarningDialog
+import com.guuguo.android.dialog.dialog.TipDialog
+import com.guuguo.android.dialog.dialog.WarningDialog
 import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.extension.initNav
 import com.trello.rxlifecycle2.android.FragmentEvent

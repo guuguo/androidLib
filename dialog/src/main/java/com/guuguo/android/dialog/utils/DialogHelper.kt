@@ -6,10 +6,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.util.Log
-import android.util.Log.d
 import android.view.Gravity
-import com.guuguo.android.dialog.TipDialog
-import com.guuguo.android.dialog.WarningDialog
+import com.guuguo.android.dialog.dialog.TipDialog
+import com.guuguo.android.dialog.dialog.WarningDialog
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.SingleObserver

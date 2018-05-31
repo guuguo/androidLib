@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog;
+package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
 import android.support.annotation.IntRange;
@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
+import com.guuguo.android.dialog.R;
 
 import java.util.ArrayList;
 import java.util.List;

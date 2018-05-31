@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog
+package com.guuguo.android.dialog.dialog
 
 import android.app.AlertDialog
 import android.content.Context
@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.guuguo.android.dialog.R
+import com.guuguo.android.dialog.base.BaseDialog
 import com.guuguo.android.dialog.utils.DialogSettings.*
 import com.guuguo.android.dialog.utils.BlurView
 import com.guuguo.android.drawable.CircularDrawable
@@ -45,9 +47,9 @@ class TipDialog : BaseDialog<TipDialog> {
                 blur_front_color = Color.argb(200, 0, 0, 0)
             }
         }
-        boxInfo = createView.findViewById<View>(R.id.box_info) as RelativeLayout
-        image = createView.findViewById<View>(R.id.image) as ImageView
-        txtInfo = createView.findViewById<View>(R.id.txt_info) as TextView
+        boxInfo = mOnCreateView.findViewById<View>(R.id.box_info) as RelativeLayout
+        image = mOnCreateView.findViewById<View>(R.id.image) as ImageView
+        txtInfo = mOnCreateView.findViewById<View>(R.id.txt_info) as TextView
 
         if (use_blur) {
             blur = BlurView(context, null)

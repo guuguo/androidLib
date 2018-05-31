@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog;
+package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.guuguo.android.dialog.base.BaseDialog;
 import com.guuguo.android.dialog.utils.CornerUtils;
 import com.guuguo.android.dialog.utils.DialogMenuItem;
 import com.guuguo.android.dialog.utils.OnOperItemClickL;

@@ -1,6 +1,6 @@
 package com.guuguo.android.dialog.utils;
 
-import com.guuguo.android.dialog.BaseDialog;
+import com.guuguo.android.dialog.base.BaseDialog;
 
 import java.util.ArrayList;
 import java.util.List;

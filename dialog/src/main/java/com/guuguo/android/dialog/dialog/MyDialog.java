@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog;
+package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.guuguo.android.dialog.R;
+import com.guuguo.android.dialog.base.BaseAlertDialog;
 import com.guuguo.android.dialog.utils.CornerUtils;
 
 /**

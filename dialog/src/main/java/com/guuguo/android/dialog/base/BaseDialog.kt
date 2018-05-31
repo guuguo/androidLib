@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog
+package com.guuguo.android.dialog.base
 
 import android.app.Dialog
 import android.content.Context
@@ -45,7 +45,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     lateinit protected var mDialogContent: LinearLayout
     /** the child of mDialogContent you create.(创建出来的mLlControlHeight的直接子View)  */
     /** get actual created view(获取实际创建的View)  */
-    lateinit var createView: View
+    lateinit var mOnCreateView: View
     /** max height(最大高度)  */
     protected var mMaxHeight: Float = 0.toFloat()
     /** show Dialog as PopupWindow(像PopupWindow一样展示Dialog)  */
@@ -86,7 +86,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
      */
     abstract fun onCreateView(): View
 
-    fun onViewCreated(inflate: View) {}
+   open fun onViewCreated(inflate: View) {}
 
     /** set Ui data or logic opreation before attatched window(在对话框显示之前,设置界面数据或者逻辑)  */
     abstract fun setUiBeforShow()
@@ -102,10 +102,10 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         mDialogContent = LinearLayout(mContext)
         mDialogContent.orientation = LinearLayout.VERTICAL
 
-        createView = onCreateView()
-        mDialogContent.addView(createView)
+        mOnCreateView = onCreateView()
+        mDialogContent.addView(mOnCreateView)
         mContentTop.addView(mDialogContent)
-        onViewCreated(createView)
+        onViewCreated(mOnCreateView)
 
         if (mIsPopupStyle) {
             setContentView(mContentTop, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -120,7 +120,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
             }
         }
 
-        createView.isClickable = true
+        mOnCreateView.isClickable = true
     }
 
     /**

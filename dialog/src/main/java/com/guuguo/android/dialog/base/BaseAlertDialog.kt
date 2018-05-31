@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog
+package com.guuguo.android.dialog.base
 
 import android.content.Context
 import android.graphics.Color

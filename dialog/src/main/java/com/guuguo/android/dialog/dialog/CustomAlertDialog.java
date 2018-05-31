@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog;
+package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
 import android.view.View;

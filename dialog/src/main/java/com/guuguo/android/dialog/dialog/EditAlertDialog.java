@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog;
+package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.guuguo.android.dialog.R;
 
 /**
  * Created by guodeqing on 6/23/16.

@@ -16,9 +16,9 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.*
 import com.guuguo.android.R
-import com.guuguo.android.dialog.NormalListDialog
-import com.guuguo.android.dialog.TipDialog
-import com.guuguo.android.dialog.WarningDialog
+import com.guuguo.android.dialog.dialog.NormalListDialog
+import com.guuguo.android.dialog.dialog.TipDialog
+import com.guuguo.android.dialog.dialog.WarningDialog
 import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav

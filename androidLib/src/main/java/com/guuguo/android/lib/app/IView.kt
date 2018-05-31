@@ -2,7 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.app.Dialog
 import android.content.DialogInterface
-import com.guuguo.android.dialog.WarningDialog
+import com.guuguo.android.dialog.dialog.WarningDialog
 import com.trello.rxlifecycle2.LifecycleProvider
 
 /**
