@@ -8,11 +8,9 @@ android {
     }
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION
-        versionCode 39
-        versionName "1.0.6.5"
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
 
-        renderscriptTargetApi 19
-        renderscriptSupportModeEnabled true    // Enable RS support
     }
 
     buildTypes {
