@@ -1,3 +1,1 @@
 include ':androidLib', ':demo', ':dialog', ':drawable'
-include ':androidLib:dialog'
-include ':androidLib:drawable'
