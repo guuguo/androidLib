@@ -23,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
@@ -37,7 +40,7 @@ dependencies {
     api 'io.reactivex.rxjava2:rxjava:2.1.12'
     api 'com.artemzin.rxjava:proguard-rules:1.2.7.0'
     api 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
-    api 'com.android.support.constraint:constraint-layout:1.1.0'
+    api 'com.android.support.constraint:constraint-layout:1.1.1'
     api ('com.trello.rxlifecycle2:rxlifecycle-components:2.2.0'){
         exclude group: 'com.android.support'
     }

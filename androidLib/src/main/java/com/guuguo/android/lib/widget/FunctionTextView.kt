@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.support.v4.graphics.drawable.DrawableCompat
@@ -17,17 +16,17 @@ import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.safe
+import com.guuguo.android.lib.widget.roundview.RoundLinearLayout
 
 /**
  * mimi 创造于 2017-07-06.
  * 项目 order
  */
 
-class FunctionTextView : LinearLayout {
+class FunctionTextView : RoundLinearLayout {
     constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        val attributes = context.theme.obtainStyledAttributes(attrs, R.styleable.FunctionTextView, defStyleAttr, 0)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.FunctionTextView)
         initAttr(context, attributes)
         attributes.recycle()
         initView()
@@ -45,13 +44,47 @@ class FunctionTextView : LinearLayout {
         drawableWidth = attributes.getDimension(R.styleable.FunctionTextView_ftv_drawableWidth, -2f)
         drawableHeight = attributes.getDimension(R.styleable.FunctionTextView_ftv_drawableHeight, -2f)
         drawablePadding = attributes.getDimension(R.styleable.FunctionTextView_android_drawablePadding, 0f)
+
+        gravity = attributes.getInt(R.styleable.FunctionTextView_android_gravity, Gravity.CENTER)
     }
 
     var text: String = ""
+        set(value) {
+            field = value
+            if (!value.isEmpty()) {
+                textView?.apply {
+                    text = value
+                    visibility=View.VISIBLE
+                }
+            }else{
+                textView?.visibility=View.GONE
+            }
+        }
+
     var textSize: Float = 0f
+        set(value) {
+            field = value
+            textView?.textSize = value
+        }
     var textColor: Int = Color.BLACK
+        set(value) {
+            field = value
+            textView?.setTextColor(value)
+        }
     var textStyle: Int = Typeface.NORMAL
+        set(value) {
+            field = value
+            textView?.typeface = Typeface.defaultFromStyle(value);//加粗
+        }
     var drawableTint: Int = 0
+        set(value) {
+            field = value
+            drawable?.let {
+                val wrapped = DrawableCompat.wrap(it)
+                DrawableCompat.setTint(wrapped, value)
+                imageView?.setImageDrawable(wrapped)
+            }
+        }
     /**
      * left "0" />
      * top"1" />
@@ -68,10 +101,9 @@ class FunctionTextView : LinearLayout {
     val ALIGN_TOP = 1
     val ALIGN_RIGHT = 2
     val ALIGN_BOTTOM = 3
-    lateinit var imageView: ImageView
-    lateinit var textView: TextView
+    var imageView: ImageView? = null
+    var textView: TextView? = null
     private fun initView() {
-        gravity = Gravity.CENTER
         textView = TextView(context)
         imageView = ImageView(context)
 
@@ -87,25 +119,25 @@ class FunctionTextView : LinearLayout {
             ALIGN_BOTTOM -> orientation = VERTICAL
         }
         drawable?.also {
-            imageView.visibility = View.VISIBLE
+            imageView?.visibility = View.VISIBLE
             if (drawableTint != 0) {
                 val wrapped = DrawableCompat.wrap(it)
                 DrawableCompat.setTint(wrapped, drawableTint)
-                imageView.setImageDrawable(wrapped)
+                imageView?.setImageDrawable(wrapped)
             } else {
-                imageView.setImageDrawable(drawable)
+                imageView?.setImageDrawable(drawable)
             }
-        } ?: { imageView.visibility = View.GONE }.invoke()
+        } ?: { imageView?.visibility = View.GONE }.invoke()
 
         val imageViewParams = LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
         if (text.isEmpty()) {
-            textView.visibility = View.GONE
+            textView?.visibility = View.GONE
         } else {
-            textView.visibility = View.VISIBLE
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-            textView.text = text
-            textView.setTextColor(textColor)
-            textView.typeface = Typeface.defaultFromStyle(textStyle);//加粗
+            textView?.visibility = View.VISIBLE
+            textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+            textView?.text = text
+            textView?.setTextColor(textColor)
+            textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
         }
         val textViewParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
             when (drawableAlign) {

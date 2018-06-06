@@ -21,7 +21,7 @@ public class DialogSettings {
     /*
      *  决定等待框、提示框以及iOS风格的对话框是否启用模糊背景
      */
-    public static boolean use_blur = true;
+    public static boolean use_blur = false;
 
     /*
      *  决定对话框的样式

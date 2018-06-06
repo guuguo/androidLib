@@ -46,6 +46,7 @@ object DialogHelper {
     }
 
     fun dialogLoadingShow(context: Context, msg: String, canTouchCancel: Boolean = false, maxDelay: Long = 0, listener: DialogInterface.OnDismissListener? = null, drawable: Drawable? = null): TipDialog? {
+        dialogDismiss()
         mLoadingDialog = TipDialog.show(context, msg.safe("加载中"), TipDialog.STATE_STYLE.loading).apply { drawable?.let { customDrawable = it } }
 
         if (maxDelay > 0)
@@ -102,19 +103,17 @@ object DialogHelper {
                 "activity already finished,can not open dialog".log()
                 return
             }
-        Single.just(dialog).observeOn(AndroidSchedulers.mainThread()).subscribe { d ->
-            d.show()
-            if (mDialogs[context] == null) {
-                val list = arrayListOf(dialog)
-                mDialogs.put(context, list)
-            } else {
-                mDialogs[context]?.add(dialog)
-            }
+        dialog.show()
+        if (mDialogs[context] == null) {
+            val list = arrayListOf(dialog)
+            mDialogs.put(context, list)
+        } else {
+            mDialogs[context]?.add(dialog)
         }
     }
 
     fun dialogDismiss() {
-        Completable.complete().observeOn(AndroidSchedulers.mainThread()).subscribe { mLoadingDialog?.dismiss() }
+        mLoadingDialog?.dismiss()
     }
 
     fun dialogDismiss(context: Context, delay: Long = 0, dialog: Dialog, listener: DialogInterface.OnDismissListener? = null) {

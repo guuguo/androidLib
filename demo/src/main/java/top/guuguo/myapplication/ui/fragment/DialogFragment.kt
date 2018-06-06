@@ -5,8 +5,11 @@ import com.guuguo.android.dialog.utils.DialogSettings
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
+import io.reactivex.Completable
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_dialog.*
 import top.guuguo.myapplication.R
+import java.util.concurrent.TimeUnit
 
 class DialogFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_dialog
@@ -20,7 +23,12 @@ class DialogFragment : LBaseFragmentSupport() {
                 DialogSettings.tip_theme = DialogSettings.THEME_LIGHT
             }
         }
-        btn_loading.setOnClickListener { dialogLoadingShow("加载中") }
+        btn_loading.setOnClickListener {
+            dialogLoadingShow("加载中")
+            Completable.complete().delay(2, TimeUnit.SECONDS).subscribe {
+                dialogDismiss()
+            }
+        }
         btn_error.setOnClickListener { dialogErrorShow("出错了") }
         btn_message.setOnClickListener { dialogMsgShow("天气很好", "知道了", null) }
 //        btn_message.setOnClickListener {  TipDialog.show(activity,"可以了",TipDialog.STATE_STYLE.loading) }

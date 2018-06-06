@@ -12,9 +12,10 @@ android {
         minSdkVersion 17
         versionCode 1
         versionName "1.0"
-
+        
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     packagingOptions {
         exclude 'typedefs.txt'
@@ -48,7 +49,7 @@ dependencies {
 
     implementation 'com.github.guuguo:dividerView:1.0.2'
     implementation 'com.github.guuguo:flowlayout:1.12.3'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation project(':androidLib')
     testImplementation 'junit:junit:4.12'
 
