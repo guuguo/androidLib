@@ -1,5 +1,6 @@
 package com.guuguo.android.drawable
 
+import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
@@ -14,12 +15,14 @@ import android.graphics.Bitmap
  *
  */
 class CircularDrawable() : Drawable(), Animatable {
-
+    fun Int.dpToPx(): Int {
+        return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+    }
     private var mPadding = 5f
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         color = color
-        strokeWidth = 8f
+        strokeWidth = 3.dpToPx().toFloat()
     }
     private var mIsRunning: Boolean = false
     private var mProgress = 0

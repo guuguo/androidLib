@@ -31,11 +31,10 @@ class DialogFragment : LBaseFragmentSupport() {
         }
         btn_error.setOnClickListener { dialogErrorShow("出错了") }
         btn_message.setOnClickListener { dialogMsgShow("天气很好", "知道了", null) }
-//        btn_message.setOnClickListener {  TipDialog.show(activity,"可以了",TipDialog.STATE_STYLE.loading) }
         btn_warning.setOnClickListener {
             dialogWarningShow("确定继续吗", "取消", "确定")
         }
-        btn_success.setOnClickListener { dialogCompleteShow("可以了") }
+        btn_success.setOnClickListener { dialogCompleteShow("可以了哈哈哈哈你好啊 啊啊 啊") }
     }
 
     companion object {
