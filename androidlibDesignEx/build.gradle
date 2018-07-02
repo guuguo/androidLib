@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    lintOptions {
+        abortOnError false
+    }
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
+
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+
+    api project(':androidLib')
+    api "com.android.support:design:$SUPPORT_VERSION"
+
+    kapt "com.android.databinding:compiler:${android_plugin_version}"
+}
+
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
+    mavenCentral()
+}
+

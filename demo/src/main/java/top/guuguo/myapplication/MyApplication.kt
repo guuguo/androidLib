@@ -1,5 +1,6 @@
 package top.guuguo.myapplication
 
+import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.utils.LogUtil
 

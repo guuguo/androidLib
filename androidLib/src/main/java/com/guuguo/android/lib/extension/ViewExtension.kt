@@ -1,7 +1,6 @@
 package com.guuguo.android.lib.extension
 
 import android.content.Context
-import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
@@ -71,12 +70,7 @@ fun View.hideKeyboard() {
  * Extension method to provide quicker access to the [LayoutInflater] from a [View].
  */
 fun View.getLayoutInflater() = context.inflater
-/**
- * Transforms static java function Snackbar.make() to an extension function on View.
- */
-fun View.showSnackbar(snackbarText: String, timeLength: Int) {
-    Snackbar.make(this, snackbarText, timeLength).show()
-}
+
 fun View.getNameAndHashCode(): String {
     return javaClass.simpleName + "@" + Integer.toHexString(System.identityHashCode(this))
 }

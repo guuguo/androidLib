@@ -18,7 +18,7 @@ import android.view.*
 import com.guuguo.android.R
 import com.guuguo.android.dialog.dialog.NormalListDialog
 import com.guuguo.android.dialog.dialog.TipDialog
-import com.guuguo.android.dialog.dialog.WarningDialog
+import com.guuguo.android.dialog.dialog.base.IWarningDialog
 import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
@@ -274,11 +274,11 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
          DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override fun dialogMsgShow(msg: String, btnText: String, listener: (()->Unit)?): WarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: (()->Unit)?): IWarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (()->Unit)?): WarningDialog? {
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (()->Unit)?): IWarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 

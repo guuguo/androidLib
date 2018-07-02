@@ -6,10 +6,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.util.Log
-import android.view.Gravity
 import com.guuguo.android.dialog.dialog.TipDialog
-import com.guuguo.android.dialog.dialog.WarningDialog
-import io.reactivex.Completable
+import com.guuguo.android.dialog.dialog.DefaultWarningDialog
+import com.guuguo.android.dialog.dialog.base.IWarningDialog
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -56,15 +55,15 @@ object DialogHelper {
         return mLoadingDialog
     }
 
-    fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: (() -> Unit)?): WarningDialog? {
-        val normalDialog = WarningDialog(context)
-                .contentGravity(Gravity.CENTER)
-                .content(msg.safe())
-                .btnNum(1)
-                .btnText(btnText)
-        normalDialog.setOnBtnClickL({
-            dialogDismiss(context, 0, normalDialog, DialogInterface.OnDismissListener { listener?.invoke() })
-        })
+    fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: (() -> Unit)?): IWarningDialog? {
+        val normalDialog = getWarningDialog(context)
+                .setTitle("提示")
+                .setMessage(msg.safe())
+                .setBtnNum(1)
+                .setBtnText(btnText)
+                .setBtnClick({
+                    dialogDismiss(context, 0, it, DialogInterface.OnDismissListener { listener?.invoke() })
+                })
         showDialogOnMain(context, normalDialog)
         "dialogMsgShow".log()
         return normalDialog
@@ -80,18 +79,34 @@ object DialogHelper {
         return stateDialog
     }
 
-    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?, cancelListener: (() -> Unit)? = null): WarningDialog? {
-        val normalDialog = WarningDialog(context)
-                .contentGravity(Gravity.CENTER)
-                .content(msg.safe())
-                .btnNum(2)
-                .btnText(cancelStr, confirmStr)
-        normalDialog.setCanceledOnTouchOutside(false)
+    private fun getWarningDialog(context: Context): IWarningDialog = try {
+        warningDialogClass.run {
+            val c = getConstructor(Context::class.java)
+            c.newInstance(context) as IWarningDialog
+        }
+    } catch (e: Exception) {
+        DefaultWarningDialog(context)
+    }
 
-        normalDialog.setOnBtnClickL(cancelListener, {
-            normalDialog.dismiss()
-            listener?.invoke()
-        })
+    private var  warningDialogClass: Class<*> = DefaultWarningDialog::class.java
+    fun <T : IWarningDialog> setWarningDialogClass(value: Class<T>) {
+        warningDialogClass = value
+    }
+
+    fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?, cancelListener: (() -> Unit)? = null): IWarningDialog {
+        val normalDialog: IWarningDialog = getWarningDialog(context)
+                .setTitle("提示")
+                .setMessage(msg.safe())
+                .setBtnNum(2)
+                .setBtnText(cancelStr, confirmStr)
+                .setPositiveBtnPosition(2)
+                .setBtnClick({ it.dismiss();cancelListener?.invoke() }, {
+                    it.dismiss()
+                    listener?.invoke()
+                })
+                .also {
+                    it.setCanceledOnTouchOutside(false)
+                }
         showDialogOnMain(context, normalDialog)
         "dialogWarningShow".log()
         return normalDialog

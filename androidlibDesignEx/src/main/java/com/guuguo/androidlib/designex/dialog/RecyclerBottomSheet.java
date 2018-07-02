@@ -1,4 +1,4 @@
-package com.guuguo.android.dialog.dialog;
+package com.guuguo.androidlib.designex.dialog;
 
 import android.content.Context;
 import android.support.annotation.IntRange;

@@ -11,9 +11,9 @@ buildscript {
         SUPPORT_VERSION = "27.1.1"
     }
     repositories {
-        mavenCentral()
         jcenter()
         google()
+        mavenCentral()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_plugin_version"

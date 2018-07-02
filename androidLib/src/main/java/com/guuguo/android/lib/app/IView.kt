@@ -2,7 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.app.Dialog
 import android.content.DialogInterface
-import com.guuguo.android.dialog.dialog.WarningDialog
+import com.guuguo.android.dialog.dialog.base.IWarningDialog
 import com.trello.rxlifecycle2.LifecycleProvider
 
 /**
@@ -20,9 +20,9 @@ interface IView<E> : LifecycleProvider<E> {
 
     fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener? = null, delayTime: Int = 800)
 
-    fun dialogMsgShow(msg: String, btnText: String, listener: (() -> Unit)?): WarningDialog?
+    fun dialogMsgShow(msg: String, btnText: String, listener: (() -> Unit)?): IWarningDialog?
 
-    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)? = null): WarningDialog?
+    fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)? = null): IWarningDialog?
 
     fun showDialogOnMain(dialog: Dialog)
 

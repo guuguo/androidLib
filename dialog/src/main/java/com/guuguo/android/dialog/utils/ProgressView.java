@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -778,7 +779,7 @@ public class ProgressView extends View {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 return getColor(context, android.R.attr.colorPrimary, defaultValue);
 
-            return getColor(context, R.attr.colorPrimary, defaultValue);
+            return ContextCompat.getColor(context, R.color.colorPrimary);
         }
 
     }

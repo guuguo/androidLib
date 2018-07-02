@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -40,6 +41,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 kapt {
     generateStubs = false
@@ -49,13 +53,13 @@ dependencies {
 
     implementation 'com.github.guuguo:dividerView:1.0.2'
     implementation 'com.github.guuguo:flowlayout:1.12.3'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation project(':androidLib')
     testImplementation 'junit:junit:4.12'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.github.bumptech.glide:glide:4.2.0'
     implementation 'com.github.florent37:viewanimator:1.0.5'
+    kapt "com.android.databinding:compiler:${android_plugin_version}"
 
 
 }

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="warningDialog"
+            type="com.guuguo.android.dialog.dialog.DefaultWarningDialog" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:paddingHorizontal="27dp"
+            android:text="@{warningDialog.message}"
+            android:textColor="#333"
+            android:textSize="16sp"
+            tools:text="哈哈哈" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="35dp"
+            android:background="@color/black20" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btn_1"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@{warningDialog.btnText1}"
+                android:textColor="@{warningDialog.btnPosition==1?@color/white:@color/dialogColorPrimary}"
+                android:textSize="16sp"
+                android:visibility="@{warningDialog.btnNum>=1?View.VISIBLE:View.GONE}"
+                tools:text="取消"
+                tools:textColor="@color/dialogColorPrimary" />
+
+            <TextView
+                android:id="@+id/btn_2"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                tools:background="@color/dialogColorPrimary"
+                android:gravity="center"
+                android:text="@{warningDialog.btnText2}"
+                android:textColor="@{warningDialog.btnPosition==2?@color/white:@color/dialogColorPrimary}"
+                android:textSize="16sp"
+                android:visibility="@{warningDialog.btnNum>=2?View.VISIBLE:View.GONE}"
+                tools:text="确认"
+                tools:textColor="#fff" />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

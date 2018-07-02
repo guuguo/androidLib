@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget;
+package com.guuguo.androidlib.designex.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.TempRecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
 import android.view.animation.Animation;
@@ -63,7 +62,7 @@ public class SpringRecyclerView extends TempRecyclerView {
 
     public SpringRecyclerView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        setOverScrollMode(OVER_SCROLL_ALWAYS);
 
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
