@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.guuguo.android.dialog.R;
+import com.guuguo.androidlib.designex.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,6 @@ import java.util.List;
 /**
  * Created by guodeqing on 6/23/16.
  */
-@SuppressWarnings("depreion")
 public class RecyclerBottomSheet<T> extends BottomSheetDialog {
     @IntRange(from = 1)
     int colume = 1;

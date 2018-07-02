@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 
 android {
@@ -25,17 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
 }
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
-
     api project(':androidLib')
     api "com.android.support:design:$SUPPORT_VERSION"
-
-    kapt "com.android.databinding:compiler:${android_plugin_version}"
 }
 
 repositories {
