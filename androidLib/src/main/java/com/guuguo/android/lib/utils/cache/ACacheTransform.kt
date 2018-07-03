@@ -2,6 +2,7 @@ package com.guuguo.android.lib.utils.cache
 
 import com.guuguo.android.lib.BaseApplication
 import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableTransformer
 import java.io.Serializable
 
@@ -10,43 +11,61 @@ class ACacheTransform<T : Serializable>(var key: String) : ObservableTransformer
     val FROM_NET = 0
     val FROM_CACHE = 1
     val FROM_CACHE_AND_NET = 2
+    val NO_CACHE = 3
     var fromType = FROM_CACHE_AND_NET
 
     fun fromCache() = this.also { fromType = FROM_CACHE }
+    fun noCache() = this.also { fromType = NO_CACHE }
     fun fromNet() = this.also { fromType = FROM_NET }
     fun fromCacheAndNet() = this.also { fromType = FROM_CACHE_AND_NET }
 
     val aCache = ACache.get(BaseApplication.get())
     override fun apply(upstream: Observable<T>): Observable<Pair<T, Boolean>> {
-        return Observable.create<Pair<T, Boolean>> { e ->
-
-            val getFromNet = {
-                upstream.subscribe({
+        val getFromCache = { e: ObservableEmitter<Pair<T, Boolean>> ->
+            val res = try {
+                aCache.getAsObject(key) as T
+            } catch (e: Exception) {
+                null
+            }
+            if (res != null)
+                e.onNext(res to true)
+        }
+        return when (fromType) {
+            FROM_NET -> upstream.flatMap {
+                Observable.create<Pair<T, Boolean>> { e ->
                     aCache.put(key, it)
                     e.onNext(it to false)
                     e.onComplete()
-                }, {
-                    e.onError(it)
+                }
+            }
+            FROM_CACHE -> {
+                Observable.create<Pair<T, Boolean>> { getFromCache(it);it.onComplete() }
+            }
+            FROM_CACHE_AND_NET -> {
+                Observable.merge(upstream.flatMap {
+                    Observable.create<Pair<T, Boolean>> { e ->
+                        aCache.put(key, it)
+                        e.onNext(it to false)
+                        e.onComplete()
+                    }
+                }, Observable.create {
+                    getFromCache(it); it.onComplete()
                 })
             }
-            val getFromCache = {
-                val res = try {
-                    aCache.getAsObject(key) as T
-                } catch (e: Exception) {
-                    null
-                }
-                if (res != null)
-                    e.onNext(res to true)
-            }
-            when (fromType) {
-                FROM_NET -> getFromNet()
-                FROM_CACHE -> getFromCache()
-                FROM_CACHE_AND_NET -> {
-                    getFromNet()
-                    getFromCache()
+            NO_CACHE -> {
+                upstream.flatMap {
+                    Observable.create<Pair<T, Boolean>> { e ->
+                        e.onNext(it to false)
+                        e.onComplete()
+                    }
                 }
             }
-
+            else -> upstream.flatMap {
+                Observable.create<Pair<T, Boolean>> { e ->
+                    e.onNext(it to false)
+                    e.onComplete()
+                }
+            }
         }
     }
 }
