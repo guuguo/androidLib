@@ -1,10 +1,12 @@
 package com.guuguo.android.lib.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -343,6 +345,19 @@ public class DeviceUtil {
         return CommonUtil.checkValidData(Build.ID);
     }
 
+    /**
+     * Return the android id of device.
+     *
+     * @return the android id of device
+     */
+    @SuppressLint("HardwareIds")
+    public static String getAndroidID() {
+        String id = Settings.Secure.getString(
+                Utils.getContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID
+        );
+        return id == null ? "" : id;
+    }
     /**
      * Is Device rooted boolean.
      *
