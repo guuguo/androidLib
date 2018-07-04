@@ -35,6 +35,7 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
         super.onAttach(context)
         this.activity = context as LBaseActivitySupport
     }
+
     protected fun init(view: View) {
         activity = getActivity() as LBaseActivitySupport
         initToolbar()
@@ -55,7 +56,7 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
     open protected fun initToolbar() {
         if (isNavigationBack()) {
-            getToolBar()?.initNav(activity,getBackIconRes())
+            getToolBar()?.initNav(activity, getBackIconRes())
         }
         val str = getHeaderTitle()
         if (str != null)
@@ -68,7 +69,7 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     protected open fun initVariable(savedInstanceState: Bundle?) {}
     protected open fun initView() {}
     protected open fun getMenuResId() = 0
-    protected open fun isNavigationBack() = true
+    open fun isNavigationBack() = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
@@ -133,11 +134,11 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
         DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override fun dialogMsgShow(msg: String, btnText: String, listener: (()->Unit)?): IWarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: (() -> Unit)?): IWarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (()->Unit)?): IWarningDialog? {
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?): IWarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 

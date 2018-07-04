@@ -22,6 +22,7 @@ import com.guuguo.android.dialog.dialog.base.IWarningDialog
 import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
+import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
@@ -102,7 +103,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
 
     open fun getBackIconRes(): Int = R.drawable.ic_arrow_back_white_24dp
     open fun getAppBar(): ViewGroup? = null
-    open protected fun isNavigationBack() = true
+    open protected fun isNavigationBack() = mFragment?.isNavigationBack().safe(true)
     open protected fun isStatusBarTextDark() = false
     open protected fun initToolBar() {
         val toolBar = getToolBar()
@@ -263,22 +264,22 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     }
 
     override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?) {
-         DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
+        DialogHelper.dialogLoadingShow(activity, msg, canTouchCancel, maxDelay, listener)
     }
 
     override fun dialogErrorShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
-         DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.error, delayTime.toLong())
     }
 
     override fun dialogCompleteShow(msg: String, listener: DialogInterface.OnDismissListener?, delayTime: Int) {
-         DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
+        DialogHelper.dialogStateShow(activity, msg, listener, TipDialog.STATE_STYLE.success, delayTime.toLong())
     }
 
-    override fun dialogMsgShow(msg: String, btnText: String, listener: (()->Unit)?): IWarningDialog? {
+    override fun dialogMsgShow(msg: String, btnText: String, listener: (() -> Unit)?): IWarningDialog? {
         return DialogHelper.dialogMsgShow(activity, msg, btnText, listener)
     }
 
-    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (()->Unit)?): IWarningDialog? {
+    override fun dialogWarningShow(msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?): IWarningDialog? {
         return DialogHelper.dialogWarningShow(activity, msg, cancelStr, confirmStr, listener)
     }
 

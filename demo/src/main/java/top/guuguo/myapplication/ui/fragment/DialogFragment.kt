@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit
 class DialogFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
+    override fun isNavigationBack()=false
     override fun initView() {
         super.initView()
         btn_theme.setOnClickListener {
