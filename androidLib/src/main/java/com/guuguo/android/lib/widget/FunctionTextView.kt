@@ -1,17 +1,18 @@
-package com.guuguo.android.lib.widget
+package com.bianla.commonlibrary.widget
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.util.AttributeSet
-import android.widget.ImageView
-import android.content.res.ColorStateList
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.support.v4.graphics.drawable.DrawableCompat
+import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
@@ -30,6 +31,12 @@ class FunctionTextView : RoundLinearLayout {
         initAttr(context, attributes)
         attributes.recycle()
         initView()
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        imageView?.isEnabled = enabled
+        textView?.isEnabled = enabled
     }
 
     private fun initAttr(context: Context, attributes: TypedArray) {
@@ -54,10 +61,11 @@ class FunctionTextView : RoundLinearLayout {
             if (!value.isEmpty()) {
                 textView?.apply {
                     text = value
-                    visibility=View.VISIBLE
+                    textView?.setTextColor(textColor)
+                    visibility = View.VISIBLE
                 }
-            }else{
-                textView?.visibility=View.GONE
+            } else {
+                textView?.visibility = View.GONE
             }
         }
 
@@ -93,6 +101,19 @@ class FunctionTextView : RoundLinearLayout {
      */
     var drawableAlign: Int? = null
     var drawable: Drawable? = null
+        set(value) {
+            field = value
+            drawable?.let {
+                imageView?.visibility = View.VISIBLE
+                if (drawableTint != 0) {
+                    val wrapped = DrawableCompat.wrap(it)
+                    DrawableCompat.setTint(wrapped, drawableTint)
+                    imageView?.setImageDrawable(wrapped)
+                } else {
+                    imageView?.setImageDrawable(it)
+                }
+            }
+        }
     var drawableWidth: Float = -2f
     var drawableHeight: Float = -2f
     var drawablePadding: Float = 0f
@@ -110,7 +131,7 @@ class FunctionTextView : RoundLinearLayout {
         requestViews()
     }
 
-    private fun requestViews() {
+    fun requestViews() {
         removeAllViews()
         when (drawableAlign) {
             ALIGN_LEFT -> orientation = HORIZONTAL
@@ -129,17 +150,17 @@ class FunctionTextView : RoundLinearLayout {
             }
         } ?: { imageView?.visibility = View.GONE }.invoke()
 
-        val imageViewParams = LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
+        val imageViewParams = LinearLayout.LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
         if (text.isEmpty()) {
             textView?.visibility = View.GONE
         } else {
             textView?.visibility = View.VISIBLE
-            textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
             textView?.text = text
-            textView?.setTextColor(textColor)
-            textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
         }
-        val textViewParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
+        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        textView?.setTextColor(textColor)
+        textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
+        val textViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             when (drawableAlign) {
                 ALIGN_LEFT -> marginStart = drawablePadding.toInt()
                 ALIGN_TOP -> topMargin = drawablePadding.toInt()
