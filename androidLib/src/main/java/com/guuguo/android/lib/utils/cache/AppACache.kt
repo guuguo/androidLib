@@ -10,11 +10,11 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
-* Project: bianla_android
-*
-* @author : guuguo
-* @since 2018/05/30
-*/
+ * Project: bianla_android
+ *
+ * @author : guuguo
+ * @since 2018/05/30
+ */
 class AppACache<T>(var default: T? = null, var typeToken: TypeToken<T>? = null) : ReadWriteProperty<Any?, T> {
 
     companion object {
@@ -38,10 +38,7 @@ class AppACache<T>(var default: T? = null, var typeToken: TypeToken<T>? = null) 
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        if (mValue != value || when (value) {
-                    is Long, is String, is Int, is Boolean, is Float -> false
-                    else -> true
-                }) putPreference(property.name, value)
+        putPreference(property.name, value)
         mValue = value
     }
 
@@ -52,7 +49,7 @@ class AppACache<T>(var default: T? = null, var typeToken: TypeToken<T>? = null) 
             is Int -> getAsString(name).toInt().safe()
             is Boolean -> getAsString(name).toBoolean().safe()
             is Float -> getAsString(name).toFloat().safe()
-            is Serializable -> getAsObject(name)?: default
+            is Serializable -> getAsObject(name) ?: default
             else -> {
                 if (typeToken != null) {
                     gson.fromJson<U>(getAsString(name), typeToken!!.type) ?: default
@@ -72,7 +69,7 @@ class AppACache<T>(var default: T? = null, var typeToken: TypeToken<T>? = null) 
             is Int -> put(name, value)
             is Boolean -> put(name, value)
             is Float -> put(name, value)
-            is Serializable -> put(name,value)
+            is Serializable -> put(name, value)
             else -> {
                 put(name, gson.toJson(value))
             }
