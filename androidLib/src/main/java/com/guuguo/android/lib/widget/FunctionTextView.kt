@@ -1,4 +1,4 @@
-package com.bianla.commonlibrary.widget
+package com.guuguo.android.lib.widget
 
 import android.content.Context
 import android.content.res.ColorStateList
