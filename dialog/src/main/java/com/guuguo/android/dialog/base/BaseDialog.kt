@@ -9,11 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.view.WindowManager.LayoutParams
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
@@ -54,6 +50,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     private var mAutoDismiss: Boolean = false
     /** delay (milliseconds) to dimiss dialog(对话框消失延时时间,毫秒值)  */
     private var mAutoDismissDelay: Long = 1500
+    private var mMarginBottom: Int = 0
 
     private val mHandler = Handler(Looper.getMainLooper())
 
@@ -86,7 +83,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
      */
     abstract fun onCreateView(): View
 
-   open fun onViewCreated(inflate: View) {}
+    open fun onViewCreated(inflate: View) {}
 
     /** set Ui data or logic opreation before attatched window(在对话框显示之前,设置界面数据或者逻辑)  */
     abstract fun setUiBeforShow()
@@ -150,9 +147,8 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
             height = (mMaxHeight * mHeightRatio).toInt()
         }
 
-        mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height)
+        mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height).also { it.bottomMargin = mMarginBottom }
     }
-
 
     override fun setCanceledOnTouchOutside(cancel: Boolean) {
         this.mCancel = cancel
@@ -224,6 +220,12 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     /** set dialog width scale:0-1(设置对话框宽度,占屏幕宽的比例0-1)  */
     fun widthRatio(widthScale: Float): T {
         this.mWidthRatio = widthScale
+        return this as T
+    }
+
+    /** 设置底部margin,让dialog位置上移或者下移 */
+    fun marginBottom(marginBottom: Int): T {
+        this.mMarginBottom = marginBottom
         return this as T
     }
 

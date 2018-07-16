@@ -14,7 +14,6 @@ class SimpleView {
     val view: View
     val viewHolder: SimpleViewHolder
 
-    var drawable: Drawable? = null
     constructor(context: Context) : this(context, null)
     constructor(context: Context, viewGroup: ViewGroup?) {
         view = View.inflate(context, R.layout.base_include_simple_empty_view, viewGroup)

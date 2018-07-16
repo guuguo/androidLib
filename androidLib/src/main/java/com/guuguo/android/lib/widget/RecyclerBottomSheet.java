@@ -1,4 +1,4 @@
-package com.guuguo.androidlib.designex.dialog;
+package com.guuguo.android.lib.widget;
 
 import android.content.Context;
 import android.support.annotation.IntRange;
@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import com.guuguo.androidlib.designex.R;
+import com.guuguo.android.R;
 
 import java.util.ArrayList;
 import java.util.List;

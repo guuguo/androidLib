@@ -1,13 +1,15 @@
 package com.guuguo.android.lib.widget.roundview
 
 import android.databinding.BindingAdapter
-import android.view.View
-import android.view.ViewTreeObserver
 
 
 @BindingAdapter("rv_backgroundColor")
 fun RoundTextView.setRvBackGroundColor(color: Int) {
     this.delegate.backgroundColor = color
+}
+@BindingAdapter("rv_strokeColor")
+fun RoundTextView.setRvStrokeColor(color: Int) {
+    this.delegate.strokeColor = color
 }
 
 @BindingAdapter("rv_backgroundColor")

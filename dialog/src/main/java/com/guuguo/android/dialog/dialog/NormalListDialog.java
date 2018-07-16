@@ -171,7 +171,7 @@ public class NormalListDialog extends BaseDialog<NormalListDialog> {
             }
         });
 
-        mLv.setLayoutAnimation(mLac);
+//        mLv.setLayoutAnimation(mLac);
     }
 
     /** set title background color(设置标题栏背景色) @return NormalListDialog */

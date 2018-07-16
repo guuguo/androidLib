@@ -1,6 +1,5 @@
 package com.guuguo.android.lib.extension
 
-import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.utils.ToastUtil
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -21,7 +20,6 @@ fun String?.toast(isShortToast: Boolean = true): String? {
         ToastUtil.showSingletonToast(this.safe("(空字符串)"))
     else
         ToastUtil.showSingleLongToast(this.safe("(空字符串)"))
-//    BaseApplication.get().toast(this.safe("(空字符串)"), isShortToast)
     return this
 }
 

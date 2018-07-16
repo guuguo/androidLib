@@ -113,6 +113,9 @@ class FunctionTextView : RoundLinearLayout {
                     imageView?.setImageDrawable(it)
                 }
             }
+            if (drawable == null) {
+                imageView?.visibility = View.GONE
+            }
         }
     var drawableWidth: Float = -2f
     var drawableHeight: Float = -2f

@@ -67,7 +67,6 @@ public class NetworkMonitor {
             }
         };
         timer.schedule(finishTask, duration);
-        //todo 实现可修改为CountDownTimer
     }
 
     boolean canceled = false;

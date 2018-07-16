@@ -1,1 +1,1 @@
-include ':androidLib', ':demo', ':dialog', ':drawable', ':androidlibDesignEx'
+include ':androidLib', ':demo', ':dialog', ':drawable'

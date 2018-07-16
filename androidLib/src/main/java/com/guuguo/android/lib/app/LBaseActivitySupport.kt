@@ -14,7 +14,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.ViewGroup
+import android.view.WindowManager
 import com.guuguo.android.R
 import com.guuguo.android.dialog.dialog.NormalListDialog
 import com.guuguo.android.dialog.dialog.TipDialog
@@ -235,6 +238,15 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         overridePendingTransition()
     }
 
+    override fun onPause() {
+        super.onPause()
+        overridePendingTransition()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        overridePendingTransition()
+    }
     open fun overridePendingTransition() {
         overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
     }
@@ -339,6 +351,14 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
         fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
+            val intent = getIntent(activity, targetActivity, targetFragment, map)
+            if (targetCode == 0)
+                activity.startActivity(intent)
+            else
+                activity.startActivityForResult(intent, targetCode)
+        }
+
+        fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetActivity: Class<A>, targetFragment: Class<F>, map: HashMap<String, *>?): Intent {
             val intent = Intent(activity, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 
@@ -354,10 +374,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
             }
 
             intent.putExtras(bundle)
-            if (targetCode == 0)
-                activity.startActivity(intent)
-            else
-                activity.startActivityForResult(intent, targetCode)
+            return intent
         }
     }
 }

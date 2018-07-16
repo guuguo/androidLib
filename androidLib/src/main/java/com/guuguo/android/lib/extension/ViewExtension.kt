@@ -6,9 +6,9 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 
 /**
-* 大哥哥 创造于 2016/10/21 0021.
-* 项目 androidLib
-*/
+ * 大哥哥 创造于 2016/10/21 0021.
+ * 项目 androidLib
+ */
 
 /**
  * Extension method to provide simpler access to {@link View#getResources()#getString(int)}.
@@ -23,6 +23,22 @@ fun View.showKeyboard() {
     this.requestFocus()
     imm.showSoftInput(this, 0)
 }
+
+//fun View?.show(boolean: Boolean = true):Boolean {
+//    this?.let {
+//        visibility = if (boolean) View.VISIBLE
+//        else View.GONE
+//    }
+//    return boolean
+//}
+//
+//fun View?.visible(boolean: Boolean = true) :Boolean{
+//    this?.let {
+//        visibility = if (boolean) View.VISIBLE
+//        else View.INVISIBLE
+//    }
+//    return boolean
+//}
 
 /**
  * Extension method to remove the required boilerplate for running code after a view has been
@@ -66,6 +82,7 @@ fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
+
 /**
  * Extension method to provide quicker access to the [LayoutInflater] from a [View].
  */

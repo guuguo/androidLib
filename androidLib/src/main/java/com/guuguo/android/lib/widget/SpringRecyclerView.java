@@ -1,4 +1,4 @@
-package com.guuguo.androidlib.designex.widget;
+package com.guuguo.android.lib.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

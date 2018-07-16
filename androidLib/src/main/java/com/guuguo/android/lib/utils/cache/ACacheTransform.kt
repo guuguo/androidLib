@@ -12,12 +12,14 @@ class ACacheTransform<T : Serializable>(var key: String) : ObservableTransformer
     val FROM_CACHE = 1
     val FROM_CACHE_AND_NET = 2
     val NO_CACHE = 3
+    val FROM_CACHE_IF_VALIDE = 4
     var fromType = FROM_CACHE_AND_NET
 
     fun fromCache() = this.also { fromType = FROM_CACHE }
     fun noCache() = this.also { fromType = NO_CACHE }
     fun fromNet() = this.also { fromType = FROM_NET }
     fun fromCacheAndNet() = this.also { fromType = FROM_CACHE_AND_NET }
+    fun fromCacheIfValide() = this.also { fromType = FROM_CACHE_IF_VALIDE }
 
     val aCache = ACache.get(BaseApplication.get())
     override fun apply(upstream: Observable<T>): Observable<Pair<T, Boolean>> {
@@ -29,6 +31,7 @@ class ACacheTransform<T : Serializable>(var key: String) : ObservableTransformer
             }
             if (res != null)
                 e.onNext(res to true)
+            res
         }
         return when (fromType) {
             FROM_NET -> upstream.flatMap {
@@ -40,6 +43,22 @@ class ACacheTransform<T : Serializable>(var key: String) : ObservableTransformer
             }
             FROM_CACHE -> {
                 Observable.create<Pair<T, Boolean>> { getFromCache(it);it.onComplete() }
+            }
+            FROM_CACHE_IF_VALIDE -> {
+                val res = try {
+                    aCache.getAsObject(key) as T
+                } catch (e: Exception) {
+                    null
+                }
+                if (res != null)
+                    Observable.create<Pair<T, Boolean>> { it.onNext(res to true);it.onComplete() }
+                else
+                    upstream.flatMap {
+                        Observable.create<Pair<T, Boolean>> { e ->
+                            e.onNext(it to false)
+                            e.onComplete()
+                        }
+                    }
             }
             FROM_CACHE_AND_NET -> {
                 Observable.merge(upstream.flatMap {

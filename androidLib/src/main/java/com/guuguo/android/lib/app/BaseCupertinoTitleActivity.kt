@@ -22,7 +22,7 @@ class BaseCupertinoTitleActivity : LBaseActivitySupport() {
     }
     override fun getHeaderTitle()=null
     override fun setTitle(title: CharSequence?) {
-        findViewById<TextView>(R.id.tv_title_bar).setText(title)
+        findViewById<TextView>(R.id.tv_title_bar).text = title
     }
     fun getFunctionView()=findViewById<FunctionTextView>(R.id.tv_function)
 
