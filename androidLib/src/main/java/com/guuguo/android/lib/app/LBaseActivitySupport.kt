@@ -248,7 +248,8 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         overridePendingTransition()
     }
     open fun overridePendingTransition() {
-        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
+        mFragment?.overridePendingTransition()
+//        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
     }
 
     override fun startActivity(intent: Intent?) {

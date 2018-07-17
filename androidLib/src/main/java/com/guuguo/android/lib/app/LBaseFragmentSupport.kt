@@ -71,6 +71,8 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     protected open fun getMenuResId() = 0
     open fun isNavigationBack() = true
 
+    open fun overridePendingTransition() =Unit
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contentView = super.onCreateView(inflater, container, savedInstanceState)
         initVariable(savedInstanceState)
