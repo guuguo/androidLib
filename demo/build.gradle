@@ -53,7 +53,9 @@ dependencies {
 
     implementation 'com.github.guuguo:dividerView:1.0.2'
     implementation 'com.github.guuguo:flowlayout:1.12.3'
-    implementation project(':androidLib')
+    implementation 'com.github.guuguo:androidLib:1.1.6.5'
+//    implementation 'com.github.guuguo:androidLib:-SNAPSHOT'
+//    implementation project(':androidLib')
     testImplementation 'junit:junit:4.12'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
