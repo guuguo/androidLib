@@ -51,7 +51,7 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
 
 
     /*toolbar*/
-    open fun getBackIconRes(): Int = R.drawable.ic_arrow_back_24dp
+    open fun getBackIconRes(): Int = 0
 
     open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
     open protected fun initToolbar() {

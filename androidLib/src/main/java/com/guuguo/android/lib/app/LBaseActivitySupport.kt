@@ -104,7 +104,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     /*toolbar*/
     open fun getToolBar(): Toolbar? = null
 
-    open fun getBackIconRes(): Int = R.drawable.ic_arrow_back_white_24dp
+    open fun getBackIconRes(): Int = mFragment?.getBackIconRes().safe( R.drawable.ic_arrow_back_white_24dp)
     open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = mFragment?.isNavigationBack().safe(true)
     open protected fun isStatusBarTextDark() = false
@@ -165,7 +165,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
             val trans = supportFragmentManager.beginTransaction()
-            trans.replace(R.id.content, mFragment)
+            trans.replace(R.id.content, mFragment!!)
             trans.commitAllowingStateLoss()
         }
         initToolBar()
