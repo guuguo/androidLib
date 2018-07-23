@@ -9,9 +9,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/androidLib" />
+            <option value="$PROJECT_DIR$/androidLibx" />
             <option value="$PROJECT_DIR$/demo" />
+            <option value="$PROJECT_DIR$/demox" />
             <option value="$PROJECT_DIR$/dialog" />
             <option value="$PROJECT_DIR$/drawable" />
+            <option value="$PROJECT_DIR$/iconfont" />
+            <option value="$PROJECT_DIR$/roundview" />
+            <option value="$PROJECT_DIR$/utils" />
+            <option value="$PROJECT_DIR$/widget" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

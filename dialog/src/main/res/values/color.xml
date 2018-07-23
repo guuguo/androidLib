@@ -51,6 +51,6 @@
 
     <color name="black20">#ff333333</color>
 
-    <color name="dialogColorPrimary">#3F51B5</color>
+    <color name="dialogColorPrimary">@color/colorPrimary</color>
     <color name="dialogColorPrimaryDark">#303F9F</color>
 </resources>

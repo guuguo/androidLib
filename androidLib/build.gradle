@@ -12,7 +12,7 @@ android {
         minSdkVersion MIN_SDK_VERSION
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
-
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -31,9 +31,13 @@ android {
 }
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation 'junit:junit:4.12'
 
     api project(':dialog')
     api project(':drawable')
+    api project(':roundview')
+    api project(':utils')
+    api project(':widget')
 
     api "com.android.support:appcompat-v7:$SUPPORT_VERSION"
     api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'
