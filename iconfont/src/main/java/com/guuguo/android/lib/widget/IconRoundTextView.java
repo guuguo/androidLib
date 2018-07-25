@@ -25,7 +25,7 @@ public class IconRoundTextView extends RoundTextView {
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconRoundTextView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconTextView);
         type = typedArray.getInt(R.styleable.IconTextView_typeface, 0);
         setType();
         typedArray.recycle();
