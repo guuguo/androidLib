@@ -1,11 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
-
-
 
     defaultConfig {
         minSdkVersion 16
@@ -28,15 +25,10 @@ android {
             }
         }
     }
-    dataBinding {
-        enabled = true
-    }
 }
 
 dependencies {
     api project(':drawable')
-
-    kapt "com.android.databinding:compiler:${ANDROID_PLUGIN_VERSION}"
     api 'io.reactivex.rxjava2:rxandroid:2.0.2'
 }
 repositories {

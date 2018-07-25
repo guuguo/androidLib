@@ -1,14 +1,18 @@
 package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.guuguo.android.dialog.R;
+
+import io.reactivex.annotations.NonNull;
 
 /**
  * Created by guodeqing on 6/23/16.
@@ -41,13 +45,19 @@ public class EditAlertDialog extends MyDialog<EditAlertDialog> {
 
         /** EditText */
         mEditTextView = new EditText(mContext);
-        mEditTextView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.bg_edittext));
+        mEditTextView.setBackground(getDrawable(mContext, R.drawable.bg_edittext));
         mEditTextView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, dp2px(45)));
         mContentLayout.addView(mEditTextView);
 
         return mContentLayout;
     }
-
+    public static Drawable getDrawable( Context context, int id) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return context.getDrawable(id);
+        } else {
+            return context.getResources().getDrawable(id);
+        }
+    }
     @Override
     protected void initCustomContent() {
         /** content */

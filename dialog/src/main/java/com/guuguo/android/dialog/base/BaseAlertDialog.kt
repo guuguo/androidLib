@@ -2,6 +2,7 @@ package com.guuguo.android.dialog.base
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
@@ -330,6 +331,14 @@ abstract class BaseAlertDialog<T : BaseAlertDialog<T>>
             mOnBtnLeftClickL = onBtnClickLs[0]
             mOnBtnRightClickL = onBtnClickLs[1]
             mOnBtnMiddleClickL = onBtnClickLs[2]
+        }
+    }
+
+    fun getColor(id: Int): Int {
+        return if (Build.VERSION.SDK_INT >= 23) {
+            mContext.getColor(id)
+        } else {
+            getColor(id)
         }
     }
 }

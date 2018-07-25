@@ -2,7 +2,6 @@ package com.guuguo.android.dialog.dialog;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +82,7 @@ public abstract class MyDialog<T extends BaseAlertDialog<T>> extends BaseAlertDi
         setMMiddleBtnTextColor(Color.parseColor("#ffffff"));
 
         mPrimaryBtnPressColor = Color.parseColor("#e12020");
-        mPrimaryBtnColor = ContextCompat.getColor(context, R.color.colorPrimary); //Color.parseColor("#f23131");
+        mPrimaryBtnColor = getColor(R.color.colorPrimary); //Color.parseColor("#f23131");
         setMCornerRadius(5);
         /** default value*/
     }

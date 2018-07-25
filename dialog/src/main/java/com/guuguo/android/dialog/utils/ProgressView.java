@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -27,6 +25,8 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
 import com.guuguo.android.dialog.R;
+
+import io.reactivex.annotations.NonNull;
 
 
 /*
@@ -100,7 +100,7 @@ public class ProgressView extends View {
     }
 
     @Override
-    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+    protected void onVisibilityChanged( View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (visibility == GONE || visibility == INVISIBLE && isStart) {
             stop();
@@ -779,7 +779,7 @@ public class ProgressView extends View {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 return getColor(context, android.R.attr.colorPrimary, defaultValue);
 
-            return ContextCompat.getColor(context, R.color.colorPrimary);
+            return getColor(context, R.color.colorPrimary,Color.WHITE);
         }
 
     }
