@@ -13,8 +13,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.guuguo.android.lib.widget.R;
-
 public class RoundViewDelegate {
     private View view;
     private Context context;
