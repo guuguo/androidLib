@@ -6,4 +6,10 @@
             <enum name="font_awesome" value="1" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="IconRoundTextView">
+        <attr name="typeface" format="enum">
+            <enum name="material_icon" value="0" />
+            <enum name="font_awesome" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

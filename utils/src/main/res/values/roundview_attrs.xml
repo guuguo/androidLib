@@ -54,7 +54,7 @@
     <!-- 是否有Ripple效果,api21+有效-->
     <attr name="rv_isRippleEnable" format="boolean"/>
 
-    <declare-styleable name="com.guuguo.android.utils.widget.roundview.RoundTextView">
+    <declare-styleable name="IconRoundTextView">
         <attr name="rv_backgroundColor"/>
         <attr name="rv_backgroundPressColor"/>
         <attr name="rv_cornerRadius"/>

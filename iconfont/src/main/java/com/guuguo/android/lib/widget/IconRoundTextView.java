@@ -1,26 +1,31 @@
 package com.guuguo.android.lib.widget;
 
-import com.guuguo.android.lib.widget.roundview.com.guuguo.android.utils.widget.roundview.RoundTextView;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Typeface;
+import android.util.AttributeSet;
 
-public class Iconcom.guuguo.android.utils.widget.roundview.RoundTextView extends com.guuguo.android.utils.widget.roundview.RoundTextView {
+import com.guuguo.android.lib.widget.roundview.RoundTextView;
+
+public class IconRoundTextView extends RoundTextView {
     private int type = 0;
 
-    public Iconcom.guuguo.android.utils.widget.roundview.RoundTextView(Context context, AttributeSet attrs, int defStyle) {
+    public IconRoundTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         initAttr(context, attrs);
     }
 
 
-    public Iconcom.guuguo.android.utils.widget.roundview.RoundTextView(Context context) {
+    public IconRoundTextView(Context context) {
         this(context, null);
     }
 
-    public Iconcom.guuguo.android.utils.widget.roundview.RoundTextView(Context context, AttributeSet attrs) {
+    public IconRoundTextView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconTextView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IconRoundTextView);
         type = typedArray.getInt(R.styleable.IconTextView_typeface, 0);
         setType();
         typedArray.recycle();

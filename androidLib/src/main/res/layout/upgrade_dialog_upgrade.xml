@@ -113,7 +113,7 @@
             <!-- 【必设】确认按钮tag：beta_confirm_button-->
 
 
-            <com.guuguo.android.utils.widget.roundview.RoundTextView
+            <IconRoundTextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
