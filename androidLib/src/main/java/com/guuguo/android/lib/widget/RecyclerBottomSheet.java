@@ -68,7 +68,7 @@ public class RecyclerBottomSheet<T> extends BottomSheetDialog {
     }
 
     public void setPeekHeight(int height) {
-        BottomSheetBehavior.from(getWindow().getDecorView().findViewById(android.support.design.R.id.design_bottom_sheet))
+        BottomSheetBehavior.from(getWindow().getDecorView().findViewById(R.id.design_bottom_sheet))
                 .setPeekHeight(height);
     }
 
