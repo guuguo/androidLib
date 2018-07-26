@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 
+import com.guuguo.android.lib.iconfont.R;
 import com.guuguo.android.lib.widget.roundview.RoundTextView;
 
 public class IconRoundTextView extends RoundTextView {

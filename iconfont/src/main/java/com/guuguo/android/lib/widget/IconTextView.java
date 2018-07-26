@@ -6,6 +6,8 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.guuguo.android.lib.iconfont.R;
+
 public class IconTextView extends TextView {
     private  int type=0;
 
