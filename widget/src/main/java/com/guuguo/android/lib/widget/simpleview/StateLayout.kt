@@ -13,7 +13,7 @@ import com.guuguo.android.lib.widget.R
  * 项目 androidLib
  */
 class StateLayout : FrameLayout {
-    
+
     var contentView: View? = null
     var currentView: View? = null
     var simpleView: View? = null
@@ -23,30 +23,37 @@ class StateLayout : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
-    @Deprecated(message= "名字意义不清楚",replaceWith =ReplaceWith("showError()"))
+    @Deprecated(message = "名字意义不清楚", replaceWith = ReplaceWith("showError()"))
     fun showErrorWithImage(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
-        showState(text,btnText,listener,imgRes)
+        showState(text, btnText, listener, imgRes)
     }
 
-    @Deprecated(message= "名字意义不清楚",replaceWith =ReplaceWith("showEmpty()"))
+    @Deprecated(message = "名字意义不清楚", replaceWith = ReplaceWith("showEmpty()"))
     fun showEmptyWithImage(text: String, btnText: String? = "", listener: OnClickListener, imgRes: Int) {
-        showState(text,btnText,listener,imgRes)
-    }
-    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
-        showState(text,btnText,listener,imgRes)
+        showState(text, btnText, listener, imgRes)
     }
 
-    fun showEmpty(text: String, btnText: String? = "", listener: OnClickListener?=null, imgRes: Int ) {
-        showState(text,btnText,listener,imgRes)
+    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
+        showState(text, btnText, listener, imgRes)
     }
+
+    @Deprecated(message = "参数顺序不合理", replaceWith = ReplaceWith("showEmpty()"))
+    fun showEmpty(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int) {
+        showState(text, btnText, listener, imgRes)
+    }
+
+    fun showEmpty(text: String, imgRes: Int, btnText: String? = "", listener: OnClickListener? = null) {
+        showState(text, btnText, listener, imgRes)
+    }
+
     fun showText(text: String) {
         showState(text)
     }
 
 
-    fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null,imgRes:Int=0) {
+    fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = 0) {
         initContentView()
-        showSimpleView().state(text, imgRes, btnText,listener)
+        showSimpleView().state(text, imgRes, btnText, listener)
     }
 
     fun showLoading(message: String) {

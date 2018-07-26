@@ -112,4 +112,19 @@
         app:rv_strokeColor="@color/black20"
         app:rv_strokeWidth="1px"
         app:rv_textPressColor="@color/colorPrimary" />
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="onTestShow"
+        android:text="测试"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:rv_isRippleEnable="true"
+        app:rv_backgroundColor="@color/colorPrimaryBlue"
+        app:rv_cornerRadius="3dp"
+        app:rv_strokeColor="@color/black20"
+        app:rv_strokeWidth="1px"
+        app:rv_textPressColor="@color/colorPrimary" />
 </top.guuguo.myapplication.RoundFlowLayout>

@@ -21,7 +21,7 @@ class SimpleViewHolder(var view: View) {
     val mTvText: TextView = view.findViewById(R.id.tv_text)
     val mBtn: TextView = view.findViewById(R.id.btn_empty)
 
-    fun loading(msg: String, loadingDrawable: Drawable = CircularDrawable()): SimpleViewHolder {
+    fun loading(msg: String, loadingDrawable: Drawable = CircularDrawable().apply { light() }): SimpleViewHolder {
         mImg.visibility = View.VISIBLE
         mBtn.visibility = View.GONE
         mImg.layoutParams.width=50.dpToPx()

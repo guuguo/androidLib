@@ -43,4 +43,9 @@ class MainActivity : LBaseActivitySupport() {
             DialogFragment.intentTo(activity)
         }
     }
+    fun onTestShow(v: View) {
+        v.doAvoidDouble {
+            TestFragment.intentTo(activity)
+        }
+    }
 }

@@ -14,10 +14,22 @@ import android.graphics.Bitmap
  * @author guuguo
  *
  */
-class CircularDrawable() : Drawable(), Animatable {
+class CircularDrawable : Drawable(), Animatable {
+    var mRoundColor = Color.argb(100, 255, 255, 255)
+    var mIndicatorColor = Color.WHITE
+
     fun Int.dpToPx(): Int {
         return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
     }
+
+    fun dark() {
+        mRoundColor = Color.parseColor("#66FFFFFF"); mIndicatorColor = Color.WHITE
+    }
+
+    fun light() {
+        mRoundColor = Color.parseColor("#66000000"); mIndicatorColor = Color.BLACK
+    }
+
     private var mPadding = 5f
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
@@ -28,8 +40,6 @@ class CircularDrawable() : Drawable(), Animatable {
     private var mProgress = 0
     private var mAnimateAngle: Float = 0.toFloat()
     private val mInterpolator = LinearInterpolator()
-    var mRoundColor = Color.argb(100, 255, 255, 255)
-    var mIndicatorColor = Color.WHITE
 
     private var mBufferCircleBgBitmap: Bitmap? = null
     private var mBufferCircleFgBitmap: Bitmap? = null
@@ -80,10 +90,11 @@ class CircularDrawable() : Drawable(), Animatable {
             mBufferCircleBgCanvas.drawCircle(canvas.width * 0.5f, canvas.height * 0.5f, radius - mPadding, mPaint)
 
 
-
+            val hExtend = (canvas.width - radius * 2) / 2
+            val vExtend = (canvas.height - radius * 2) / 2
             mPaint.color = mIndicatorColor
-            val rectF = RectF(mPadding, mPadding, canvas.width - mPadding, canvas.height - mPadding)
-            mBufferCircleFgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888);
+            val rectF = RectF(mPadding+hExtend, mPadding+vExtend, canvas.width  - mPadding-hExtend, canvas.height - mPadding-vExtend)
+            mBufferCircleFgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888)
             val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap)
             mBufferCircleFgCanvas.drawArc(rectF, 0f, 60f, false, mPaint)//第四个参数是否显示半径
         }

@@ -82,10 +82,10 @@ class TipDialog : BaseDialog<TipDialog> {
                     if (it is CircularDrawable) it.apply {
                         when (tip_theme) {
                             THEME_DARK -> {
-                                mRoundColor = Color.parseColor("#66FFFFFF"); mIndicatorColor = Color.WHITE
+                               it.dark()
                             }
                             else -> {
-                                mRoundColor = Color.parseColor("#66000000"); mIndicatorColor = Color.BLACK
+                                it.light()
                             }
                         }
                     }
