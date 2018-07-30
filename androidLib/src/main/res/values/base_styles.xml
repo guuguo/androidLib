@@ -106,11 +106,6 @@
 
     </style>
 
-    <style name="Widget.Design.AppBarLayout" parent="android:Widget">
-        <item name="elevation">@dimen/appbar_elevation</item>
-        <item name="android:background">?attr/colorPrimary</item>
-    </style>
-
     <style name="text_item_title_bold">
         <item name="android:textColor">?myTitleTextColor</item>
         <item name="android:textSize">@dimen/title_item</item>

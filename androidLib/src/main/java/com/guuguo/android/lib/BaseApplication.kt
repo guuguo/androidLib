@@ -32,7 +32,7 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
         mMainThread = Thread.currentThread()
     }
 
-    fun getCurrentActivity() = if (mActivityLifecycle.mActivityList.isEmpty()) null else mActivityLifecycle.mActivityList.last()
+    open fun getCurrentActivity() = mActivityLifecycle.mActivityList.lastOrNull()
 
     private fun initLyfecycle() {
         mActivityLifecycle = ActivityLifecycle()

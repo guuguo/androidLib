@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: 'maven'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -62,3 +62,22 @@ repositories {
     mavenCentral()
 }
 
+
+/*ext{
+    PUBLISH_GROUP_ID= 'com.guuguo.android'
+    PUBLISH_ARTIFACT_ID= 'lib'
+    PUBLISH_VERSION= '1.1.8.2'
+    PUBLISH_URL= 'file:///D://guuguo//maven'
+}
+uploadArchives {
+    repositories {
+        mavenDeployer{
+            repository(url:PUBLISH_URL)
+            pom.project{
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+            }
+        }
+    }
+}*/

@@ -7,7 +7,7 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.utils.systembar.SystemBarHelper
 import com.guuguo.android.lib.widget.FunctionTextView
 
-class BaseCupertinoTitleActivity : LBaseActivitySupport() {
+open class BaseCupertinoTitleActivity : LBaseActivitySupport() {
     override fun getLayoutResId() = R.layout.base_activity_cupertino_simple_back
     override fun getToolBar(): Toolbar = findViewById(R.id.id_tool_bar)
     override fun getAppBar(): ViewGroup? = findViewById(R.id.appbar)
