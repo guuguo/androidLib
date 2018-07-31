@@ -39,7 +39,6 @@ object DialogHelper {
     fun clearCalls(context: Context) {
         callMaps[context]?.clear()
         callMaps.remove(context)
-        mLoadingDialog?.dismiss()
         mDialogs[context]?.forEach { it.dismiss() }
         mDialogs.remove(context)
     }
