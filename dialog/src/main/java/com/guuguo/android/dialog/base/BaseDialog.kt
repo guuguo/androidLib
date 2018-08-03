@@ -13,20 +13,34 @@ import android.view.*
 import android.view.WindowManager.LayoutParams
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
+import android.view.WindowManager
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+import android.os.Build
+
+
+
 
 abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     constructor(mContext: Context) : super(mContext) {
         this.mContext = mContext
+        initIt()
     }
 
     constructor(mContext: Context, themeResId: Int) : super(mContext, themeResId) {
         this.mContext = mContext
+        initIt()
+    }
+
+    constructor(context: Context, isPopupStyle: Boolean) : this(context) {
+        mIsPopupStyle = isPopupStyle
+        initIt()
     }
 
     protected lateinit var mContext: Context
 
     /** mTag(日志)  */
-    protected var mTag: String
+    protected lateinit var mTag: String
     /** (DisplayMetrics)设备密度  */
     lateinit protected var mDisplayMetrics: DisplayMetrics
     /** enable dismiss outside dialog(设置点击对话框以外区域,是否dismiss)  */
@@ -54,23 +68,21 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
 
     private val mHandler = Handler(Looper.getMainLooper())
 
-    init {
+
+    fun initIt() {
         setDialogTheme()
         mTag = javaClass.simpleName
         setCanceledOnTouchOutside(true)
         Log.d(mTag, "constructor")
     }
 
-    constructor(context: Context, isPopupStyle: Boolean) : this(context) {
-        mIsPopupStyle = isPopupStyle
-    }
 
     /** set dialog theme(设置对话框主题)  */
     private fun setDialogTheme() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)// android:windowNoTitle
-        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))// android:windowBackground
-        window!!.addFlags(LayoutParams.FLAG_DIM_BEHIND)// android:backgroundDimEnabled默认是true的
+        window!!.setBackgroundDrawable(ColorDrawable(Color.GREEN))// android:windowBackground
     }
+
 
     /**
      * inflate layout for dialog ui and return (填充对话框所需要的布局并返回)
@@ -108,7 +120,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
             setContentView(mContentTop, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT))
         } else {
-            setContentView(mContentTop, ViewGroup.LayoutParams(mDisplayMetrics.widthPixels, mMaxHeight.toInt()))
+            setContentView(mContentTop, ViewGroup.LayoutParams(mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels))
         }
 
         mContentTop.setOnClickListener {
@@ -131,22 +143,30 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         setUiBeforShow()
 
         val width: Int
+        val createdWidth: Int
         if (mWidthRatio == 0f) {
             width = ViewGroup.LayoutParams.WRAP_CONTENT
+            createdWidth = ViewGroup.LayoutParams.WRAP_CONTENT
         } else {
             width = (mDisplayMetrics.widthPixels * mWidthRatio).toInt()
+            createdWidth = ViewGroup.LayoutParams.MATCH_PARENT
         }
 
         val height: Int
+        val createdHeight: Int
         if (mHeightRatio == 0f) {
             height = ViewGroup.LayoutParams.WRAP_CONTENT
+            createdHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
         } else if (mHeightRatio == 1f) {
-            //            height = ViewGroup.LayoutParams.MATCH_PARENT;
-            height = mMaxHeight.toInt()
+            height = ViewGroup.LayoutParams.MATCH_PARENT;
+            createdHeight = ViewGroup.LayoutParams.MATCH_PARENT;
+
+//            height = mMaxHeight.toInt()
         } else {
             height = (mMaxHeight * mHeightRatio).toInt()
+            createdHeight = ViewGroup.LayoutParams.MATCH_PARENT
         }
-
+        mOnCreateView.layoutParams = mOnCreateView.layoutParams.also { it.height = createdHeight;it.width = createdWidth; }
         mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height).also { it.bottomMargin = mMarginBottom }
     }
 
@@ -156,8 +176,13 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     }
 
     override fun show() {
-        Log.d(mTag, "show")
         super.show()
+        val layoutParams = window!!.attributes
+        layoutParams.width = mContext.resources.displayMetrics.widthPixels
+        layoutParams.height = mContext.resources.displayMetrics.heightPixels
+        window!!.attributes = layoutParams
+
+
     }
 
 

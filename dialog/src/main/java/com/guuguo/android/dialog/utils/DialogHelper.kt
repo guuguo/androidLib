@@ -155,7 +155,7 @@ object DialogHelper {
     fun String?.safe(default: String = ""): String {
         if (this.isNullOrEmpty())
             return default
-        else return this!!;
+        else return this!!
     }
 
     val DEBUG = false
