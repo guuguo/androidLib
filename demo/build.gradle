@@ -17,6 +17,7 @@ android {
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     packagingOptions {
         exclude 'typedefs.txt'

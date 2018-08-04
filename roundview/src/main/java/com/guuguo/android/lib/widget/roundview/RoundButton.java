@@ -46,7 +46,7 @@ public class RoundButton extends Button {
         if (delegate.isRadiusHalfHeight()) {
             delegate.setCornerRadius(getHeight() / 2);
         } else {
-            delegate.setBgSelector();
+            delegate. setBgSelector();
         }
     }
 }

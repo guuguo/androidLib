@@ -7,6 +7,8 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.support.v4.graphics.drawable.DrawableCompat
+import android.support.v7.widget.AppCompatImageView
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -125,11 +127,11 @@ class FunctionTextView : RoundLinearLayout {
     val ALIGN_TOP = 1
     val ALIGN_RIGHT = 2
     val ALIGN_BOTTOM = 3
-    var imageView: ImageView? = null
-    var textView: TextView? = null
+    var imageView: AppCompatImageView? = null
+    var textView: AppCompatTextView? = null
     private fun initView() {
-        textView = TextView(context)
-        imageView = ImageView(context)
+        textView = AppCompatTextView(context)
+        imageView = AppCompatImageView(context)
 
         requestViews()
     }
@@ -142,27 +144,10 @@ class FunctionTextView : RoundLinearLayout {
             ALIGN_RIGHT -> orientation = HORIZONTAL
             ALIGN_BOTTOM -> orientation = VERTICAL
         }
-        drawable?.also {
-            imageView?.visibility = View.VISIBLE
-            if (drawableTint != 0) {
-                val wrapped = DrawableCompat.wrap(it)
-                DrawableCompat.setTint(wrapped, drawableTint)
-                imageView?.setImageDrawable(wrapped)
-            } else {
-                imageView?.setImageDrawable(drawable)
-            }
-        } ?: { imageView?.visibility = View.GONE }.invoke()
 
+        //param
         val imageViewParams = LinearLayout.LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
-        if (text.isEmpty()) {
-            textView?.visibility = View.GONE
-        } else {
-            textView?.visibility = View.VISIBLE
-            textView?.text = text
-        }
-        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-        textView?.setTextColor(textColor)
-        textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
+
         val textViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             when (drawableAlign) {
                 ALIGN_LEFT -> marginStart = drawablePadding.toInt()
@@ -181,6 +166,28 @@ class FunctionTextView : RoundLinearLayout {
                 addView(imageView, imageViewParams)
             }
         }
+
+        //image text
+        drawable?.also {
+            imageView?.visibility = View.VISIBLE
+            if (drawableTint != 0) {
+                val wrapped = DrawableCompat.wrap(it)
+                DrawableCompat.setTint(wrapped, drawableTint)
+                imageView?.setImageDrawable(wrapped)
+            } else {
+                imageView?.setImageDrawable(drawable)
+            }
+        } ?: { imageView?.visibility = View.GONE }.invoke()
+
+        if (text.isEmpty()) {
+            textView?.visibility = View.GONE
+        } else {
+            textView?.visibility = View.VISIBLE
+            textView?.text = text
+        }
+        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        textView?.setTextColor(textColor)
+        textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
     }
 
     private fun createColorStateList(normal: Int, pressed: Int, focused: Int, unable: Int): ColorStateList {

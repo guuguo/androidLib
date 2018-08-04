@@ -52,31 +52,43 @@
             android:layout_height="wrap_content"
             android:text="正确" />
 
+
+        <Button
+            android:id="@+id/btn_alert_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="填写" />
+
+        <Button
+            android:id="@+id/btn_alert_custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="自定义" />
         <com.guuguo.android.lib.widget.FunctionTextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:drawablePadding="6dp"
             android:text="正确"
-            app:ftv_drawableTint="@color/white"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
             app:ftv_drawableAlign="top"
             app:ftv_drawableHeight="25dp"
             app:ftv_drawableSrc="@drawable/state_success"
+            app:ftv_drawableTint="@color/white"
             app:ftv_drawableWidth="25dp" />
 
         <com.guuguo.android.lib.widget.FunctionTextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:drawablePadding="6dp"
-            app:ftv_drawableTint="@color/white"
             android:text="正确"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:ftv_drawableAlign="left"
             app:ftv_drawableHeight="14dp"
             app:ftv_drawableSrc="@drawable/state_warning"
+            app:ftv_drawableTint="@color/white"
             app:ftv_drawableWidth="14dp" />
 
         <com.guuguo.android.lib.widget.FunctionTextView
@@ -86,10 +98,10 @@
             android:text="正确"
             android:textColor="@color/red"
             android:textSize="12sp"
-            app:ftv_drawableTint="@color/red"
             app:ftv_drawableAlign="right"
             app:ftv_drawableHeight="14dp"
             app:ftv_drawableSrc="@drawable/state_warning"
+            app:ftv_drawableTint="@color/red"
             app:ftv_drawableWidth="14dp" />
 
         <com.guuguo.android.lib.widget.FunctionTextView
@@ -97,12 +109,12 @@
             android:layout_height="100dp"
             android:drawablePadding="6dp"
             android:text="正确"
-            app:ftv_drawableTint="@color/white"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:ftv_drawableAlign="bottom"
             app:ftv_drawableHeight="25dp"
             app:ftv_drawableSrc="@drawable/state_warning"
+            app:ftv_drawableTint="@color/white"
             app:ftv_drawableWidth="25dp" />
 
     </top.guuguo.flowlayout.FlowLayout>
