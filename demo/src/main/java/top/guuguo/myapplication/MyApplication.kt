@@ -1,5 +1,6 @@
 package top.guuguo.myapplication
 
+import android.support.v4.content.ContextCompat
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.utils.LogUtil
 

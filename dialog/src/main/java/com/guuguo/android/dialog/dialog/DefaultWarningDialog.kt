@@ -79,7 +79,7 @@ class DefaultWarningDialog : IWarningDialog {
         return if (Build.VERSION.SDK_INT >= 23) {
             mContext.getColor(id)
         } else {
-            getColor(id)
+            mContext.resources.getColor(id)
         }
     }
 
