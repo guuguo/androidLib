@@ -1,10 +1,10 @@
 package top.guuguo.myapplication.ui.activity
 
-import android.view.View
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.extension.doAvoidDouble
 import kotlinx.android.synthetic.main.activity_main.*
 import top.guuguo.myapplication.R
+import top.guuguo.myapplication.R.id.*
 import top.guuguo.myapplication.ui.fragment.*
 
 class MainActivity : LBaseActivitySupport() {
@@ -49,6 +49,11 @@ class MainActivity : LBaseActivitySupport() {
         v_test.setOnClickListener {
             it.doAvoidDouble {
                 TestFragment.intentTo(activity)
+            }
+        }
+        v_guild.setOnClickListener {
+            it.doAvoidDouble {
+                GuildFragment.intentTo(activity)
             }
         }
     }

@@ -1,8 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/guild_content"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black20"
     android:fitsSystemWindows="true"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -10,8 +9,8 @@
     <ImageView
         android:layout_gravity="left"
         android:id="@+id/iv_target_circle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/home_guild_circle" />
     <ImageView
         android:id="@+id/iv_arrow"
@@ -20,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="5dp"
-        android:src="@drawable/guild_arrow_left" />
+        android:src="@drawable/guild_arrow_left_top" />
     <ImageView
         android:id="@+id/tv_hint"
         android:layout_width="wrap_content"
@@ -28,6 +27,7 @@
         android:layout_alignParentRight="true"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/home_guid_weight" />
 
     <ImageView
@@ -36,6 +36,7 @@
         android:layout_height="68dp"
         android:layout_gravity="center"
         android:layout_marginTop="90dp"
+        android:layout_marginBottom="90dp"
         android:scaleType="centerCrop"
         android:src="@drawable/home_guild_know_btn" />
 </LinearLayout>

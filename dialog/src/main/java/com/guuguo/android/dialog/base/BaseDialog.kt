@@ -80,7 +80,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     /** set dialog theme(设置对话框主题)  */
     private fun setDialogTheme() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)// android:windowNoTitle
-        window!!.setBackgroundDrawable(ColorDrawable(Color.GREEN))// android:windowBackground
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))// android:windowBackground
     }
 
 
