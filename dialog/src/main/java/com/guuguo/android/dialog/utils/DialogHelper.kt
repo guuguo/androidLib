@@ -56,11 +56,11 @@ object DialogHelper {
 
     fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: (() -> Unit)?): IWarningDialog? {
         val normalDialog = getWarningDialog(context)
-                .setTitle("提示")
-                .setMessage(msg.safe())
-                .setBtnNum(1)
-                .setBtnText(btnText)
-                .setBtnClick({
+                .title("提示")
+                .message(msg.safe())
+                .btnNum(1)
+                .btnText(btnText)
+                .btnClick({
                     dialogDismiss(context, 0, it, DialogInterface.OnDismissListener { listener?.invoke() })
                 })
         showDialogOnMain(context, normalDialog)
@@ -94,12 +94,12 @@ object DialogHelper {
 
     fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?, cancelListener: (() -> Unit)? = null): IWarningDialog {
         val normalDialog: IWarningDialog = getWarningDialog(context)
-                .setTitle("提示")
-                .setMessage(msg.safe())
-                .setBtnNum(2)
-                .setBtnText(cancelStr, confirmStr)
-                .setPositiveBtnPosition(2)
-                .setBtnClick({ it.dismiss();cancelListener?.invoke() }, {
+                .title("提示")
+                .message(msg.safe())
+                .btnNum(2)
+                .btnText(cancelStr, confirmStr)
+                .positiveBtnPosition(2)
+                .btnClick({ it.dismiss();cancelListener?.invoke() }, {
                     it.dismiss()
                     listener?.invoke()
                 })

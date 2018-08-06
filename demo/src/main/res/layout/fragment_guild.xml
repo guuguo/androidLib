@@ -13,12 +13,17 @@
         android:background="@color/colorPrimaryBlue"
         android:orientation="vertical"
         tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
-
+        <ImageView
+            android:src="@color/black"
+            android:id="@+id/btn_top"
+            android:layout_marginBottom="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
         <Button
             android:layout_gravity="bottom|center"
             android:id="@+id/btn"
             android:layout_marginBottom="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="80dp"
+            android:layout_height="40dp" />
     </FrameLayout>
 </layout>

@@ -12,6 +12,7 @@ import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.widget.CustomMultiWaveView
+import kotlinx.android.synthetic.main.fragment_guild.*
 import kotlinx.android.synthetic.main.fragment_waveview.*
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.R.id.btn
@@ -37,6 +38,8 @@ class GuildFragment : LBaseFragmentSupport() {
             }
         }
         HomeGuideDialog(activity, binding.btn, HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
+        HomeGuideDialog(activity, binding.btnTop, HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
+        HomeGuideDialog(activity, (activity as BaseCupertinoTitleActivity).getFunctionView(), HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
     }
 
     companion object {

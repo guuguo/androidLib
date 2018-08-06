@@ -91,7 +91,7 @@ class DefaultWarningDialog : IWarningDialog {
         private set
     var message = ""
         private set
-    var btnPosition = 0
+    var btnPosition = 2
         private set
     var btnNum = 1
         private set
@@ -102,11 +102,11 @@ class DefaultWarningDialog : IWarningDialog {
     var btnClick1: ((v: DefaultWarningDialog) -> Unit)? = null
     var btnClick2: ((v: DefaultWarningDialog) -> Unit)? = null
 
-    override fun setTitle(title: String) = this.also { it.title = title }
-    override fun setMessage(message: String) = this.also { it.message = message }
-    override fun setBtnNum(btnNum: Int) = this.also { it.btnNum = (if (btnNum < 0) 0 else if (btnNum > 2) 2 else btnNum) }
-    override fun setBtnText(vararg text: String) = this.also { text.getOrNull(0)?.apply { it.btnText1 = (this) }; text.getOrNull(1)?.apply { it.btnText2 = (this) } }
-    override fun setBtnClick(vararg clicks: ((v: IWarningDialog) -> Unit)?) = this.also { clicks.getOrNull(0)?.apply { it.btnClick1 = this }; clicks.getOrNull(1)?.apply { it.btnClick2 = this } }
-    override fun setPositiveBtnPosition(btnPosition: Int) = this.also { it.btnPosition = (btnPosition) }
+    override fun title(title: String) = this.also { it.title = title }
+    override fun message(message: String) = this.also { it.message = message }
+    override fun btnNum(btnNum: Int) = this.also { it.btnNum = (if (btnNum < 0) 0 else if (btnNum > 2) 2 else btnNum) }
+    override fun btnText(vararg text: String) = this.also { text.getOrNull(0)?.apply { it.btnText1 = (this) }; text.getOrNull(1)?.apply { it.btnText2 = (this) } }
+    override fun btnClick(vararg clicks: ((v: IWarningDialog) -> Unit)?) = this.also { clicks.getOrNull(0)?.apply { it.btnClick1 = this }; clicks.getOrNull(1)?.apply { it.btnClick2 = this } }
+    override fun positiveBtnPosition(btnPosition: Int) = this.also { it.btnPosition = (btnPosition) }
 
 }//Fast Function

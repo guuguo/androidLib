@@ -38,7 +38,7 @@ class HomeGuideDialog(activity: Activity, var targetView: View, var guildType: I
                 val mLeft = (location[0] + width / 2) - circleView.width / 2
                 var mTop = 0
                 var mBottom = 0
-                if (location[1] > DisplayUtil.getScreenHeight() / 2) {
+                if (location[1] > DisplayUtil.getScreenRealHeight(mContext) / 2) {
                     val content = mOnCreateView as LinearLayout
                     content.removeAllViews()
                     content.addView(btn)
@@ -46,7 +46,7 @@ class HomeGuideDialog(activity: Activity, var targetView: View, var guildType: I
                     content.addView(arrow)
                     content.addView(circleView)
                     content.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    mBottom = DisplayUtil.getScreenHeight()-(location[1] + measuredHeight / 2) - circleView.height / 2
+                    mBottom = getScreenHeight()-(location[1] + measuredHeight / 2) - circleView.height / 2
                     arrow.setImageResource(R.drawable.guild_arrow_right_bottom)
                     if (location[0] < DisplayUtil.getScreenWidth() / 2) {
                         arrow.scaleX = -1f

@@ -17,8 +17,7 @@ import android.view.WindowManager
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.os.Build
-
-
+import com.guuguo.android.dialog.utils.DisplayUtil
 
 
 abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
@@ -42,7 +41,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     /** mTag(日志)  */
     protected lateinit var mTag: String
     /** (DisplayMetrics)设备密度  */
-    lateinit protected var mDisplayMetrics: DisplayMetrics
+    protected lateinit var mDisplayMetrics: DisplayMetrics
     /** enable dismiss outside dialog(设置点击对话框以外区域,是否dismiss)  */
     protected var mCancel: Boolean = false
     /** dialog width scale(宽度比例)  */
@@ -50,9 +49,9 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     /** dialog height scale(高度比例)  */
     protected var mHeightRatio: Float = 0.toFloat()
     /** top container(最上层容器,显示阴影那个)  */
-    lateinit protected var mContentTop: LinearLayout
+    protected lateinit var mContentTop: LinearLayout
     /** container to control dialog height(用于控制对话框高度)  */
-    lateinit protected var mDialogContent: LinearLayout
+    protected lateinit var mDialogContent: LinearLayout
     /** the child of mDialogContent you create.(创建出来的mLlControlHeight的直接子View)  */
     /** get actual created view(获取实际创建的View)  */
     lateinit var mOnCreateView: View
@@ -100,6 +99,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     /** set Ui data or logic opreation before attatched window(在对话框显示之前,设置界面数据或者逻辑)  */
     abstract fun setUiBeforShow()
 
+    fun getScreenHeight() = DisplayUtil.getScreenRealHeight(mContext)
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(mTag, "onCreate")
         mDisplayMetrics = mContext.resources.displayMetrics
@@ -120,7 +120,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
             setContentView(mContentTop, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT))
         } else {
-            setContentView(mContentTop, ViewGroup.LayoutParams(mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels))
+            setContentView(mContentTop, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         }
 
         mContentTop.setOnClickListener {
@@ -156,10 +156,10 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         val createdHeight: Int
         if (mHeightRatio == 0f) {
             height = ViewGroup.LayoutParams.WRAP_CONTENT
-            createdHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
+            createdHeight = ViewGroup.LayoutParams.WRAP_CONTENT
         } else if (mHeightRatio == 1f) {
-            height = ViewGroup.LayoutParams.MATCH_PARENT;
-            createdHeight = ViewGroup.LayoutParams.MATCH_PARENT;
+            height = ViewGroup.LayoutParams.MATCH_PARENT
+            createdHeight = ViewGroup.LayoutParams.MATCH_PARENT
 
 //            height = mMaxHeight.toInt()
         } else {
@@ -175,16 +175,26 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         super.setCanceledOnTouchOutside(cancel)
     }
 
+    private fun setTranslucentStatus() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明实现
+            val window = window
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.TRANSPARENT
+        } else {//4.4 全透明状态栏
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
+    }
+
     override fun show() {
         super.show()
         val layoutParams = window!!.attributes
         layoutParams.width = mContext.resources.displayMetrics.widthPixels
-        layoutParams.height = mContext.resources.displayMetrics.heightPixels
+        layoutParams.height = DisplayUtil.getScreenRealHeight(mContext)//mContext.resources.displayMetrics.heightPixels
         window!!.attributes = layoutParams
-
-
+        setTranslucentStatus()
     }
-
 
     override fun onStart() {
         super.onStart()
