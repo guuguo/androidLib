@@ -32,7 +32,7 @@ class HomeGuideDialog(activity: Activity, var targetView: View, var guildType: I
             TYPE_WEIGHT -> hint.setImageResource(R.drawable.home_guid_weight)
             TYPE_INPUT_WEIGHT -> hint.setImageResource(R.drawable.home_guid_input_weight)
         }
-        targetView.doOnLayout {
+        targetView.doOnNextLayout {
             it.apply {
                 val location = IntArray(2)
                 getLocationOnScreen(location)

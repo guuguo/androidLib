@@ -4,7 +4,7 @@ import android.app.Activity
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.guuguo.android.dialog.dialog.CustomAlertDialog
-import com.guuguo.android.dialog.dialog.EditAlertDialog
+import com.guuguo.android.dialog.dialog.NewEditAlertDialog
 import com.guuguo.android.dialog.utils.DialogSettings
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
@@ -40,7 +40,7 @@ class DialogFragment : LBaseFragmentSupport() {
         }
         btn_success.setOnClickListener { dialogCompleteShow("可以了哈哈哈哈你好啊 啊啊 啊") }
         btn_alert_edit.setOnClickListener {
-            EditAlertDialog(activity).title("填写").show()
+            NewEditAlertDialog(activity).title("填写").btnText("取消","完成").btnClick({it.dismiss()},{it.dismiss()}).show()
         }
         btn_alert_custom.setOnClickListener {
             CustomAlertDialog(activity).contentView(TextView(activity)).title("填写").show()

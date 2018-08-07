@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.view.View
+import com.guuguo.android.dialog.dialog.CupertinoWarningDialog
 import com.guuguo.android.dialog.dialog.TipDialog
 import com.guuguo.android.dialog.dialog.DefaultWarningDialog
 import com.guuguo.android.dialog.dialog.base.IWarningDialog
@@ -78,7 +80,7 @@ object DialogHelper {
         return stateDialog
     }
 
-    private fun getWarningDialog(context: Context): IWarningDialog = try {
+     fun getWarningDialog(context: Context): IWarningDialog = try {
         warningDialogClass.run {
             val c = getConstructor(Context::class.java)
             c.newInstance(context) as IWarningDialog
@@ -87,7 +89,7 @@ object DialogHelper {
         DefaultWarningDialog(context)
     }
 
-    private var  warningDialogClass: Class<*> = DefaultWarningDialog::class.java
+    private var warningDialogClass: Class<*> = CupertinoWarningDialog::class.java
     fun <T : IWarningDialog> setWarningDialogClass(value: Class<T>) {
         warningDialogClass = value
     }

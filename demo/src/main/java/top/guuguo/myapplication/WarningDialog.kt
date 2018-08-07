@@ -10,6 +10,10 @@ import top.guuguo.myapplication.databinding.DialogCustomWarningBinding
 
 
 class WarningDialog : IWarningDialog {
+    override fun setCustomContent(v: View): IWarningDialog {
+        return this
+    }
+
     constructor(mContext: Context) : super(mContext) {
         this.mContext = mContext
     }

@@ -183,11 +183,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         super.onDestroy()
     }
 
-    /**
-     * 判断是否 fragment activity
-
-     * @param data
-     */
+    /** 初始化 单fragment activity */
     private fun initFromIntent(data: Intent?) {
         mFragment = getFragmentInstance(data)
         if (mFragment == null)
@@ -197,8 +193,6 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         if (args != null) {
             mFragment!!.arguments = args
         }
-
-
     }
 
     open fun getFragmentInstance(data: Intent?): LBaseFragmentSupport? {
@@ -280,7 +274,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         startActivity(home)
         Completable.complete().delay(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
             BaseApplication.get().mActivityLifecycle.clear()
-        }
+        }.isDisposed
     }
 
     override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?) {

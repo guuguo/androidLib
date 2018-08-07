@@ -20,7 +20,7 @@ class MainActivity : LBaseActivitySupport() {
         v_dialog.setOnClickListener {
             it.doAvoidDouble {
 //                DialogFragment.intentTo(activity)
-                BaseTitleActivity.intentToArouterPath(activity,"/demo/dialog",BaseTitleActivity::class.java)
+                ArouterActivity.intentToArouterPath(activity,"/demo/dialog",BaseTitleActivity::class.java)
             }
         }
         v_divider.setOnClickListener {

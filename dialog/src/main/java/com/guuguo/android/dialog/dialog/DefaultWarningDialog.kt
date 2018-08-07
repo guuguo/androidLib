@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import com.guuguo.android.dialog.R
 import com.guuguo.android.dialog.dialog.base.IWarningDialog
@@ -30,12 +32,19 @@ class DefaultWarningDialog : IWarningDialog {
     }
 
     val radius = dp2px(4f).toFloat()
-
+    var mCustomContentView: View? = null
+    override fun setCustomContent(v: View)=this.also {
+        mCustomContentView = v
+    }
     override fun setUiBeforShow() {
 
         val btn1 = mOnCreateView.findViewById<TextView>(R.id.btn_1)
         val btn2 = mOnCreateView.findViewById<TextView>(R.id.btn_2)
         val tv_message = mOnCreateView.findViewById<TextView>(R.id.tv_message)
+        val customContainer = mOnCreateView.findViewById<FrameLayout>(R.id.content_container)
+        mCustomContentView?.let {
+            customContainer.addView(mCustomContentView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        }
 
         btn1.setOnClickListener {
             btnClick1?.invoke(this)

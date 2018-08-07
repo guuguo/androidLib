@@ -10,7 +10,7 @@ import top.guuguo.myapplication.R
 import com.alibaba.android.arouter.launcher.ARouter
 
 
-class BaseTitleActivity : LBaseActivitySupport() {
+class BaseTitleActivity : ArouterActivity() {
     override fun getLayoutResId(): Int {
         return R.layout.activity_base_title
     }
@@ -19,27 +19,5 @@ class BaseTitleActivity : LBaseActivitySupport() {
 
     override fun getHeaderTitle(): String {
         return "simple view"
-    }
-
-    companion object {
-        val SIMPLE_AROUTER_ACTIVITY_INFO = "SIMPLE_AROUTER_ACTIVITY_INFO"
-
-        fun <A : Activity> intentToArouterPath(activity: Activity, targetFragmentPath: String, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
-            val intent = Intent(activity, targetActivity)
-            intent.putExtra(SIMPLE_AROUTER_ACTIVITY_INFO, targetFragmentPath)
-            val bundle = LBaseActivitySupport.bundleData(map)
-            intent.putExtras(bundle)
-
-            if (targetCode == 0)
-                activity.startActivity(intent)
-            else
-                activity.startActivityForResult(intent, targetCode)
-
-        }
-    }
-
-    override fun getFragmentInstance(data: Intent?): LBaseFragmentSupport? {
-        val path = data?.getStringExtra(SIMPLE_AROUTER_ACTIVITY_INFO) ?: return super.getFragmentInstance(data)
-        return ARouter.getInstance().build(path).navigation() as LBaseFragmentSupport?
     }
 }
