@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.doOnLayout
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.updateLayoutParams
 import com.guuguo.android.dialog.base.BaseDialog
@@ -31,14 +32,14 @@ class HomeGuideDialog(activity: Activity, var targetView: View, var guildType: I
             TYPE_WEIGHT -> hint.setImageResource(R.drawable.home_guid_weight)
             TYPE_INPUT_WEIGHT -> hint.setImageResource(R.drawable.home_guid_input_weight)
         }
-        targetView.doOnNextLayout {
+        targetView.doOnLayout {
             it.apply {
                 val location = IntArray(2)
                 getLocationOnScreen(location)
                 val mLeft = (location[0] + width / 2) - circleView.width / 2
                 var mTop = 0
                 var mBottom = 0
-                if (location[1] > DisplayUtil.getScreenRealHeight(mContext) / 2) {
+                if (location[1] > getScreenHeight() / 2) {
                     val content = mOnCreateView as LinearLayout
                     content.removeAllViews()
                     content.addView(btn)

@@ -1,5 +1,6 @@
 package top.guuguo.myapplication.ui.activity
 
+import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.extension.doAvoidDouble
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,17 +19,20 @@ class MainActivity : LBaseActivitySupport() {
         }
         v_dialog.setOnClickListener {
             it.doAvoidDouble {
-                DialogFragment.intentTo(activity)
+//                DialogFragment.intentTo(activity)
+                BaseTitleActivity.intentToArouterPath(activity,"/demo/dialog",BaseTitleActivity::class.java)
             }
         }
         v_divider.setOnClickListener {
             it.doAvoidDouble {
                 DividerViewFragment.intentTo(activity)
+//                BaseTitleActivity.intentToArouterPath(activity,"/demo/dialog2",BaseTitleActivity::class.java)
             }
         }
         v_progress.setOnClickListener {
             it.doAvoidDouble {
-                ProgressActivity.intentTo(activity)
+//                ProgressActivity.intentTo(activity)
+                ARouter.getInstance().build("/test/progress").withString("name","哈哈哈").navigation(activity)
             }
         }
         v_swip.setOnClickListener {

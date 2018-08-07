@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.view.View
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
-import com.guuguo.android.lib.extension.log
 
 
 /**
@@ -125,7 +124,6 @@ class ProgressRing : View {
 
     private fun drawProgress(canvas: Canvas) {
         val progressAngle = sweepAngle * currentProgress / 100
-        progressAngle.toString().log("progress")
 
         val mShader = SweepGradient(0f, 0f, intArrayOf(progressStartColor, progressEndColor, progressStartColor), floatArrayOf(0f, progressAngle / 360f, 1.1f))
         mProgressPaint.shader = null

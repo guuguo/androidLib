@@ -2,6 +2,7 @@ package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
 import android.widget.TextView
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.guuguo.android.dialog.dialog.CustomAlertDialog
 import com.guuguo.android.dialog.dialog.EditAlertDialog
 import com.guuguo.android.dialog.utils.DialogSettings
@@ -12,7 +13,7 @@ import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_dialog.*
 import top.guuguo.myapplication.R
 import java.util.concurrent.TimeUnit
-
+@Route(path = "/demo/dialog")
 class DialogFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
