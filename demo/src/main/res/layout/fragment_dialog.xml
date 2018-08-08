@@ -79,7 +79,7 @@
             android:textStyle="bold"
             app:ftv_drawableAlign="top"
             app:ftv_drawableHeight="25dp"
-            app:ftv_drawableSrc="@drawable/state_success"
+            app:ftv_drawableSrc="@drawable/widget_state_success"
             app:ftv_drawableTint="@color/white"
             app:ftv_drawableWidth="25dp" />
 
@@ -92,7 +92,7 @@
             android:textSize="12sp"
             app:ftv_drawableAlign="left"
             app:ftv_drawableHeight="14dp"
-            app:ftv_drawableSrc="@drawable/state_warning"
+            app:ftv_drawableSrc="@drawable/widget_state_warning"
             app:ftv_drawableTint="@color/white"
             app:ftv_drawableWidth="14dp" />
 
@@ -105,7 +105,7 @@
             android:textSize="12sp"
             app:ftv_drawableAlign="right"
             app:ftv_drawableHeight="14dp"
-            app:ftv_drawableSrc="@drawable/state_warning"
+            app:ftv_drawableSrc="@drawable/widget_state_warning"
             app:ftv_drawableTint="@color/red"
             app:ftv_drawableWidth="14dp" />
 
@@ -118,7 +118,7 @@
             android:textSize="12sp"
             app:ftv_drawableAlign="bottom"
             app:ftv_drawableHeight="25dp"
-            app:ftv_drawableSrc="@drawable/state_warning"
+            app:ftv_drawableSrc="@drawable/widget_state_warning"
             app:ftv_drawableTint="@color/white"
             app:ftv_drawableWidth="25dp" />
 

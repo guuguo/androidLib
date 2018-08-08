@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:tint="@color/white"
-        app:srcCompat="@drawable/ic_navigation_arrow_left"/>
+        android:tint="#FFF"
+        app:srcCompat="@drawable/widget_ic_navigation_arrow_left"/>
 
 </com.guuguo.android.lib.widget.roundview.RoundFrameLayout>

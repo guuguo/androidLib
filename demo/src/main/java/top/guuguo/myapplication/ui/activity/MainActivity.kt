@@ -19,8 +19,8 @@ class MainActivity : LBaseActivitySupport() {
         }
         v_dialog.setOnClickListener {
             it.doAvoidDouble {
-//                DialogFragment.intentTo(activity)
-                ArouterActivity.intentToArouterPath(activity,"/demo/dialog",BaseTitleActivity::class.java)
+                //                DialogFragment.intentTo(activity)
+                ArouterActivity.intentToArouterPath(activity, "/demo/dialog", BaseTitleActivity::class.java)
             }
         }
         v_divider.setOnClickListener {
@@ -31,8 +31,8 @@ class MainActivity : LBaseActivitySupport() {
         }
         v_progress.setOnClickListener {
             it.doAvoidDouble {
-//                ProgressActivity.intentTo(activity)
-                ARouter.getInstance().build("/test/progress").withString("name","哈哈哈").navigation(activity)
+                //                ProgressActivity.intentTo(activity)
+                ARouter.getInstance().build("/test/progress").withString("name", "哈哈哈").navigation(activity)
             }
         }
         v_swip.setOnClickListener {
@@ -60,5 +60,10 @@ class MainActivity : LBaseActivitySupport() {
                 GuildFragment.intentTo(activity)
             }
         }
+//        v_state.setOnClickListener {
+//            it.doAvoidDouble {
+//                StateFragment.intentTo(activity)
+//            }
+//        }
     }
 }

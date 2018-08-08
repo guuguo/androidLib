@@ -28,7 +28,7 @@ class SimpleViewHelper(private val helper: VaryViewHelper) {
     var viewHolder: SimpleViewHolder? = null
 
 
-    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
+    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.widget_state_error) {
         showState(text, btnText, listener, imgRes)
     }
 

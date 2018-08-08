@@ -15,6 +15,7 @@
 
     <ImageView
         android:id="@+id/imageView"
+        android:src="@drawable/empty_cute_girl_box"
         android:layout_width="100dp"
         android:layout_height="130dp"
         android:layout_marginBottom="8dp" />

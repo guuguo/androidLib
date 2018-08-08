@@ -24,7 +24,7 @@ class StateLayout : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     @Deprecated(message = "名字意义不清楚", replaceWith = ReplaceWith("showError()"))
-    fun showErrorWithImage(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
+    fun showErrorWithImage(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.widget_state_error) {
         showState(text, btnText, listener, imgRes)
     }
 
@@ -33,7 +33,7 @@ class StateLayout : FrameLayout {
         showState(text, btnText, listener, imgRes)
     }
 
-    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
+    fun showError(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = R.drawable.widget_state_error) {
         showState(text, btnText, listener, imgRes)
     }
 
@@ -42,7 +42,7 @@ class StateLayout : FrameLayout {
         showState(text, btnText, listener, imgRes)
     }
 
-    fun showEmpty(text: String, imgRes: Int, btnText: String? = "", listener: OnClickListener? = null) {
+    fun showEmpty(text: String, imgRes: Int=R.drawable.empty_cute_girl_box, btnText: String? = "", listener: OnClickListener? = null) {
         showState(text, btnText, listener, imgRes)
     }
 
@@ -69,7 +69,7 @@ class StateLayout : FrameLayout {
 
     private fun showSimpleView(): SimpleViewHolder {
         if (simpleView == null) {
-            simpleView = LayoutInflater.from(context).inflate(R.layout.base_include_simple_empty_view, this, false)
+            simpleView = LayoutInflater.from(context).inflate(R.layout.widget_include_simple_empty_view, this, false)
             viewHolder = SimpleViewHolder(simpleView!!)
         }
         if (simpleView != currentView) {

@@ -57,11 +57,11 @@ class SimpleViewHolder(var view: View) {
         mTvText.text = text
         return this
     }
-    fun showError(text: String, btnText: String? = "", listener: View.OnClickListener? = null, imgRes: Int = R.drawable.state_error) {
+    fun showError(text: String, btnText: String? = "", listener: View.OnClickListener? = null, imgRes: Int = R.drawable.widget_state_error) {
         showState(text, btnText, listener, imgRes)
     }
 
-    fun showEmpty(text: String, btnText: String? = "", listener: View.OnClickListener?=null, imgRes: Int) {
+    fun showEmpty(text: String, btnText: String? = "", listener: View.OnClickListener?=null, imgRes: Int=R.drawable.empty_cute_girl_box) {
         showState(text, btnText, listener, imgRes)
     }
 
@@ -70,7 +70,7 @@ class SimpleViewHolder(var view: View) {
     }
 
 
-    fun showState(text: String, btnText: String? = "", listener: View.OnClickListener? = null, imgRes: Int = 0) {
+    fun showState(text: String, btnText: String? = "", listener: View.OnClickListener? = null, imgRes: Int = R.drawable.empty_cute_girl_box) {
         state(text, imgRes, btnText, listener)
     }
 
