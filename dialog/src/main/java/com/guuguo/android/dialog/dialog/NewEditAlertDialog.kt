@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -20,7 +21,6 @@ class NewEditAlertDialog(var mContext: Context) {
 
     private var mContentLayout: FrameLayout? = null
     var dialog = DialogHelper.getWarningDialog(mContext)
-
 
 
     fun show() = dialog.show()
@@ -58,7 +58,9 @@ class NewEditAlertDialog(var mContext: Context) {
         /** EditText  */
         editTextView = EditText(mContext)
         editTextView!!.background = getDrawable(R.drawable.bg_edittext)
-        editTextView!!.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, dp2px(45f))
+        editTextView!!.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, dp2px(40f))
+        editTextView!!.setPadding(dp2px(10f), 0, 0, dp2px(10f))
+        editTextView!!.gravity = Gravity.CENTER_VERTICAL
         mContentLayout!!.addView(editTextView)
 
         return mContentLayout!!
@@ -67,8 +69,7 @@ class NewEditAlertDialog(var mContext: Context) {
     fun initCustomContent() {
         /** content  */
 
-        mContentLayout!!.setPadding(dp2px(30f), 0, dp2px(30f), 0)
-        mContentLayout!!.minimumHeight = dp2px(120f)
+        mContentLayout!!.setPadding(dp2px(20f), 0, dp2px(20f), dp2px(8f))
 
         /**edit text  */
         if (!TextUtils.isEmpty(mEditText)) {
@@ -103,7 +104,8 @@ class NewEditAlertDialog(var mContext: Context) {
             editTextView!!.error = error
         }
     }
-    fun getDrawable( id: Int): Drawable? {
+
+    fun getDrawable(id: Int): Drawable? {
         return if (Build.VERSION.SDK_INT >= 21) {
             mContext.getDrawable(id)
         } else {

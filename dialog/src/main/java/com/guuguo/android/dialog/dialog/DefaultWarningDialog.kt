@@ -33,14 +33,17 @@ class DefaultWarningDialog : IWarningDialog {
 
     val radius = dp2px(4f).toFloat()
     var mCustomContentView: View? = null
-    override fun setCustomContent(v: View)=this.also {
+    override fun setCustomContent(v: View) = this.also {
         mCustomContentView = v
     }
+
     override fun setUiBeforShow() {
 
         val btn1 = mOnCreateView.findViewById<TextView>(R.id.btn_1)
         val btn2 = mOnCreateView.findViewById<TextView>(R.id.btn_2)
         val tv_message = mOnCreateView.findViewById<TextView>(R.id.tv_message)
+        val tv_title = mOnCreateView.findViewById<TextView>(R.id.tv_title)
+        val divider_title = mOnCreateView.findViewById<View>(R.id.divider_title)
         val customContainer = mOnCreateView.findViewById<FrameLayout>(R.id.content_container)
         mCustomContentView?.let {
             customContainer.addView(mCustomContentView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
@@ -62,6 +65,15 @@ class DefaultWarningDialog : IWarningDialog {
         btn1.text = btnText1
         btn2.text = btnText2
         tv_message.text = message
+        tv_title.text = title
+
+        (if (title.isEmpty()) View.GONE else View.VISIBLE).also {
+            tv_title.visibility = if (it == View.GONE) View.INVISIBLE else it
+            divider_title.visibility = it
+        }
+        if (message.isNullOrEmpty())
+            tv_message.visibility = View.GONE
+        else tv_message.visibility = View.VISIBLE
 
         val colorWhite = Color.WHITE
         val colorWhitePress = getColor(R.color.black20)
@@ -69,6 +81,12 @@ class DefaultWarningDialog : IWarningDialog {
         val colorPrimary = getColor(R.color.dialogColorPrimary)
         val colorPrimaryPress = getColor(R.color.dialogColorPrimaryDark)
 
+        if (btnNum == 0) {
+            if (!btnText2.isEmpty())
+                btnNum = 2
+            else if (!btnText1.isEmpty())
+                btnNum = 1
+        }
 
         if (btnNum == 1) {
             btn1.visibility = View.VISIBLE
@@ -83,6 +101,7 @@ class DefaultWarningDialog : IWarningDialog {
                     if (btnPosition == 2) colorPrimary else colorWhite, if (btnPosition == 2) colorPrimaryPress else colorWhitePress, 1)
         }
     }
+
 
     fun getColor(id: Int): Int {
         return if (Build.VERSION.SDK_INT >= 23) {
@@ -102,7 +121,7 @@ class DefaultWarningDialog : IWarningDialog {
         private set
     var btnPosition = 2
         private set
-    var btnNum = 1
+    var btnNum = 0
         private set
     var btnText1 = ""
         private set

@@ -21,6 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="切换主题" />
+        <Button
+            android:id="@+id/btn_warning_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="切换warning" />
 
         <Button
             android:id="@+id/btn_loading"
@@ -28,11 +33,6 @@
             android:layout_height="wrap_content"
             android:text="加载" />
 
-        <Button
-            android:id="@+id/btn_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="信息" />
 
         <Button
             android:id="@+id/btn_warning"
@@ -51,6 +51,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="正确" />
+        <Button
+            android:id="@+id/btn_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="信息" />
 
 
         <Button

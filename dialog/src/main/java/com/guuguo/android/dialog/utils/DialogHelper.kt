@@ -80,7 +80,7 @@ object DialogHelper {
         return stateDialog
     }
 
-     fun getWarningDialog(context: Context): IWarningDialog = try {
+    fun getWarningDialog(context: Context): IWarningDialog = try {
         warningDialogClass.run {
             val c = getConstructor(Context::class.java)
             c.newInstance(context) as IWarningDialog
@@ -89,10 +89,10 @@ object DialogHelper {
         DefaultWarningDialog(context)
     }
 
-    private var warningDialogClass: Class<*> = CupertinoWarningDialog::class.java
-    fun <T : IWarningDialog> setWarningDialogClass(value: Class<T>) {
-        warningDialogClass = value
-    }
+    var warningDialogClass: Class<*> = CupertinoWarningDialog::class.java
+//    fun <T : IWarningDialog> setWarningDialogClass(value: Class<T>) {
+//        warningDialogClass = value
+//    }
 
     fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?, cancelListener: (() -> Unit)? = null): IWarningDialog {
         val normalDialog: IWarningDialog = getWarningDialog(context)

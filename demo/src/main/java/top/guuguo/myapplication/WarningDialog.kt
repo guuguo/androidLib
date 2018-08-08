@@ -34,6 +34,12 @@ class WarningDialog : IWarningDialog {
     }
 
     override fun setUiBeforShow() {
+        if (btnNum.get() == 0) {
+            if (!btnText2.get().isNullOrEmpty())
+                btnNum.set(2)
+            else if (!btnText1.get().isNullOrEmpty())
+                btnNum.set(1)
+        }
         binding.warningDialog = this
         binding.btn1.setOnClickListener {
             btnClick1?.invoke(this)
