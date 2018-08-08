@@ -7,7 +7,7 @@
     android:layout_height="80dp"
     android:layout_gravity="center_vertical|right"
     android:layout_marginRight="-40dp"
-    app:rv_backgroundColor="@color/color_blue_deep"
+    app:rv_backgroundColor="@color/widget_color_navigation"
     app:rv_cornerRadius_BL="40dp"
     app:rv_cornerRadius_TL="40dp"
     >
