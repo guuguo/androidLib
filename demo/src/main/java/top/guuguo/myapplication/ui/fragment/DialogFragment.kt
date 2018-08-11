@@ -1,6 +1,7 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
+import android.support.v4.app.Fragment
 import android.widget.TextView
 import com.guuguo.android.dialog.dialog.CustomAlertDialog
 import com.guuguo.android.dialog.dialog.EditAlertDialog
@@ -8,6 +9,7 @@ import com.guuguo.android.dialog.utils.DialogSettings
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
+import com.guuguo.android.lib.app.SupportFragment
 import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_dialog.*
 import top.guuguo.myapplication.R
@@ -49,6 +51,9 @@ class DialogFragment : LBaseFragmentSupport() {
     companion object {
         fun intentTo(activity: Activity) {
             LBaseActivitySupport.intentTo(activity, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java)
+        }
+        fun intentTo(fragment: SupportFragment) {
+            LBaseActivitySupport.intentTo(fragment, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java)
         }
     }
 }

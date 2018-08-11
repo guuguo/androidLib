@@ -1,15 +1,11 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
-import com.guuguo.android.dialog.utils.DialogSettings
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
-import io.reactivex.Completable
-import kotlinx.android.synthetic.main.fragment_dialog.*
 import kotlinx.android.synthetic.main.fragment_test.*
 import top.guuguo.myapplication.R
-import java.util.concurrent.TimeUnit
 
 class TestFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_test
@@ -24,6 +20,9 @@ class TestFragment : LBaseFragmentSupport() {
         }
         search.onBackClick={
             state.showEmpty("不行了",R.drawable.empty_cute_girl_box,null,null)
+        }
+        btn_theme.setOnClickListener {
+            DialogFragment.intentTo(this)
         }
     }
 

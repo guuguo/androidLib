@@ -358,9 +358,17 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
             else
                 activity.startActivityForResult(intent, targetCode)
         }
+        fun <F : Fragment, A : Activity> intentTo(fragment: SupportFragment, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
+            val intent = getIntent(fragment.context!!, targetActivity, targetFragment, map)
+            if (targetCode == 0)
+                fragment.startActivity(intent)
+            else
+                fragment.startActivityForResult(intent, targetCode)
+        }
 
-        fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetActivity: Class<A>, targetFragment: Class<F>, map: HashMap<String, *>?): Intent {
-            val intent = Intent(activity, targetActivity)
+
+        fun <A : Activity, F : Fragment> getIntent(context: Context, targetActivity: Class<A>, targetFragment: Class<F>, map: HashMap<String, *>?): Intent {
+            val intent = Intent(context, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 
             val bundle = Bundle()
