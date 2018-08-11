@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.view.View
+import com.guuguo.android.dialog.dialog.CupertinoWarningDialog
 import com.guuguo.android.dialog.dialog.TipDialog
 import com.guuguo.android.dialog.dialog.DefaultWarningDialog
 import com.guuguo.android.dialog.dialog.base.IWarningDialog
@@ -56,11 +58,11 @@ object DialogHelper {
 
     fun dialogMsgShow(context: Context, msg: String, btnText: String, listener: (() -> Unit)?): IWarningDialog? {
         val normalDialog = getWarningDialog(context)
-                .setTitle("提示")
-                .setMessage(msg.safe())
-                .setBtnNum(1)
-                .setBtnText(btnText)
-                .setBtnClick({
+                .title("提示")
+                .message(msg.safe())
+                .btnNum(1)
+                .btnText(btnText)
+                .btnClick({
                     dialogDismiss(context, 0, it, DialogInterface.OnDismissListener { listener?.invoke() })
                 })
         showDialogOnMain(context, normalDialog)
@@ -78,7 +80,7 @@ object DialogHelper {
         return stateDialog
     }
 
-    private fun getWarningDialog(context: Context): IWarningDialog = try {
+    fun getWarningDialog(context: Context): IWarningDialog = try {
         warningDialogClass.run {
             val c = getConstructor(Context::class.java)
             c.newInstance(context) as IWarningDialog
@@ -87,19 +89,19 @@ object DialogHelper {
         DefaultWarningDialog(context)
     }
 
-    private var  warningDialogClass: Class<*> = DefaultWarningDialog::class.java
-    fun <T : IWarningDialog> setWarningDialogClass(value: Class<T>) {
-        warningDialogClass = value
-    }
+    var warningDialogClass: Class<*> = CupertinoWarningDialog::class.java
+//    fun <T : IWarningDialog> setWarningDialogClass(value: Class<T>) {
+//        warningDialogClass = value
+//    }
 
     fun dialogWarningShow(context: Context, msg: String, cancelStr: String, confirmStr: String, listener: (() -> Unit)?, cancelListener: (() -> Unit)? = null): IWarningDialog {
         val normalDialog: IWarningDialog = getWarningDialog(context)
-                .setTitle("提示")
-                .setMessage(msg.safe())
-                .setBtnNum(2)
-                .setBtnText(cancelStr, confirmStr)
-                .setPositiveBtnPosition(2)
-                .setBtnClick({ it.dismiss();cancelListener?.invoke() }, {
+                .title("提示")
+                .message(msg.safe())
+                .btnNum(2)
+                .btnText(cancelStr, confirmStr)
+                .positiveBtnPosition(2)
+                .btnClick({ it.dismiss();cancelListener?.invoke() }, {
                     it.dismiss()
                     listener?.invoke()
                 })
@@ -155,7 +157,7 @@ object DialogHelper {
     fun String?.safe(default: String = ""): String {
         if (this.isNullOrEmpty())
             return default
-        else return this!!;
+        else return this!!
     }
 
     val DEBUG = false

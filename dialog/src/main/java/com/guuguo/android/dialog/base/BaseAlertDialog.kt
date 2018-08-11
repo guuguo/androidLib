@@ -105,6 +105,7 @@ abstract class BaseAlertDialog<T : BaseAlertDialog<T>>
 
         mTvBtnRight = TextView(context)
         mTvBtnRight.gravity = Gravity.CENTER
+
     }
 
     override fun setUiBeforShow() {

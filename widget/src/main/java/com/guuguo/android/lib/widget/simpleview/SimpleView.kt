@@ -14,7 +14,7 @@ class SimpleView {
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, viewGroup: ViewGroup?) {
-        view = View.inflate(context, R.layout.base_include_simple_empty_view, viewGroup)
+        view = View.inflate(context, R.layout.widget_include_simple_empty_view, viewGroup)
         viewHolder = SimpleViewHolder(view)
     }
 }

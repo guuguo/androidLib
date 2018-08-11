@@ -6,20 +6,36 @@ import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import kotlinx.android.synthetic.main.fragment_test.*
 import top.guuguo.myapplication.R
+import top.guuguo.myapplication.R.id.search
+import top.guuguo.myapplication.R.id.state
+import java.util.concurrent.TimeUnit
 
 class TestFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_test
     override fun getHeaderTitle() = "dialogFragment"
+    var type = 0
     override fun initView() {
         super.initView()
         search.searchClick = {
             state.showLoading("加载中")
-            state.postDelayed({
-                state.restore()
-            },2000)
+            when (type) {
+                0 -> state.postDelayed({
+                    state.restore()
+                }, 2000)
+                1->state.postDelayed({
+                    state.showEmpty("不行了", R.drawable.empty_cute_girl_box)
+                }, 2000)
+                2->state.postDelayed({
+                    state.showError("不行了")
+                }, 2000)
+            }
+            type++
+            if (type == 3)
+                type = 0
+
         }
-        search.onBackClick={
-            state.showEmpty("不行了",R.drawable.empty_cute_girl_box,null,null)
+        search.onBackClick = {
+            state.showEmpty("不行了", R.drawable.empty_cute_girl_box, null, null)
         }
         btn_theme.setOnClickListener {
             DialogFragment.intentTo(this)

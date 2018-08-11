@@ -9,6 +9,7 @@
     android:padding="10dp"
     tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
+    <include layout="@layout/base_include_toolbar_common" />
 
     <com.guuguo.android.lib.widget.progress.ProgressRing
         android:id="@+id/pr_progress"

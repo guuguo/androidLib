@@ -127,10 +127,10 @@ public class SwipeNavigationLayout extends FrameLayout {
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             if (showType == -1 && navigationView == null && Math.abs(distanceX / distanceY) > 2) {
                 if (distanceX < 0) {
-                    navigationView = LayoutInflater.from(getContext()).inflate(R.layout.base_include_navigation_left, SwipeNavigationLayout.this, false);
+                    navigationView = LayoutInflater.from(getContext()).inflate(R.layout.widget_include_navigation_left, SwipeNavigationLayout.this, false);
                     showType = 1;
                 } else {
-                    navigationView = LayoutInflater.from(getContext()).inflate(R.layout.base_include_navigation_right, SwipeNavigationLayout.this, false);
+                    navigationView = LayoutInflater.from(getContext()).inflate(R.layout.widget_include_navigation_right, SwipeNavigationLayout.this, false);
                     showType = 2;
                 }
                 SwipeNavigationLayout.this.addView(navigationView);

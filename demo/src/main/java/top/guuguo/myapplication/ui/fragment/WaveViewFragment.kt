@@ -10,6 +10,7 @@ import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.widget.CustomMultiWaveView
 import kotlinx.android.synthetic.main.fragment_waveview.*
 import top.guuguo.myapplication.R
+import top.guuguo.myapplication.ui.HomeGuideDialog
 
 class WaveViewFragment : LBaseFragmentSupport() {
     override fun getLayoutResId() = R.layout.fragment_waveview
@@ -26,6 +27,9 @@ class WaveViewFragment : LBaseFragmentSupport() {
             if (it is BaseCupertinoTitleActivity) {
                 it.getFunctionView()?.drawable = ContextCompat.getDrawable(activity, R.drawable.ic_search)
             }
+        }
+        wave_view.setOnClickListener {
+            HomeGuideDialog(activity,wave_view,HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
         }
     }
 

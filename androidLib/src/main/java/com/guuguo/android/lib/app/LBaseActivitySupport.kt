@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -104,7 +105,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
     /*toolbar*/
     open fun getToolBar(): Toolbar? = null
 
-    open fun getBackIconRes(): Int = mFragment?.getBackIconRes().safe( R.drawable.ic_arrow_back_white_24dp)
+    open fun getBackIconRes(): Int = mFragment?.getBackIconRes().safe(R.drawable.ic_arrow_back_white_24dp)
     open fun getAppBar(): ViewGroup? = null
     open protected fun isNavigationBack() = mFragment?.isNavigationBack().safe(true)
     open protected fun isStatusBarTextDark() = false
@@ -182,34 +183,33 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         super.onDestroy()
     }
 
-    /**
-     * 判断是否 fragment activity
-
-     * @param data
-     */
+    /** 初始化 单fragment activity */
     private fun initFromIntent(data: Intent?) {
+        mFragment = getFragmentInstance(data)
+        if (mFragment == null)
+            return
+        val args = data?.extras
+
+        if (args != null) {
+            mFragment!!.arguments = args
+        }
+    }
+
+    open fun getFragmentInstance(data: Intent?): LBaseFragmentSupport? {
         try {
             val clz = intent.getSerializableExtra(SIMPLE_ACTIVITY_INFO) as Class<*>?
             if (data == null || clz == null) {
-                return
+                return null
             }
             try {
-                mFragment = clz.newInstance() as LBaseFragmentSupport
-                val args = data.extras
-
-                if (args != null) {
-                    mFragment!!.arguments = args
-                }
-
+                return clz.newInstance() as LBaseFragmentSupport
             } catch (e: Exception) {
                 e.printStackTrace()
                 throw IllegalArgumentException("generate fragment error. by value:" + clz.toString())
             }
-
-        } catch (e: Exception) {
-
+        } catch (e: Throwable) {
+            return null
         }
-
     }
 
     override fun onBackPressedSupport() {
@@ -247,6 +247,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         super.onResume()
         overridePendingTransition()
     }
+
     open fun overridePendingTransition() {
         mFragment?.overridePendingTransition()
 //        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
@@ -273,7 +274,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         startActivity(home)
         Completable.complete().delay(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
             BaseApplication.get().mActivityLifecycle.clear()
-        }
+        }.isDisposed
     }
 
     override fun dialogLoadingShow(msg: String, canTouchCancel: Boolean, maxDelay: Long, listener: DialogInterface.OnDismissListener?) {
@@ -325,7 +326,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
                         } else {
                             "拍照权限被拒绝".toast()
                         }
-                    }
+                    }.isDisposed
         } else {
             "未检测到外部sd卡".toast()
         }
@@ -371,6 +372,13 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
             val intent = Intent(context, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 
+            val bundle = bundleData(map)
+
+            intent.putExtras(bundle)
+            return intent
+        }
+
+        fun bundleData(map: HashMap<String, *>?): Bundle {
             val bundle = Bundle()
             map?.forEach {
                 when (it.value) {
@@ -381,9 +389,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
                     is Serializable -> bundle.putSerializable(it.key, it.value as Serializable)
                 }
             }
-
-            intent.putExtras(bundle)
-            return intent
+            return bundle
         }
     }
 }
