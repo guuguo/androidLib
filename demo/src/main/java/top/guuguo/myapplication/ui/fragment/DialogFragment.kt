@@ -14,6 +14,7 @@ import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.app.SupportFragment
+import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.log
 import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_dialog.*
@@ -55,7 +56,7 @@ class DialogFragment : LBaseFragmentSupport() {
         }
         btn_success.setOnClickListener { dialogCompleteShow("可以了哈哈哈哈你好啊 啊啊 啊") }
         btn_alert_edit.setOnClickListener {
-            NewEditAlertDialog(activity).title("填写").btnText("取消", "完成").btnClick({ it.dismiss() }, { it.dismiss() }).show()
+            NewEditAlertDialog(activity).paddingVertical(10.dpToPx()).title("填写").btnText("取消", "完成").btnClick({ it.dismiss() }, { it.dismiss() }).show()
         }
         btn_alert_custom.setOnClickListener {
             CustomAlertDialog(activity).contentView(TextView(activity)).title("填写").show()
