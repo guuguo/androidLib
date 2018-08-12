@@ -4,6 +4,7 @@ import android.app.Activity
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
+import com.guuguo.android.lib.extension.log
 import kotlinx.android.synthetic.main.fragment_test.*
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.R.id.search
@@ -44,6 +45,8 @@ class TestFragment : LBaseFragmentSupport() {
 
     companion object {
         fun intentTo(activity: Activity) {
+            "dialog fragment".log()
+            "dialog fragment 2".log("可怕")
             LBaseActivitySupport.intentTo(activity, TestFragment::class.java, BaseCupertinoTitleActivity::class.java)
         }
     }
