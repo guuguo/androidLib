@@ -72,6 +72,7 @@ public class AppUtil {
         try {
             result = Utils.getContext().getPackageManager().getPackageInfo(Utils.getContext().getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
         return checkValidData(result);
     }
@@ -87,6 +88,7 @@ public class AppUtil {
             result = Utils.getContext().getPackageManager()
                     .getPackageInfo(Utils.getContext().getPackageName(), 0).versionCode;
         } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
         return result;
     }

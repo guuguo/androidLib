@@ -51,6 +51,9 @@ class NewEditAlertDialog(var mContext: Context) {
             this.mEditText = editText
         }
 
+    fun paddingVertical(padding: Int) = this.also { paddingVertical = padding }
+
+    private var paddingVertical = 0
     fun createCustomContent(): View {
         mContentLayout = FrameLayout(mContext)
         mContentLayout!!.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -58,8 +61,8 @@ class NewEditAlertDialog(var mContext: Context) {
         /** EditText  */
         editTextView = EditText(mContext)
         editTextView!!.background = getDrawable(R.drawable.bg_edittext)
-        editTextView!!.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, dp2px(40f))
-        editTextView!!.setPadding(dp2px(10f), 0, 0, dp2px(10f))
+        editTextView!!.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, dp2px(40f)).apply { gravity = Gravity.CENTER }
+        editTextView!!.setPadding(dp2px(10f), paddingVertical, dp2px(10f), paddingVertical)
         editTextView!!.gravity = Gravity.CENTER_VERTICAL
         mContentLayout!!.addView(editTextView)
 

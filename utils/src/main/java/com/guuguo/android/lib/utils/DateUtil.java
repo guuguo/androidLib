@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
  */
 
 public class DateUtil {
+    private DateUtil(){}
     public static long toDate(String format, String dateStr) {
         try {
             return new SimpleDateFormat(format).parse(dateStr).getTime();

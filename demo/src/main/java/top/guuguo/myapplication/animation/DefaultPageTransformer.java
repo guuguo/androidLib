@@ -7,11 +7,6 @@ import com.guuguo.android.lib.utils.BasePageTransformer;
 public class DefaultPageTransformer extends BasePageTransformer {
 
 
-
-    public DefaultPageTransformer() {
-    }
-
-
     @Override
     public void handleInvisiblePage(View view, float position) {
         view.setAlpha(1f);

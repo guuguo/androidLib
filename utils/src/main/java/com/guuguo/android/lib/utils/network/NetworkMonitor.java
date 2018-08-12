@@ -13,7 +13,7 @@ public class NetworkMonitor {
 
     NetworkListener listener;
 
-    NetWorkUtils.NetworkType currentNetworkType =NetWorkUtils.NetworkType.NETWORK_UNKNOWN;
+    NetWorkUtils.NetworkType currentNetworkType = NetWorkUtils.NetworkType.NETWORK_UNKNOWN;
     boolean currentConnected = false;
 
     public NetworkMonitor(NetworkListener networkListener) {
@@ -24,14 +24,11 @@ public class NetworkMonitor {
             public void run() {
                 NetWorkUtils.NetworkType newType = NetWorkUtils.getNetworkType();
                 boolean newConnection = NetWorkUtils.isConnected(true);
-                //if(newConnection != currentConnected){
-                {
-                    if (listener != null) {
-                        listener.onNetworkChanged(NetworkMonitor.this, newConnection, newType);
-                    }
-                    currentConnected = newConnection;
-                    currentNetworkType = newType;
+                if (listener != null) {
+                    listener.onNetworkChanged(NetworkMonitor.this, newConnection, newType);
                 }
+                currentConnected = newConnection;
+                currentNetworkType = newType;
             }
         };
     }

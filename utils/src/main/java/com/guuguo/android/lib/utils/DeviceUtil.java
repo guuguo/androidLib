@@ -20,6 +20,7 @@ import java.util.Locale;
  */
 
 public class DeviceUtil {
+    private DeviceUtil(){}
     /**
      * The constant DEVICE_TYPE_WATCH.
      */
@@ -228,7 +229,6 @@ public class DeviceUtil {
      * @return the manufacturer
      */
     public static final String getManufacturer() {
-        TelephonyManager tm = (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
         return CommonUtil.checkValidData(
                 CommonUtil.handleIllegalCharacterInResult(Build.MANUFACTURER));
     }

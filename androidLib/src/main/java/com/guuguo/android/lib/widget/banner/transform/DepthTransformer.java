@@ -9,7 +9,9 @@ public class DepthTransformer implements ViewPager.PageTransformer {
 
     @Override
     public void transformPage(View page, float position) {
-        float alpha, scale, translationX;
+        float alpha;
+        float scale;
+        float translationX;
         if (position > 0 && position < 1) {
             // moving to the right
             alpha = (1 - position);

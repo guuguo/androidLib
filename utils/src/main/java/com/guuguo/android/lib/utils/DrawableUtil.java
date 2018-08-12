@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
  */
 
 public class DrawableUtil {
+    private DrawableUtil(){}
     public static Drawable getDrawableWithName(Context context, String resourceName) {
         Resources res = context.getResources();
         int picid = res.getIdentifier(resourceName, "drawable",
@@ -26,7 +27,6 @@ public class DrawableUtil {
                 drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
                         : Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
-        //canvas.setBitmap(bitmap);
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         drawable.draw(canvas);
         return bitmap;

@@ -51,7 +51,7 @@ class TipDialog : BaseDialog<TipDialog> {
         image = mOnCreateView.findViewById<View>(R.id.image) as ImageView
         txtInfo = mOnCreateView.findViewById<View>(R.id.txt_info) as TextView
 
-        if (use_blur) {
+        if (useBlur) {
             blur = BlurView(context, null)
             val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             blur!!.setOverlayColor(blur_front_color)

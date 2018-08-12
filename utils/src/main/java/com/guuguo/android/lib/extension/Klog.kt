@@ -68,14 +68,6 @@ fun String.log(hint: String = ""): String {
     Klog.d(contents = if (hint.isEmpty()) toString() else (hint + "║ " + toString()))
     return this
 }
-//fun String?.log(tag: String = ""): String? {
-//    if (!isNullOrEmpty())
-//        if (tag.isNullOrEmpty())
-//            LogUtil.i(this!!)
-//        else LogUtil.i(tag, this!!)
-//
-//    return this
-//}
 
 fun Throwable?.log(msg: String = "", tag: String = "") {
     if (tag.isNullOrEmpty())
