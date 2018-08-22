@@ -28,6 +28,7 @@ import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.extension.toast
+import com.guuguo.android.lib.lifecycle.AppHelper
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.systembar.SystemBarHelper
@@ -42,9 +43,10 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by guodeqing on 16/5/31.
  */
+@Deprecated("转为使用mvvm模式",replaceWith = ReplaceWith("LBaseActivity"))
 abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
 
-    open fun getApp() = BaseApplication.get()
+    open fun getApp() = AppHelper.app
     private var mLoadingDialog: TipDialog? = null
     /*fragment*/
 
@@ -117,7 +119,6 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         getHeaderTitle()?.let {
             title = it
         }
-
     }
 
 
@@ -273,7 +274,7 @@ abstract class LBaseActivitySupport : SupportActivity(), IView<ActivityEvent> {
         home.addCategory(Intent.CATEGORY_HOME)
         startActivity(home)
         Completable.complete().delay(200, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            BaseApplication.get().mActivityLifecycle.clear()
+            AppHelper.mActivityLifecycle.clear()
         }.isDisposed
     }
 

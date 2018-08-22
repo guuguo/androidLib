@@ -3,8 +3,7 @@ package com.guuguo.android.lib
 import android.app.Application
 import android.os.Build
 import android.os.Handler
-import com.guuguo.android.lib.app.ActivityLifecycle
-import com.guuguo.android.lib.utils.Utils
+import com.guuguo.android.lib.lifecycle.AppHelper
 
 
 /**
@@ -15,30 +14,14 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
         INSTANCE = this
     }
 
-    lateinit var mActivityLifecycle: ActivityLifecycle
 
     override fun onCreate() {
 
         Thread.setDefaultUncaughtExceptionHandler(this)
-        Utils.init(this)
-        initThread()
-        initLyfecycle()
+        AppHelper.init(this)
         init()
         super.onCreate()
     }
-
-    private fun initThread() {
-        sHandler = Handler(mainLooper)
-        mMainThread = Thread.currentThread()
-    }
-
-    open fun getCurrentActivity() = mActivityLifecycle.mActivityList.lastOrNull()
-
-    private fun initLyfecycle() {
-        mActivityLifecycle = ActivityLifecycle()
-        registerActivityLifecycleCallbacks(mActivityLifecycle)
-    }
-
 
     override fun uncaughtException(t: Thread, e: Throwable) {
         val sb = StringBuilder()
@@ -58,27 +41,13 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
         } catch (ex: Exception) {
         }
 
-        mActivityLifecycle.clear()
+        AppHelper.mActivityLifecycle.clear()
         System.exit(1)
     }
 
     protected abstract fun init()
 
-
     companion object {
-        private lateinit var mMainThread: Thread
-        private lateinit var sHandler: Handler
-        fun getHandler(): Handler {
-            return sHandler
-        }
-
-        fun runOnUiThread(runnable: Runnable) {
-            if (Thread.currentThread() !== mMainThread) {
-                sHandler.post(runnable)
-            } else {
-                runnable.run()
-            }
-        }
 
         private lateinit var INSTANCE: BaseApplication
         fun get(): BaseApplication {

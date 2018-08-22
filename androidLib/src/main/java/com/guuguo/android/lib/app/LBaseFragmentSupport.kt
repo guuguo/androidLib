@@ -11,12 +11,14 @@ import com.guuguo.android.dialog.dialog.TipDialog
 import com.guuguo.android.dialog.dialog.base.IWarningDialog
 import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.extension.initNav
+import com.guuguo.android.lib.extension.safe
 import com.trello.rxlifecycle2.android.FragmentEvent
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
+@Deprecated("转为使用mvvm模式",replaceWith = ReplaceWith("LBaseFragment"))
 abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
 
     protected val TAG = this.javaClass.simpleName
@@ -56,7 +58,7 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
     open fun getToolBar(): Toolbar? = null //fragment有自己的toolbar就重写该方法。fragment修改toolbar用activity.getSupportActionBar
     open protected fun initToolbar() {
         if (isNavigationBack()) {
-            getToolBar()?.initNav(activity, getBackIconRes())
+            getToolBar()?.initNav(activity, getBackIconRes().safe(R.drawable.ic_arrow_back_white_24dp))
         }
         val str = getHeaderTitle()
         if (str != null)

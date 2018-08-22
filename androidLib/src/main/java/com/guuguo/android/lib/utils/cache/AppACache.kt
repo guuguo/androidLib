@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.extension.safe
+import com.guuguo.android.lib.lifecycle.AppHelper
 import java.io.Serializable
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -27,7 +28,7 @@ class AppACache<T>(var default: T? = null, var typeToken: TypeToken<T>? = null) 
     }
 
     val aCache by lazy {
-        ACache.get(BaseApplication.get())
+        ACache.get(AppHelper.app)
     }
     var mValue: T? = null
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {

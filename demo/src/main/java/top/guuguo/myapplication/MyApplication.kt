@@ -3,6 +3,7 @@ package top.guuguo.myapplication
 import android.support.v4.content.ContextCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.BaseApplication
+import com.guuguo.android.lib.lifecycle.AppHelper
 import com.guuguo.android.lib.utils.LogUtil
 
 /**
@@ -10,9 +11,10 @@ import com.guuguo.android.lib.utils.LogUtil
  * 项目 androidLib
  */
 class MyApplication : BaseApplication() {
+
     companion object {
         val instance by lazy {
-            BaseApplication.get() as MyApplication
+            AppHelper.app as MyApplication
         }
     }
 

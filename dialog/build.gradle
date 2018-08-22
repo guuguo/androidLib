@@ -9,6 +9,7 @@ android {
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
 
+        resourcePrefix "drawable_"
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

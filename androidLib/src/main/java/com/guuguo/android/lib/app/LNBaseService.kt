@@ -2,6 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.app.Service
 import com.guuguo.android.lib.BaseApplication
+import com.guuguo.android.lib.lifecycle.AppHelper
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -12,7 +13,6 @@ import io.reactivex.disposables.Disposable
 abstract class LNBaseService : Service() {
 
     protected val TAG = this.javaClass.simpleName
-    protected lateinit var myApplication: BaseApplication
     private val mApiCalls = CompositeDisposable()
 
     protected fun addDispose(call: Disposable?) {
@@ -21,7 +21,6 @@ abstract class LNBaseService : Service() {
     }
 
     override fun onCreate() {
-        myApplication = BaseApplication.get()
         super.onCreate()
     }
 
