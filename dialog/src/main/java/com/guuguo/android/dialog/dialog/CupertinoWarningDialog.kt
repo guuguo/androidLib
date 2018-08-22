@@ -3,6 +3,7 @@ package com.guuguo.android.dialog.dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
@@ -50,6 +51,7 @@ class CupertinoWarningDialog : IWarningDialog {
         val btn_text_color: Int
         val btn_text_color_Press: Int
         val bgColor: Int
+        val dividerColor: Int
         when (DialogSettings.tip_theme) {
             DialogSettings.THEME_LIGHT -> {
                 bkgResId = R.drawable.rect_dark
@@ -57,6 +59,8 @@ class CupertinoWarningDialog : IWarningDialog {
                 bgColor = getColor(R.color.progress_dlg_bkg)
                 btn_text_color = Color.WHITE
                 btn_text_color_Press = getColor(R.color.ios_dialog_split_dark)
+                dividerColor=getColor(R.color.ios_dialog_split_dark)
+
             }
             else -> {
                 bkgResId = R.drawable.rect_light
@@ -64,6 +68,7 @@ class CupertinoWarningDialog : IWarningDialog {
                 bgColor = getColor(R.color.ios_dlg_bkg)
                 btn_text_color = getColor(R.color.ios_dlg_text)
                 btn_text_color_Press = getColor(R.color.ios_dialog_button_press)
+                dividerColor=getColor(R.color.ios_dialog_split_light)
             }
         }
 
@@ -73,6 +78,9 @@ class CupertinoWarningDialog : IWarningDialog {
         val tv_message = mOnCreateView.findViewById<TextView>(R.id.tv_message)
         val tv_title = mOnCreateView.findViewById<TextView>(R.id.tv_title)
         val customContainer = mOnCreateView.findViewById<FrameLayout>(R.id.content_container)
+        val ll_functions = mOnCreateView.findViewById<LinearLayout>(R.id.ll_functions)
+        val v_divider = mOnCreateView.findViewById<View>(R.id.v_divider)
+
         mCustomContentView?.let {
             customContainer.addView(mCustomContentView, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
         }
@@ -82,6 +90,9 @@ class CupertinoWarningDialog : IWarningDialog {
         tv_title.setTextColor(blur_front_color)
         btn1.setTextColor(btn_text_color)
         btn2.setTextColor(btn_text_color)
+
+        ll_functions.dividerDrawable=ColorDrawable().apply { color= dividerColor}
+        v_divider.setBackgroundColor(dividerColor)
 
         btn1.setOnClickListener {
             btnClick1?.invoke(this)

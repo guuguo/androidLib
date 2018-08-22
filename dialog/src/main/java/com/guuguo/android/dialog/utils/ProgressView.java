@@ -30,12 +30,12 @@ import io.reactivex.annotations.NonNull;
 
 
 /*
-*
-*   CircularProgressView
-*   @Github: https://github.com/Runly/CircularProgressView
-*   @Author: Runly(https://github.com/Runly/CircularProgressView/commits?author=Runly)
-*
-* */
+ *
+ *   CircularProgressView
+ *   @Github: https://github.com/Runly/CircularProgressView
+ *   @Author: Runly(https://github.com/Runly/CircularProgressView/commits?author=Runly)
+ *
+ * */
 public class ProgressView extends View {
     public static final int MODE_DETERMINATE = 0;
     public static final int MODE_INDETERMINATE = 1;
@@ -100,7 +100,7 @@ public class ProgressView extends View {
     }
 
     @Override
-    protected void onVisibilityChanged( View changedView, int visibility) {
+    protected void onVisibilityChanged(View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
         if (visibility == GONE || visibility == INVISIBLE && isStart) {
             stop();
@@ -779,7 +779,7 @@ public class ProgressView extends View {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 return getColor(context, android.R.attr.colorPrimary, defaultValue);
 
-            return getColor(context, R.color.colorPrimary,Color.WHITE);
+            return getColor(context, R.color.colorPrimary, Color.WHITE);
         }
 
     }

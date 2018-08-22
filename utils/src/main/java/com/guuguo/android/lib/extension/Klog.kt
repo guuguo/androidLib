@@ -68,14 +68,6 @@ fun String.log(hint: String = ""): String {
     Klog.d(contents = if (hint.isEmpty()) toString() else (hint + "║ " + toString()))
     return this
 }
-//fun String?.log(tag: String = ""): String? {
-//    if (!isNullOrEmpty())
-//        if (tag.isNullOrEmpty())
-//            LogUtil.i(this!!)
-//        else LogUtil.i(tag, this!!)
-//
-//    return this
-//}
 
 fun Throwable?.log(msg: String = "", tag: String = "") {
     if (tag.isNullOrEmpty())
@@ -299,7 +291,7 @@ class Klog private constructor() {
                 tag = if (TextUtils.isEmpty(tag) || isSpace(tag)) className else tag
             }
             val head = Formatter()
-                    .format("Thread: %s, Method: %s (File:%s Line:%d)" + LINE_SEPARATOR,
+                    .format("Thread: %s, Method: %s (File:%s Line:%d)$LINE_SEPARATOR",
                             Thread.currentThread().name,
                             targetElement.methodName,
                             className,
@@ -307,8 +299,7 @@ class Klog private constructor() {
                     .toString()
             var msg = NULL_TIPS
             if (contents != null) {
-                val `object` = contents
-                msg = if (`object` == null) NULL else `object`.toString()
+                msg = contents?.toString() ?: NULL
                 if (type == JSON) {
                     msg = formatJson(msg)
                 } else if (type == XML) {
@@ -317,7 +308,8 @@ class Klog private constructor() {
             }
             if (mLogBorderEnable) {
                 val sb = StringBuilder()
-                val lines = msg.split((LINE_SEPARATOR).toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                val lines = msg.split((LINE_SEPARATOR).toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                sb.append("-$LINE_SEPARATOR")
                 sb.append(TOP_BORDER).append(LINE_SEPARATOR)
                 sb.append(LEFT_BORDER).append(head)
                 for (line in lines) {
@@ -329,7 +321,7 @@ class Klog private constructor() {
             }
             if (mLogInfoEnable) {
                 val sb = StringBuilder()
-                val lines = msg.split((LINE_SEPARATOR).toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                val lines = msg.split((LINE_SEPARATOR).toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (line in lines) {
                     sb.append(line).append(LINE_SEPARATOR)
                 }
@@ -361,7 +353,7 @@ class Klog private constructor() {
                 transformer.setOutputProperty(OutputKeys.INDENT, "yes")
                 transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4")
                 transformer.transform(xmlInput, xmlOutput)
-                return xmlOutput.writer.toString().replaceFirst((">").toRegex(), ">" + LINE_SEPARATOR)
+                return xmlOutput.writer.toString().replaceFirst((">").toRegex(), ">$LINE_SEPARATOR")
             } catch (e: Exception) {
                 e.printStackTrace()
             }

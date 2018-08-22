@@ -4,15 +4,12 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.guuguo.android.dialog.R;
-
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by guodeqing on 6/23/16.

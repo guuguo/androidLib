@@ -1,13 +1,10 @@
 package com.guuguo.android.dialog.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
-import android.view.View;
 import android.view.WindowManager;
 
 import org.jetbrains.annotations.Nullable;
@@ -18,40 +15,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class DisplayUtil {
 
-//    public static void setPadding(final View view, float left, float top, float right, float bottom) {
-//        view.setPadding(designedDP2px(left), dip2px(top), designedDP2px(right), dip2px(bottom));
-//    }
+    private DisplayUtil() {
+    }
 
     private static float density = -1F;
     private static int screenWidthPixels = -1;
     private static int screenHeightPixels = -1;
     private static int screenRealHeightPixels = -1;
 
-//
-//    public static float getDensity() {
-//        if (density <= 0F) {
-//            density = Resources.getSystem().getDisplayMetrics().density;
-//        }
-//        return density;
-//    }
-//
-//    public static int designedDP2px(float designedDp) {
-//        if (screenWidthPixels < 0) {
-//            getScreenWidth();
-//        }
-//        if (px2dip(screenWidthPixels) != 320) {
-//            designedDp = designedDp * px2dip(screenWidthPixels) / 320f;
-//        }
-//        return dip2px(designedDp);
-//    }
-//
-//    public static int dip2px(float dpValue) {
-//        return (int) (dpValue * getDensity() + 0.5F);
-//    }
-//
-//    public static int px2dip(float pxValue) {
-//        return (int) (pxValue / getDensity() + 0.5F);
-//    }
 
     public static int getScreenWidth() {
         if (screenWidthPixels <= 0) {
@@ -59,7 +30,8 @@ public class DisplayUtil {
         }
         return screenWidthPixels;
     }
-       public static int getScreenRealHeight( Context context) {
+
+    public static int getScreenRealHeight(Context context) {
         if (!isAllScreenDevice(context)) {
             return getNormalScreenHeight();
         }
@@ -75,15 +47,13 @@ public class DisplayUtil {
             Display display = windowManager.getDefaultDisplay();
             Point point = new Point();
             display.getRealSize(point);
-            float width, height;
+            float height;
             if (point.x < point.y) {
-                width = point.x;
                 height = point.y;
             } else {
-                width = point.y;
                 height = point.x;
             }
-            screenRealHeightPixels= (int) height;
+            screenRealHeightPixels = (int) height;
         }
         return screenRealHeightPixels;
     }
@@ -98,7 +68,7 @@ public class DisplayUtil {
     private volatile static boolean mHasCheckAllScreen;
     private volatile static boolean mIsAllScreenDevice;
 
-    public static boolean isAllScreenDevice(@Nullable Context context) {
+    public static boolean isAllScreenDevice(Context context) {
         if (mHasCheckAllScreen) {
             return mIsAllScreenDevice;
         }
@@ -113,15 +83,13 @@ public class DisplayUtil {
             Display display = windowManager.getDefaultDisplay();
             Point point = new Point();
             display.getRealSize(point);
-            float width, height;
+            float  height;
             if (point.x < point.y) {
-                width = point.x;
                 height = point.y;
             } else {
-                width = point.y;
                 height = point.x;
             }
-            if (height != getNormalScreenHeight() ) {
+            if (height != getNormalScreenHeight()) {
                 mIsAllScreenDevice = true;
             }
         }

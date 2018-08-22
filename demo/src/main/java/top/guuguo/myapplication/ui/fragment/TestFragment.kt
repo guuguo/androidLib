@@ -1,12 +1,10 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
-import com.guuguo.android.dialog.utils.DialogSettings
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragmentSupport
-import io.reactivex.Completable
-import kotlinx.android.synthetic.main.fragment_dialog.*
+import com.guuguo.android.lib.extension.log
 import kotlinx.android.synthetic.main.fragment_test.*
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.R.id.search
@@ -40,10 +38,15 @@ class TestFragment : LBaseFragmentSupport() {
         search.onBackClick = {
             state.showEmpty("不行了", R.drawable.empty_cute_girl_box, null, null)
         }
+        btn_theme.setOnClickListener {
+            DialogFragment.intentTo(this)
+        }
     }
 
     companion object {
         fun intentTo(activity: Activity) {
+            "dialog fragment".log()
+            "dialog fragment 2".log("可怕")
             LBaseActivitySupport.intentTo(activity, TestFragment::class.java, BaseCupertinoTitleActivity::class.java)
         }
     }

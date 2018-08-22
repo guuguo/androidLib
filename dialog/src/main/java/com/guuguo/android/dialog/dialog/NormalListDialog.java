@@ -27,42 +27,76 @@ import com.guuguo.android.dialog.utils.OnOperItemClickL;
 import java.util.ArrayList;
 
 public class NormalListDialog extends BaseDialog<NormalListDialog> {
-    /** ListView */
+    /**
+     * ListView
+     */
     private ListView mLv;
-    /** title */
+    /**
+     * title
+     */
     private TextView mTvTitle;
-    /** corner radius,dp(圆角程度,单位dp) */
+    /**
+     * corner radius,dp(圆角程度,单位dp)
+     */
     private float mCornerRadius = 5;
-    /** title background color(标题背景颜色) */
+    /**
+     * title background color(标题背景颜色)
+     */
     private int mTitleBgColor = Color.parseColor("#303030");
-    /** title text(标题) */
+    /**
+     * title text(标题)
+     */
     private String mTitle = "提示";
-    /** title textcolor(标题颜色) */
+    /**
+     * title textcolor(标题颜色)
+     */
     private int mTitleTextColor = Color.parseColor("#ffffff");
-    /** title textsize(标题字体大小,单位sp) */
+    /**
+     * title textsize(标题字体大小,单位sp)
+     */
     private float mTitleTextSize = 16.5f;
-    /** ListView background color(ListView背景色) */
+    /**
+     * ListView background color(ListView背景色)
+     */
     private int mLvBgColor = Color.parseColor("#ffffff");
-    /** divider color(ListView divider颜色) */
+    /**
+     * divider color(ListView divider颜色)
+     */
     private int mDividerColor = Color.LTGRAY;
-    /** divider height(ListView divider高度) */
+    /**
+     * divider height(ListView divider高度)
+     */
     private float mDividerHeight = 0.8f;
-    /** item press color(ListView item按住颜色) */
+    /**
+     * item press color(ListView item按住颜色)
+     */
     private int mItemPressColor = Color.parseColor("#ffcccccc");
-    /** item textcolor(ListView item文字颜色) */
+    /**
+     * item textcolor(ListView item文字颜色)
+     */
     private int mItemTextColor = Color.parseColor("#303030");
-    /** item textsize(ListView item文字大小) */
+    /**
+     * item textsize(ListView item文字大小)
+     */
     private float mItemTextSize = 15f;
-    /** item extra padding(ListView item额外padding) */
+    /**
+     * item extra padding(ListView item额外padding)
+     */
     private int mItemExtraLeft;
     private int mItemExtraTop;
     private int mItemExtraRight;
     private int mItemExtraBottom;
-    /** enable title show(是否显示标题) */
+    /**
+     * enable title show(是否显示标题)
+     */
     private boolean mIsTitleShow = true;
-    /** adapter(自定义适配器) */
+    /**
+     * adapter(自定义适配器)
+     */
     private BaseAdapter mAdapter;
-    /** operation items(操作items) */
+    /**
+     * operation items(操作items)
+     */
     private ArrayList<DialogMenuItem> mContents = new ArrayList<>();
     private OnOperItemClickL mOnOperItemClickL;
     private LayoutAnimationController mLac;
@@ -171,28 +205,35 @@ public class NormalListDialog extends BaseDialog<NormalListDialog> {
             }
         });
 
-//        mLv.setLayoutAnimation(mLac);
     }
 
-    /** set title background color(设置标题栏背景色) @return NormalListDialog */
+    /**
+     * set title background color(设置标题栏背景色) @return NormalListDialog
+     */
     public NormalListDialog titleBgColor(int titleBgColor) {
         mTitleBgColor = titleBgColor;
         return this;
     }
 
-    /** set title text(设置标题内容) */
+    /**
+     * set title text(设置标题内容)
+     */
     public NormalListDialog title(String title) {
         mTitle = title;
         return this;
     }
 
-    /** set title textsize(设置标题字体大小) */
-    public NormalListDialog titleTextSize_SP(float titleTextSize_SP) {
-        mTitleTextSize = titleTextSize_SP;
+    /**
+     * set title textsize(设置标题字体大小)
+     */
+    public NormalListDialog titleTextSize_SP(float titleTextSizeSP) {
+        mTitleTextSize = titleTextSizeSP;
         return this;
     }
 
-    /** set title textcolor(设置标题字体颜色) */
+    /**
+     * set title textcolor(设置标题字体颜色)
+     */
     public NormalListDialog titleTextColor(int titleTextColor) {
         mTitleTextColor = titleTextColor;
         return this;
@@ -204,49 +245,65 @@ public class NormalListDialog extends BaseDialog<NormalListDialog> {
         return this;
     }
 
-    /** set ListView background color(设置ListView背景) */
+    /**
+     * set ListView background color(设置ListView背景)
+     */
     public NormalListDialog lvBgColor(int lvBgColor) {
         mLvBgColor = lvBgColor;
         return this;
     }
 
-    /** set corner radius(设置圆角程度,单位dp) */
-    public NormalListDialog cornerRadius(float cornerRadius_DP) {
-        mCornerRadius = cornerRadius_DP;
+    /**
+     * set corner radius(设置圆角程度,单位dp)
+     */
+    public NormalListDialog cornerRadius(float cornerRadiusDP) {
+        mCornerRadius = cornerRadiusDP;
         return this;
     }
 
-    /** set divider color(ListView divider颜色) */
+    /**
+     * set divider color(ListView divider颜色)
+     */
     public NormalListDialog dividerColor(int dividerColor) {
         mDividerColor = dividerColor;
         return this;
     }
 
-    /** set divider height(ListView divider高度) */
-    public NormalListDialog dividerHeight(float dividerHeight_DP) {
-        mDividerHeight = dividerHeight_DP;
+    /**
+     * set divider height(ListView divider高度)
+     */
+    public NormalListDialog dividerHeight(float dividerHeightDP) {
+        mDividerHeight = dividerHeightDP;
         return this;
     }
 
-    /** set item press color(item按住颜色) */
+    /**
+     * set item press color(item按住颜色)
+     */
     public NormalListDialog itemPressColor(int itemPressColor) {
         mItemPressColor = itemPressColor;
         return this;
     }
 
-    /** set item textcolor(item字体颜色) */
+    /**
+     * set item textcolor(item字体颜色)
+     */
     public NormalListDialog itemTextColor(int itemTextColor) {
         mItemTextColor = itemTextColor;
         return this;
     }
 
-    /** set item textsize(item字体大小) */
-    public NormalListDialog itemTextSize(float itemTextSize_SP) {
-        mItemTextSize = itemTextSize_SP;
+    /**
+     * set item textsize(item字体大小)
+     */
+    public NormalListDialog itemTextSize(float itemTextSizeSP) {
+        mItemTextSize = itemTextSizeSP;
         return this;
     }
 
-    /** set item height(item高度) */
+    /**
+     * set item height(item高度)
+     */
     public NormalListDialog setItemExtraPadding(int itemLeft, int itemTop, int itemRight, int itemBottom) {
         mItemExtraLeft = dp2px(itemLeft);
         mItemExtraTop = dp2px(itemTop);
@@ -256,7 +313,9 @@ public class NormalListDialog extends BaseDialog<NormalListDialog> {
         return this;
     }
 
-    /** set layoutAnimation(设置layout动画 ,传入null将不显示layout动画) */
+    /**
+     * set layoutAnimation(设置layout动画 ,传入null将不显示layout动画)
+     */
     public NormalListDialog layoutAnimation(LayoutAnimationController lac) {
         mLac = lac;
         return this;

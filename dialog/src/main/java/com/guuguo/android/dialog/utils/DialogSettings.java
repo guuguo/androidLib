@@ -1,13 +1,9 @@
 package com.guuguo.android.dialog.utils;
 
-import com.guuguo.android.dialog.base.BaseDialog;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class DialogSettings {
+    private DialogSettings(){}
 
-    public static List<BaseDialog> dialogList = new ArrayList<>();         //对话框队列，当一个对话框处于启动状态时，它是阻塞的，除非关掉它，下一个对话框才会显示
+//    public static List<BaseDialog> dialogList = new ArrayList<>();         //对话框队列，当一个对话框处于启动状态时，它是阻塞的，除非关掉它，下一个对话框才会显示
 
     /** 白底黑字 */
     public static final int THEME_LIGHT = 0;
@@ -21,7 +17,7 @@ public class DialogSettings {
     /*
      *  决定等待框、提示框以及iOS风格的对话框是否启用模糊背景
      */
-    public static boolean use_blur = false;
+    public static boolean useBlur = false;
 
     /*
      *  决定对话框的样式
@@ -42,29 +38,29 @@ public class DialogSettings {
     public static int tip_theme = 1;
 
 
-    //文字大小设定
-    //注意，此值必须大于0才生效，否则使用默认值。另外，我们使用的是dp单位，非sp单位，若有特殊需要请自行转换
-    //另外，暂时不支持Material风格对话框设定字体大小
-    /*
-     *  决定对话框标题字样大小
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_title_text_size = 0;
-    /*
-     *  决定对话框内容文字字样大小
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_message_text_size = 0;
-    /*
-     *  决定输入框输入文本字样大小
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_input_text_size = 0;
-    /*
-     *  决定输入框按钮字样大小
-     *  当值<=0时使用默认大小
-     */
-    public static int dialog_button_text_size = 0;
+//    //文字大小设定
+//    //注意，此值必须大于0才生效，否则使用默认值。另外，我们使用的是dp单位，非sp单位，若有特殊需要请自行转换
+//    //另外，暂时不支持Material风格对话框设定字体大小
+//    /*
+//     *  决定对话框标题字样大小
+//     *  当值<=0时使用默认大小
+//     */
+//    public static int dialog_title_text_size = 0;
+//    /*
+//     *  决定对话框内容文字字样大小
+//     *  当值<=0时使用默认大小
+//     */
+//    public static int dialog_message_text_size = 0;
+//    /*
+//     *  决定输入框输入文本字样大小
+//     *  当值<=0时使用默认大小
+//     */
+//    public static int dialog_input_text_size = 0;
+//    /*
+//     *  决定输入框按钮字样大小
+//     *  当值<=0时使用默认大小
+//     */
+//    public static int dialog_button_text_size = 0;
     /*
      *  决定提示框字样大小
      *  当值<=0时使用默认大小

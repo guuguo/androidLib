@@ -11,6 +11,7 @@ import android.util.Log;
  */
 
 public class Utils {
+    private Utils(){}
     private static Context mContext;
 
     public static void init(Context context) {

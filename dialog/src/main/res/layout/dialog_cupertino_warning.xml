@@ -43,15 +43,17 @@
     </FrameLayout>
 
     <View
+        android:id="@+id/v_divider"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="#FF0000" />
+        android:background="@color/ios_dialog_split_light" />
 
     <LinearLayout
-        android:layout_width="@dimen/dialog_width"
+        android:id="@+id/ll_functions"
+        android:layout_width="@dimen/cupertino_dialog_width"
         android:layout_height="45dp"
-        android:divider="#FF0000"
+        android:divider="@color/ios_dialog_split_light"
         android:orientation="horizontal"
         android:showDividers="middle">
 

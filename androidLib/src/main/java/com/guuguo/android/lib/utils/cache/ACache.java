@@ -102,7 +102,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 String数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -131,7 +131,7 @@ public class ACache {
 
 	/**
 	 * 保存 String数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -145,7 +145,7 @@ public class ACache {
 
 	/**
 	 * 读取 String数据
-	 * 
+	 *
 	 * @param key
 	 * @return String 数据
 	 */
@@ -189,7 +189,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 JSONObject数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -201,7 +201,7 @@ public class ACache {
 
 	/**
 	 * 保存 JSONObject数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -215,7 +215,7 @@ public class ACache {
 
 	/**
 	 * 读取JSONObject数据
-	 * 
+	 *
 	 * @param key
 	 * @return JSONObject数据
 	 */
@@ -235,7 +235,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 JSONArray数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -247,7 +247,7 @@ public class ACache {
 
 	/**
 	 * 保存 JSONArray数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -261,7 +261,7 @@ public class ACache {
 
 	/**
 	 * 读取JSONArray数据
-	 * 
+	 *
 	 * @param key
 	 * @return JSONArray数据
 	 */
@@ -281,7 +281,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 byte数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -310,7 +310,7 @@ public class ACache {
 
 	/**
 	 * 保存 byte数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -324,7 +324,7 @@ public class ACache {
 
 	/**
 	 * 获取 byte 数据
-	 * 
+	 *
 	 * @param key
 	 * @return byte 数据
 	 */
@@ -365,7 +365,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 Serializable数据 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -377,7 +377,7 @@ public class ACache {
 
 	/**
 	 * 保存 Serializable数据到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -410,7 +410,7 @@ public class ACache {
 
 	/**
 	 * 读取 Serializable数据
-	 * 
+	 *
 	 * @param key
 	 * @return Serializable 数据
 	 */
@@ -451,7 +451,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 bitmap 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -463,7 +463,7 @@ public class ACache {
 
 	/**
 	 * 保存 bitmap 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -477,7 +477,7 @@ public class ACache {
 
 	/**
 	 * 读取 bitmap 数据
-	 * 
+	 *
 	 * @param key
 	 * @return bitmap 数据
 	 */
@@ -493,7 +493,7 @@ public class ACache {
 	// =======================================
 	/**
 	 * 保存 drawable 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -505,7 +505,7 @@ public class ACache {
 
 	/**
 	 * 保存 drawable 到 缓存中
-	 * 
+	 *
 	 * @param key
 	 *            保存的key
 	 * @param value
@@ -519,7 +519,7 @@ public class ACache {
 
 	/**
 	 * 读取 Drawable 数据
-	 * 
+	 *
 	 * @param key
 	 * @return Drawable 数据
 	 */
@@ -532,7 +532,7 @@ public class ACache {
 
 	/**
 	 * 获取缓存文件
-	 * 
+	 *
 	 * @param key
 	 * @return value 缓存的文件
 	 */
@@ -545,7 +545,7 @@ public class ACache {
 
 	/**
 	 * 移除某个key
-	 * 
+	 *
 	 * @param key
 	 * @return 是否移除成功
 	 */
@@ -661,7 +661,7 @@ public class ACache {
 
 		/**
 		 * 移除旧的文件
-		 * 
+		 *
 		 * @return
 		 */
 		private long removeNext() {
@@ -708,7 +708,7 @@ public class ACache {
 
 		/**
 		 * 判断缓存的String数据是否到期
-		 * 
+		 *
 		 * @param str
 		 * @return true：到期了 false：还没有到期
 		 */
@@ -718,7 +718,7 @@ public class ACache {
 
 		/**
 		 * 判断缓存的byte数据是否到期
-		 * 
+		 *
 		 * @param data
 		 * @return true：到期了 false：还没有到期
 		 */
