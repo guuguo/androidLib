@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.widget.bindingAdapter
+package com.guuguo.android.lib.databinding
 
 import android.databinding.BindingAdapter
 import android.databinding.BindingMethod

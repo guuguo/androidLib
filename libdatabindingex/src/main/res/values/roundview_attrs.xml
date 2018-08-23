@@ -54,7 +54,7 @@
     <!-- 是否有Ripple效果,api21+有效-->
     <attr name="rv_isRippleEnable" format="boolean"/>
 
-    <declare-styleable name="IconRoundTextView">
+    <declare-styleable name="RoundTextView">
         <attr name="rv_backgroundColor"/>
         <attr name="rv_backgroundPressColor"/>
         <attr name="rv_cornerRadius"/>

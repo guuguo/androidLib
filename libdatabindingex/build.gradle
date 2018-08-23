@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -26,12 +27,14 @@ android {
             }
         }
     }
-
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    kapt "com.android.databinding:compiler:${ANDROID_PLUGIN_VERSION}"
+    api project(':androidLib')
 }
-repositories {
-    mavenCentral()
-}
+

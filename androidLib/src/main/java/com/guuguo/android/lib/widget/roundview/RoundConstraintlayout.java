@@ -5,7 +5,7 @@ import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
-/** 用于需要圆角矩形框背景的FrameLayout的情况,减少直接使用FrameLayout时引入的shape资源文件 */
+/** 用于需要圆角矩形框背景的 ConstraintLayout 的情况,减少直接使用FrameLayout时引入的shape资源文件 */
 public class RoundConstraintlayout extends ConstraintLayout {
     private RoundViewDelegate delegate;
 

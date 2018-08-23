@@ -1,14 +1,15 @@
-package com.guuguo.android.lib.widget.roundview
+package com.guuguo.android.lib.databinding
 
 import android.databinding.BindingAdapter
+import com.guuguo.android.lib.widget.roundview.*
 
 
 @BindingAdapter("rv_backgroundColor")
-fun com.guuguo.android.lib.widget.roundview.RoundTextView.setRvBackGroundColor(color: Int) {
+fun RoundTextView.setRvBackGroundColor(color: Int) {
     this.delegate.backgroundColor = color
 }
 @BindingAdapter("rv_strokeColor")
-fun com.guuguo.android.lib.widget.roundview.RoundTextView.setRvStrokeColor(color: Int) {
+fun RoundTextView.setRvStrokeColor(color: Int) {
     this.delegate.strokeColor = color
 }
 

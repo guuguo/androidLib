@@ -62,7 +62,7 @@ dependencies {
     implementation "com.android.support:cardview-v7:$SUPPORT_VERSION"
 //    implementation 'com.github.guuguo.androidLib:androidLib:1.1.6.6'
 //    implementation 'com.github.guuguo:androidLib:-SNAPSHOT'
-    implementation project(':androidLib')
+    implementation project(':libdatabindingex')
     implementation project(':iconfont')
     testImplementation 'junit:junit:4.12'
 
