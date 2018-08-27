@@ -1,18 +1,16 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
-import android.support.v4.app.Fragment
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.guuguo.android.dialog.dialog.CupertinoWarningDialog
 import com.guuguo.android.dialog.dialog.CustomAlertDialog
 import com.guuguo.android.dialog.dialog.DefaultWarningDialog
 import com.guuguo.android.dialog.dialog.NewEditAlertDialog
-import com.guuguo.android.dialog.utils.DialogHelper
-import com.guuguo.android.dialog.utils.DialogSettings
+import com.guuguo.android.dialog.utils.*
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
-import com.guuguo.android.lib.app.LBaseFragmentSupport
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.app.SupportFragment
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.log
@@ -23,7 +21,7 @@ import top.guuguo.myapplication.WarningDialog
 import java.util.concurrent.TimeUnit
 
 @Route(path = "/demo/dialog")
-class DialogFragment : LBaseFragmentSupport() {
+class DialogFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
     override fun isNavigationBack() = false
@@ -44,17 +42,17 @@ class DialogFragment : LBaseFragmentSupport() {
             }
         }
         btn_loading.setOnClickListener {
-            dialogLoadingShow("加载中")
+            activity.dialogLoadingShow("加载中")
             Completable.complete().delay(2, TimeUnit.SECONDS).subscribe {
-                dialogDismiss()
+                activity.dialogDismiss()
             }
         }
-        btn_error.setOnClickListener { dialogErrorShow("出错了") }
-        btn_message.setOnClickListener { dialogMsgShow("天气很好", "知道了", null) }
+        btn_error.setOnClickListener { activity.dialogErrorShow("出错了") }
+        btn_message.setOnClickListener { activity.dialogMsgShow("天气很好", "知道了", null) }
         btn_warning.setOnClickListener {
-            dialogWarningShow("确定继续吗", "取消", "确定")
+            activity.dialogWarningShow("确定继续吗", "取消", "确定")
         }
-        btn_success.setOnClickListener { dialogCompleteShow("可以了哈哈哈哈你好啊 啊啊 啊") }
+        btn_success.setOnClickListener { activity.dialogCompleteShow("可以了哈哈哈哈你好啊 啊啊 啊") }
         btn_alert_edit.setOnClickListener {
             NewEditAlertDialog(activity).paddingVertical(10.dpToPx()).title("填写").btnText("取消", "完成").btnClick({ it.dismiss() }, { it.dismiss() }).show()
         }

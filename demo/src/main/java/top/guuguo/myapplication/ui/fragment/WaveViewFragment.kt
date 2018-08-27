@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.widget.CustomMultiWaveView
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_waveview.*
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.ui.HomeGuideDialog
 
-class WaveViewFragment : LBaseFragmentSupport() {
+class WaveViewFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_waveview
     override fun getHeaderTitle() = "waveView"
     override fun initView() {

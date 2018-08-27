@@ -5,6 +5,7 @@
         <item name="android:windowBackground">@null</item>
         <item name="containerBackgroundLayer2">@color/day_main_front_bg</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textSize">@dimen/text_size</item>
         <item name="myTitleTextColor">@color/day_title_text</item>
         <item name="android:textColor">@color/day_text</item>
@@ -53,21 +54,21 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="Widget.Design.Snackbar" parent="android:Widget">
-        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="android:minWidth">@dimen/design_snackbar_min_width</item>
-        <item name="android:maxWidth">@dimen/design_snackbar_max_width</item>
-        <item name="android:background">?colorPrimary</item>
-        <item name="android:textColor">@color/white100</item>
-        <item name="android:paddingLeft">@dimen/design_snackbar_padding_horizontal</item>
-        <item name="android:paddingRight">@dimen/design_snackbar_padding_horizontal</item>
-        <item name="elevation">@dimen/design_snackbar_elevation</item>
-        <item name="maxActionInlineWidth">@dimen/design_snackbar_action_inline_max_width</item>
-    </style>
+    <!--<style name="Widget.Design.Snackbar" parent="android:Widget">-->
+        <!--<item name="android:theme">@style/ThemeOverlay.AppCompat.Dark</item>-->
+        <!--<item name="android:minWidth">@dimen/design_snackbar_min_width</item>-->
+        <!--<item name="android:maxWidth">@dimen/design_snackbar_max_width</item>-->
+        <!--<item name="android:background">?colorPrimary</item>-->
+        <!--<item name="android:textColor">@color/white100</item>-->
+        <!--<item name="android:paddingLeft">@dimen/design_snackbar_padding_horizontal</item>-->
+        <!--<item name="android:paddingRight">@dimen/design_snackbar_padding_horizontal</item>-->
+        <!--<item name="elevation">@dimen/design_snackbar_elevation</item>-->
+        <!--<item name="maxActionInlineWidth">@dimen/design_snackbar_action_inline_max_width</item>-->
+    <!--</style>-->
 
-    <style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance">
-        <item name="android:textColor">@color/white</item>
-    </style>
+    <!--<style name="TextAppearance.Design.Snackbar.Message" parent="android:TextAppearance">-->
+        <!--<item name="android:textColor">@color/white</item>-->
+    <!--</style>-->
     <!-- toolbar弹出菜单样式 -->
     <style name="ToolbarPopupTheme" parent="@style/Widget.AppCompat.PopupMenu.Overflow">
         <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->

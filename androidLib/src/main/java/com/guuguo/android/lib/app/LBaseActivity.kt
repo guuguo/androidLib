@@ -261,7 +261,7 @@ abstract class LBaseActivity : SupportActivity() {
     }
 
     fun exitDialog() {
-        dialogWarningShow("确定退出软件？", "取消", "确定", { exit() })
+        dialogWarningShow("确定退出软件？", "取消", "确定") { exit() }
     }
 
     fun exit() {

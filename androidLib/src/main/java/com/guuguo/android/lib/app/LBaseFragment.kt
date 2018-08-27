@@ -2,6 +2,7 @@ package com.guuguo.android.lib.app
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.guuguo.android.R
@@ -15,7 +16,7 @@ import com.guuguo.android.lib.extension.safe
 abstract class LBaseFragment : SupportFragment() {
 
     protected val TAG = this.javaClass.simpleName
-    lateinit var activity: LBaseActivity
+    lateinit var activity: AppCompatActivity
     protected abstract fun getLayoutResId(): Int
 
     private var isPrepare = false
@@ -28,11 +29,11 @@ abstract class LBaseFragment : SupportFragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        this.activity = context as LBaseActivity
+        this.activity = context as AppCompatActivity
     }
 
     protected fun init(view: View) {
-        activity = getActivity() as LBaseActivity
+        activity = getActivity() as AppCompatActivity
         initToolbar()
         initView()
         loadData()
@@ -112,7 +113,9 @@ abstract class LBaseFragment : SupportFragment() {
     }
 
     open fun lazyLoad() {
-        activity.mFragment = this
+        if (activity is LBaseActivity) {
+            (activity as LBaseActivity).mFragment = this
+        }
     }
 
 

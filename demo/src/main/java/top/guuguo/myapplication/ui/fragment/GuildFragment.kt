@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.widget.CustomMultiWaveView
@@ -20,7 +21,7 @@ import top.guuguo.myapplication.R.id.wave_view
 import top.guuguo.myapplication.databinding.FragmentGuildBinding
 import top.guuguo.myapplication.ui.HomeGuideDialog
 
-class GuildFragment : LBaseFragmentSupport() {
+class GuildFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_guild
     override fun getHeaderTitle() = "waveView"
     override fun isNavigationBack() = true

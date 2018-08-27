@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.view.View
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.getColorCompat
 import com.guuguo.android.lib.extension.inflateLayout
@@ -18,7 +19,7 @@ import top.guuguo.myapplication.R
 import top.guuguo.myapplication.R.id.*
 import top.guuguo.myapplication.ui.activity.BaseTitleActivity
 
-class FlowLayoutFragment : LBaseFragmentSupport() {
+class FlowLayoutFragment : LBaseFragment() {
     val bookStr = arrayOf("影视", "读书", "音乐")
     val lifeStr = arrayOf("旅行", "居家", "美食", "手作", "运动健身", "时尚")
     val worldStr = arrayOf("人文", "科技", "摄影", "艺术", "画画儿", "建筑")

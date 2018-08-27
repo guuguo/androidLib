@@ -8,7 +8,7 @@ import com.guuguo.android.R
 import com.guuguo.android.lib.utils.systembar.SystemBarHelper
 import com.guuguo.android.lib.widget.FunctionTextView
 
-open class BaseCupertinoTitleActivity : LBaseActivitySupport() {
+open class BaseCupertinoTitleActivity : LBaseActivity() {
     companion object {
         init {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)

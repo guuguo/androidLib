@@ -7,7 +7,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.github.florent37.viewanimator.ViewAnimator
+import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.widget.SwipeNavigationLayout
@@ -15,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_banner2.*
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.ui.activity.BaseTitleActivity
 
-class NavigatorLayoutFragment : LBaseFragmentSupport() {
+class NavigatorLayoutFragment : LBaseFragment() {
 
     override fun getLayoutResId() = R.layout.fragment_banner2
 
@@ -24,7 +26,7 @@ class NavigatorLayoutFragment : LBaseFragmentSupport() {
     companion object {
         fun intentTo(activity: Activity) {
             val intent = Intent(activity, BaseTitleActivity::class.java)
-            intent.putExtra(LBaseActivitySupport.SIMPLE_ACTIVITY_INFO, NavigatorLayoutFragment::class.java)
+            intent.putExtra(LBaseActivity.SIMPLE_ACTIVITY_INFO, NavigatorLayoutFragment::class.java)
             val bundle = Bundle()
             intent.putExtras(bundle)
             activity.startActivity(intent)

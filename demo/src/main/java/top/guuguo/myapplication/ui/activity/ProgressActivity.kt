@@ -7,12 +7,12 @@ import android.support.v7.widget.Toolbar
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseActivity
 import kotlinx.android.synthetic.main.activity_progress.*
 import top.guuguo.myapplication.R
 
 @Route(path = "/test/progress")
-class ProgressActivity : LBaseActivitySupport() {
+class ProgressActivity : LBaseActivity() {
     override fun getLayoutResId() = R.layout.activity_progress
     override fun getToolBar() = findViewById<Toolbar>(R.id.id_tool_bar)
     override fun initView() {

@@ -3,6 +3,7 @@ package top.guuguo.myapplication.ui.fragment
 import android.app.Activity
 import android.graphics.Color
 import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import kotlinx.android.synthetic.main.fragment_dividerview.*
@@ -10,7 +11,7 @@ import top.guuguo.dividerview.DividerDrawable
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.ui.activity.BaseTitleActivity
 
-class DividerViewFragment : LBaseFragmentSupport() {
+class DividerViewFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_dividerview
     val alignTypes = arrayOf(DividerDrawable.dv_LC, DividerDrawable.dv_TC, DividerDrawable.dv_RC, DividerDrawable.dv_BC, DividerDrawable.dv_LB, DividerDrawable.dv_TR, DividerDrawable.dv_RT, DividerDrawable.dv_BL)
     var alignTypesPosition = 0;
