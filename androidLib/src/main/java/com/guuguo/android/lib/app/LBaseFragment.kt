@@ -8,12 +8,13 @@ import android.view.*
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.safe
+import com.trello.rxlifecycle2.components.support.RxFragment
 
 
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LBaseFragment : SupportFragment() {
+abstract class LBaseFragment : RxFragment() {
 
     protected val TAG = this.javaClass.simpleName
     lateinit var activity: AppCompatActivity
@@ -45,6 +46,7 @@ abstract class LBaseFragment : SupportFragment() {
         }
     }
 
+    open fun onBackPressed():Boolean=false
 
     /*toolbar*/
     open fun getBackIconRes(): Int = 0

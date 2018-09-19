@@ -1,6 +1,7 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
+import android.support.v4.app.Fragment
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.guuguo.android.dialog.dialog.CupertinoWarningDialog
@@ -8,10 +9,7 @@ import com.guuguo.android.dialog.dialog.CustomAlertDialog
 import com.guuguo.android.dialog.dialog.DefaultWarningDialog
 import com.guuguo.android.dialog.dialog.NewEditAlertDialog
 import com.guuguo.android.dialog.utils.*
-import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
-import com.guuguo.android.lib.app.LBaseActivitySupport
-import com.guuguo.android.lib.app.LBaseFragment
-import com.guuguo.android.lib.app.SupportFragment
+import com.guuguo.android.lib.app.*
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.log
 import io.reactivex.Completable
@@ -38,7 +36,7 @@ class DialogFragment : LBaseFragment() {
             when {
                 DialogHelper.warningDialogClass.name == CupertinoWarningDialog::class.java.name -> DialogHelper.warningDialogClass = DefaultWarningDialog::class.java
                 DialogHelper.warningDialogClass.name == DefaultWarningDialog::class.java.name -> DialogHelper.warningDialogClass = WarningDialog::class.java
-                else -> DialogHelper.warningDialogClass =CupertinoWarningDialog::class.java
+                else -> DialogHelper.warningDialogClass = CupertinoWarningDialog::class.java
             }
         }
         btn_loading.setOnClickListener {
@@ -63,12 +61,13 @@ class DialogFragment : LBaseFragment() {
 
     companion object {
         fun intentTo(activity: Activity) {
-            LBaseActivitySupport.intentTo(activity, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java)
+            LBaseActivity.intentTo(activity, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java)
             "dialog fragment".log()
             "dialog fragment 2".log("可怕")
         }
-        fun intentTo(fragment: SupportFragment) {
-            LBaseActivitySupport.intentTo(fragment, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java)
+
+        fun intentTo(fragment: Fragment) {
+            fragment.startActivity(LBaseActivity.getIntent(fragment.activity!!, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java, null))
             "dialog fragment".log()
             "dialog fragment 2".log("可怕")
         }

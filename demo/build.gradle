@@ -63,11 +63,12 @@ dependencies {
 //    implementation 'com.github.guuguo.androidLib:androidLib:1.1.6.6'
 //    implementation 'com.github.guuguo:androidLib:-SNAPSHOT'
     implementation project(':libdatabindingex')
+    implementation project(':androidOldLib')
     implementation project(':iconfont')
     testImplementation 'junit:junit:4.12'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.github.florent37:viewanimator:1.0.5'
     kapt "com.android.databinding:compiler:${ANDROID_PLUGIN_VERSION}"
 

@@ -31,6 +31,7 @@ import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.systembar.SystemBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.Serializable
@@ -40,7 +41,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by guodeqing on 16/5/31.
  */
-abstract class LBaseActivity : SupportActivity() {
+abstract class LBaseActivity : RxAppCompatActivity() {
 
     open fun getApp() = AppHelper.app
     private var mLoadingDialog: TipDialog? = null
@@ -163,7 +164,7 @@ abstract class LBaseActivity : SupportActivity() {
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
             val trans = supportFragmentManager.beginTransaction()
-            trans.replace(R.id.content, mFragment!!)
+            trans.replace(R.id.content, mFragment!! as Fragment)
             trans.commitAllowingStateLoss()
         }
         initToolBar()
@@ -209,7 +210,7 @@ abstract class LBaseActivity : SupportActivity() {
         }
     }
 
-    override fun onBackPressedSupport() {
+    override fun onBackPressed() {
         when (backExitStyle) {
             BACK_DIALOG_CONFIRM ->
                 exitDialog()
@@ -222,9 +223,9 @@ abstract class LBaseActivity : SupportActivity() {
                 }
             }
             BACK_DEFAULT -> {
-                if (mFragment != null && mFragment!!.onBackPressedSupport())
+                if (mFragment != null && mFragment!!.onBackPressed())
                 else {
-                    super.onBackPressedSupport()
+                    super.onBackPressed()
                 }
             }
         }
@@ -322,14 +323,14 @@ abstract class LBaseActivity : SupportActivity() {
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
         fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
-            val intent = getIntent(activity, targetActivity, targetFragment, map)
+            val intent = getIntent(activity, targetFragment, targetActivity, map)
             if (targetCode == 0)
                 activity.startActivity(intent)
             else
                 activity.startActivityForResult(intent, targetCode)
         }
 
-        fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetActivity: Class<A>, targetFragment: Class<F>, map: HashMap<String, *>?): Intent {
+        fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null): Intent {
             val intent = Intent(activity, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 

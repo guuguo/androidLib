@@ -1,2 +1,2 @@
 include ':androidLib', ':demo', ':dialog', ':drawable',
-        ':iconfont',':roundview',':utils', ':widget',':libdatabindingex'
+        ':iconfont',':roundview',':utils', ':widget',':libdatabindingex',':androidOldLib'

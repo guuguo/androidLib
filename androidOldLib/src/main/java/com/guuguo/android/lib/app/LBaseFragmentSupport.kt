@@ -1,6 +1,7 @@
 package com.guuguo.android.lib.app
 
 import android.app.Dialog
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.safe
 import com.trello.rxlifecycle2.android.FragmentEvent
+import com.trello.rxlifecycle2.components.support.RxFragment
 
 
 /**
