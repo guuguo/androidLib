@@ -53,9 +53,18 @@ class StateLayout : FrameLayout {
 
     fun showCustomView(layout: Int): StateLayout {
         initContentView()
-        if (customView == null) {
-            customView = LayoutInflater.from(context).inflate(layout, this, false)
+        customView = LayoutInflater.from(context).inflate(layout, this, false)
+        if (customView != currentView) {
+            removeAllViews()
+            addView(customView!!)
+            currentView = customView
         }
+        return this
+    }
+
+    fun showCustomView(v: View): StateLayout {
+        initContentView()
+        customView = v
         if (customView != currentView) {
             removeAllViews()
             addView(customView!!)
