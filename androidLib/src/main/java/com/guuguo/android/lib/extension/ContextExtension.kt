@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.annotation.ColorInt
 import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
@@ -21,6 +22,8 @@ val Context.inflater: LayoutInflater
 
 @ColorInt
 fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
+
+fun Context.getDrawableCompat(@DrawableRes res: Int)=ContextCompat.getDrawable(this, res)
 
 inline fun <reified T : Any> Context.newIntent() = Intent(this, T::class.java)
 fun Context.inflateLayout(@LayoutRes layoutId: Int, parent: ViewGroup? = null, attachToRoot: Boolean = false): View

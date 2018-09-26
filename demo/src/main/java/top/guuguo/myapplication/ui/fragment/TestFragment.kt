@@ -16,6 +16,7 @@ class TestFragment : LBaseFragment() {
     override fun initView() {
         super.initView()
         search.searchClick = {
+            state.layoutRes=R.layout.widget_include_simple_empty_view1
             state.showLoading("加载中")
             when (type) {
                 0 -> state.postDelayed({

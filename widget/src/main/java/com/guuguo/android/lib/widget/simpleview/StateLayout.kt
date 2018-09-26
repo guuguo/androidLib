@@ -42,7 +42,7 @@ class StateLayout : FrameLayout {
         showState(text, btnText, listener, imgRes)
     }
 
-    fun showEmpty(text: String, imgRes: Int=R.drawable.empty_cute_girl_box, btnText: String? = "", listener: OnClickListener? = null) {
+    fun showEmpty(text: String, imgRes: Int = R.drawable.empty_cute_girl_box, btnText: String? = "", listener: OnClickListener? = null) {
         showState(text, btnText, listener, imgRes)
     }
 
@@ -66,10 +66,11 @@ class StateLayout : FrameLayout {
         showContentView()
     }
 
+    var layoutRes = R.layout.widget_include_simple_empty_view
 
     private fun showSimpleView(): SimpleViewHolder {
         if (simpleView == null) {
-            simpleView = LayoutInflater.from(context).inflate(R.layout.widget_include_simple_empty_view, this, false)
+            simpleView = LayoutInflater.from(context).inflate(layoutRes, this, false)
             viewHolder = SimpleViewHolder(simpleView!!)
         }
         if (simpleView != currentView) {

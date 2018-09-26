@@ -11,6 +11,7 @@ import com.guuguo.android.dialog.dialog.NewEditAlertDialog
 import com.guuguo.android.dialog.utils.*
 import com.guuguo.android.lib.app.*
 import com.guuguo.android.lib.extension.dpToPx
+import com.guuguo.android.lib.extension.getDrawableCompat
 import com.guuguo.android.lib.extension.log
 import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_dialog.*
@@ -25,6 +26,9 @@ class DialogFragment : LBaseFragment() {
     override fun isNavigationBack() = false
     override fun initView() {
         super.initView()
+        if (activity is BaseCupertinoTitleActivity)
+            (activity as BaseCupertinoTitleActivity).getFunctionView().drawable = activity.getDrawableCompat(R.drawable.ic_close_black_24dp)
+
         btn_theme.setOnClickListener {
             if (DialogSettings.tip_theme == DialogSettings.THEME_LIGHT) {
                 DialogSettings.tip_theme = DialogSettings.THEME_DARK
