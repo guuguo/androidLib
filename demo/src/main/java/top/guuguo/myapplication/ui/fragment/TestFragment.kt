@@ -1,6 +1,8 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
+import android.graphics.Color
+import com.guuguo.android.drawable.CircleRunDrawable
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
@@ -17,7 +19,7 @@ class TestFragment : LBaseFragment() {
         super.initView()
         search.searchClick = {
             state.layoutRes=R.layout.widget_include_simple_empty_view1
-            state.showLoading("加载中")
+            state.showSimpleView().loading("加载中",CircleRunDrawable().apply {mRoundColor= Color.WHITE })
             when (type) {
                 0 -> state.postDelayed({
                     state.restore()
