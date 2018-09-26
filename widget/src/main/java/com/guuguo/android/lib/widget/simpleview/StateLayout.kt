@@ -53,12 +53,8 @@ class StateLayout : FrameLayout {
 
     fun showCustomView(layout: Int): StateLayout {
         initContentView()
-        customView = LayoutInflater.from(context).inflate(layout, this, false)
-        if (customView != currentView) {
-            removeAllViews()
-            addView(customView!!)
-            currentView = customView
-        }
+        val customView = LayoutInflater.from(context).inflate(layout, this, false)
+        showCustomView(customView)
         return this
     }
 
@@ -74,12 +70,10 @@ class StateLayout : FrameLayout {
     }
 
     fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = 0) {
-        initContentView()
         showSimpleView().state(text, imgRes, btnText, listener)
     }
 
     fun showLoading(message: String) {
-        initContentView()
         showSimpleView().loading(message)
     }
 
@@ -91,6 +85,8 @@ class StateLayout : FrameLayout {
     var layoutRes = R.layout.widget_include_simple_empty_view
 
     fun showSimpleView(): SimpleViewHolder {
+        initContentView()
+
         if (simpleView == null) {
             simpleView = LayoutInflater.from(context).inflate(layoutRes, this, false)
             viewHolder = SimpleViewHolder(simpleView!!)
