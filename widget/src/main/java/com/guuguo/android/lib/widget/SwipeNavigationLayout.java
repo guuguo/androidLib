@@ -93,7 +93,7 @@ public class SwipeNavigationLayout extends FrameLayout {
             Log.i("onInterceptTouchEvent", "showType2：" + showType);
             return super.dispatchTouchEvent(ev);
         } else {
-            return true;
+            return super.dispatchTouchEvent(ev);
         }
     }
     public void toNext() {

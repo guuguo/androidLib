@@ -28,9 +28,12 @@ class TestFragment : LBaseFragment() {
                 2->state.postDelayed({
                     state.showError("不行了")
                 }, 2000)
+                3->state.postDelayed({
+                    state.showCustomView(R.layout.dialog_custom_warning)
+                }, 2000)
             }
             type++
-            if (type == 3)
+            if (type == 4)
                 type = 0
 
         }

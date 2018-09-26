@@ -18,6 +18,7 @@ class StateLayout : FrameLayout {
     var currentView: View? = null
     var simpleView: View? = null
     var viewHolder: SimpleViewHolder? = null
+    var customView: View? = null
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -50,6 +51,18 @@ class StateLayout : FrameLayout {
         showState(text)
     }
 
+    fun showCustomView(layout: Int): StateLayout {
+        initContentView()
+        if (customView == null) {
+            customView = LayoutInflater.from(context).inflate(layout, this, false)
+        }
+        if (customView != currentView) {
+            removeAllViews()
+            addView(customView!!)
+            currentView = customView
+        }
+        return this
+    }
 
     fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = 0) {
         initContentView()
@@ -68,7 +81,7 @@ class StateLayout : FrameLayout {
 
     var layoutRes = R.layout.widget_include_simple_empty_view
 
-    private fun showSimpleView(): SimpleViewHolder {
+    fun showSimpleView(): SimpleViewHolder {
         if (simpleView == null) {
             simpleView = LayoutInflater.from(context).inflate(layoutRes, this, false)
             viewHolder = SimpleViewHolder(simpleView!!)
