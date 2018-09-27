@@ -24,22 +24,24 @@ class SimpleViewHolder(var view: View) {
     fun loading(msg: String, loadingDrawable: Drawable = CircularDrawable().apply { light() }): SimpleViewHolder {
         mImg.visibility = View.VISIBLE
         mBtn.visibility = View.GONE
-        mImg.layoutParams.width=50.dpToPx()
-        mImg.requestLayout()
-        mImg.setImageDrawable(loadingDrawable)
-        if (loadingDrawable is Animatable)
+        if (loadingDrawable != mImg.drawable) {
+            mImg.layoutParams.width = 50.dpToPx()
+            mImg.requestLayout()
+            mImg.setImageDrawable(loadingDrawable)
+        }
+        if (loadingDrawable is Animatable && !loadingDrawable.isRunning)
             loadingDrawable.start()
-        if(msg.isEmpty())
-            mTvText.visibility=View.GONE
+        if (msg.isEmpty())
+            mTvText.visibility = View.GONE
         else
-            mTvText.visibility=View.VISIBLE
+            mTvText.visibility = View.VISIBLE
 
         mTvText.text = msg
         return this
     }
 
     fun state(text: String, imgRes: Int = 0, btnText: String? = "", listener: View.OnClickListener? = null): SimpleViewHolder {
-        mImg.layoutParams.width=100.dpToPx()
+        mImg.layoutParams.width = 100.dpToPx()
         mImg.requestLayout()
         if (imgRes == 0)
             mImg.visibility = View.GONE
@@ -52,16 +54,17 @@ class SimpleViewHolder(var view: View) {
         else {
             mBtn.visibility = View.VISIBLE
             mBtn.text = btnText
-            mBtn.setOnClickListener (listener)
+            mBtn.setOnClickListener(listener)
         }
         mTvText.text = text
         return this
     }
+
     fun showError(text: String, btnText: String? = "", listener: View.OnClickListener? = null, imgRes: Int = R.drawable.widget_state_error) {
         showState(text, btnText, listener, imgRes)
     }
 
-    fun showEmpty(text: String, btnText: String? = "", listener: View.OnClickListener?=null, imgRes: Int=R.drawable.empty_cute_girl_box) {
+    fun showEmpty(text: String, btnText: String? = "", listener: View.OnClickListener? = null, imgRes: Int = R.drawable.empty_cute_girl_box) {
         showState(text, btnText, listener, imgRes)
     }
 
@@ -77,6 +80,7 @@ class SimpleViewHolder(var view: View) {
     fun showLoading(message: String) {
         loading(message)
     }
+
     fun Int.dpToPx(): Int {
         return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
     }

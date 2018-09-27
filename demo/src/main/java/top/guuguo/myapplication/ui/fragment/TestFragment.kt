@@ -2,6 +2,7 @@ package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
 import android.graphics.Color
+import android.view.View
 import com.guuguo.android.drawable.CircleRunDrawable
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivity
@@ -18,25 +19,7 @@ class TestFragment : LBaseFragment() {
     override fun initView() {
         super.initView()
         search.searchClick = {
-            state.layoutRes=R.layout.widget_include_simple_empty_view1
-            state.showSimpleView().loading("加载中",CircleRunDrawable().apply {mRoundColor= Color.WHITE })
-            when (type) {
-                0 -> state.postDelayed({
-                    state.restore()
-                }, 2000)
-                1->state.postDelayed({
-                    state.showEmpty("不行了", R.drawable.empty_cute_girl_box)
-                }, 2000)
-                2->state.postDelayed({
-                    state.showError("不行了")
-                }, 2000)
-                3->state.postDelayed({
-                    state.showCustomView(R.layout.dialog_custom_warning)
-                }, 2000)
-            }
-            type++
-            if (type == 4)
-                type = 0
+            doit()
 
         }
         search.onBackClick = {
@@ -45,6 +28,38 @@ class TestFragment : LBaseFragment() {
         btn_theme.setOnClickListener {
             DialogFragment.intentTo(this)
         }
+        btn_change.setOnClickListener {
+            doit()
+        }
+    }
+
+    val drawable = CircleRunDrawable().apply { mRoundColor = Color.WHITE }
+    fun doit() {
+        state.layoutRes = R.layout.widget_include_simple_empty_view1
+        state.showSimpleView().loading("加载中", drawable)
+        when (type) {
+            0 -> state.postDelayed({
+                state.showSimpleView().loading("加载中", drawable)
+                state.postDelayed({
+                    state.restore()
+                }, 1000)
+            }, 1000)
+            1 -> state.postDelayed({
+                state.showEmpty("不行了", R.drawable.empty_cute_girl_box)
+            }, 1000)
+            2 -> state.postDelayed({
+                state.showError("网络异常，请稍候重试", "重试", listener = View.OnClickListener {
+                    type = 2
+                    doit()
+                }, imgRes = 0)
+            }, 1000)
+            3 -> state.postDelayed({
+                state.showCustomView(R.layout.dialog_custom_warning)
+            }, 1000)
+        }
+        type++
+        if (type == 4)
+            type = 0
     }
 
     companion object {

@@ -27,6 +27,7 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:text="找不到数据"
+        android:textColor="@color/white"
         android:textSize="18sp" />
 
     <TextView
