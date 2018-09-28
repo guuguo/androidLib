@@ -33,13 +33,13 @@ class TestFragment : LBaseFragment() {
         }
     }
 
-    val drawable = CircleRunDrawable().apply { mRoundColor = Color.WHITE }
     fun doit() {
         state.layoutRes = R.layout.widget_include_simple_empty_view1
-        state.showSimpleView().loading("加载中", drawable)
+        state.showLoading("", CircleRunDrawable().apply { dark() })
         when (type) {
             0 -> state.postDelayed({
-                state.showSimpleView().loading("加载中", drawable)
+                if (!state.isLoading)
+                    state.showLoading("", CircleRunDrawable().apply { dark() })
                 state.postDelayed({
                     state.restore()
                 }, 1000)

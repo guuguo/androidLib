@@ -1,11 +1,13 @@
 package com.guuguo.android.lib.widget.simpleview
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.guuguo.android.drawable.CircularDrawable
 import com.guuguo.android.lib.widget.R
 
 /**
@@ -52,6 +54,7 @@ class StateLayout : FrameLayout {
     }
 
     fun showCustomView(layout: Int): StateLayout {
+        isLoading=false
         initContentView()
         val customView = LayoutInflater.from(context).inflate(layout, this, false)
         showCustomView(customView)
@@ -59,6 +62,7 @@ class StateLayout : FrameLayout {
     }
 
     fun showCustomView(v: View): StateLayout {
+        isLoading=false
         initContentView()
         customView = v
         if (customView != currentView) {
@@ -70,21 +74,25 @@ class StateLayout : FrameLayout {
     }
 
     fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = 0) {
+        isLoading=false
         showSimpleView().state(text, imgRes, btnText, listener)
     }
 
-    fun showLoading(message: String) {
-        showSimpleView().loading(message)
+    var isLoading = false
+    fun showLoading(message: String, loadingDrawable: Drawable = CircularDrawable().apply { light() }) {
+        isLoading = true
+        showSimpleView().loading(message, loadingDrawable)
     }
 
     fun restore() {
+        isLoading=false
         initContentView()
         showContentView()
     }
 
     var layoutRes = R.layout.widget_include_simple_empty_view
 
-    fun showSimpleView(): SimpleViewHolder {
+    private fun showSimpleView(): SimpleViewHolder {
         initContentView()
 
         if (simpleView == null) {

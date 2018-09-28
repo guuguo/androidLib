@@ -24,13 +24,13 @@ class SimpleViewHolder(var view: View) {
     fun loading(msg: String, loadingDrawable: Drawable = CircularDrawable().apply { light() }): SimpleViewHolder {
         mImg.visibility = View.VISIBLE
         mBtn.visibility = View.GONE
-        if (loadingDrawable != mImg.drawable) {
-            mImg.layoutParams.width = 50.dpToPx()
-            mImg.requestLayout()
-            mImg.setImageDrawable(loadingDrawable)
-        }
-        if (loadingDrawable is Animatable && !loadingDrawable.isRunning)
-            loadingDrawable.start()
+
+        mImg.setImageDrawable(loadingDrawable)
+        mImg.layoutParams.width = 50.dpToPx()
+        mImg.requestLayout()
+        val lDrawable = mImg.drawable
+        if (lDrawable is Animatable)
+            lDrawable.start()
         if (msg.isEmpty())
             mTvText.visibility = View.GONE
         else
@@ -56,6 +56,11 @@ class SimpleViewHolder(var view: View) {
             mBtn.text = btnText
             mBtn.setOnClickListener(listener)
         }
+        if (text.isEmpty())
+            mTvText.visibility = View.GONE
+        else
+            mTvText.visibility = View.VISIBLE
+
         mTvText.text = text
         return this
     }

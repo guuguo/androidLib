@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 
-
 /**
  * mimi 创造于 2017-08-01.
  * 项目 order
@@ -28,15 +27,15 @@ public class SwipeNavigationLayout extends FrameLayout {
 
     private final GestureDetector gestureDetector;
 
-    public SwipeNavigationLayout( Context context) {
+    public SwipeNavigationLayout(Context context) {
         this(context, null);
     }
 
-    public SwipeNavigationLayout( Context context,  AttributeSet attrs) {
+    public SwipeNavigationLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SwipeNavigationLayout( Context context, AttributeSet attrs,  int defStyleAttr) {
+    public SwipeNavigationLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         gestureDetector = new GestureDetector(context, new SwipeGesture());
     }
@@ -88,14 +87,26 @@ public class SwipeNavigationLayout extends FrameLayout {
                 }
             }
         }
+
         gestureDetector.onTouchEvent(ev);
-        if (showType == 0 || showType == -1) {
-            Log.i("onInterceptTouchEvent", "showType2：" + showType);
-            return super.dispatchTouchEvent(ev);
-        } else {
-            return super.dispatchTouchEvent(ev);
+        //按下事件不管怎样都传给子view
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            super.dispatchTouchEvent(ev);
+            //没有拦截和 没操作就抬起事件也发送给子view
+        } else if (showType == 0 || (showType == -1 && ev.getAction() == MotionEvent.ACTION_UP)) {
+            super.dispatchTouchEvent(ev);
+            //拦截了  就发送取消事件给子view
+        } else if (showType > 0) {
+            ev.setAction(MotionEvent.ACTION_CANCEL);
+            super.dispatchTouchEvent(ev);
         }
+
+
+//        }
+        return true;
     }
+
+
     public void toNext() {
         if (navigationListener != null) {
             navigationListener.navigationNext();
