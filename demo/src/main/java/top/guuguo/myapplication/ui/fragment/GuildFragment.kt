@@ -23,7 +23,7 @@ import top.guuguo.myapplication.ui.HomeGuideDialog
 
 class GuildFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_guild
-    override fun getHeaderTitle() = "waveView"
+    override fun getHeaderTitle() = "引导"
     override fun isNavigationBack() = true
     lateinit var binding: FragmentGuildBinding
     override fun setLayoutResId(inflater: LayoutInflater?, resId: Int, container: ViewGroup?): View {
