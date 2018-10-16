@@ -14,7 +14,7 @@ import android.graphics.Bitmap
  * @author guuguo
  *
  */
-class CircleRunDrawable : Drawable(), Animatable {
+class CircleRunDrawable : Drawable(), Animatable, IDrawableTheme {
     var mRoundColor = Color.argb(100, 255, 255, 255)
     var mIndicatorColor = Color.WHITE
 
@@ -22,11 +22,11 @@ class CircleRunDrawable : Drawable(), Animatable {
         return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
     }
 
-    fun dark() {
+    override fun dark() {
         mRoundColor = Color.parseColor("#66FFFFFF"); mIndicatorColor = Color.WHITE
     }
 
-    fun light() {
+    override fun light() {
         mRoundColor = Color.parseColor("#66000000"); mIndicatorColor = Color.BLACK
     }
 

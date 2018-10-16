@@ -9,14 +9,18 @@ import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.extension.log
+import com.guuguo.android.lib.widget.simpleview.StateLayout
 import kotlinx.android.synthetic.main.fragment_test.*
 import top.guuguo.myapplication.R
 
 class TestFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_test
-    override fun getHeaderTitle() = "dialogFragment"
+    override fun getHeaderTitle() = "testFragment"
     var type = 0
     override fun initView() {
+        activity.let {
+            (it as? BaseCupertinoTitleActivity)?.darkBar()
+        }
         super.initView()
         search.searchClick = {
             doit()
@@ -35,11 +39,12 @@ class TestFragment : LBaseFragment() {
 
     fun doit() {
         state.layoutRes = R.layout.widget_include_simple_empty_view1
-        state.showLoading("", CircleRunDrawable().apply { dark() })
+        StateLayout.loadingDrawableClass = CircleRunDrawable::class.java
+        state.showLoading("", true)
         when (type) {
             0 -> state.postDelayed({
                 if (!state.isLoading)
-                    state.showLoading("", CircleRunDrawable().apply { dark() })
+                    state.showLoading("",true)
                 state.postDelayed({
                     state.restore()
                 }, 1000)

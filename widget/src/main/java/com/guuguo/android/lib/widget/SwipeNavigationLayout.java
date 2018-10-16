@@ -83,7 +83,6 @@ public class SwipeNavigationLayout extends FrameLayout {
                             .setDuration(100);
                     animator.addListener(animatorStop);
                     animator.start();
-//                    ViewAnimator.animate(navigationView).translationX(navigationView.getTranslationX(), 0).duration(100).onStop(animatorStop).start();
                 }
             }
         }
@@ -101,11 +100,8 @@ public class SwipeNavigationLayout extends FrameLayout {
             super.dispatchTouchEvent(ev);
         }
 
-
-//        }
         return true;
     }
-
 
     public void toNext() {
         if (navigationListener != null) {

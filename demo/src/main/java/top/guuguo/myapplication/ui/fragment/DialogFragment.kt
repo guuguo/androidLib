@@ -26,8 +26,13 @@ class DialogFragment : LBaseFragment() {
     override fun isNavigationBack() = false
     override fun initView() {
         super.initView()
-        if (activity is BaseCupertinoTitleActivity)
-            (activity as BaseCupertinoTitleActivity).getFunctionView().drawable = activity.getDrawableCompat(R.drawable.ic_close_black_24dp)
+        activity?.let {
+            if (it is BaseCupertinoTitleActivity) {
+                it.getFunctionView().drawable = activity.getDrawableCompat(R.drawable.ic_close_black_24dp)
+            }
+            (it as?LBaseActivity)?.lightBar()
+
+        }
 
         btn_theme.setOnClickListener {
             if (DialogSettings.tip_theme == DialogSettings.THEME_LIGHT) {

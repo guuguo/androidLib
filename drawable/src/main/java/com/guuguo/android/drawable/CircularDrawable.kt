@@ -14,7 +14,7 @@ import android.graphics.Bitmap
  * @author guuguo
  *
  */
-class CircularDrawable : Drawable(), Animatable {
+class CircularDrawable : Drawable(), Animatable, IDrawableTheme {
     var mRoundColor = Color.argb(100, 255, 255, 255)
     var mIndicatorColor = Color.WHITE
 
@@ -22,11 +22,11 @@ class CircularDrawable : Drawable(), Animatable {
         return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
     }
 
-    fun dark() {
+    override fun dark() {
         mRoundColor = Color.parseColor("#66FFFFFF"); mIndicatorColor = Color.WHITE
     }
 
-    fun light() {
+    override fun light() {
         mRoundColor = Color.parseColor("#66000000"); mIndicatorColor = Color.BLACK
     }
 
@@ -93,7 +93,7 @@ class CircularDrawable : Drawable(), Animatable {
             val hExtend = (canvas.width - radius * 2) / 2
             val vExtend = (canvas.height - radius * 2) / 2
             mPaint.color = mIndicatorColor
-            val rectF = RectF(mPadding+hExtend, mPadding+vExtend, canvas.width  - mPadding-hExtend, canvas.height - mPadding-vExtend)
+            val rectF = RectF(mPadding + hExtend, mPadding + vExtend, canvas.width - mPadding - hExtend, canvas.height - mPadding - vExtend)
             mBufferCircleFgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888)
             val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap)
             mBufferCircleFgCanvas.drawArc(rectF, 0f, 60f, false, mPaint)//第四个参数是否显示半径

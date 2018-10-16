@@ -15,7 +15,7 @@ import android.view.animation.Interpolator;
  * @author Alex
  *
  */
-public class DoubleCircleDrawable extends Drawable implements Animatable {
+public class DoubleCircleDrawable extends Drawable implements Animatable,IDrawableTheme {
 
     private static final long FRAME_DURATION = 1000 / 60;
 
@@ -136,4 +136,13 @@ public class DoubleCircleDrawable extends Drawable implements Animatable {
         }
     };
 
+    @Override
+    public void dark() {
+
+    }
+
+    @Override
+    public void light() {
+
+    }
 }

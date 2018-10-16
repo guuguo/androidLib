@@ -5,10 +5,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.CallSuper
+import android.support.annotation.ColorInt
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
@@ -17,6 +19,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.dialog.dialog.NormalListDialog
 import com.guuguo.android.dialog.dialog.TipDialog
@@ -81,21 +84,8 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         init(savedInstanceState)
     }
 
-    fun setFullScreen(boolean: Boolean) {
-        if (boolean) {
-            val params = window.attributes;
-            params.flags = params.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN;
-            window.attributes = params;
-            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        } else {
-            val params = window.attributes;
-            params.flags = params.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
-            window.attributes = params;
-            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
-    }
 
-    open protected fun setLayoutResId(layoutResId: Int) {
+    protected open fun setLayoutResId(layoutResId: Int) {
         if (layoutResId != 0)
             setContentView(layoutResId)
     }
@@ -105,9 +95,9 @@ abstract class LBaseActivity : RxAppCompatActivity() {
 
     open fun getBackIconRes(): Int = mFragment?.getBackIconRes().safe(R.drawable.ic_arrow_back_white_24dp)
     open fun getAppBar(): ViewGroup? = null
-    open protected fun isNavigationBack() = mFragment?.isNavigationBack().safe(true)
-    open protected fun isStatusBarTextDark() = false
-    open protected fun initToolBar() {
+    protected open fun isNavigationBack() = mFragment?.isNavigationBack().safe(true)
+    protected open fun isStatusBarTextDark() = false
+    protected open fun initToolBar() {
         val toolBar = getToolBar()
         setSupportActionBar(toolBar)
         if (isNavigationBack())
@@ -126,7 +116,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    open protected fun initStatusBar() {
+    protected open fun initStatusBar() {
         if (!fullScreen()) {
             SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
             if (isStatusBarTextDark()) {
@@ -135,14 +125,33 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         }
     }
 
+    open fun lightBar(@ColorInt textColor: Int = Color.BLACK) {
+        SystemBarHelper.tintStatusBar(activity, Color.WHITE, 0f)
+        getToolBar()?.setBackgroundColor(Color.WHITE)
+        getAppBar()?.setBackgroundColor(Color.WHITE)
+        getToolBar()?.setTitleTextColor(textColor)
+        SystemBarHelper.setStatusBarDarkMode(activity)
+        getToolBar()?.popupTheme = R.style.Base_Widget_AppCompat_PopupMenu_Overflow
+    }
+
+    open fun darkBar(@ColorInt color: Int = 0) {
+        if (color != 0) {
+            getToolBar()?.setBackgroundColor(color)
+            getAppBar()?.setBackgroundColor(color)
+        }
+        getToolBar()?.setTitleTextColor(Color.WHITE)
+        SystemBarHelper.setStatusBarLightMode(activity)
+        getToolBar()?.popupTheme = R.style.Base_Widget_AppCompat_Light_PopupMenu_Overflow
+    }
+
 /*menu and title*/
 
-    open protected fun getHeaderTitle(): String? = ""
+    protected open fun getHeaderTitle(): String? = ""
     override fun setTitle(title: CharSequence?) {
         supportActionBar?.title = title
     }
 
-    open protected fun getMenuResId() = 0
+    protected open fun getMenuResId() = 0
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val res = getMenuResId()
         if (res != 0)
@@ -156,8 +165,8 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    open protected fun initVariable(savedInstanceState: Bundle?) {}
-    open protected fun initView() {}
+    protected open fun initVariable(savedInstanceState: Bundle?) {}
+    protected open fun initView() {}
     open fun loadData() {}
 
     @CallSuper
@@ -275,7 +284,6 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         }.isDisposed
     }
 
-
     open fun dialogTakePhotoShow(takePhotoListener: DialogInterface.OnClickListener, pickPhotoListener: DialogInterface.OnClickListener) {
         if (FileUtil.isExternalStorageMounted()) {
             val rxPermissions = RxPermissions(this)
@@ -299,6 +307,20 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                     }.isDisposed
         } else {
             "未检测到外部sd卡".toast()
+        }
+    }
+
+    private fun setFullScreen(boolean: Boolean) {
+        if (boolean) {
+            val params = window.attributes;
+            params.flags = params.flags or WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            window.attributes = params;
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        } else {
+            val params = window.attributes;
+            params.flags = params.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
+            window.attributes = params;
+            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
 

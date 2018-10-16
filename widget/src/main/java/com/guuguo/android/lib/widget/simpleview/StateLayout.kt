@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.guuguo.android.drawable.CircularDrawable
+import com.guuguo.android.drawable.IDrawableTheme
 import com.guuguo.android.lib.widget.R
 
 /**
@@ -54,7 +55,7 @@ class StateLayout : FrameLayout {
     }
 
     fun showCustomView(layout: Int): StateLayout {
-        isLoading=false
+        isLoading = false
         initContentView()
         val customView = LayoutInflater.from(context).inflate(layout, this, false)
         showCustomView(customView)
@@ -62,7 +63,7 @@ class StateLayout : FrameLayout {
     }
 
     fun showCustomView(v: View): StateLayout {
-        isLoading=false
+        isLoading = false
         initContentView()
         customView = v
         if (customView != currentView) {
@@ -74,18 +75,28 @@ class StateLayout : FrameLayout {
     }
 
     fun showState(text: String, btnText: String? = "", listener: OnClickListener? = null, imgRes: Int = 0) {
-        isLoading=false
+        isLoading = false
         showSimpleView().state(text, imgRes, btnText, listener)
     }
 
     var isLoading = false
-    fun showLoading(message: String, loadingDrawable: Drawable = CircularDrawable().apply { light() }) {
+    @Deprecated("loadingDrawable 由静态loadingDrawableClass 控制")
+    fun showLoading(message: String, loadingDrawable: Drawable) {
         isLoading = true
         showSimpleView().loading(message, loadingDrawable)
     }
 
+    fun showLoading(message: String, isDark: Boolean = false) {
+        isLoading = true
+        showSimpleView().loading(message, loadingDrawableClass.newInstance().apply { if (this is IDrawableTheme) if (!isDark) light() else dark() })
+    }
+
+    companion object {
+        var loadingDrawableClass: Class<out Drawable> = CircularDrawable::class.java
+    }
+
     fun restore() {
-        isLoading=false
+        isLoading = false
         initContentView()
         showContentView()
     }
