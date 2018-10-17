@@ -1,102 +1,81 @@
-flowlayout
+工具类库
 =======
-[![](https://jitpack.io/v/guuguo/flowLayout.svg)](https://jitpack.io/#guuguo/flowLayout)
+[![](https://jitpack.io/v/guuguo/androidLib.svg)](https://jitpack.io/#guuguo/androidLib)
 
-Android 流式布局和网格布局共同体，支持单选、多选等，支持使用直接使用recycler的adapter避免重复写适配器
+简化自己的 安卓开发工作
+
+[demo下载](https://fir.im/rmsn)
 # 使用
 ```groovy
-compile 'com.github.guuguo:flowlayout:$version' // jitpack version
+compile "com.github.guuguo.androidLib:androidLib:$version" // version 是 jitpack 徽章的 version
 ```
-[demo下载](https://fir.im/rmsn)
 
-# 效果图
 
-![image](recode.gif)
-![image](pic1.png)
+# 依赖的库
+```groovy
+compile "com.android.support:appcompat-v7:$support_vesion"
+compile "com.android.support:design:$support_vesion"
+compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//function 
+compile 'com.squareup.okhttp3:okhttp:3.8.0'
+compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar'
+compile 'com.google.code.gson:gson:2.8.0'
+//rxjava
+compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+compile 'com.artemzin.rxjava:proguard-rules:1.2.7.0'
+//view
+compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
+compile 'com.flyco.systembar:FlycoSystemBar_Lib:1.0.0@aar'
+compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
 
-# 参考的库
-
-https://github.com/LRH1993/AutoFlowLayout
-
-# 使用方式
-
-> xml 布局(可以使用xml直接内部加view也可以使用代码addview 或者FlowAdapter 或者RecyclerView.Adapter适配)
-
-```xml
-<top.guuguo.flowlayout.FlowLayout
-    android:id="@+id/fl_no_check"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    app:checkType="none"
-    android:layout_marginRight="20dp"
-    android:padding="15dp"
-    app:divideSpace="10dp"
-    app:dividerColor="#FFFFFF"
-    app:lineAlign="center"
-    app:columnNumbers="0"
-    />
+compile 'am.drawable:drawable:1.4.0'
+compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+compile 'me.yokeyword:fragmentation:0.10.6'
 ```
-> flowAdapter适配数据：
+# Base
+- Activity 继承 LNBaseActivity
+- Fragment 继承 LNBaseFragment
+
+> 调用 dialog
+
 ```java
-FlowAdapter adapter = new FlowAdapter<String>() {
+activity.dialogLoadingShow("加载中")
+activity.dialogCompleteShow("成功", null)
+activity.dialogErrorShow("失败", null)
+activity.dialogWarningShow("确定要这么做吗?", "取消", "确定", new OnBtnClickL() {
     @Override
-   protected View onCreateView() {
-       return MainActivity.this.getLayoutInflater().inflate(R.layout.item_tag, view, false)
-   }
-   @Override
-   protected void onBindView(View view, String item, boolean isChecked) {
-      //RoundTextView是一个第三方库     compile 'com.flyco.roundview:FlycoRoundView_Lib:1.1.4@aar'
-       RoundTextView tv = view.findViewById(R.id.tv_content);
-       tv.setText(item);
-       tv.getDelegate().setStrokeColor(color);
-       if (isChecked) { //如果设置了可以选择
-           tv.setTextColor(Color.WHITE);
-           tv.getDelegate().setBackgroundColor(color);
-       } else {
-           tv.setTextColor(color);
-           tv.getDelegate().setBackgroundColor(Color.TRANSPARENT);
-       }
-   }
-   @Override
-   protected void isMaxChecked(int limitedMaxNum) {
-       super.isMaxChecked(limitedMaxNum);
-       Toast.makeText(MainActivity.this, "最多只能选择" + limitedMaxNum + "个", Toast.LENGTH_SHORT
-   }
-;
-dapter.setNewData(toList(strS));
-flowLayout.setAdapter(adapter);
+    public void onBtnClick() {
+        Toast.makeText(activity, "你竟然真的这么做了", Toast.LENGTH_LONG).show();
+    }
+});
 ```
-> adapter获取选中的内容：
+> 简便地设置 layout和menu等
 ```java
-adapter.getCheckedMap() //返回 hashMap 键是position 值是传入的泛型item
+@Override
+protected int getLayoutResId() {
+    return R.layout.activity_table;
+}
+@Override
+protected int getMenuResId() {
+    return R.menu.menu_manage;
+}
 ```
-> 设置限制选择数量：
-```java
- adapter.setCheckLimit(3); //-1是不能选择,0是不限制多选,1是单选
-```
-# 自定义参数 attr
+以及其他通用的utils
 ===
-
-```xml
- <!--子view间隔-->
-<attr name="divideSpace" format="dimension" />
-<!--如果是0 则为流式布局，>0 则为网格布局-->
-<attr name="columnNumbers" format="integer" />
-<!--在子view间隔上绘制颜色-->
-<attr name="dividerColor" format="color" />
-<!--流式布局每行的对齐方式-->
-<attr name="lineAlign" format="enum">
-    <enum name="left" value="0" />
-    <enum name="center" value="1" />
-    <enum name="right" value="2" />
-</attr>
-<!--默认none 无法选择，single单选，multi多选(需要使用FlowAdapter适配数据才能选择)-->
-<attr name="checkType" format="enum">
-    <enum name="none" value="-1" />
-    <enum name="multi" value="0" />
-    <enum name="single" value="1" />
-</attr>
-```
+- NetworkUtil
+- AppUtil
+- DisplayUtil
+- DeviceUtil
+- FileUtil
+- InputMethodUtils
+- ......
 
 
+### 资源文件说明
+> dialog
+
+    <color name="dialogColorPrimary">#3F51B5</color>
+    <color name="dialogColorPrimaryDark">#303F9F</color>
+    
+> base
