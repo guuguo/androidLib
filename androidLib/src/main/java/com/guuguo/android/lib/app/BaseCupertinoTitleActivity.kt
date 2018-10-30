@@ -1,9 +1,9 @@
 package com.guuguo.android.lib.app
 
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.Toolbar
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.TextView
 import com.guuguo.android.R

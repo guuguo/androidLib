@@ -3,7 +3,7 @@ package com.guuguo.android.lib.widget.progress
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.*
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 import android.util.AttributeSet
 import android.view.View
 import com.guuguo.android.R

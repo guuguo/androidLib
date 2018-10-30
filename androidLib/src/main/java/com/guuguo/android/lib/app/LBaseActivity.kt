@@ -9,11 +9,11 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.CallSuper
-import android.support.annotation.ColorInt
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.Toolbar
+import androidx.annotation.CallSuper
+import androidx.annotation.ColorInt
+import androidx.fragment.app.Fragment
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -34,7 +34,7 @@ import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
 import com.guuguo.android.lib.utils.systembar.SystemBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.Serializable
@@ -173,7 +173,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
             val trans = supportFragmentManager.beginTransaction()
-            trans.replace(R.id.content, mFragment!! as Fragment)
+            trans.replace(R.id.content, mFragment!! as androidx.fragment.app.Fragment)
             trans.commitAllowingStateLoss()
         }
         initToolBar()
@@ -344,7 +344,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         val SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO"
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
-        fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
+        fun <F : androidx.fragment.app.Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
             val intent = getIntent(activity, targetFragment, targetActivity, map)
             if (targetCode == 0)
                 activity.startActivity(intent)
@@ -352,7 +352,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 activity.startActivityForResult(intent, targetCode)
         }
 
-        fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null): Intent {
+        fun <A : Activity, F : androidx.fragment.app.Fragment> getIntent(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null): Intent {
             val intent = Intent(activity, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 

@@ -4,11 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.annotation.ColorRes
+import androidx.annotation.ColorRes
 import android.view.View
-import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
-import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.getColorCompat
 import com.guuguo.android.lib.extension.inflateLayout
 import com.guuguo.android.lib.extension.toast
@@ -72,7 +71,7 @@ class FlowLayoutFragment : LBaseFragment() {
     companion object {
         fun intentTo(activity: Activity) {
             val intent = Intent(activity, BaseTitleActivity::class.java)
-            intent.putExtra(LBaseActivitySupport.SIMPLE_ACTIVITY_INFO, FlowLayoutFragment::class.java)
+            intent.putExtra(LBaseActivity.SIMPLE_ACTIVITY_INFO, FlowLayoutFragment::class.java)
             val bundle = Bundle()
             intent.putExtras(bundle)
             activity.startActivity(intent)

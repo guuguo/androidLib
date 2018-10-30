@@ -2,7 +2,6 @@ package top.guuguo.myapplication.ui.activity
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.app.LBaseActivity
-import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.extension.doAvoidDouble
 import kotlinx.android.synthetic.main.activity_main.*
 import top.guuguo.myapplication.R

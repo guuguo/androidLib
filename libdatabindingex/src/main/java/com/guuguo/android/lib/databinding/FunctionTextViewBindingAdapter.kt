@@ -1,8 +1,8 @@
 package com.guuguo.android.lib.databinding
 
-import android.databinding.BindingAdapter
-import android.databinding.BindingMethod
-import android.databinding.BindingMethods
+import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.ImageView

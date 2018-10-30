@@ -2,11 +2,10 @@ package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
-import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
-import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.widget.CustomMultiWaveView
 import kotlinx.android.synthetic.main.fragment_waveview.*
@@ -36,7 +35,7 @@ class WaveViewFragment : LBaseFragment() {
 
     companion object {
         fun intentTo(activity: Activity) {
-            LBaseActivitySupport.intentTo(activity, WaveViewFragment::class.java, BaseCupertinoTitleActivity::class.java)
+            LBaseActivity.intentTo(activity, WaveViewFragment::class.java, BaseCupertinoTitleActivity::class.java)
         }
     }
 }

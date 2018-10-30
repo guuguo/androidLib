@@ -1,6 +1,6 @@
 package com.guuguo.android.lib.databinding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import com.guuguo.android.lib.widget.roundview.*
 
 

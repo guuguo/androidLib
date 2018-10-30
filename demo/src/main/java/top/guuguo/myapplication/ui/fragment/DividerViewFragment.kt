@@ -2,9 +2,8 @@ package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
 import android.graphics.Color
-import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
-import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.dpToPx
 import kotlinx.android.synthetic.main.fragment_dividerview.*
 import top.guuguo.dividerview.DividerDrawable
@@ -35,7 +34,7 @@ class DividerViewFragment : LBaseFragment() {
 
     companion object {
         fun intentTo(activity: Activity) {
-            LBaseActivitySupport.intentTo(activity,DividerViewFragment::class.java,BaseTitleActivity::class.java)
+            LBaseActivity.intentTo(activity,DividerViewFragment::class.java,BaseTitleActivity::class.java)
         }
     }
 }

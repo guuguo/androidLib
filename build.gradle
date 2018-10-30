@@ -2,14 +2,14 @@
 
 buildscript {
     ext {
-        MIN_SDK_VERSION = 17
+        MIN_SDK_VERSION = 16
         COMPILE_SDK_VERSION = 28
         TARGET_SDK_VERSION = 28
 
-        ANDROID_PLUGIN_VERSION = '3.1.2'
-        KOTLIN_VERSION = '1.2.70'
-        SUPPORT_VERSION = "27.1.1"
-        ANDROIDX_VERSION = "1.0.0-beta01"
+        kotlin_version = '1.2.71'
+        ANDROID_PLUGIN_VERSION = '3.2.1'
+        SUPPORT_VERSION = '1.0.0'
+        ANDROIDX_VERSION = "1.0.0"
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
@@ -19,7 +19,8 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
+        classpath "com.alibaba:arouter-register:1.0.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -28,9 +29,6 @@ allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         google()
         jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
         mavenCentral()
         maven { url "https://jitpack.io" }
     }

@@ -1,14 +1,15 @@
 package com.guuguo.android.lib.app
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import android.view.*
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.safe
-import com.trello.rxlifecycle2.components.support.RxFragment
+import com.trello.rxlifecycle3.components.support.RxFragment
 
 
 /**

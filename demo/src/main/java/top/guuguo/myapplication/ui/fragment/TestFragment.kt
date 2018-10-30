@@ -6,7 +6,6 @@ import android.view.View
 import com.guuguo.android.drawable.CircleRunDrawable
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivity
-import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.widget.simpleview.StateLayout

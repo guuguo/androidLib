@@ -1,6 +1,6 @@
 package top.guuguo.myapplication
 
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.BaseApplication
 import com.guuguo.android.lib.lifecycle.AppHelper

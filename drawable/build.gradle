@@ -3,16 +3,13 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
-
-
-
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion MIN_SDK_VERSION
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
         resourcePrefix "drawable_"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -31,7 +28,7 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$KOTLIN_VERSION"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

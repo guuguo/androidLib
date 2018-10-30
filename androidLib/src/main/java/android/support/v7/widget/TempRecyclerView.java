@@ -1,7 +1,9 @@
-package android.support.v7.widget;
+package androidx.recyclerview.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Change the package method <code>absorbGlows</code> to be protected so we could

@@ -3,8 +3,8 @@ package com.guuguo.android.lib.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.view.animation.Animation;
 
@@ -19,7 +19,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 /**
  * Base class for activities that use the support-based
  * {@link ISupportFragment} and
- * {@link android.support.v4.app.Fragment} APIs.
+ * {@link androidx.core.app.Fragment} APIs.
  * Created by YoKey on 17/6/22.
  */
 public class SupportFragment extends RxFragment implements ISupportFragment {

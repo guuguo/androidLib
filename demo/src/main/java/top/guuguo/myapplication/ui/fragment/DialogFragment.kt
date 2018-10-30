@@ -1,7 +1,7 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.guuguo.android.dialog.dialog.CupertinoWarningDialog
@@ -26,7 +26,7 @@ class DialogFragment : LBaseFragment() {
     override fun isNavigationBack() = true
     override fun initView() {
         super.initView()
-        activity?.let {
+        activity.let {
             if (it is BaseCupertinoTitleActivity) {
                 it.getFunctionView().drawable = activity.getDrawableCompat(R.drawable.ic_close_black_24dp)
             }
@@ -75,7 +75,7 @@ class DialogFragment : LBaseFragment() {
             "dialog fragment 2".log("可怕")
         }
 
-        fun intentTo(fragment: Fragment) {
+        fun intentTo(fragment: androidx.fragment.app.Fragment) {
             fragment.startActivity(LBaseActivity.getIntent(fragment.activity!!, DialogFragment::class.java, BaseCupertinoTitleActivity::class.java, null))
             "dialog fragment".log()
             "dialog fragment 2".log("可怕")
