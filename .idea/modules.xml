@@ -5,12 +5,14 @@
       <module fileurl="file://$PROJECT_DIR$/androidLib.iml" filepath="$PROJECT_DIR$/androidLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidLib/androidLib-androidLib.iml" filepath="$PROJECT_DIR$/androidLib/androidLib-androidLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidOldLib/androidOldLib.iml" filepath="$PROJECT_DIR$/androidOldLib/androidOldLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidOldLib/androidOldLib.iml" filepath="$PROJECT_DIR$/androidOldLib/androidOldLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/dialog/dialog.iml" filepath="$PROJECT_DIR$/dialog/dialog.iml" />
       <module fileurl="file://$PROJECT_DIR$/drawable/drawable.iml" filepath="$PROJECT_DIR$/drawable/drawable.iml" />
       <module fileurl="file://$PROJECT_DIR$/iconfont/iconfont.iml" filepath="$PROJECT_DIR$/iconfont/iconfont.iml" />
       <module fileurl="file://$PROJECT_DIR$/libdatabindingex/libdatabindingex.iml" filepath="$PROJECT_DIR$/libdatabindingex/libdatabindingex.iml" />
       <module fileurl="file://$PROJECT_DIR$/roundview/roundview.iml" filepath="$PROJECT_DIR$/roundview/roundview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/systembar/systembar.iml" filepath="$PROJECT_DIR$/systembar/systembar.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/widget/widget.iml" filepath="$PROJECT_DIR$/widget/widget.iml" />
     </modules>

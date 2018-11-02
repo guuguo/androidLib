@@ -14,10 +14,9 @@ import android.view.WindowManager.LayoutParams
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
 import android.view.WindowManager
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 import android.os.Build
 import com.guuguo.android.dialog.utils.DisplayUtil
+import com.guuguo.android.lib.systembar.SystemBarHelper
 
 
 abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
@@ -193,7 +192,8 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         layoutParams.width = mContext.resources.displayMetrics.widthPixels
         layoutParams.height = DisplayUtil.getScreenRealHeight(mContext)//mContext.resources.displayMetrics.heightPixels
         window!!.attributes = layoutParams
-        setTranslucentStatus()
+//        setTranslucentStatus()
+        SystemBarHelper.immersiveStatusBar(window,0f)
     }
 
     override fun onStart() {
