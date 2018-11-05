@@ -11,7 +11,7 @@ import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.widget.CustomMultiWaveView
 import kotlinx.android.synthetic.main.fragment_waveview.*
 import top.guuguo.myapplication.R
-import top.guuguo.myapplication.ui.HomeGuideDialog
+import top.guuguo.myapplication.ui.guide.HomeGuideDialog
 
 class WaveViewFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_waveview
@@ -30,7 +30,7 @@ class WaveViewFragment : LBaseFragment() {
             }
         }
         wave_view.setOnClickListener {
-            HomeGuideDialog(activity,wave_view,HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
+            HomeGuideDialog(activity,wave_view, HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
         }
     }
 

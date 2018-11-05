@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class DialogFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
+    override fun getBackIconRes()=R.drawable.ic_arrow_back_24dp
     override fun isNavigationBack() = true
     override fun initView() {
         super.initView()
