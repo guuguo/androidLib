@@ -19,11 +19,11 @@ android {
         renderscriptSupportModeEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [moduleName: project.getName()]
+//            }
+//        }
     }
 
     buildTypes {
@@ -36,6 +36,13 @@ android {
         enabled = true
     }
 }
+kapt {
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+    generateStubs = false
+}
+
 //kapt {
 //    generateStubs = false
 //}
@@ -55,5 +62,5 @@ dependencies {
 
     //arouter
     implementation 'com.alibaba:arouter-api:1.4.1'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }

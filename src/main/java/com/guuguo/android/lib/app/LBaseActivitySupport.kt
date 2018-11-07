@@ -30,7 +30,7 @@ import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.FileUtil
 import com.guuguo.android.lib.utils.MemoryLeakUtil
-import com.guuguo.android.lib.utils.systembar.SystemBarHelper
+import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle2.android.ActivityEvent
 import io.reactivex.Completable

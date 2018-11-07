@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.utils.systembar;
+package com.guuguo.android.lib.systembar;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.text.TextUtils;
  * mimi 创造于 2017-06-24.
  * 项目 order
  */
-@Deprecated
+
 public class SystemUtil {
     public static boolean inMainProcess(Context context) {
         String packageName = context.getPackageName();

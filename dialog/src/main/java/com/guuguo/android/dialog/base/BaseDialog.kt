@@ -13,11 +13,7 @@ import android.view.*
 import android.view.WindowManager.LayoutParams
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
-import android.view.WindowManager
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-import android.os.Build
-import com.guuguo.android.dialog.utils.DisplayUtil
+import com.guuguo.android.lib.utils.DisplayUtil
 
 
 abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
@@ -100,6 +96,8 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     abstract fun setUiBeforShow()
 
     fun getScreenHeight() = DisplayUtil.getScreenRealHeight(mContext)
+    /**获取显示高度，真实屏幕高度减去底部导航栏的高度*/
+    fun getScreenDisplayHeight() = DisplayUtil.getScreenRealHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(mTag, "onCreate")
         mDisplayMetrics = mContext.resources.displayMetrics
@@ -175,25 +173,12 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         super.setCanceledOnTouchOutside(cancel)
     }
 
-    private fun setTranslucentStatus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0 全透明实现
-            val window = window
-            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.TRANSPARENT
-        } else {//4.4 全透明状态栏
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        }
-    }
-
     override fun show() {
         super.show()
         val layoutParams = window!!.attributes
         layoutParams.width = mContext.resources.displayMetrics.widthPixels
         layoutParams.height = DisplayUtil.getScreenRealHeight(mContext)//mContext.resources.displayMetrics.heightPixels
         window!!.attributes = layoutParams
-        setTranslucentStatus()
     }
 
     override fun onStart() {

@@ -5,8 +5,8 @@ import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.TextView
 import com.guuguo.android.R
-import com.guuguo.android.lib.utils.systembar.SystemBarHelper
 import com.guuguo.android.lib.widget.FunctionTextView
+import com.guuguo.android.lib.systembar.SystemBarHelper
 
 open class BaseCupertinoTitleActivity : LBaseActivitySupport() {
     companion object {

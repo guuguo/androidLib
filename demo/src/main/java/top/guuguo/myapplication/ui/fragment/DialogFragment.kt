@@ -1,7 +1,6 @@
 package top.guuguo.myapplication.ui.fragment
 
 import android.app.Activity
-import androidx.fragment.app.Fragment
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.guuguo.android.dialog.dialog.CupertinoWarningDialog
@@ -9,7 +8,9 @@ import com.guuguo.android.dialog.dialog.CustomAlertDialog
 import com.guuguo.android.dialog.dialog.DefaultWarningDialog
 import com.guuguo.android.dialog.dialog.NewEditAlertDialog
 import com.guuguo.android.dialog.utils.*
-import com.guuguo.android.lib.app.*
+import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
+import com.guuguo.android.lib.app.LBaseActivity
+import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.getDrawableCompat
 import com.guuguo.android.lib.extension.log
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit
 class DialogFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
+    override fun getBackIconRes()=R.drawable.ic_arrow_back_24dp
     override fun isNavigationBack() = true
     override fun initView() {
         super.initView()

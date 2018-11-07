@@ -1,17 +1,13 @@
 /*
  * Copyright (c) 2016 BiliBili Inc.
  */
-package com.guuguo.android.lib.utils.systembar;
+package com.guuguo.android.lib.systembar;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.FloatRange;
-import androidx.core.view.ViewCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +15,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-
-import com.guuguo.android.R;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.regex.Pattern;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 /**
  * 状态栏工具类
@@ -32,7 +30,6 @@ import java.util.regex.Pattern;
  * 1.沉浸式全屏模式
  * 2.状态栏着色模式
  */
-@Deprecated
 public class SystemBarHelper {
     private static float DEFAULT_ALPHA = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ? 0.2f : 0.3f;
 
@@ -401,10 +398,10 @@ public class SystemBarHelper {
      */
     private static void setStatusBar(ViewGroup container, @ColorInt int statusBarColor, boolean visible, boolean addToFirst) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            View statusBarView = container.findViewById(R.id.statusbar_view);
+            View statusBarView = container.findViewById(R.id.systembar_statusbar_view);
             if (statusBarView == null) {
                 statusBarView = new View(container.getContext());
-                statusBarView.setId(R.id.statusbar_view);
+                statusBarView.setId(R.id.systembar_statusbar_view);
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(container.getContext()));
                 if (addToFirst) {
@@ -432,10 +429,10 @@ public class SystemBarHelper {
     private static void setTranslucentView(ViewGroup container,
                                            @FloatRange(from = 0.0, to = 1.0) float alpha) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            View translucentView = container.findViewById(R.id.translucent_view);
+            View translucentView = container.findViewById(R.id.systembar_translucent_view);
             if (translucentView == null) {
                 translucentView = new View(container.getContext());
-                translucentView.setId(R.id.translucent_view);
+                translucentView.setId(R.id.systembar_translucent_view);
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(container.getContext()));
                 container.addView(translucentView, lp);

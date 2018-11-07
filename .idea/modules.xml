@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/iconfont/iconfont.iml" filepath="$PROJECT_DIR$/iconfont/iconfont.iml" />
       <module fileurl="file://$PROJECT_DIR$/libdatabindingex/libdatabindingex.iml" filepath="$PROJECT_DIR$/libdatabindingex/libdatabindingex.iml" />
       <module fileurl="file://$PROJECT_DIR$/roundview/roundview.iml" filepath="$PROJECT_DIR$/roundview/roundview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/systembar/systembar.iml" filepath="$PROJECT_DIR$/systembar/systembar.iml" />
       <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/widget/widget.iml" filepath="$PROJECT_DIR$/widget/widget.iml" />
     </modules>

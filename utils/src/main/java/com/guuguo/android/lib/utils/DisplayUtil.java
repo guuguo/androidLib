@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -92,6 +93,13 @@ public class DisplayUtil {
             screenHeightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
         }
         return screenHeightPixels;
+    }
+    public static int getNavigationBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height","dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+        Log.v("dbw", "Navi height:" + height);
+        return height;
     }
 
     private volatile static boolean mHasCheckAllScreen;

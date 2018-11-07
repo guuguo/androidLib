@@ -17,7 +17,7 @@ class MainActivity : LBaseActivity() {
                 DividerViewFragment.intentTo(activity)
             }
         }
-        v_dialog.setOnClickListener {
+        v_dialog.setOnClickListener { it ->
             it.doAvoidDouble {
                 //                DialogFragment.intentTo(activity)
                 ArouterActivity.intentToArouterPath(activity, "/demo/dialog", BaseTitleActivity::class.java)

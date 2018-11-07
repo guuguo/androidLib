@@ -1,2 +1,2 @@
-include ':androidLib', ':demo', ':dialog', ':drawable',
+include ':androidLib', ':demo', ':dialog', ':drawable',':systembar',
         ':iconfont',':roundview',':utils', ':widget',':libdatabindingex'

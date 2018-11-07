@@ -1,41 +1,58 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<com.guuguo.android.drawable.GuideHighLightBgView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/guild_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/black20">
 
     <ImageView
-        android:layout_gravity="left"
         android:id="@+id/iv_target_circle"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/home_guild_circle" />
-    <ImageView
-        android:id="@+id/iv_arrow"
         android:layout_gravity="left"
+        android:src="@drawable/guide_circle" />
+
+    <ImageView
+        android:contentDescription="引导箭头"
+        android:id="@+id/iv_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_gravity="left"
         android:layout_marginTop="5dp"
-        android:src="@drawable/guild_arrow_left_top" />
-    <ImageView
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/guide_arrow_left" />
+
+    <TextView
         android:id="@+id/tv_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/home_guid_weight"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/home_guid_weight" />
+        tools:text="点击这里一键上称哦~" />
 
-    <ImageView
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
         android:id="@+id/iv_i_know"
-        android:layout_width="144dp"
-        android:layout_height="68dp"
+        android:layout_width="125dp"
+        android:textColor="@color/white"
+        android:text="@string/btn_know"
+        android:layout_height="45dp"
+        android:textSize="18sp"
+        app:rv_strokeColor="@color/white"
+        app:rv_strokeWidth="1dp"
+        app:rv_cornerRadius="4dp"
+        android:gravity="center"
         android:layout_gravity="center"
-        android:layout_marginTop="90dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="55dp"
         android:scaleType="centerCrop"
         android:src="@drawable/home_guild_know_btn" />
-</LinearLayout>
+</com.guuguo.android.drawable.GuideHighLightBgView>

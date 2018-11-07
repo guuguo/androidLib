@@ -11,7 +11,7 @@ import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.databinding.FragmentGuildBinding
-import top.guuguo.myapplication.ui.HomeGuideDialog
+import top.guuguo.myapplication.ui.guide.HomeGuideDialog
 
 class GuildFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_guild
