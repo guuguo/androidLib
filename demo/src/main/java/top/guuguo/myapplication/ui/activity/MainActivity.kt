@@ -60,6 +60,11 @@ class MainActivity : LBaseActivity() {
                 GuildFragment.intentTo(activity)
             }
         }
+        v_recycler.setOnClickListener {
+            it.doAvoidDouble {
+                RecyclerviewFragment.intentTo(activity)
+            }
+        }
 //        v_state.setOnClickListener {
 //            it.doAvoidDouble {
 //                StateFragment.intentTo(activity)

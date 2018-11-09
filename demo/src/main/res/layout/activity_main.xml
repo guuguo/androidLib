@@ -45,7 +45,23 @@
         app:rv_strokePressColor="@color/black20"
         app:rv_strokeWidth="1px"
         app:rv_textPressColor="@color/colorPrimary" />
-
+    <com.guuguo.android.lib.widget.roundview.RoundTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/v_recycler"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="RecyclerView"
+        android:textColor="@color/black80"
+        android:textSize="16sp"
+        app:rv_backgroundColor="@color/migray"
+        app:rv_backgroundPressColor="@color/colorPrimary"
+        app:rv_cornerRadius="3dp"
+        app:rv_strokeColor="@color/black20"
+        app:rv_strokePressColor="@color/black20"
+        app:rv_strokeWidth="1px"
+        app:rv_textPressColor="@color/colorPrimary" />
     <com.guuguo.android.lib.widget.roundview.RoundTextView
         android:layout_width="wrap_content"
         android:padding="10dp"

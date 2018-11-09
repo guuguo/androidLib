@@ -14,6 +14,7 @@ class GuideHighLightBgView : LinearLayout {
 
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     init {
         setWillNotDraw(false)
     }
@@ -47,16 +48,18 @@ class GuideHighLightBgView : LinearLayout {
         return bm;
     }
 
+    private val clearMode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val mSrcRect = makeSrcRect(canvas);
-        val mDstCircle = makeDstShape(canvas);
+        val mSrcRect = makeSrcRect(canvas)
+        val mDstCircle = makeDstShape(canvas)
 
-        canvas.drawBitmap(mDstCircle, 0f, 0f, mPaint)
-        mPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OUT);
-        mPaint.alpha = 160;
+        mPaint.alpha = 60
         canvas.drawBitmap(mSrcRect, 0f, 0f, mPaint)
+        mPaint.xfermode = clearMode
+        mPaint.alpha = 255
+        canvas.drawBitmap(mDstCircle, 0f, 0f, mPaint)
     }
 
 }

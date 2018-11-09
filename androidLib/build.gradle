@@ -36,9 +36,10 @@ dependencies {
     api project(':widget')
 
     api "androidx.core:core-ktx:$ANDROIDX_VERSION"
+    api "androidx.appcompat:appcompat:$ANDROIDX_VERSION"
     api "com.google.android.material:material:$ANDROIDX_VERSION"
     api "androidx.recyclerview:recyclerview:$ANDROIDX_VERSION"
-    api "androidx.appcompat:appcompat:$ANDROIDX_VERSION"
+    api "androidx.dynamicanimation:dynamicanimation:$ANDROIDX_VERSION"
     api "androidx.annotation:annotation:${ANDROIDX_VERSION}"
     api "androidx.legacy:legacy-support-v4:$ANDROIDX_VERSION"
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
