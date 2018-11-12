@@ -38,12 +38,12 @@ class TestFragment : LBaseFragment() {
 
     fun doit() {
         state.layoutRes = R.layout.widget_include_simple_empty_view1
-        StateLayout.loadingDrawableClass = CircleRunDrawable::class.java
+        StateLayout.loadingDrawableClass = null
         state.showLoading("", true)
         when (type) {
             0 -> state.postDelayed({
                 if (!state.isLoading)
-                    state.showLoading("",true)
+                    state.showLoading("", true)
                 state.postDelayed({
                     state.restore()
                 }, 1000)

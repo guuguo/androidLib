@@ -88,11 +88,11 @@ class StateLayout : FrameLayout {
 
     fun showLoading(message: String, isDark: Boolean = false) {
         isLoading = true
-        showSimpleView().loading(message, loadingDrawableClass.newInstance().apply { if (this is IDrawableTheme) if (!isDark) light() else dark() })
+        showSimpleView().loading(message, loadingDrawableClass?.newInstance().apply { if (this is IDrawableTheme) if (!isDark) light() else dark() })
     }
 
     companion object {
-        var loadingDrawableClass: Class<out Drawable> = CircularDrawable::class.java
+        var loadingDrawableClass: Class<out Drawable>? = CircularDrawable::class.java
     }
 
     fun restore() {

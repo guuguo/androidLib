@@ -18,29 +18,34 @@ import com.guuguo.android.lib.widget.R
 class SimpleViewHolder(var view: View) {
     val mLayout: ViewGroup = view.findViewById(R.id.layoutEmpty)
     val mImg: ImageView = view.findViewById(R.id.imageView)
+    val mLoading: View? = view.findViewById(R.id.widget_loading)
     val mTvText: TextView = view.findViewById(R.id.tv_text)
     val mBtn: TextView = view.findViewById(R.id.btn_empty)
 
-    fun loading(msg: String, loadingDrawable: Drawable = CircularDrawable().apply { light() }): SimpleViewHolder {
-        mImg.visibility = View.VISIBLE
+    fun loading(msg: String, loadingDrawable: Drawable? = CircularDrawable().apply { light() }): SimpleViewHolder {
         mBtn.visibility = View.GONE
-
-        mImg.setImageDrawable(loadingDrawable)
-        mImg.layoutParams.width = 50.dpToPx()
-        mImg.requestLayout()
-        val lDrawable = mImg.drawable
-        if (lDrawable is Animatable)
-            lDrawable.start()
+        loadingDrawable?.let {
+            mImg.visibility = View.VISIBLE
+            mImg.setImageDrawable(loadingDrawable)
+            mImg.layoutParams.width = 50.dpToPx()
+            mImg.requestLayout()
+            val lDrawable = mImg.drawable
+            if (lDrawable is Animatable)
+                lDrawable.start()
+        } ?: apply {
+            mImg.visibility = View.GONE
+            mLoading?.visibility = View.VISIBLE
+        }
         if (msg.isEmpty())
             mTvText.visibility = View.GONE
         else
             mTvText.visibility = View.VISIBLE
-
         mTvText.text = msg
         return this
     }
 
     fun state(text: String, imgRes: Int = 0, btnText: String? = "", listener: View.OnClickListener? = null): SimpleViewHolder {
+        mLoading?.visibility = View.GONE
         mImg.layoutParams.width = 100.dpToPx()
         mImg.requestLayout()
         if (imgRes == 0)

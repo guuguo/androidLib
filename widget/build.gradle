@@ -33,6 +33,8 @@ android {
 dependencies {
     api project(':drawable')
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+
 }
 repositories {
     mavenCentral()
