@@ -15,6 +15,7 @@ import com.guuguo.android.lib.extension.getDrawableCompat
 import com.guuguo.android.lib.extension.log
 import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_dialog.*
+import top.guuguo.myapplication.MyDialog
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.WarningDialog
 import java.util.concurrent.TimeUnit
@@ -66,6 +67,9 @@ class DialogFragment : LBaseFragment() {
         }
         btn_alert_custom.setOnClickListener {
             CustomAlertDialog(activity).contentView(TextView(activity)).title("填写").show()
+        }
+        btn_alert_custom2.setOnClickListener {
+            MyDialog(activity).show()
         }
     }
 

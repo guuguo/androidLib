@@ -101,7 +101,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(mTag, "onCreate")
         mDisplayMetrics = mContext.resources.displayMetrics
-        mMaxHeight = (mDisplayMetrics.heightPixels - StatusBarUtils.getHeight(mContext)).toFloat()
+        mMaxHeight = (DisplayUtil.getScreenRealHeight(mContext) - StatusBarUtils.getHeight(mContext)-DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
 
         mContentTop = LinearLayout(mContext)
         mContentTop.gravity = Gravity.CENTER
@@ -163,6 +163,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         } else {
             height = (mMaxHeight * mHeightRatio).toInt()
             createdHeight = ViewGroup.LayoutParams.MATCH_PARENT
+            this.mMarginBottom=DisplayUtil.getNavigationBarHeight(mContext)
         }
         mOnCreateView.layoutParams = mOnCreateView.layoutParams.also { it.height = createdHeight;it.width = createdWidth; }
         mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height).also { it.bottomMargin = mMarginBottom }
