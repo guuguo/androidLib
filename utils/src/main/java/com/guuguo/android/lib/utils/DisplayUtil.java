@@ -57,6 +57,9 @@ public class DisplayUtil {
         return screenWidthPixels;
     }
 
+    /**
+     * 获取屏幕真实高度，避免全面屏减去状态栏高度
+     */
     public static int getScreenRealHeight( Context context) {
         if (!isAllScreenDevice()) {
             return getNormalScreenHeight();

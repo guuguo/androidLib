@@ -69,6 +69,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="自定义" />
+        <Button
+            android:id="@+id/btn_alert_custom2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="custom" />
         <com.guuguo.android.lib.widget.FunctionTextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
