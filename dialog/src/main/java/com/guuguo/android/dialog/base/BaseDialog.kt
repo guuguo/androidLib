@@ -156,6 +156,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         if (mHeightRatio == 0f) {
             height = ViewGroup.LayoutParams.WRAP_CONTENT
             createdHeight = ViewGroup.LayoutParams.WRAP_CONTENT
+            this.mMarginBottom=DisplayUtil.getNavigationBarHeight(mContext)
         } else if (mHeightRatio == 1f) {
             height = ViewGroup.LayoutParams.MATCH_PARENT
             createdHeight = ViewGroup.LayoutParams.MATCH_PARENT
