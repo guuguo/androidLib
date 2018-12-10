@@ -141,8 +141,11 @@ object DialogHelper {
                                 mDialogs.remove(context)
                                 return
                             }
-                        d.dismiss()
-                        listener?.onDismiss(d)
+                        try {
+                            d.dismiss()
+                            listener?.onDismiss(d)
+                        } catch (e: java.lang.Exception) {
+                        }
                         mDialogs[context]?.remove(dialog)
                     }
 
