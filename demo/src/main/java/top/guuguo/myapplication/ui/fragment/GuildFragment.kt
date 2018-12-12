@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
-import com.guuguo.android.lib.app.LBaseActivitySupport
+import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.databinding.FragmentGuildBinding
@@ -38,7 +38,7 @@ class GuildFragment : LBaseFragment() {
 
     companion object {
         fun intentTo(activity: Activity) {
-            LBaseActivitySupport.intentTo(activity, GuildFragment::class.java, BaseCupertinoTitleActivity::class.java)
+            LBaseActivity.intentTo(activity, GuildFragment::class.java, BaseCupertinoTitleActivity::class.java)
         }
     }
 }

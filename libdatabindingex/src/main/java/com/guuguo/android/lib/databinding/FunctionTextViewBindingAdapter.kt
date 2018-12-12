@@ -4,8 +4,8 @@ import android.databinding.BindingAdapter
 import android.databinding.BindingMethod
 import android.databinding.BindingMethods
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
+import androidx.core.view.doOnLayout
 import androidx.core.view.updateLayoutParams
 import com.guuguo.android.lib.widget.FunctionTextView
 
@@ -18,15 +18,12 @@ class FunctionTextViewBindingAdapter
 // 根据View的高度和宽高比，设置高度
 @BindingAdapter("heightWidthRatio")
 fun View.setWidthHeightRatio(ratio: Double) {
-    this.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-        override fun onGlobalLayout() {
-            val width = this@setWidthHeightRatio.width
-            if (width > 0) {
-                this@setWidthHeightRatio.layoutParams.height = (width * ratio).toInt()
-                this@setWidthHeightRatio.viewTreeObserver.removeOnGlobalLayoutListener(this)
-            }
+    doOnLayout {
+        val width = this@setWidthHeightRatio.width
+        if (width > 0) {
+            this@setWidthHeightRatio.layoutParams.height = (width * ratio).toInt()
         }
-    })
+    }
 }
 
 // 设置高度

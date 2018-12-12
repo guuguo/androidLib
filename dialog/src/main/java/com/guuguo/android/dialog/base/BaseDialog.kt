@@ -7,12 +7,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.view.ViewCompat
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.view.WindowManager.LayoutParams
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
+import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.guuguo.android.lib.utils.DisplayUtil
 
 
@@ -42,6 +44,8 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     protected var mCancel: Boolean = false
     /** dialog width scale(宽度比例)  */
     protected var mWidthRatio = 1f
+    /** 是否沉浸状态栏全屏  */
+    protected var mFullScreen = true
     /** dialog height scale(高度比例)  */
     protected var mHeightRatio: Float = 0.toFloat()
     /** top container(最上层容器,显示阴影那个)  */
@@ -98,10 +102,13 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     fun getScreenHeight() = DisplayUtil.getScreenRealHeight(mContext)
     /**获取显示高度，真实屏幕高度减去底部导航栏的高度*/
     fun getScreenDisplayHeight() = DisplayUtil.getScreenRealHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(mTag, "onCreate")
         mDisplayMetrics = mContext.resources.displayMetrics
-        mMaxHeight = (DisplayUtil.getScreenRealHeight(mContext) - StatusBarUtils.getHeight(mContext)-DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
+        if (mFullScreen)
+            mMaxHeight = (DisplayUtil.getScreenRealHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
+        else mMaxHeight = (DisplayUtil.getScreenRealHeight(mContext) - StatusBarUtils.getHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
 
         mContentTop = LinearLayout(mContext)
         mContentTop.gravity = Gravity.CENTER
@@ -155,24 +162,28 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         if (mHeightRatio == 0f) {
             height = ViewGroup.LayoutParams.WRAP_CONTENT
             createdHeight = ViewGroup.LayoutParams.WRAP_CONTENT
-            this.mMarginBottom=DisplayUtil.getNavigationBarHeight(mContext)
-        } else if (mHeightRatio == 1f) {
+//            this.mMarginBottom = DisplayUtil.getNavigationBarHeight(mContext)
+        } else {
             height = ViewGroup.LayoutParams.MATCH_PARENT
             createdHeight = ViewGroup.LayoutParams.MATCH_PARENT
-
-//            height = mMaxHeight.toInt()
-        } else {
-            height = (mMaxHeight * mHeightRatio).toInt()
-            createdHeight = ViewGroup.LayoutParams.MATCH_PARENT
-            this.mMarginBottom=DisplayUtil.getNavigationBarHeight(mContext)
         }
+
         mOnCreateView.layoutParams = mOnCreateView.layoutParams.also { it.height = createdHeight;it.width = createdWidth; }
-        mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height).also { it.bottomMargin = mMarginBottom }
+        mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height)
+        if (mHeightRatio > 0 && mHeightRatio < 1)
+            mContentTop.doOnNextLayout {
+                mDialogContent.updateLayoutParams<LinearLayout.LayoutParams> {
+                    this.height = (mDialogContent.height * mHeightRatio).toInt()
+                }
+            }
     }
 
-    override fun setCanceledOnTouchOutside(cancel: Boolean) {
-        this.mCancel = cancel
-        super.setCanceledOnTouchOutside(cancel)
+
+    @JvmName("updateLayoutParamsTyped")
+    private inline fun <reified T : ViewGroup.LayoutParams> View.updateLayoutParams(block: T.() -> Unit) {
+        val params = layoutParams as T
+        block(params)
+        layoutParams = params
     }
 
     override fun show() {
@@ -181,6 +192,9 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         layoutParams.width = mContext.resources.displayMetrics.widthPixels
         layoutParams.height = DisplayUtil.getScreenRealHeight(mContext)//mContext.resources.displayMetrics.heightPixels
         window!!.attributes = layoutParams
+        if (mFullScreen)
+            SystemBarHelper.immersiveStatusBar(window, 0f)
+
     }
 
     override fun onStart() {
@@ -239,6 +253,12 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         return this as T
     }
 
+    /** 是否全屏(全屏则沉浸状态栏)  */
+    fun fullScreen(fullScreen: Boolean): T {
+        mFullScreen = fullScreen
+        return this as T
+    }
+
     /** set dialog width scale:0-1(设置对话框宽度,占屏幕宽的比例0-1)  */
     fun widthRatio(widthScale: Float): T {
         this.mWidthRatio = widthScale
@@ -293,5 +313,33 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     protected fun dp2px(dp: Float): Int {
         val scale = mContext.resources.displayMetrics.density
         return (dp * scale + 0.5f).toInt()
+    }
+
+    override fun setCanceledOnTouchOutside(cancel: Boolean) {
+        this.mCancel = cancel
+        super.setCanceledOnTouchOutside(cancel)
+    }
+
+    private inline fun View.updateLayoutParams(block: ViewGroup.LayoutParams.() -> Unit) {
+        updateLayoutParams<ViewGroup.LayoutParams>(block)
+    }
+
+    private inline fun View.doOnNextLayout(crossinline action: (view: View) -> Unit) {
+        addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+            override fun onLayoutChange(
+                    view: View,
+                    left: Int,
+                    top: Int,
+                    right: Int,
+                    bottom: Int,
+                    oldLeft: Int,
+                    oldTop: Int,
+                    oldRight: Int,
+                    oldBottom: Int
+            ) {
+                view.removeOnLayoutChangeListener(this)
+                action(view)
+            }
+        })
     }
 }

@@ -8,9 +8,7 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.request.RequestOptions
 import com.github.florent37.viewanimator.ViewAnimator
 import com.guuguo.android.lib.app.LBaseActivity
-import com.guuguo.android.lib.app.LBaseActivitySupport
 import com.guuguo.android.lib.app.LBaseFragment
-import com.guuguo.android.lib.app.LBaseFragmentSupport
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.widget.SwipeNavigationLayout
 import kotlinx.android.synthetic.main.fragment_banner2.*
