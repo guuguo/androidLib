@@ -7,13 +7,14 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.view.ViewCompat
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.view.WindowManager.LayoutParams
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
+import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.guuguo.android.lib.utils.DisplayUtil
 
@@ -145,7 +146,6 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         super.onAttachedToWindow()
         Log.d(mTag, "onAttachedToWindow")
 
-        setUiBeforShow()
 
         val width: Int
         val createdWidth: Int
@@ -170,12 +170,36 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
 
         mOnCreateView.layoutParams = mOnCreateView.layoutParams.also { it.height = createdHeight;it.width = createdWidth; }
         mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height)
-        if (mHeightRatio > 0 && mHeightRatio < 1)
-            mContentTop.doOnNextLayout {
+        mContentTop.doOnNextLayout {
+            val bgLocation = IntArray(2)
+            window.decorView.findViewById<FrameLayout>(Window.ID_ANDROID_CONTENT).getLocationOnScreen(bgLocation)
+            /** 是否是沉浸式 有些vivo 三星手机无法沉浸式*/
+            val isNotRealImmerse = bgLocation[1] == SystemBarHelper.getStatusBarHeight(mContext)
+
+//            if (mFullScreen && !isNotRealImmerse)
+//                SystemBarHelper.immersiveStatusBar(window, 0f)
+
+            if (mHeightRatio > 0 && mHeightRatio < 1) {
                 mDialogContent.updateLayoutParams<LinearLayout.LayoutParams> {
-                    this.height = (mDialogContent.height * mHeightRatio).toInt()
+                    if (isNotRealImmerse) {//没顶上去就减去状态栏高度,另外再减去沉浸状态栏的 负的margin导致的高度变高
+                        this.height = ((mDialogContent.height - SystemBarHelper.getStatusBarHeight(context)*2) * mHeightRatio).toInt()
+                    } else {
+                        this.height = (mDialogContent.height * mHeightRatio).toInt()
+                    }
                 }
             }
+            if (isNotRealImmerse) {
+                window.decorView.findViewById<FrameLayout>(Window.ID_ANDROID_CONTENT).getChildAt(0).apply {
+                    top = 0
+                    updateLayoutParams<FrameLayout.LayoutParams> {
+                        topMargin=0 //把沉浸式改的topMargin改回来
+                    }
+                    setPadding(0,0,0,SystemBarHelper.getStatusBarHeight(context))
+                }
+                mOnCreateView.requestLayout()
+            }
+        }
+        setUiBeforShow()
     }
 
 
@@ -192,9 +216,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         layoutParams.width = mContext.resources.displayMetrics.widthPixels
         layoutParams.height = DisplayUtil.getScreenRealHeight(mContext)//mContext.resources.displayMetrics.heightPixels
         window!!.attributes = layoutParams
-        if (mFullScreen)
-            SystemBarHelper.immersiveStatusBar(window, 0f)
-
+        SystemBarHelper.immersiveStatusBar(window, 0f)
     }
 
     override fun onStart() {

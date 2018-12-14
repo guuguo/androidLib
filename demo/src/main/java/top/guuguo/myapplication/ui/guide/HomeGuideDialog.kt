@@ -59,7 +59,7 @@ class HomeGuideDialog(var activity: Activity, var targetView: View, var guildTyp
                 val circleHeight = targetHeight + padding * 2
 
                 val location = IntArray(2)
-                getLocationInWindow(location)
+                getLocationOnScreen(location)
                 var lCx = location[0] + width / 2
                 var lCY = location[1] + height / 2
                 guideContent.targetCX = lCx.toFloat()
@@ -83,11 +83,15 @@ class HomeGuideDialog(var activity: Activity, var targetView: View, var guildTyp
 
                 val bgLocation = IntArray(2)
                 guideContent.getLocationOnScreen(bgLocation)
+                //因为 topMargin 改变,measuredHeight 不会马上改变，所以直接测量计算的值拿来用
+                var contentHeight=guideContent.measuredHeight
                 //如果背景顶部是状态栏高度，则 margin 等于负的状态栏高度，适配三星部分手机状态栏顶不上去
                 if (bgLocation[1] == SystemBarHelper.getStatusBarHeight(mContext)) {
                     guideContent.updateLayoutParams<LinearLayout.LayoutParams> {
+                        contentHeight+=SystemBarHelper.getStatusBarHeight(context)
                         topMargin = -SystemBarHelper.getStatusBarHeight(mContext)
-                        bottomMargin=SystemBarHelper.getStatusBarHeight(mContext)
+//                        bottomMargin=SystemBarHelper.getStatusBarHeight(mContext)
+
                     }
                 }
 
@@ -100,7 +104,7 @@ class HomeGuideDialog(var activity: Activity, var targetView: View, var guildTyp
                     content.addView(circleView)
                     mTop = 0
                     content.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-                    mBottom = guideContent.measuredHeight - (location[1] + measuredHeight / 2) - circleHeight / 2
+                    mBottom = contentHeight - (location[1] + measuredHeight / 2) - circleHeight / 2
                     arrow.setImageResource(R.drawable.guide_arrow_left)
                     if (location[0] < DisplayUtil.getScreenWidth() / 2) {
                         arrow.scaleX = -1f
@@ -139,10 +143,10 @@ class HomeGuideDialog(var activity: Activity, var targetView: View, var guildTyp
 
     }
 
-    override fun show() {
-        SystemBarHelper.immersiveStatusBar(window, 0f)
-        super.show()
-    }
+//    override fun show() {
+//        SystemBarHelper.immersiveStatusBar(window, 0f)
+//        super.show()
+//    }
 
     override fun onCreateView(): View {
         val view = layoutInflater.inflate(getLayoutResId(), null)

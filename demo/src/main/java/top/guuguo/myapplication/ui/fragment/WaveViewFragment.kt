@@ -15,8 +15,10 @@ import top.guuguo.myapplication.ui.guide.HomeGuideDialog
 class WaveViewFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_waveview
     override fun getHeaderTitle() = "waveView"
+    override fun getBackIconRes()=R.drawable.ic_arrow_back_24dp
     override fun initView() {
         super.initView()
+        (activity as LBaseActivity).lightBar()
         wave_view.addWaves(arrayOf(
                 CustomMultiWaveView.WaveBean(1000f, 4500, 48.dpToPx())
                 , CustomMultiWaveView.WaveBean(1000f, 4200, 44.dpToPx())

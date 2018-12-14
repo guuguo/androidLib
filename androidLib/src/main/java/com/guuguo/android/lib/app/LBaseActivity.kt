@@ -11,8 +11,11 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.CallSuper
 import android.support.annotation.ColorInt
+import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
+import android.support.v7.widget.DrawableUtils
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu

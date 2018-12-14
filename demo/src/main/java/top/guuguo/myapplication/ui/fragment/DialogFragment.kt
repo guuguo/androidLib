@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit
 class DialogFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
-    override fun getBackIconRes()=R.drawable.ic_arrow_back_24dp
+    override fun getBackIconRes() = R.drawable.ic_arrow_back_24dp
     override fun isNavigationBack() = true
     override fun initView() {
         super.initView()
@@ -69,6 +69,9 @@ class DialogFragment : LBaseFragment() {
             CustomAlertDialog(activity).contentView(TextView(activity)).title("填写").show()
         }
         btn_alert_custom2.setOnClickListener {
+            MyDialog(activity).heightRatio(0.99f).widthRatio(0.9f).show()
+        }
+        btn_alert_custom3.setOnClickListener {
             MyDialog(activity).show()
         }
     }
