@@ -1,17 +1,36 @@
 package top.guuguo.myapplication.ui.activity
 
+import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.extension.doAvoidDouble
 import kotlinx.android.synthetic.main.activity_main.*
 import top.guuguo.myapplication.R
-import top.guuguo.myapplication.R.id.*
+import top.guuguo.myapplication.ThemeUtils
 import top.guuguo.myapplication.ui.fragment.*
 
 class MainActivity : LBaseActivity() {
     override fun getLayoutResId() = R.layout.activity_main
+    override fun initVariable(savedInstanceState: Bundle?) {
+        super.initVariable(savedInstanceState)
+        ThemeUtils.onActivityCreateSetTheme(activity)
+    }
+
     override fun initView() {
         super.initView()
+        v_theme.setOnClickListener {
+            it.doAvoidDouble {
+                ThemeUtils.changeToTheme(activity)
+//                ThemeUtils.sThemeDark = !ThemeUtils.sThemeDark
+//                if (ThemeUtils.sThemeDark) {
+//                    activity.setTheme(R.style.MyTheme_Dark)
+//                    theme.applyStyle(R.style.MyTheme_Dark, true)
+//                } else {
+//                    activity.setTheme(R.style.MyTheme_Light)
+//                    theme.applyStyle(R.style.MyTheme_Light, true)
+//                }
+            }
+        }
         v_divider.setOnClickListener {
             it.doAvoidDouble {
                 DividerViewFragment.intentTo(activity)

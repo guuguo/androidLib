@@ -15,6 +15,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout.ALIGN_TOP
 import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
@@ -28,11 +29,27 @@ import com.guuguo.android.lib.widget.roundview.RoundLinearLayout
 
 class FunctionTextView : RoundLinearLayout {
     constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.FunctionTextView)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, android.R.attr.textViewStyle)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : this(context, attrs, defStyleAttr, R.style.Widget_AppCompat_Button)
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs) {
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.FunctionTextView, defStyleAttr, defStyleRes)
         initAttr(context, attributes)
         attributes.recycle()
-        initView()
+        initView(attrs, defStyleAttr)
+    }
+
+    val ALIGN_LEFT = 0
+    val ALIGN_TOP = 1
+    val ALIGN_RIGHT = 2
+    val ALIGN_BOTTOM = 3
+    var imageView: AppCompatImageView? = null
+    var textView: AppCompatTextView? = null
+    private fun initView(attrs: AttributeSet?, defStyleAttr: Int) {
+        textView = AppCompatTextView(context, attrs, defStyleAttr)
+        imageView = AppCompatImageView(context)
+
+        requestViews()
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -43,8 +60,6 @@ class FunctionTextView : RoundLinearLayout {
 
     private fun initAttr(context: Context, attributes: TypedArray) {
         text = attributes.getString(R.styleable.FunctionTextView_android_text).safe("")
-        textSize = attributes.getDimension(R.styleable.FunctionTextView_android_textSize, 12.dpToPx().toFloat())
-        textColor = attributes.getColor(R.styleable.FunctionTextView_android_textColor, Color.BLACK)
         textStyle = attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
         drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint, 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
@@ -123,18 +138,6 @@ class FunctionTextView : RoundLinearLayout {
     var drawableHeight: Float = -2f
     var drawablePadding: Float = 0f
 
-    val ALIGN_LEFT = 0
-    val ALIGN_TOP = 1
-    val ALIGN_RIGHT = 2
-    val ALIGN_BOTTOM = 3
-    var imageView: AppCompatImageView? = null
-    var textView: AppCompatTextView? = null
-    private fun initView() {
-        textView = AppCompatTextView(context)
-        imageView = AppCompatImageView(context)
-
-        requestViews()
-    }
 
     fun requestViews() {
         removeAllViews()
@@ -166,7 +169,8 @@ class FunctionTextView : RoundLinearLayout {
                 addView(imageView, imageViewParams)
             }
         }
-
+        if (drawableTint == 0)
+            drawableTint = textView?.currentTextColor.safe()
         //image text
         drawable?.also {
             imageView?.visibility = View.VISIBLE
@@ -185,9 +189,9 @@ class FunctionTextView : RoundLinearLayout {
             textView?.visibility = View.VISIBLE
             textView?.text = text
         }
-        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-        textView?.setTextColor(textColor)
-        textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
+//        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+//        textView?.setTextColor(textColor)
+//        textView?.typeface = Typeface.defaultFromStyle(textStyle);//加粗
     }
 
     private fun createColorStateList(normal: Int, pressed: Int, focused: Int, unable: Int): ColorStateList {

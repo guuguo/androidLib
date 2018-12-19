@@ -4,6 +4,7 @@
 
     <attr name="containerBackgroundLayer1" format="reference|color" />
     <attr name="containerBackgroundLayer2" format="reference|color" />
+    <attr name="buttonBackground" format="reference|color" />
     <attr name="myTitleTextColor" format="color" />
     <attr name="mySubTitleTextColor" format="color" />
     <declare-styleable name="IconTextView">

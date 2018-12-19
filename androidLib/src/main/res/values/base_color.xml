@@ -97,10 +97,11 @@
     <!-- 夜间模式 -->
     <color name="night_actionbar_background">#252d33</color>
     <color name="night_main_bg">#21272b</color>
-    <color name="night_main_front_bg">#323f45</color>
+    <color name="night_main_front_bg">#FF424242</color><!--#323f45-->
     <color name="night_title_text">#ced7e6</color>
     <color name="night_text">#8b9497</color>
     <color name="night_hint">#899296</color>
+    <color name="dark_button_background">#5a595b</color>
 
     <!-- 日间模式 -->
     <color name="colorPrimary">#11A884</color>
@@ -111,6 +112,7 @@
     <color name="day_text">#0e0e0e</color>
     <color name="day_hint">#919191</color>
     <color name="colorWhiteRipple">#919191</color>
+    <color name="light_button_background">#d6d7d7</color>
 
     <!--dialog-->
     <color name="gray_light">#f2f2f2</color>

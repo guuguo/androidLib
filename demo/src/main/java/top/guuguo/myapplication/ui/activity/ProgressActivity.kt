@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.app.LBaseActivity
 import kotlinx.android.synthetic.main.activity_progress.*
 import top.guuguo.myapplication.R
+import top.guuguo.myapplication.ThemeUtils
 
 @Route(path = "/test/progress")
 class ProgressActivity : LBaseActivity() {
@@ -19,7 +20,6 @@ class ProgressActivity : LBaseActivity() {
         super.initView()
         state.showLoading(name)
     }
-
     companion object {
         fun intentTo(activity: Activity) {
             val intent = Intent(activity, ProgressActivity::class.java)
@@ -33,6 +33,7 @@ class ProgressActivity : LBaseActivity() {
     override fun initVariable(savedInstanceState: Bundle?) {
         super.initVariable(savedInstanceState)
         ARouter.getInstance().inject(this)
+        ThemeUtils.onActivityCreateSetTheme(this);
     }
 
 }

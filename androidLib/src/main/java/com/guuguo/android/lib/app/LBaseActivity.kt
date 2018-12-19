@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Resources
+import android.content.res.TypedArray
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import androidx.appcompat.widget.Toolbar
 import android.util.Log
+import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -26,6 +29,7 @@ import com.guuguo.android.dialog.dialog.TipDialog
 import com.guuguo.android.dialog.utils.DialogHelper
 import com.guuguo.android.dialog.utils.dialogWarningShow
 import com.guuguo.android.dialog.utils.showDialogOnMain
+import com.guuguo.android.lib.extension.getColorCompat
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.extension.toast
@@ -118,7 +122,14 @@ abstract class LBaseActivity : RxAppCompatActivity() {
 
     protected open fun initStatusBar() {
         if (!fullScreen()) {
-            SystemBarHelper.tintStatusBar(activity, ContextCompat.getColor(activity, R.color.colorPrimary), 0f)
+            val ta = theme.obtainStyledAttributes(null, R.styleable.ActionBar, R.attr.actionBarStyle, 0)
+            val color = ta.getColor(R.styleable.AppBarLayout_android_background, getColorCompat(R.color.colorPrimary))
+
+            val typedValue = TypedValue();
+            theme.resolveAttribute(android.R.attr.colorBackground, typedValue, true);
+            typedValue.data
+
+            SystemBarHelper.tintStatusBar(activity, color, 0f)
             if (isStatusBarTextDark()) {
                 SystemBarHelper.setStatusBarDarkMode(activity)
             }
@@ -173,7 +184,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
             val trans = supportFragmentManager.beginTransaction()
-            trans.replace(R.id.content, mFragment!! as androidx.fragment.app.Fragment)
+            trans.replace(R.id.content, mFragment!! as Fragment)
             trans.commitAllowingStateLoss()
         }
         initToolBar()

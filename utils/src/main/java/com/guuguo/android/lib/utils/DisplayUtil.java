@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import java.lang.reflect.Method;
 
 /**
  * Created by 大哥哥 on 2016/8/26 0026.
@@ -88,51 +89,87 @@ public class DisplayUtil {
     }
 
 
-    public static int getScreenHeight() {
-        return getScreenRealHeight(Utils.getContext());
-    }
-    public static int getNormalScreenHeight() {
-        if (screenHeightPixels <= 0) {
-            screenHeightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
-        }
-        return screenHeightPixels;
-    }
-    public static int getNavigationBarHeight(Context context) {
-        Resources resources = context.getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height","dimen", "android");
-        int height = resources.getDimensionPixelSize(resourceId);
-        Log.v("dbw", "Navi height:" + height);
-        return height;
-    }
+  public static int getScreenHeight() {
+    return getScreenRealHeight(Utils.getContext());
+  }
 
-    private volatile static boolean mHasCheckAllScreen;
-    private volatile static boolean mIsAllScreenDevice;
-
-    public static boolean isAllScreenDevice() {
-        if (mHasCheckAllScreen) {
-            return mIsAllScreenDevice;
-        }
-        mHasCheckAllScreen = true;
-        mIsAllScreenDevice = false;
-        // 低于 API 21的，都不会是全面屏。。。
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return false;
-        }
-        WindowManager windowManager = (WindowManager) Utils.getContext().getSystemService(Context.WINDOW_SERVICE);
-        if (windowManager != null) {
-            Display display = windowManager.getDefaultDisplay();
-            Point point = new Point();
-            display.getRealSize(point);
-            float  height;
-            if (point.x < point.y) {
-                height = point.y;
-            } else {
-                height = point.x;
-            }
-            if (height != getNormalScreenHeight() ) {
-                mIsAllScreenDevice = true;
-            }
-        }
-        return mIsAllScreenDevice;
+  public static int getNormalScreenHeight() {
+    if (screenHeightPixels <= 0) {
+      screenHeightPixels = Resources.getSystem().getDisplayMetrics().heightPixels;
     }
+    return screenHeightPixels;
+  }
+
+  public static int getNavigationBarHeight(Context context) {
+    if (!checkDeviceHasNavigationBar(context)) {
+      return 0;
+    }
+    Resources resources = context.getResources();
+    int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+    int height = resources.getDimensionPixelSize(resourceId);
+    Log.v("dbw", "Navi height:" + height);
+    return height;
+  }
+
+  /**
+   * 获取是否存在NavigationBar
+   */
+  public static boolean checkDeviceHasNavigationBar(Context context) {
+    boolean hasNavigationBar = false;
+    Resources rs = context.getResources();
+    int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+    if (id > 0) {
+      hasNavigationBar = rs.getBoolean(id);
+    }
+    try {
+      Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+      Method m = systemPropertiesClass.getMethod("get", String.class);
+      String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+      if ("1".equals(navBarOverride)) {
+        hasNavigationBar = false;
+      } else if ("0".equals(navBarOverride)) {
+        hasNavigationBar = true;
+      }
+    } catch (Exception e) {
+
+    }
+    return hasNavigationBar;
+  }
+
+  private volatile static boolean mHasCheckAllScreen;
+  private volatile static boolean mIsAllScreenDevice;
+
+  public static boolean isAllScreenDevice() {
+    if (mHasCheckAllScreen) {
+      return mIsAllScreenDevice;
+    }
+    mHasCheckAllScreen = true;
+    mIsAllScreenDevice = false;
+    // 低于 API 21的，都不会是全面屏。。。
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      return false;
+    }
+    WindowManager windowManager = (WindowManager) Utils.getContext()
+        .getSystemService(Context.WINDOW_SERVICE);
+    if (windowManager != null) {
+      Display display = windowManager.getDefaultDisplay();
+      Point point = new Point();
+      display.getRealSize(point);
+      float height;
+      if (point.x < point.y) {
+        height = point.y;
+      } else {
+        height = point.x;
+      }
+      if (height != getNormalScreenHeight()) {
+        mIsAllScreenDevice = true;
+      }
+    }
+    return mIsAllScreenDevice;
+  }
+
+  public static boolean isLightColor(int color) {
+    double darkness = 1  - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
+    return darkness < 0.5;
+  }
 }
