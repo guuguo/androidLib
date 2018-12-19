@@ -128,7 +128,7 @@
     app:dv_backgroundColor="?containerBackgroundLayer2"
     app:dv_dividerColor="@color/black20"
     app:dv_dividerWidth="1px"/>
-  <android.support.v7.widget.CardView
+  <androidx.cardview.widget.CardView
     android:layout_width="150dp"
     android:layout_height="150dp"
     android:layout_marginTop="50dp"

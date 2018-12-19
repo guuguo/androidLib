@@ -12,7 +12,7 @@ android {
         versionName VERSION_NAME
         resourcePrefix "systembar_"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    api "com.android.support:support-v4:$SUPPORT_VERSION"
+    api "androidx.legacy:legacy-support-v4:$SUPPORT_VERSION"
 }
 repositories {
     mavenCentral()

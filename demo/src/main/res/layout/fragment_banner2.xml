@@ -8,11 +8,11 @@
     android:layout_height="match_parent"
     tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
-    <ImageView
+    <View
         android:id="@+id/image_view"
         android:scaleType="centerInside"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </ImageView>
+    </View>
 </com.guuguo.android.lib.widget.SwipeNavigationLayout>
