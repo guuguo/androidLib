@@ -5,12 +5,12 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="10dp"
-  android:background="@color/colorPrimaryBlue"
   android:orientation="vertical"
   app:columnNumbers="3"
   tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
   <top.guuguo.flowlayout.FlowLayout
+    android:background="?containerBackgroundLayer2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="50dp"
@@ -86,12 +86,10 @@
       android:layout_height="100dp"
       android:drawablePadding="6dp"
       android:text="正确"
-      android:textColor="@color/white"
       android:textSize="12sp"
       app:ftv_drawableAlign="top"
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_success"
-      app:ftv_drawableTint="@color/white"
       app:ftv_drawableWidth="25dp"/>
 
     <com.guuguo.android.lib.widget.FunctionTextView
@@ -99,12 +97,10 @@
       android:layout_height="100dp"
       android:drawablePadding="6dp"
       android:text="正确"
-      android:textColor="@color/white"
       android:textSize="12sp"
       app:ftv_drawableAlign="left"
       app:ftv_drawableHeight="14dp"
       app:ftv_drawableSrc="@drawable/widget_state_warning"
-      app:ftv_drawableTint="@color/white"
       app:ftv_drawableWidth="14dp"/>
 
     <com.guuguo.android.lib.widget.FunctionTextView
@@ -116,7 +112,7 @@
       android:textSize="12sp"
       app:ftv_drawableAlign="right"
       app:ftv_drawableHeight="14dp"
-      app:ftv_drawableSrc="@drawable/widget_state_warning"
+      app:ftv_drawableSrc="@drawable/widget_state_error"
       app:ftv_drawableTint="@color/red"
       app:ftv_drawableWidth="14dp"/>
 
@@ -125,12 +121,10 @@
       android:layout_height="100dp"
       android:drawablePadding="6dp"
       android:text="正确"
-      android:textColor="@color/white"
       android:textSize="12sp"
       app:ftv_drawableAlign="bottom"
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_warning"
-      app:ftv_drawableTint="@color/white"
       app:ftv_drawableWidth="25dp"/>
 
   </top.guuguo.flowlayout.FlowLayout>

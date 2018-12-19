@@ -2,6 +2,7 @@ package com.guuguo.android.lib.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.util.Log;
@@ -133,35 +134,41 @@ public class DisplayUtil {
     }
     return hasNavigationBar;
   }
-    private volatile static boolean mHasCheckAllScreen;
-    private volatile static boolean mIsAllScreenDevice;
 
-    public static boolean isAllScreenDevice () {
-      if (mHasCheckAllScreen) {
-        return mIsAllScreenDevice;
-      }
-      mHasCheckAllScreen = true;
-      mIsAllScreenDevice = false;
-      // 低于 API 21的，都不会是全面屏。。。
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-        return false;
-      }
-      WindowManager windowManager = (WindowManager) Utils.getContext()
-          .getSystemService(Context.WINDOW_SERVICE);
-      if (windowManager != null) {
-        Display display = windowManager.getDefaultDisplay();
-        Point point = new Point();
-        display.getRealSize(point);
-        float height;
-        if (point.x < point.y) {
-          height = point.y;
-        } else {
-          height = point.x;
-        }
-        if (height != getNormalScreenHeight()) {
-          mIsAllScreenDevice = true;
-        }
-      }
+  private volatile static boolean mHasCheckAllScreen;
+  private volatile static boolean mIsAllScreenDevice;
+
+  public static boolean isAllScreenDevice() {
+    if (mHasCheckAllScreen) {
       return mIsAllScreenDevice;
     }
+    mHasCheckAllScreen = true;
+    mIsAllScreenDevice = false;
+    // 低于 API 21的，都不会是全面屏。。。
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      return false;
+    }
+    WindowManager windowManager = (WindowManager) Utils.getContext()
+        .getSystemService(Context.WINDOW_SERVICE);
+    if (windowManager != null) {
+      Display display = windowManager.getDefaultDisplay();
+      Point point = new Point();
+      display.getRealSize(point);
+      float height;
+      if (point.x < point.y) {
+        height = point.y;
+      } else {
+        height = point.x;
+      }
+      if (height != getNormalScreenHeight()) {
+        mIsAllScreenDevice = true;
+      }
+    }
+    return mIsAllScreenDevice;
   }
+
+  public static boolean isLightColor(int color) {
+    double darkness = 1  - (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255;
+    return darkness < 0.5;
+  }
+}

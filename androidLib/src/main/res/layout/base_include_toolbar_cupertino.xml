@@ -16,7 +16,6 @@
       android:id="@+id/id_tool_bar"
       android:layout_width="match_parent"
       android:layout_height="?actionBarSize"
-      android:theme="@style/Toolbar.Dark"
       android:title=""
       app:layout_scrollFlags="scroll|enterAlways"
       app:popupTheme="@style/ToolbarPopupTheme">
