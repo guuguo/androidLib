@@ -126,6 +126,16 @@
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_warning"
       app:ftv_drawableWidth="25dp"/>
+    <com.guuguo.android.lib.widget.FunctionTextView
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:drawablePadding="6dp"
+      android:text="正确"
+      android:textSize="12sp"
+      android:textColor="@color/green"
+      app:ftv_drawableAlign="bottom"
+      app:ftv_drawableHeight="25dp"
+      app:ftv_drawableWidth="25dp"/>
 
   </top.guuguo.flowlayout.FlowLayout>
 </FrameLayout>

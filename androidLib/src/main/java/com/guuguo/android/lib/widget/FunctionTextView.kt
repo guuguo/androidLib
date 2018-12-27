@@ -78,7 +78,6 @@ class FunctionTextView : RoundLinearLayout {
             if (!value.isEmpty()) {
                 textView?.apply {
                     text = value
-                    textView?.setTextColor(textColor)
                     visibility = View.VISIBLE
                 }
             } else {
@@ -169,7 +168,7 @@ class FunctionTextView : RoundLinearLayout {
                 addView(imageView, imageViewParams)
             }
         }
-        if (drawableTint == 0)
+        if (drawableTint == -1)
             drawableTint = textView?.currentTextColor.safe()
         //image text
         drawable?.also {
