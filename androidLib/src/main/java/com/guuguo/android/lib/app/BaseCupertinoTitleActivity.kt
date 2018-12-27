@@ -28,7 +28,6 @@ open class BaseCupertinoTitleActivity : LBaseActivity() {
     override fun initStatusBar() {
         SystemBarHelper.setHeightAndPadding(activity, getToolBar())
         SystemBarHelper.immersiveStatusBar(activity, 0f)
-        SystemBarHelper.setStatusBarDarkMode(activity)
     }
 
     override fun getHeaderTitle() = null
@@ -38,20 +37,16 @@ open class BaseCupertinoTitleActivity : LBaseActivity() {
 
     fun getFunctionView() = findViewById<FunctionTextView>(R.id.tv_function)
     override fun lightBar(@ColorInt textColor: Int) {
-        getToolBar().setBackgroundColor(Color.WHITE)
-        getAppBar()?.setBackgroundColor(Color.WHITE)
-        getFunctionView().textColor = Color.BLACK
-        findViewById<TextView?>(R.id.tv_title_bar)?.setTextColor(Color.BLACK)
-        SystemBarHelper.setStatusBarDarkMode(activity)
+        super.lightBar(textColor)
+
+        getFunctionView().textColor = textColor
+        findViewById<TextView?>(R.id.tv_title_bar)?.setTextColor(textColor)
     }
 
     override fun darkBar(@ColorInt color: Int) {
-        if (color != 0) {
-            getToolBar().setBackgroundColor(color)
-            getAppBar()?.setBackgroundColor(color)
-        }
+        super.darkBar(color)
+
         findViewById<TextView?>(R.id.tv_title_bar)?.setTextColor(Color.WHITE)
         getFunctionView().textColor = Color.WHITE
-        SystemBarHelper.setStatusBarLightMode(activity)
     }
 }

@@ -85,6 +85,7 @@
       android:layout_width="match_parent"
       android:layout_height="100dp"
       android:drawablePadding="6dp"
+      app:ftv_drawableTintDefaultTextColor="true"
       android:text="正确"
       android:textSize="12sp"
       app:ftv_drawableAlign="top"
@@ -123,6 +124,17 @@
       android:text="正确"
       android:textSize="12sp"
       app:ftv_drawableAlign="bottom"
+      app:ftv_drawableTintDefaultTextColor="true"
+      app:ftv_drawableHeight="25dp"
+      app:ftv_drawableSrc="@drawable/widget_state_warning"
+      app:ftv_drawableWidth="25dp"/>
+    <com.guuguo.android.lib.widget.FunctionTextView
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:drawablePadding="6dp"
+      android:textSize="12sp"
+      app:ftv_drawableAlign="bottom"
+      app:ftv_drawableTintDefaultTextColor="true"
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_warning"
       app:ftv_drawableWidth="25dp"/>

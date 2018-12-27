@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.Color
+import android.graphics.drawable.DrawableWrapper
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -17,6 +18,7 @@ import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
+import android.support.v4.graphics.drawable.DrawableCompat.setTint
 import android.support.v7.widget.DrawableUtils
 import android.support.v7.widget.Toolbar
 import android.util.Log
@@ -45,6 +47,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.Serializable
+import java.lang.System.exit
 import java.util.concurrent.TimeUnit
 
 
@@ -145,6 +148,13 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         getAppBar()?.setBackgroundColor(Color.WHITE)
         getToolBar()?.setTitleTextColor(textColor)
         SystemBarHelper.setStatusBarDarkMode(activity)
+        getToolBar()?.navigationIcon?.let {
+            val icon = DrawableCompat.wrap(it).apply {
+                mutate()
+                DrawableCompat.setTint( this,textColor)
+            }
+            getToolBar()?.navigationIcon = icon
+        }
         getToolBar()?.popupTheme = R.style.Base_Widget_AppCompat_PopupMenu_Overflow
     }
 
@@ -154,6 +164,13 @@ abstract class LBaseActivity : RxAppCompatActivity() {
             getAppBar()?.setBackgroundColor(color)
         }
         getToolBar()?.setTitleTextColor(Color.WHITE)
+        getToolBar()?.navigationIcon?.let {
+            val icon = DrawableCompat.wrap(it).apply {
+                mutate()
+                DrawableCompat.setTint( this,Color.WHITE)
+            }
+            getToolBar()?.navigationIcon = icon
+        }
         SystemBarHelper.setStatusBarLightMode(activity)
         getToolBar()?.popupTheme = R.style.Base_Widget_AppCompat_Light_PopupMenu_Overflow
     }
