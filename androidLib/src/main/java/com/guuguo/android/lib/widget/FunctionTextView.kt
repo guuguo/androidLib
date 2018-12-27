@@ -46,6 +46,7 @@ class FunctionTextView : RoundLinearLayout {
         textView = AppCompatTextView(context, attrs, defStyleAttr)
         imageView = AppCompatImageView(context)
 
+        textView?.background = ContextCompat.getDrawable(context,R.drawable.materi)
         imageView?.background = textView?.background?.apply { mutate() }
         requestViews()
     }
