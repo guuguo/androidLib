@@ -46,7 +46,6 @@ class FunctionTextView : RoundLinearLayout {
         textView = AppCompatTextView(context, attrs, defStyleAttr)
         imageView = AppCompatImageView(context)
 
-        textView?.background = ContextCompat.getDrawable(context,R.drawable.materi)
         imageView?.background = textView?.background?.apply { mutate() }
         requestViews()
     }
@@ -180,6 +179,7 @@ class FunctionTextView : RoundLinearLayout {
             }
         }
         textView?.setPadding(0, 0, 0, 0)
+        textView?.minWidth=0
         when (drawableAlign) {
             ALIGN_LEFT, ALIGN_TOP -> {
                 addView(imageView, imageViewParams)
