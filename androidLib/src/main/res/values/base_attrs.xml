@@ -79,6 +79,7 @@
         <attr name="android:textColor"/>
         <attr name="android:textSize"/>
         <attr name="android:drawablePadding"/>
+        <attr name="ftv_drawableTintDefaultTextColor" format="boolean"/>
         <attr name="ftv_drawableTint"/>
         <attr name="ftv_drawableSrc"/>
         <attr name="ftv_drawableAlign"/>

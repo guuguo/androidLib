@@ -15,10 +15,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RelativeLayout.ALIGN_TOP
 import android.widget.TextView
 import com.guuguo.android.R
-import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.widget.roundview.RoundLinearLayout
 
@@ -61,6 +59,7 @@ class FunctionTextView : RoundLinearLayout {
     private fun initAttr(context: Context, attributes: TypedArray) {
         text = attributes.getString(R.styleable.FunctionTextView_android_text).safe("")
         textStyle = attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
+        drawableTintDefaultTextColor = attributes.getBoolean(R.styleable.FunctionTextView_ftv_drawableTintDefaultTextColor, false)
         drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint, 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
 
@@ -78,7 +77,6 @@ class FunctionTextView : RoundLinearLayout {
             if (!value.isEmpty()) {
                 textView?.apply {
                     text = value
-                    textView?.setTextColor(textColor)
                     visibility = View.VISIBLE
                 }
             } else {
@@ -110,6 +108,7 @@ class FunctionTextView : RoundLinearLayout {
                 imageView?.setImageDrawable(wrapped)
             }
         }
+    var drawableTintDefaultTextColor=false
     /**
      * left "0" />
      * top"1" />
@@ -169,7 +168,7 @@ class FunctionTextView : RoundLinearLayout {
                 addView(imageView, imageViewParams)
             }
         }
-        if (drawableTint == 0)
+        if (drawableTintDefaultTextColor)
             drawableTint = textView?.currentTextColor.safe()
         //image text
         drawable?.also {
