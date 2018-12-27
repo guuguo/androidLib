@@ -66,6 +66,8 @@
     <attr name="ftv_drawableSrc" format="reference"/>
     <!-- drawable 图片着色颜色-->
     <attr name="ftv_drawableTint" format="reference|color"/>
+    <!-- drawable 默认icon颜色是否和textView一致-->
+    <attr name="ftv_drawableTintDefaultTextColor" format="boolean"/>
     <!-- drawable 资源偏向文字的位置-->
     <attr name="ftv_drawableAlign" format="enum">
         <enum name="left" value="0" />
@@ -79,13 +81,13 @@
         <attr name="android:textColor"/>
         <attr name="android:textSize"/>
         <attr name="android:drawablePadding"/>
-        <attr name="ftv_drawableTintDefaultTextColor" format="boolean"/>
+        <attr name="android:gravity" />
+        <attr name="ftv_drawableTintDefaultTextColor"/>
         <attr name="ftv_drawableTint"/>
         <attr name="ftv_drawableSrc"/>
         <attr name="ftv_drawableAlign"/>
         <attr name="ftv_drawableWidth"/>
         <attr name="ftv_drawableHeight"/>
-        <attr name="android:gravity" />
     </declare-styleable>
 
 </resources>

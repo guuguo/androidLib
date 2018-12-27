@@ -10,12 +10,14 @@ import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import com.guuguo.android.R
+import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.widget.roundview.RoundLinearLayout
 
@@ -43,10 +45,9 @@ class FunctionTextView : RoundLinearLayout {
     var imageView: AppCompatImageView? = null
     var textView: AppCompatTextView? = null
     private fun initView(attrs: AttributeSet?, defStyleAttr: Int) {
-        textView = AppCompatTextView(context, attrs, defStyleAttr)
+        textView = AppCompatTextView(context, null, defStyleAttr)
         imageView = AppCompatImageView(context)
 
-        imageView?.background = textView?.background?.apply { mutate() }
         requestViews()
     }
 
@@ -59,6 +60,8 @@ class FunctionTextView : RoundLinearLayout {
     private fun initAttr(context: Context, attributes: TypedArray) {
         text = attributes.getString(R.styleable.FunctionTextView_android_text).safe("")
         textStyle = attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
+        textSize = attributes.getDimension(R.styleable.FunctionTextView_android_textSize, 12.dpToPx().toFloat())
+        textColor = attributes.getColor(R.styleable.FunctionTextView_android_textColor, 0)
         drawableTintDefaultTextColor = attributes.getBoolean(R.styleable.FunctionTextView_ftv_drawableTintDefaultTextColor, false)
         drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint, 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
@@ -86,13 +89,12 @@ class FunctionTextView : RoundLinearLayout {
             field = value
             textView?.textSize = value
         }
-    var textColor: Int = Color.BLACK
+    var textColor: Int = 0
         set(value) {
             field = value
             textView?.setTextColor(value)
             setDrawableWithTint()
         }
-        get() = textView?.currentTextColor.safe()
     var textStyle: Int = Typeface.NORMAL
         set(value) {
             field = value
@@ -168,7 +170,6 @@ class FunctionTextView : RoundLinearLayout {
         val imageViewParams = LinearLayout.LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
 
         val textViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
-            setMargins(0, 0, 0, 0)
             drawable?.let {
                 when (drawableAlign) {
                     ALIGN_LEFT -> marginStart = drawablePadding.toInt()
@@ -178,8 +179,6 @@ class FunctionTextView : RoundLinearLayout {
                 }
             }
         }
-        textView?.setPadding(0, 0, 0, 0)
-        textView?.minWidth=0
         when (drawableAlign) {
             ALIGN_LEFT, ALIGN_TOP -> {
                 addView(imageView, imageViewParams)
@@ -190,12 +189,7 @@ class FunctionTextView : RoundLinearLayout {
                 addView(imageView, imageViewParams)
             }
         }
-//        if (drawableTint == 0 && drawableTintDefaultTextColor) {
-//            drawableTint = textView?.currentTextColor.safe()
-//        } else {
         setDrawableWithTint()
-//        }
-
 
         if (text.isEmpty()) {
             textView?.visibility = View.GONE
@@ -203,5 +197,9 @@ class FunctionTextView : RoundLinearLayout {
             textView?.visibility = View.VISIBLE
             textView?.text = text
         }
+        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        if (textColor != 0)
+            textView?.setTextColor(textColor)
+        textView?.typeface = Typeface.defaultFromStyle(textStyle)//加粗
     }
 }
