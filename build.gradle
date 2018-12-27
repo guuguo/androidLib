@@ -7,6 +7,7 @@ buildscript {
         TARGET_SDK_VERSION = 28
 
         ANDROID_PLUGIN_VERSION = '3.1.1'
+        kotlin_version = '1.2.71'
         KOTLIN_VERSION = '1.2.71'
         SUPPORT_VERSION = "27.1.1"
         ANDROIDX_VERSION = "1.0.0"

@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.github.florent37.viewanimator.ViewAnimator
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
+import com.guuguo.android.lib.extension.getColorCompat
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.widget.SwipeNavigationLayout
 import kotlinx.android.synthetic.main.fragment_banner2.*
@@ -31,16 +32,15 @@ class NavigatorLayoutFragment : LBaseFragment() {
         }
     }
 
-    private var lastList: List<String>? = null
+    private var lastList: List<Int>? = null
     private var currentVideoIndex = 0
 
     override fun loadData() {
         super.loadData()
         val mList = mutableListOf(
-                "https://cdn.dribbble.com/users/458522/screenshots/3995732/toy_illustrations.jpg",
-                "http://p0.ifengimg.com/pmop/2017/0626/696AF538F51450AFAD8C2862A8910A4A5F08031E_size29_w800_h494.jpeg",
-                "https://cdn.dribbble.com/users/956577/screenshots/3936987/comp_1_2.gif"
-                )
+                R.color.color_red_orange,
+                R.color.color_yellow,
+                R.color.color_blue)
         lastList = mList
         initBanner(lastList!![currentVideoIndex])
     }
@@ -78,11 +78,12 @@ class NavigatorLayoutFragment : LBaseFragment() {
      * 开始加载广告图片
      * @param newslist
      */
-    private fun initBanner(bean: String) {
-        ViewAnimator.animate(image_view).alpha(1f, 0f).duration(200).onStop {
-            Glide.with(image_view).load(bean).apply(glideRequestOptions).into(image_view)
-            ViewAnimator.animate(image_view).alpha(0f, 1f).duration(500).start()
-        }.start()
+    private fun initBanner(colorRes: Int) {
+        image_view.setBackgroundColor(activity.getColorCompat(colorRes))
+//        ViewAnimator.animate(image_view).alpha(1f, 0f).duration(200).onStop {
+//            image_view.setBackgroundColor(activity.getColorCompat(colorRes))
+//            ViewAnimator.animate(image_view).alpha(0f, 1f).duration(500).start()
+//        }.start()
 
     }
 
