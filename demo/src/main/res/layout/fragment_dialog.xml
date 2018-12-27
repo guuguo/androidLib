@@ -10,10 +10,10 @@
   tools:context="top.guuguo.myapplication.ui.activity.MainActivity">
 
   <top.guuguo.flowlayout.FlowLayout
-    android:background="?containerBackgroundLayer2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="50dp"
+    android:background="?containerBackgroundLayer2"
     app:columnNumbers="3">
 
     <Button
@@ -85,12 +85,12 @@
       android:layout_width="match_parent"
       android:layout_height="100dp"
       android:drawablePadding="6dp"
-      app:ftv_drawableTintDefaultTextColor="true"
       android:text="正确"
       android:textSize="12sp"
       app:ftv_drawableAlign="top"
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_success"
+      app:ftv_drawableTintDefaultTextColor="true"
       app:ftv_drawableWidth="25dp"/>
 
     <com.guuguo.android.lib.widget.FunctionTextView
@@ -124,9 +124,9 @@
       android:text="正确"
       android:textSize="12sp"
       app:ftv_drawableAlign="bottom"
-      app:ftv_drawableTintDefaultTextColor="true"
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_warning"
+      app:ftv_drawableTintDefaultTextColor="true"
       app:ftv_drawableWidth="25dp"/>
     <com.guuguo.android.lib.widget.FunctionTextView
       android:layout_width="match_parent"
@@ -134,10 +134,16 @@
       android:drawablePadding="6dp"
       android:textSize="12sp"
       app:ftv_drawableAlign="bottom"
-      app:ftv_drawableTintDefaultTextColor="true"
       app:ftv_drawableHeight="25dp"
       app:ftv_drawableSrc="@drawable/widget_state_warning"
+      app:ftv_drawableTintDefaultTextColor="true"
       app:ftv_drawableWidth="25dp"/>
-
+    <com.guuguo.android.lib.widget.FunctionTextView
+      android:layout_width="match_parent"
+      android:text="正确"
+      android:layout_height="100dp"
+      android:drawablePadding="6dp"
+      android:textSize="12sp"
+      />
   </top.guuguo.flowlayout.FlowLayout>
 </FrameLayout>
