@@ -1,6 +1,5 @@
 package com.guuguo.android.lib.app
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

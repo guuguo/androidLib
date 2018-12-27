@@ -42,9 +42,9 @@ class TestFragment : LBaseFragment() {
                 .delay(1, TimeUnit.SECONDS)
                 .compose(bindToLifecycle<TestFragment>())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    callback()
-                }.isDisposed
+                .doOnComplete { callback() }
+                .subscribe({}, {})
+                .isDisposed
     }
 
     fun doit() {

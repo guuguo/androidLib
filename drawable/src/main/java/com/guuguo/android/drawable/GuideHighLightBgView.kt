@@ -14,8 +14,11 @@ class GuideHighLightBgView : LinearLayout {
 
 
     private val mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     init {
         setWillNotDraw(false)
+        circlePaint.color = Color.WHITE
     }
 
     var targetCX = 0f
@@ -25,38 +28,51 @@ class GuideHighLightBgView : LinearLayout {
     var targetHeight = 0
 
     var isCircle = true
-    fun makeDstShape(canvas: Canvas): Bitmap {
-        val bm = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888)
-        val lCanvas = Canvas(bm)
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = Color.WHITE
+    fun drawCircle() {
+        dstCanvas?.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
         if (isCircle) {
-            lCanvas.drawCircle(targetCX, targetCY, targetRadius, paint)
+            dstCanvas?.drawCircle(targetCX, targetCY, targetRadius, circlePaint)
         } else {
-            lCanvas.drawRect(targetCX - targetWidth / 2, targetCY - targetHeight / 2, targetCX + targetWidth / 2, targetCY + targetWidth / 2, paint)
+            dstCanvas?.drawRect(targetCX - targetWidth / 2, targetCY - targetHeight / 2, targetCX + targetWidth / 2, targetCY + targetWidth / 2, circlePaint)
         }
-        return bm
     }
 
-    private fun makeSrcRect(canvas: Canvas): Bitmap {
-        val bm = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888);
-        val lCanvas = Canvas(bm);
+    var srcBm: Bitmap? = null
+    var dstBm: Bitmap? = null
+    var dstCanvas: Canvas? = null
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        if (w != 0 && h != 0) {
+            srcBm = makeSrcRect(w, h)
+            createDstBitmap(w, h)
+        }
+    }
+
+    private fun createDstBitmap(w: Int, h: Int) {
+        dstBm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        dstCanvas = Canvas(dstBm!!)
+    }
+
+    private fun makeSrcRect(w: Int, h: Int): Bitmap {
+        val bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        val lCanvas = Canvas(bm)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.color = Color.BLACK
-        lCanvas.drawRect(RectF(0f, 0f, canvas.width.toFloat(), canvas.height.toFloat()), paint)
-        return bm;
+        lCanvas.drawRect(RectF(0f, 0f, w.toFloat(), h.toFloat()), paint)
+        return bm
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        if (srcBm == null) srcBm = makeSrcRect(width, height)
+        if (dstBm == null) createDstBitmap(width, height)
+        drawCircle()
 
-        val mSrcRect = makeSrcRect(canvas);
-        val mDstCircle = makeDstShape(canvas);
-
-        canvas.drawBitmap(mDstCircle, 0f, 0f, mPaint)
+        canvas.drawBitmap(dstBm, 0f, 0f, mPaint)
         mPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OUT);
         mPaint.alpha = 160;
-        canvas.drawBitmap(mSrcRect, 0f, 0f, mPaint)
+        canvas.drawBitmap(srcBm, 0f, 0f, mPaint)
     }
 
 }
