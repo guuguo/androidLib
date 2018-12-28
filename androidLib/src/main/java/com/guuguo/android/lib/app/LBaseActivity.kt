@@ -126,14 +126,25 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /** -1未初始化 0 false 1 true*/
+    private var _isLight = -1
+
+    fun isLightTheme(): Boolean {
+        if (_isLight == -1) {
+            val attrs = intArrayOf(R.attr.isLightTheme)
+            val typedArray = activity.obtainStyledAttributes(attrs)
+            val isLight = typedArray.getBoolean(0, true)
+            typedArray.recycle()
+            this._isLight = if (isLight) 1 else 0
+            return isLight
+        }
+        return false
+    }
+
     protected open fun initStatusBar() {
         if (!fullScreen()) {
             val ta = theme.obtainStyledAttributes(null, R.styleable.ActionBar, R.attr.actionBarStyle, 0)
             val color = ta.getColor(R.styleable.AppBarLayout_android_background, getColorCompat(R.color.colorPrimary))
-
-            val typedValue = TypedValue();
-            theme.resolveAttribute(android.R.attr.colorBackground, typedValue, true);
-            typedValue.data
 
             SystemBarHelper.tintStatusBar(activity, color, 0f)
             if (isStatusBarTextDark()) {
@@ -151,7 +162,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         getToolBar()?.navigationIcon?.let {
             val icon = DrawableCompat.wrap(it).apply {
                 mutate()
-                DrawableCompat.setTint( this,textColor)
+                DrawableCompat.setTint(this, textColor)
             }
             getToolBar()?.navigationIcon = icon
         }
@@ -167,7 +178,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         getToolBar()?.navigationIcon?.let {
             val icon = DrawableCompat.wrap(it).apply {
                 mutate()
-                DrawableCompat.setTint( this,Color.WHITE)
+                DrawableCompat.setTint(this, Color.WHITE)
             }
             getToolBar()?.navigationIcon = icon
         }
@@ -240,7 +251,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 return null
             }
             try {
-                return clz.newInstance() as LBaseFragment
+                return clz.getConstructor().newInstance() as LBaseFragment
             } catch (e: Exception) {
                 e.printStackTrace()
                 throw IllegalArgumentException("generate fragment error. by value:" + clz.toString())

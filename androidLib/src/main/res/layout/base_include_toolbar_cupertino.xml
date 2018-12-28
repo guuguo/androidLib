@@ -44,6 +44,8 @@
       android:paddingStart="10dp"
       android:gravity="center"
       android:textSize="16sp"
+      app:rv_backgroundColor="@color/colorPrimary"
+      app:rv_backgroundPressColor="@color/white10"
       android:textColor="@color/white"
       app:ftv_drawableTintDefaultTextColor="true"
       android:background="?selectableItemBackgroundBorderless"

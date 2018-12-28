@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.TextView
 import com.guuguo.android.R
+import com.guuguo.android.lib.extension.getColorCompat
 import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.guuguo.android.lib.widget.FunctionTextView
 
@@ -39,6 +40,8 @@ open class BaseCupertinoTitleActivity : LBaseActivity() {
     override fun lightBar(@ColorInt textColor: Int) {
         super.lightBar(textColor)
 
+        getFunctionView().delegate.backgroundColor = Color.WHITE
+        getFunctionView().delegate.backgroundPressColor = getColorCompat(R.color.black10)
         getFunctionView().textColor = textColor
         findViewById<TextView?>(R.id.tv_title_bar)?.setTextColor(textColor)
     }
@@ -46,6 +49,8 @@ open class BaseCupertinoTitleActivity : LBaseActivity() {
     override fun darkBar(@ColorInt color: Int) {
         super.darkBar(color)
 
+        getFunctionView().delegate.backgroundColor =color
+        getFunctionView().delegate.backgroundPressColor = getColorCompat(R.color.white10)
         findViewById<TextView?>(R.id.tv_title_bar)?.setTextColor(Color.WHITE)
         getFunctionView().textColor = Color.WHITE
     }

@@ -28,6 +28,7 @@ class WaveViewFragment : LBaseFragment() {
         activity.let {
             if (it is BaseCupertinoTitleActivity) {
                 it.getFunctionView()?.drawable = ContextCompat.getDrawable(activity, R.drawable.ic_search)
+                it.getFunctionView()?.setOnClickListener {  }
             }
         }
         wave_view.setOnClickListener {
