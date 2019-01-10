@@ -55,23 +55,6 @@
         <attr name="android:color" />
     </declare-styleable>
 
-    <!--************ RoundConstraintLayout ***********-->
-    <declare-styleable name="RoundConstraintLayout">
-        <attr name="rv_backgroundColor"/>
-        <attr name="rv_backgroundPressColor"/>
-        <attr name="rv_cornerRadius"/>
-        <attr name="rv_strokeWidth"/>
-        <attr name="rv_strokeColor"/>
-        <attr name="rv_strokePressColor"/>
-        <attr name="rv_isRadiusHalfHeight"/>
-        <attr name="rv_isWidthHeightEqual"/>
-        <attr name="rv_cornerRadius_TL"/>
-        <attr name="rv_cornerRadius_TR"/>
-        <attr name="rv_cornerRadius_BL"/>
-        <attr name="rv_cornerRadius_BR"/>
-        <attr name="rv_isRippleEnable"/>
-    </declare-styleable>
-
     <!--************ FunctionTextView ***********-->
     <!-- drawable 资源的宽-->
     <attr name="ftv_drawableWidth" format="dimension"/>
