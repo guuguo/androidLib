@@ -12,7 +12,7 @@
         <import type="android.view.View" />
     </data>
 
-    <com.guuguo.android.lib.widget.roundview.RoundConstraintlayout
+    <com.guuguo.android.lib.widget.roundview.RoundConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -103,6 +103,6 @@
             tools:rv_backgroundColor="@color/dialogColorPrimary"
             tools:text="确认"
             tools:textColor="#fff" />
-    </com.guuguo.android.lib.widget.roundview.RoundConstraintlayout>
+    </com.guuguo.android.lib.widget.roundview.RoundConstraintLayout>
 
 </layout>
