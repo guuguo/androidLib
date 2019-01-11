@@ -26,9 +26,9 @@ class WarningDialog : IWarningDialog {
         heightRatio(0f)
         dimEnabled(true)
 
-        val lp = window.attributes
-        lp.dimAmount = 0.5f
-        window!!.attributes = lp
+        val lp = window?.attributes
+        lp?.dimAmount = 0.5f
+        window?.attributes = lp
 
         return view
     }
