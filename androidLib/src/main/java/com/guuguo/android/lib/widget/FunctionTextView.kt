@@ -45,8 +45,8 @@ class FunctionTextView : RoundLinearLayout {
     var imageView: AppCompatImageView? = null
     var textView: AppCompatTextView? = null
     private fun initView(attrs: AttributeSet?, defStyleAttr: Int) {
-        textView = AppCompatTextView(context, null, defStyleAttr)
-        imageView = AppCompatImageView(context)
+        textView = AppCompatTextView(context, null, defStyleAttr).apply { id=R.id.function_tv }
+        imageView = AppCompatImageView(context).apply { id=R.id.function_img }
 
         requestViews()
     }
