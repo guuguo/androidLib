@@ -59,7 +59,7 @@ kapt {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-//    implementation 'com.github.guuguo:androidLib:a4ce9cb35c'
+    implementation 'com.github.guuguo:androidLib:421f0ca48e'
 
     implementation 'com.github.guuguo:dividerView:1.0.2'
     implementation 'com.github.guuguo:flowlayout:1.14.0'
