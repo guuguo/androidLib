@@ -2,90 +2,96 @@
 <resources>
 
 
-    <attr name="containerBackgroundLayer1" format="reference|color" />
-    <attr name="containerBackgroundLayer2" format="reference|color" />
-    <attr name="buttonBackground" format="reference|color" />
-    <attr name="myTitleTextColor" format="color" />
-    <attr name="mySubTitleTextColor" format="color" />
-    <declare-styleable name="IconTextView">
-        <attr name="typeface" format="enum">
-            <enum name="material_icon" value="0" />
-            <enum name="font_awesome" value="1" />
-        </attr>
-    </declare-styleable>
-    <declare-styleable name="RatioImageView">
-        <attr name="riv_origin_width" format="dimension" />
-        <attr name="riv_origin_height" format="dimension" />
-    </declare-styleable>
-    <!--SpringRecyclerView-->
-    <declare-styleable name="SpringRecyclerView">
-        <attr name="srv_enableSpringEffectWhenDrag" format="boolean" />
-        <attr name="srv_enableSpringEffectWhenFling" format="boolean" />
-        <attr name="srv_releaseBackAnimDuration" format="integer" />
-        <attr name="srv_flingBackAnimDuration" format="integer" />
-    </declare-styleable>
-    <declare-styleable name="MySearchView">
-        <attr name="msv_hint" format="string" />
-    </declare-styleable>
-
-    <declare-styleable name="CircleProgressBar">
-        <attr name="cpb_progress" format="integer" />
-        <attr name="cpb_max" format="integer" />
-        <attr name="cpb_progressbar_width" format="dimension" />
-        <attr name="cpb_background_bar_width" format="dimension" />
-        <attr name="cpb_progressbar_color" format="color" />
-        <attr name="cpb_background_bar_color" format="color" />
-    </declare-styleable>
-    <declare-styleable name="ProgressRing">
-        <attr name="cr_progress" format="integer" />
-        <attr name="cr_progressbar_width" format="dimension" />
-        <attr name="cr_progressbar_start_color" format="color" />
-        <attr name="cr_progressbar_end_color" format="color" />
-        <attr name="cr_background_bar_start_color" format="color" />
-        <attr name="cr_background_bar_mid_color" format="color" />
-        <attr name="cr_background_bar_end_color" format="color" />
-        <attr name="cr_start_angle" format="integer" />
-        <attr name="cr_sweep_angle" format="integer" />
-        <attr name="cr_anim_show" format="boolean" />
-    </declare-styleable>
-
-    <!--************ QMUILoading ***********-->
-    <declare-styleable name="MLoadingView">
-        <attr name="qmui_loading_view_size" format="dimension" />
-        <attr name="android:color" />
-    </declare-styleable>
-
-    <!--************ FunctionTextView ***********-->
-    <!-- drawable 资源的宽-->
-    <attr name="ftv_drawableWidth" format="dimension"/>
-    <!-- drawable 资源的高-->
-    <attr name="ftv_drawableHeight" format="dimension"/>
-    <!-- drawable 图片资源-->
-    <attr name="ftv_drawableSrc" format="reference"/>
-    <!-- drawable 图片着色颜色-->
-    <attr name="ftv_drawableTint" format="reference|color"/>
-    <!-- drawable 默认icon颜色是否和textView一致-->
-    <attr name="ftv_drawableTintDefaultTextColor" format="boolean"/>
-    <!-- drawable 资源偏向文字的位置-->
-    <attr name="ftv_drawableAlign" format="enum">
-        <enum name="left" value="0" />
-        <enum name="top" value="1" />
-        <enum name="right" value="2" />
-        <enum name="bottom" value="3" />
+  <attr format="reference|color" name="containerBackgroundLayer1"/>
+  <attr format="reference|color" name="containerBackgroundLayer2"/>
+  <attr format="reference|color" name="buttonBackground"/>
+  <attr format="color" name="myTitleTextColor"/>
+  <attr format="color" name="mySubTitleTextColor"/>
+  <declare-styleable name="IconTextView">
+    <attr format="enum" name="typeface">
+      <enum name="material_icon" value="0"/>
+      <enum name="font_awesome" value="1"/>
     </attr>
-    <declare-styleable name="FunctionTextView">
-        <attr name="android:text"/>
-        <attr name="android:textStyle"/>
-        <attr name="android:textColor"/>
-        <attr name="android:textSize"/>
-        <attr name="android:drawablePadding"/>
-        <attr name="android:gravity" />
-        <attr name="ftv_drawableTintDefaultTextColor"/>
-        <attr name="ftv_drawableTint"/>
-        <attr name="ftv_drawableSrc"/>
-        <attr name="ftv_drawableAlign"/>
-        <attr name="ftv_drawableWidth"/>
-        <attr name="ftv_drawableHeight"/>
-    </declare-styleable>
+  </declare-styleable>
+  <declare-styleable name="RatioImageView">
+    <attr format="dimension" name="riv_origin_width"/>
+    <attr format="dimension" name="riv_origin_height"/>
+  </declare-styleable>
+  <!--SpringRecyclerView-->
+  <declare-styleable name="SpringRecyclerView">
+    <attr format="boolean" name="srv_enableSpringEffectWhenDrag"/>
+    <attr format="boolean" name="srv_enableSpringEffectWhenFling"/>
+    <attr format="integer" name="srv_releaseBackAnimDuration"/>
+    <attr format="integer" name="srv_flingBackAnimDuration"/>
+  </declare-styleable>
+  <declare-styleable name="MySearchView">
+    <attr format="string" name="msv_hint"/>
+  </declare-styleable>
+
+  <declare-styleable name="CircleProgressBar">
+    <attr format="integer" name="cpb_progress"/>
+    <attr format="integer" name="cpb_max"/>
+    <attr format="dimension" name="cpb_progressbar_width"/>
+    <attr format="dimension" name="cpb_background_bar_width"/>
+    <attr format="color" name="cpb_progressbar_color"/>
+    <attr format="color" name="cpb_background_bar_color"/>
+  </declare-styleable>
+  <declare-styleable name="ProgressRing">
+    <attr format="integer" name="cr_progress"/>
+    <attr format="dimension" name="cr_progressbar_width"/>
+    <attr format="color" name="cr_progressbar_start_color"/>
+    <attr format="color" name="cr_progressbar_end_color"/>
+    <attr format="color" name="cr_background_bar_start_color"/>
+    <attr format="color" name="cr_background_bar_mid_color"/>
+    <attr format="color" name="cr_background_bar_end_color"/>
+    <attr format="integer" name="cr_start_angle"/>
+    <attr format="integer" name="cr_sweep_angle"/>
+    <attr format="boolean" name="cr_anim_show"/>
+  </declare-styleable>
+
+  <!--************ QMUILoading ***********-->
+  <declare-styleable name="MLoadingView">
+    <attr format="dimension" name="qmui_loading_view_size"/>
+    <attr name="android:color"/>
+  </declare-styleable>
+
+  <!--************ FunctionTextView ***********-->
+  <!-- drawable 资源的宽-->
+  <attr format="dimension" name="ftv_drawableWidth"/>
+  <!-- drawable 资源的高-->
+  <attr format="dimension" name="ftv_drawableHeight"/>
+  <!-- text 最小宽度-->
+  <attr format="dimension" name="ftv_textMinWidth"/>
+  <!-- text 最大宽度-->
+  <attr format="dimension" name="ftv_textMaxWidth"/>
+  <!-- drawable 图片资源-->
+  <attr format="reference" name="ftv_drawableSrc"/>
+  <!-- drawable 图片着色颜色-->
+  <attr format="reference|color" name="ftv_drawableTint"/>
+  <!-- drawable 默认icon颜色是否和textView一致-->
+  <attr format="boolean" name="ftv_drawableTintDefaultTextColor"/>
+  <!-- drawable 资源偏向文字的位置-->
+  <attr format="enum" name="ftv_drawableAlign">
+    <enum name="left" value="0"/>
+    <enum name="top" value="1"/>
+    <enum name="right" value="2"/>
+    <enum name="bottom" value="3"/>
+  </attr>
+  <declare-styleable name="FunctionTextView">
+    <attr name="android:text"/>
+    <attr name="android:textStyle"/>
+    <attr name="android:textColor"/>
+    <attr name="android:textSize"/>
+    <attr name="android:drawablePadding"/>
+    <attr name="android:gravity"/>
+    <attr name="ftv_textMinWidth"/>
+    <attr name="ftv_textMaxWidth"/>
+    <attr name="ftv_drawableTintDefaultTextColor"/>
+    <attr name="ftv_drawableTint"/>
+    <attr name="ftv_drawableSrc"/>
+    <attr name="ftv_drawableAlign"/>
+    <attr name="ftv_drawableWidth"/>
+    <attr name="ftv_drawableHeight"/>
+  </declare-styleable>
 
 </resources>

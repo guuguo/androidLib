@@ -62,6 +62,8 @@ class FunctionTextView : RoundLinearLayout {
         textStyle = attributes.getInt(R.styleable.FunctionTextView_android_textStyle, Typeface.NORMAL)
         textSize = attributes.getDimension(R.styleable.FunctionTextView_android_textSize, 12.dpToPx().toFloat())
         textColor = attributes.getColor(R.styleable.FunctionTextView_android_textColor, 0)
+        textMinWidth = attributes.getDimension(R.styleable.FunctionTextView_ftv_textMinWidth, 0f).toInt()
+        textMaxWidth = attributes.getDimension(R.styleable.FunctionTextView_ftv_textMaxWidth, Float.MAX_VALUE).toInt()
         drawableTintDefaultTextColor = attributes.getBoolean(R.styleable.FunctionTextView_ftv_drawableTintDefaultTextColor, false)
         drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint, 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
@@ -94,6 +96,16 @@ class FunctionTextView : RoundLinearLayout {
             field = value
             textView?.setTextColor(value)
             setDrawableWithTint()
+        }
+    var textMinWidth: Int = 0
+        set(value) {
+            field = value
+            textView?.minWidth=value
+        }
+    var textMaxWidth: Int = 0
+        set(value) {
+            field = value
+            textView?.maxWidth=value
         }
     var textStyle: Int = Typeface.NORMAL
         set(value) {
@@ -198,6 +210,8 @@ class FunctionTextView : RoundLinearLayout {
             textView?.text = text
         }
         textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
+        textView?.minWidth= textMinWidth
+        textView?.maxWidth= textMaxWidth
         if (textColor != 0)
             textView?.setTextColor(textColor)
         textView?.typeface = Typeface.defaultFromStyle(textStyle)//加粗
