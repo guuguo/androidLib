@@ -86,12 +86,14 @@
     <attr name="android:gravity"/>
     <attr name="ftv_textMinWidth"/>
     <attr name="ftv_textMaxWidth"/>
+    <attr name="ftv_textGravity"/>
     <attr name="ftv_drawableTintDefaultTextColor"/>
     <attr name="ftv_drawableTint"/>
     <attr name="ftv_drawableSrc"/>
     <attr name="ftv_drawableAlign"/>
     <attr name="ftv_drawableWidth"/>
     <attr name="ftv_drawableHeight"/>
+
   </declare-styleable>
 
 </resources>

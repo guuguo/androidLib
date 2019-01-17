@@ -45,8 +45,10 @@ class FunctionTextView : RoundLinearLayout {
     var imageView: AppCompatImageView? = null
     var textView: AppCompatTextView? = null
     private fun initView(attrs: AttributeSet?, defStyleAttr: Int) {
-        textView = AppCompatTextView(context, null, defStyleAttr).apply { id=R.id.function_tv }
-        imageView = AppCompatImageView(context).apply { id=R.id.function_img }
+        textView = AppCompatTextView(context, null, defStyleAttr).apply {
+            id = R.id.function_tv;gravity = Gravity.CENTER
+        }
+        imageView = AppCompatImageView(context).apply { id = R.id.function_img }
 
         requestViews()
     }
@@ -100,12 +102,12 @@ class FunctionTextView : RoundLinearLayout {
     var textMinWidth: Int = 0
         set(value) {
             field = value
-            textView?.minWidth=value
+            textView?.minWidth = value
         }
     var textMaxWidth: Int = 0
         set(value) {
             field = value
-            textView?.maxWidth=value
+            textView?.maxWidth = value
         }
     var textStyle: Int = Typeface.NORMAL
         set(value) {
@@ -210,8 +212,8 @@ class FunctionTextView : RoundLinearLayout {
             textView?.text = text
         }
         textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
-        textView?.minWidth= textMinWidth
-        textView?.maxWidth= textMaxWidth
+        textView?.minWidth = textMinWidth
+        textView?.maxWidth = textMaxWidth
         if (textColor != 0)
             textView?.setTextColor(textColor)
         textView?.typeface = Typeface.defaultFromStyle(textStyle)//加粗
