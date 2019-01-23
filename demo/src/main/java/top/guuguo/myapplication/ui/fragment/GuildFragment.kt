@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
+import com.guuguo.android.lib.widget.FunctionTextView
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.databinding.FragmentGuildBinding
 import top.guuguo.myapplication.ui.guide.HomeGuideDialog
@@ -24,15 +25,17 @@ class GuildFragment : LBaseFragment() {
 
     override fun initView() {
         super.initView()
-
+        activity.findViewById<FunctionTextView>(R.id.tv_function)?.let {
+            it.setOnClickListener {
+                HomeGuideDialog(activity, binding.btn, HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
+                HomeGuideDialog(activity, (activity as BaseCupertinoTitleActivity).getFunctionView(), HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
+            }
+        }
         activity.let {
             if (it is BaseCupertinoTitleActivity) {
                 it.getFunctionView().drawable = ContextCompat.getDrawable(activity, R.drawable.ic_search)
             }
         }
-        HomeGuideDialog(activity, binding.btn, HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
-        HomeGuideDialog(activity, binding.btnTop, HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
-        HomeGuideDialog(activity, (activity as BaseCupertinoTitleActivity).getFunctionView(), HomeGuideDialog.TYPE_INPUT_WEIGHT).show()
     }
 
     companion object {

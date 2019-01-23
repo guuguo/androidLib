@@ -1,2 +1,10 @@
-include ':androidLib', ':demo', ':dialog', ':drawable',':systembar',
-        ':iconfont',':roundview',':utils', ':widget',':libdatabindingex'
+include ':dialog'
+include ':drawable'
+include ':systembar'
+include ':iconfont'
+include ':roundview'
+include ':utils'
+include ':widget'
+include ':androidLib'
+include ':libdatabindingex'
+include ':demo'

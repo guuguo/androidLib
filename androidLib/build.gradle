@@ -35,13 +35,16 @@ dependencies {
     api project(':utils')
     api project(':widget')
 
-    api "androidx.core:core-ktx:$ANDROIDX_VERSION"
+    api "androidx.core:core-ktx:$KTX_VERSION"
+    api "androidx.annotation:annotation:${KTX_VERSION}"
+
     api "androidx.appcompat:appcompat:$ANDROIDX_VERSION"
-    api "com.google.android.material:material:$ANDROIDX_VERSION"
-    api "androidx.recyclerview:recyclerview:$ANDROIDX_VERSION"
-    api "androidx.dynamicanimation:dynamicanimation:$ANDROIDX_VERSION"
-    api "androidx.annotation:annotation:${ANDROIDX_VERSION}"
-    api "androidx.legacy:legacy-support-v4:$ANDROIDX_VERSION"
+
+    api "androidx.dynamicanimation:dynamicanimation:$DESIGN_VERSION"
+    api "com.google.android.material:material:$DESIGN_VERSION"
+    api "androidx.recyclerview:recyclerview:$DESIGN_VERSION"
+    api "androidx.legacy:legacy-support-v4:$DESIGN_VERSION"
+
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.5@aar'

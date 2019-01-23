@@ -6,6 +6,8 @@ import com.guuguo.android.lib.app.BaseCupertinoTitleActivity
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.extension.log
+import com.guuguo.android.lib.extension.toast
+import com.guuguo.android.lib.widget.FunctionTextView
 import com.guuguo.android.lib.widget.simpleview.StateLayout
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,9 +20,11 @@ class TestFragment : LBaseFragment() {
     override fun getHeaderTitle() = "testFragment"
     var type = 0
     override fun initView() {
-        activity.let {
-            (it as? BaseCupertinoTitleActivity)?.darkBar()
+        activity.findViewById<FunctionTextView>(R.id.tv_function)?.let {
+            it.text="按钮"
+           it.setOnClickListener { "按钮".toast() }
         }
+        (activity as? LBaseActivity)?.darkBar()
         super.initView()
         search.searchClick = {
             doit()
@@ -42,9 +46,9 @@ class TestFragment : LBaseFragment() {
                 .delay(1, TimeUnit.SECONDS)
                 .compose(bindToLifecycle<TestFragment>())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    callback()
-                }.isDisposed
+                .doOnComplete { callback() }
+                .subscribe({}, {})
+                .isDisposed
     }
 
     fun doit() {

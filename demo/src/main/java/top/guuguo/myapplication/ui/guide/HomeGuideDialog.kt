@@ -78,8 +78,8 @@ class HomeGuideDialog(var activity: Activity, var targetView: View, var guildTyp
                 guideContent.invalidate()
 
                 val mLeft = lCx - circleWidth / 2
-                var mTop = 0
-                var mBottom = 0
+                var mTop: Int
+                var mBottom: Int
 
                 val bgLocation = IntArray(2)
                 guideContent.getLocationOnScreen(bgLocation)

@@ -5,24 +5,20 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Resources
-import android.content.res.TypedArray
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.annotation.CallSuper
-import androidx.annotation.ColorInt
-import androidx.fragment.app.Fragment
-import androidx.core.content.ContextCompat
-import androidx.appcompat.widget.Toolbar
 import android.util.Log
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.TextView
+import androidx.annotation.CallSuper
+import androidx.annotation.ColorInt
+import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.fragment.app.Fragment
 import com.guuguo.android.R
 import com.guuguo.android.dialog.dialog.NormalListDialog
 import com.guuguo.android.dialog.dialog.TipDialog
@@ -120,14 +116,25 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /** -1未初始化 0 false 1 true*/
+    private var _isLight = -1
+
+    fun isLightTheme(): Boolean {
+        if (_isLight == -1) {
+            val attrs = intArrayOf(R.attr.isLightTheme)
+            val typedArray = activity.obtainStyledAttributes(attrs)
+            val isLight = typedArray.getBoolean(0, true)
+            typedArray.recycle()
+            this._isLight = if (isLight) 1 else 0
+            return isLight
+        }
+        return false
+    }
+
     protected open fun initStatusBar() {
         if (!fullScreen()) {
             val ta = theme.obtainStyledAttributes(null, R.styleable.ActionBar, R.attr.actionBarStyle, 0)
             val color = ta.getColor(R.styleable.AppBarLayout_android_background, getColorCompat(R.color.colorPrimary))
-
-            val typedValue = TypedValue();
-            theme.resolveAttribute(android.R.attr.colorBackground, typedValue, true);
-            typedValue.data
 
             SystemBarHelper.tintStatusBar(activity, color, 0f)
             if (isStatusBarTextDark()) {
@@ -142,6 +149,13 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         getAppBar()?.setBackgroundColor(Color.WHITE)
         getToolBar()?.setTitleTextColor(textColor)
         SystemBarHelper.setStatusBarDarkMode(activity)
+        getToolBar()?.navigationIcon?.let {
+            val icon = DrawableCompat.wrap(it).apply {
+                mutate()
+                DrawableCompat.setTint(this, textColor)
+            }
+            getToolBar()?.navigationIcon = icon
+        }
         getToolBar()?.popupTheme = R.style.Base_Widget_AppCompat_PopupMenu_Overflow
     }
 
@@ -151,6 +165,13 @@ abstract class LBaseActivity : RxAppCompatActivity() {
             getAppBar()?.setBackgroundColor(color)
         }
         getToolBar()?.setTitleTextColor(Color.WHITE)
+        getToolBar()?.navigationIcon?.let {
+            val icon = DrawableCompat.wrap(it).apply {
+                mutate()
+                DrawableCompat.setTint(this, Color.WHITE)
+            }
+            getToolBar()?.navigationIcon = icon
+        }
         SystemBarHelper.setStatusBarLightMode(activity)
         getToolBar()?.popupTheme = R.style.Base_Widget_AppCompat_Light_PopupMenu_Overflow
     }
@@ -220,7 +241,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 return null
             }
             try {
-                return clz.newInstance() as LBaseFragment
+                return clz.getConstructor().newInstance() as LBaseFragment
             } catch (e: Exception) {
                 e.printStackTrace()
                 throw IllegalArgumentException("generate fragment error. by value:" + clz.toString())
@@ -355,7 +376,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         val SIMPLE_ACTIVITY_INFO = "SIMPLE_ACTIVITY_INFO"
         val SIMPLE_ACTIVITY_TOOLBAR = "SIMPLE_ACTIVITY_TOOLBAR"
 
-        fun <F : androidx.fragment.app.Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
+        fun <F : Fragment, A : Activity> intentTo(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
             val intent = getIntent(activity, targetFragment, targetActivity, map)
             if (targetCode == 0)
                 activity.startActivity(intent)
@@ -363,7 +384,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 activity.startActivityForResult(intent, targetCode)
         }
 
-        fun <A : Activity, F : androidx.fragment.app.Fragment> getIntent(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null): Intent {
+        fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null): Intent {
             val intent = Intent(activity, targetActivity)
             intent.putExtra(SIMPLE_ACTIVITY_INFO, targetFragment)
 

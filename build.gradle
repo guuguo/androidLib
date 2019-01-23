@@ -2,14 +2,17 @@
 
 buildscript {
     ext {
-        MIN_SDK_VERSION = 16
+        MIN_SDK_VERSION = 17
         COMPILE_SDK_VERSION = 28
         TARGET_SDK_VERSION = 28
 
-        kotlin_version = '1.2.71'
-        ANDROID_PLUGIN_VERSION = '3.2.1'
+        ANDROID_PLUGIN_VERSION = '3.3.0'
+        kotlin_version = '1.3.10'
+        KOTLIN_VERSION = '1.3.10'
+        DESIGN_VERSION= '1.0.0'
+        KTX_VERSION= '1.0.1'
         SUPPORT_VERSION = '1.0.0-beta01'
-        ANDROIDX_VERSION = '1.0.0'
+        ANDROIDX_VERSION = "1.0.2"
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
@@ -20,7 +23,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
         classpath "com.alibaba:arouter-register:1.0.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     }
 }
 

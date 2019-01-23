@@ -19,7 +19,7 @@ fun RoundBgImageView.setRvBackGroundColor(color: Int) {
 }
 
 @BindingAdapter("rv_backgroundColor")
-fun RoundConstraintlayout.setRvBackGroundColor(color: Int) {
+fun RoundConstraintLayout.setRvBackGroundColor(color: Int) {
     this.delegate.backgroundColor = color
 }
 

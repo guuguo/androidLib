@@ -92,6 +92,7 @@ class StateLayout : FrameLayout {
     }
 
     companion object {
+        /**当设置为空的时候 加载时默认的progressbar*/
         var loadingDrawableClass: Class<out Drawable>? = CircularDrawable::class.java
     }
 

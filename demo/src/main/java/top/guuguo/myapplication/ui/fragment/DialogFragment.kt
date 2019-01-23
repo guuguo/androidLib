@@ -14,6 +14,7 @@ import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.getDrawableCompat
 import com.guuguo.android.lib.extension.log
+import com.guuguo.android.lib.extension.safe
 import io.reactivex.Completable
 import kotlinx.android.synthetic.main.fragment_dialog.*
 import top.guuguo.myapplication.MyDialog
@@ -26,14 +27,21 @@ class DialogFragment : LBaseFragment() {
     override fun getLayoutResId() = R.layout.fragment_dialog
     override fun getHeaderTitle() = "dialogFragment"
     override fun getBackIconRes() = R.drawable.ic_arrow_back_24dp
-    override fun isNavigationBack() = true
     override fun initView() {
         super.initView()
         activity.let {
             if (it is BaseCupertinoTitleActivity) {
                 it.getFunctionView().drawable = activity.getDrawableCompat(R.drawable.ic_close_black_24dp)
+                it.getFunctionView().setOnClickListener { }
             }
-            (it as?LBaseActivity)?.lightBar()
+
+            (it as?LBaseActivity)?.apply {
+                if (isLightTheme()) {
+                    lightBar()
+                } else {
+                    darkBar()
+                }
+            }
 
         }
 

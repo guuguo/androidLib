@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion COMPILE_SDK_VERSION
 
-
-
     defaultConfig {
         minSdkVersion 15
         versionCode Integer.parseInt(VERSION_CODE)
