@@ -3,11 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION
+    compileSdkVersion rootProject.compileSdkVersion
 
 
     defaultConfig {
-        minSdkVersion MIN_SDK_VERSION
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
 
@@ -32,9 +33,9 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     api project(':androidLib')
 
-    annotationProcessor("androidx.databinding:databinding-compiler:${ANDROID_PLUGIN_VERSION}")
+    annotationProcessor("androidx.databinding:databinding-compiler:${gradleVersion}")
 }
 

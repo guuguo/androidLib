@@ -84,6 +84,11 @@ class MainActivity : LBaseActivity() {
                 RecyclerviewFragment.intentTo(activity)
             }
         }
+        v_motion.setOnClickListener {
+            it.doAvoidDouble {
+                MotionFragment.intentTo(activity)
+            }
+        }
 //        v_state.setOnClickListener {
 //            it.doAvoidDouble {
 //                StateFragment.intentTo(activity)

@@ -2,42 +2,60 @@
 
 buildscript {
     ext {
-        MIN_SDK_VERSION = 17
-        COMPILE_SDK_VERSION = 28
-        TARGET_SDK_VERSION = 28
+        // Sdk and tools
+        compileSdkVersion = 28
+        minSdkVersion = 19
+        targetSdkVersion = 28
 
-        ANDROID_PLUGIN_VERSION = '3.3.0'
-        kotlin_version = '1.3.10'
-        KOTLIN_VERSION = '1.3.10'
-        DESIGN_VERSION= '1.0.0'
-        KTX_VERSION= '1.0.1'
-        SUPPORT_VERSION = '1.0.0-beta01'
-        ANDROIDX_VERSION = "1.0.2"
+        // App dependencies
+        constraintLayoutVersion = '2.0.0-alpha3'
+        coreTestingVersion = '2.0.0'
+        coroutinesVersion = "1.0.1"
+        espressoVersion = '3.1.0-alpha4'
+        glideVersion = '4.8.0'
+        gradleVersion = '3.3.0'
+        gsonVersion = '2.8.2'
+        junitVersion = '4.12'
+        kotlinVersion = '1.3.11'
+        ktlintVersion = '0.29.0'
+        ktxVersion = '1.0.1'
+        lifecycleVersion = '2.0.0'
+        materialVersion = '1.0.0'
+        navigationVersion = '1.0.0-alpha09'
+        recyclerViewVersion = '1.0.0'
+        roomVersion = '2.1.0-alpha03'
+        runnerVersion = '1.0.1'
+        supportLibraryVersion = '1.0.2'
+        uiAutomatorVersion = '2.2.0-alpha4'
+        workVersion = '1.0.0-beta02'
     }
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
-        jcenter()
         google()
+        jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$ANDROID_PLUGIN_VERSION"
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.alibaba:arouter-register:1.0.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     }
 }
-
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.13.0"
+}
 allprojects {
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         google()
         jcenter()
-        mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap' }
     }
 }
-
-repositories {
-    mavenCentral()
-    google()
+spotless {
+    kotlin {
+        target "**/*.kt"
+        ktlint(ktlintVersion)
+    }
 }

@@ -3,12 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION
+    compileSdkVersion rootProject.compileSdkVersion
     lintOptions {
         abortOnError false
     }
     defaultConfig {
-        minSdkVersion MIN_SDK_VERSION
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
         versionCode Integer.parseInt(VERSION_CODE)
         versionName VERSION_NAME
         vectorDrawables.useSupportLibrary = true
@@ -35,15 +36,15 @@ dependencies {
     api project(':utils')
     api project(':widget')
 
-    api "androidx.core:core-ktx:$KTX_VERSION"
-    api "androidx.annotation:annotation:${KTX_VERSION}"
+    api "androidx.core:core-ktx:$ktxVersion"
+    api "androidx.annotation:annotation:${ktxVersion}"
 
-    api "androidx.appcompat:appcompat:$ANDROIDX_VERSION"
+    api "androidx.appcompat:appcompat:$supportLibraryVersion"
 
-    api "androidx.dynamicanimation:dynamicanimation:$DESIGN_VERSION"
-    api "com.google.android.material:material:$DESIGN_VERSION"
-    api "androidx.recyclerview:recyclerview:$DESIGN_VERSION"
-    api "androidx.legacy:legacy-support-v4:$DESIGN_VERSION"
+    api "androidx.dynamicanimation:dynamicanimation:$materialVersion"
+    api "com.google.android.material:material:$materialVersion"
+    api "androidx.recyclerview:recyclerview:$materialVersion"
+    api "androidx.legacy:legacy-support-v4:$materialVersion"
 
     api 'androidx.constraintlayout:constraintlayout:1.1.3'
 
