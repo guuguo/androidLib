@@ -38,3 +38,24 @@ fun View.hideKeyboard() {
 fun View.getNameAndHashCode(): String {
     return javaClass.simpleName + "@" + Integer.toHexString(System.identityHashCode(this))
 }
+
+fun View.getActivity(): Activity? {
+    var context=context
+    while (context is ContextWrapper) {
+        if (context is Activity) {
+            return context
+        }
+        context = context.baseContext;
+    }
+    return null
+}
+fun Context.getActivity(): Activity? {
+    var context=this
+    while (context is ContextWrapper) {
+        if (context is Activity) {
+            return context
+        }
+        context = context.baseContext;
+    }
+    return null
+}
