@@ -1,6 +1,8 @@
 package com.guuguo.android.lib.extension
 
+import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
