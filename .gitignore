@@ -24,18 +24,16 @@ local.properties
 /androidLib/*/build
 
 # User-specific configurations
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/vcs.xml
-.idea/caches/
+.idea
+
+.xml
+t/profiles_settings.xml
+s.xml
+
+xml
+cope_settings.xml
+
+
 
 /captures
 .externalNativeBuild
