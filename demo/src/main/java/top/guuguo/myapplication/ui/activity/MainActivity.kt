@@ -1,9 +1,13 @@
 package top.guuguo.myapplication.ui.activity
 
+import android.Manifest
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.extension.doAvoidDouble
+import com.guuguo.android.lib.extension.toast
+import com.guuguo.android.lib.utils.DeviceUtil
+import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.*
 import top.guuguo.myapplication.R
 import top.guuguo.myapplication.ThemeUtils
@@ -31,11 +35,8 @@ class MainActivity : LBaseActivity() {
 //                }
             }
         }
-        v_divider.setOnClickListener {
-            it.doAvoidDouble {
-                DividerViewFragment.intentTo(activity)
-            }
-        }
+        RxPermissions(activity).request(Manifest.permission.READ_PHONE_STATE).subscribe{it.toString().toast()}.isDisposed
+
         v_dialog.setOnClickListener {
             it.doAvoidDouble {
                 //                DialogFragment.intentTo(activity)
@@ -44,6 +45,7 @@ class MainActivity : LBaseActivity() {
         }
         v_divider.setOnClickListener {
             it.doAvoidDouble {
+                DeviceUtil.getSerial().toast()
                 DividerViewFragment.intentTo(activity)
 //                BaseTitleActivity.intentToArouterPath(activity,"/demo/dialog2",BaseTitleActivity::class.java)
             }

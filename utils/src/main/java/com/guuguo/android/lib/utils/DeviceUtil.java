@@ -1,9 +1,12 @@
 package com.guuguo.android.lib.utils;
 
 import android.Manifest;
+import android.Manifest.permission;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings;
@@ -12,6 +15,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.guuguo.android.lib.lifecycle.AppHelper;
 import java.io.File;
 import java.util.Locale;
 
@@ -405,8 +409,12 @@ public class DeviceUtil {
    * @return the serial
    */
   public static final String getSerial() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      return Build.getSerial();
+    Application app=AppHelper.INSTANCE.getApp();
+    boolean permission = (PackageManager.PERMISSION_GRANTED ==
+        app.getPackageManager().checkPermission(Manifest.permission.READ_PHONE_STATE,app.getPackageName()));
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && permission) {
+      return  Build.getSerial();
     } else {
       return CommonUtil.checkValidData(Build.SERIAL);
     }
