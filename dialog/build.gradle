@@ -1,8 +1,14 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
+apply from: rootProject.file("secret.gradle")
+
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION
@@ -37,6 +43,16 @@ dependencies {
     api 'com.android.support.constraint:constraint-layout:1.1.3'
 
 }
-repositories {
-    mavenCentral()
+
+publish {
+    userOrg = 'guuguo'      // bintray注册的用户名
+    groupId = 'com.guuguo.android'
+    artifactId = 'dialog'// bintray创建的package
+    publishVersion = '1.0'
+    website = 'https://github.com/guuguo/androidLib'
+    desc = 'guuguo android lib'
+    userOrg ='guuguo'
+
+    bintrayUser = bintray_user // bintray.com的用户名
+    bintrayKey = bintray_key   // bintray.com的API key
 }

@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.novoda.bintray-release'
+apply from: rootProject.file("secret.gradle")
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION
@@ -54,9 +56,20 @@ dependencies {
     api 'androidx.core:core-ktx:0.3'
 }
 
-repositories {
-    jcenter()
-    maven { url 'https://jitpack.io' }
-    mavenCentral()
-}
+//version = "1.0.0"
+//group = "com.guuguo.android"
+//androidArtifact { // 2
+//    artifactId = "androidlib"
+//}
+publish {
+    userOrg = 'guuguo'      // bintray注册的用户名
+    groupId = 'com.guuguo.android'
+    artifactId = 'androidlib'// bintray创建的package
+    publishVersion = '1.0'
+    website = 'https://github.com/guuguo/androidLib'
+    desc = 'guuguo android lib'
+    userOrg ='guuguo'
 
+    bintrayUser = bintray_user // bintray.com的用户名
+    bintrayKey = bintray_key   // bintray.com的API key
+}

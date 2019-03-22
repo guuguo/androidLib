@@ -30,7 +30,7 @@ compile 'com.flyco.systembar:FlycoSystemBar_Lib:1.0.0@aar'
 compile 'com.flyco.dialog:FlycoDialog_Lib:1.3.2@aar'
 
 compile 'am.drawable:drawable:1.4.0'
-compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$KOTLIN_VERSION"
 compile 'me.yokeyword:fragmentation:0.10.6'
 ```
 # Base
