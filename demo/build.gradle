@@ -64,12 +64,15 @@ dependencies {
     implementation 'com.github.guuguo:dividerView:1.0.2'
     implementation 'com.github.guuguo:flowlayout:1.14.0'
     implementation "com.android.support:cardview-v7:$SUPPORT_VERSION"
-//    implementation project(':libdatabindingex')
-//    implementation "com.github.guuguo.androidLib:libdatabindingex:1.1.9.2"
-//    implementation "com.github.guuguo.androidLib:dialog:1.1.9.3"
+    implementation "com.github.guuguo.androidLib:libdatabindingex:1.1.9.8"
+    implementation "com.github.guuguo.androidLib:dialog:1.1.9.8"
 
-    implementation project(':libdatabindingex')
-    implementation project(':iconfont')
+//    implementation project(':libdatabindingex')
+//    implementation project(':iconfont')
+//    implementation 'com.guuguo.android:androidlib:1.0.1'
+//    implementation 'com.guuguo.android:libdatabindingex:1.0'
+//    implementation 'com.guuguo.android:iconfont:1.0'
+
     testImplementation 'junit:junit:4.12'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
