@@ -1340,13 +1340,6 @@ public class FileUtil {
      *
      * @param type 文件夹类型 如果为空则返回 /storage/emulated/0/Android/data/app_package_name/cache
      *             否则返回对应类型的文件夹如Environment.DIRECTORY_PICTURES 对应的文件夹为 .../data/app_package_name/files/Pictures
-     *             {@link android.os.Environment#DIRECTORY_MUSIC},
-     *             {@link android.os.Environment#DIRECTORY_PODCASTS},
-     *             {@link android.os.Environment#DIRECTORY_RINGTONES},
-     *             {@link android.os.Environment#DIRECTORY_ALARMS},
-     *             {@link android.os.Environment#DIRECTORY_NOTIFICATIONS},
-     *             {@link android.os.Environment#DIRECTORY_PICTURES}, or
-     *             {@link android.os.Environment#DIRECTORY_MOVIES}.or 自定义文件夹名称
      * @return 缓存目录文件夹 或 null（无SD卡或SD卡挂载失败）
      */
     public static File getExternalCacheDirectory(String type) {
@@ -1400,7 +1393,6 @@ public class FileUtil {
     /**
      * @param assetFile         文件名，要拷贝的目录如assets目录下有一个SBClock文件：SBClock
      * @param targetDirFullPath 目标额文件夹地址，例如/sdcrad/SBClock
-     * @throws Exception
      */
     public static void CopyFileFromAssets(String assetFile, String targetDirFullPath) {
         try {

@@ -40,9 +40,12 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
+    tasks.withType(Javadoc) {
+        enabled = false
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
 }
-// 指定javadoc UTF-8格式
-task javadoc(type: Javadoc) {
-    options.encoding = "utf-8"
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
-

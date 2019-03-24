@@ -1,0 +1,24 @@
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    lintOptions {
+        abortOnError false
+    }
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION
+        versionCode Integer.parseInt(VERSION_CODE)
+        versionName VERSION_NAME
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}

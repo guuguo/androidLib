@@ -4,29 +4,6 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 apply from: rootProject.file("secret.gradle")
 
-android {
-    compileSdkVersion COMPILE_SDK_VERSION
-    lintOptions {
-        abortOnError false
-    }
-    defaultConfig {
-        minSdkVersion MIN_SDK_VERSION
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
-        vectorDrawables.useSupportLibrary = true
-    }
-
-    buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
@@ -56,16 +33,11 @@ dependencies {
     api 'androidx.core:core-ktx:0.3'
 }
 
-//version = "1.0.0"
-//group = "com.guuguo.android"
-//androidArtifact { // 2
-//    artifactId = "androidlib"
-//}
 publish {
     userOrg = 'guuguo'      // bintray注册的用户名
     groupId = 'com.guuguo.android'
     artifactId = 'androidlib'// bintray创建的package
-    publishVersion = '1.0'
+    publishVersion = '1.0.1'
     website = 'https://github.com/guuguo/androidLib'
     desc = 'guuguo android lib'
     userOrg ='guuguo'

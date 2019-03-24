@@ -5,29 +5,11 @@ apply from: rootProject.file("secret.gradle")
 
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION
     defaultConfig {
-        minSdkVersion MIN_SDK_VERSION
-        versionCode Integer.parseInt(VERSION_CODE)
-        versionName VERSION_NAME
         resourcePrefix "drawable_"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-
-    buildTypes {
-        release {
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
-                proguardFile 'proguard-rules.pro'
-            }
-        }
-    }
-
 }
 
 dependencies {
@@ -40,7 +22,7 @@ publish {
     publishVersion = '1.0'
     website = 'https://github.com/guuguo/androidLib'
     desc = 'guuguo android lib'
-    userOrg ='guuguo'
+    userOrg = 'guuguo'
 
     bintrayUser = bintray_user // bintray.com的用户名
     bintrayKey = bintray_key   // bintray.com的API key
