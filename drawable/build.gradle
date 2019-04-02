@@ -19,7 +19,7 @@ publish {
     userOrg = 'guuguo'      // bintray注册的用户名
     groupId = 'com.guuguo.android'
     artifactId = 'drawable'// bintray创建的package
-    publishVersion = '1.0'
+    publishVersion = publish_version
     website = 'https://github.com/guuguo/androidLib'
     desc = 'guuguo android lib'
     userOrg = 'guuguo'

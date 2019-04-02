@@ -1,0 +1,218 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+
+def deps = [:]
+
+def versions = [:]
+versions.arch_core = "1.1.1"
+versions.room = "2.1.0-alpha01"
+versions.lifecycle = "2.0.0"
+versions.support = "1.0.0"
+versions.dagger = "2.15"
+versions.junit = "4.12"
+versions.espresso = "3.1.0-beta02"
+versions.retrofit = "2.3.0"
+versions.okhttp_logging_interceptor = "3.9.0"
+versions.mockwebserver = "3.8.1"
+versions.apache_commons = "2.5"
+versions.mockito = "2.7.19"
+versions.mockito_all = "1.10.19"
+versions.dexmaker = "2.2.0"
+versions.constraint_layout = "2.0.0-alpha2"
+versions.glide = "4.7.1"
+versions.timber = "4.5.1"
+versions.android_gradle_plugin = '3.2.1'
+versions.rxjava2 = "2.1.3"
+versions.rx_android = "2.0.1"
+versions.rx_kotlin = "2.2.0"
+versions.atsl_runner = "1.1.0-beta02"
+versions.atsl_rules = "1.0.1"
+versions.hamcrest = "1.3"
+versions.kotlin = "1.3.11"
+versions.paging = "1.0.1"
+versions.navigation = "1.0.0-alpha04"
+versions.work = "1.0.0-alpha08"
+versions.arouter_api = "1.4.1"
+versions.arouter_compiler = "1.2.1"
+versions.qmui = "1.1.3"
+versions.agentweb = "4.0.2"
+versions.matisse = "0.5.1"
+versions.multidex = "2.0.0"
+versions.rx_permissions = "0.9.5"
+versions.persistent_cookie_jar = "v1.0.1"
+versions.convenient_banner = "2.1.4"
+versions.smart_refresh_layout = "1.1.0-alpha-12"
+versions.statusbar = "1.5.1"
+versions.rx_binding = "2.2.0"
+
+def support = [:]
+support.annotations = "androidx.annotation:annotation:$versions.support"
+support.app_compat = "androidx.appcompat:appcompat:$versions.support"
+support.recyclerview = "androidx.recyclerview:recyclerview:$versions.support"
+support.cardview = "androidx.cardview:cardview:$versions.support"
+support.design = "com.google.android.material:material:$versions.support"
+support.v4 = "androidx.legacy:legacy-support-v4:$versions.support"
+support.core_utils = "androidx.legacy:legacy-support-core-utils:$versions.support"
+deps.support = support
+
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.rxjava2 = "androidx.room:room-rxjava2:$versions.room"
+room.testing = "androidx.room:room-testing:$versions.room"
+deps.room = room
+
+def lifecycle = [:]
+lifecycle.runtime = "androidx.lifecycle:lifecycle-runtime:$versions.lifecycle"
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+lifecycle.java8 = "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
+lifecycle.compiler = "androidx.lifecycle:lifecycle-compiler:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+def arch_core = [:]
+arch_core.testing = "android.arch.core:core-testing:$versions.arch_core"
+deps.arch_core = arch_core
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.rxjava2 = "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+retrofit.mock = "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
+deps.retrofit = retrofit
+
+deps.okhttp_logging_interceptor = "com.squareup.okhttp3:logging-interceptor:${versions.okhttp_logging_interceptor}"
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+espresso.contrib = "androidx.test.espresso:espresso-contrib:$versions.espresso"
+espresso.intents = "androidx.test.espresso:espresso-intents:$versions.espresso"
+deps.espresso = espresso
+
+def atsl = [:]
+atsl.runner = "androidx.test:runner:$versions.atsl_runner"
+atsl.rules = "androidx.test:rules:$versions.atsl_runner"
+deps.atsl = atsl
+
+def mockito = [:]
+mockito.core = "org.mockito:mockito-core:$versions.mockito"
+mockito.all = "org.mockito:mockito-all:$versions.mockito_all"
+deps.mockito = mockito
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.allopen = "org.jetbrains.kotlin:kotlin-allopen:$versions.kotlin"
+kotlin.reflect = "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin"
+deps.kotlin = kotlin
+
+def glide = [:]
+glide.runtime = "com.github.bumptech.glide:glide:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+deps.glide = glide
+
+def work = [:]
+work.runtime = "android.arch.work:work-runtime:$versions.work"
+work.testing = "android.arch.work:work-testing:$versions.work"
+work.firebase = "android.arch.work:work-firebase:$versions.work"
+work.runtime_ktx = "android.arch.work:work-runtime-ktx:$versions.work"
+deps.work = work
+
+def navigation = [:]
+navigation.runtime = "android.arch.navigation:navigation-runtime:$versions.navigation"
+navigation.runtime_ktx = "android.arch.navigation:navigation-runtime-ktx:$versions.navigation"
+navigation.fragment = "android.arch.navigation:navigation-fragment:$versions.navigation"
+navigation.fragment_ktx = "android.arch.navigation:navigation-fragment-ktx:$versions.navigation"
+navigation.safe_args_plugin = "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+navigation.testing_ktx = "android.arch.navigation:navigation-testing-ktx:$versions.navigation"
+deps.navigation = navigation
+
+def arouter = [:]
+arouter.api = "com.alibaba:arouter-api:$versions.arouter_api"
+arouter.compiler = "com.alibaba:arouter-compiler:$versions.arouter_compiler"
+deps.arouter = arouter
+
+def agentweb = [:]
+agentweb.basic = "com.just.agentweb:agentweb:$versions.agentweb"
+agentweb.download = "com.just.agentweb:download:$versions.agentweb"
+agentweb.filechooser = "com.just.agentweb:filechooser:$versions.agentweb"
+deps.agentweb = agentweb
+
+def rx_binding = [:]
+rx_binding.rx_binding = "com.jakewharton.rxbinding2:rxbinding-kotlin:$versions.rx_binding"
+rx_binding.rx_binding_v4 = "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:$versions.rx_binding"
+rx_binding.rx_binding_v7 = "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:$versions.rx_binding"
+rx_binding.rx_binding_design = "com.jakewharton.rxbinding2:rxbinding-design-kotlin:$versions.rx_binding"
+rx_binding.rx_binding_recyclerview = "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:$versions.rx_binding"
+deps.rx_binding = rx_binding
+
+deps.dexmaker = "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
+
+deps.constraint_layout = "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+
+deps.junit = "junit:junit:$versions.junit"
+
+deps.mock_web_server = "com.squareup.okhttp3:mockwebserver:$versions.mockwebserver"
+
+deps.paging = "android.arch.paging:runtime:$versions.paging"
+
+deps.hamcrest = "org.hamcrest:hamcrest-all:$versions.hamcrest"
+
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+
+deps.qmui = "com.qmuiteam:qmui:$versions.qmui"
+
+deps.matisse = "com.zhihu.android:matisse:$versions.matisse"
+
+deps.multidex = "androidx.multidex:multidex:$versions.multidex"
+
+deps.rx_permissions = "com.tbruyelle.rxpermissions2:rxpermissions:$versions.rx_permissions"
+
+deps.persistent_cookie_jar = "com.github.franmontiel:PersistentCookieJar:$versions.persistent_cookie_jar"
+
+deps.convenient_banner = "com.bigkoo:ConvenientBanner:$versions.convenient_banner"
+
+deps.smart_refresh_layout = "com.scwang.smartrefresh:SmartRefreshLayout:$versions.smart_refresh_layout"
+
+deps.statusbar = "com.jaeger.statusbarutil:library:$versions.statusbar"
+
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rx_kotlin = "io.reactivex.rxjava2:rxkotlin:$versions.rx_kotlin"
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+
+ext.deps = deps
+
+def build_versions = [:]
+build_versions.min_sdk = 21
+build_versions.target_sdk = 28
+build_versions.build_tools = "27.0.3"
+ext.build_versions = build_versions
+
+static def addRepos(RepositoryHandler handler) {
+
+    handler.maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    handler.maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+    handler.google()
+    handler.jcenter()
+    handler.mavenCentral()
+    handler.maven { url 'https://jitpack.io' }
+    handler.maven { url "https://plugins.gradle.org/m2/" }
+    handler.maven { url 'http://developer.huawei.com/repo/' }
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven { url "https://repo.eclipse.org/content/repositories/paho-snapshots/" }
+    handler.maven { url "https://raw.githubusercontent.com/HyphenateInc/Hyphenate-SDK-Android/master/repository" }
+}
+
+ext.addRepos = this.&addRepos
