@@ -13,7 +13,7 @@ android {
 
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
-    kapt "com.android.databinding:compiler:${ANDROID_PLUGIN_VERSION}"
+    kapt "com.android.databinding:compiler:${DATABINDING_COMPILER_VERSION}"
     api project(':androidLib')
 }
 

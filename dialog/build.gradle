@@ -7,8 +7,8 @@ apply from: rootProject.file("secret.gradle")
 android {
     defaultConfig {
         resourcePrefix "dialog_"
-//        renderscriptTargetApi 19
-//        renderscriptSupportModeEnabled true
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 }
