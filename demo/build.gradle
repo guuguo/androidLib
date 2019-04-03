@@ -67,11 +67,11 @@ dependencies {
 //    implementation "com.github.guuguo.androidLib:libdatabindingex:1.1.9.7"
 //    implementation "com.github.guuguo.androidLib:dialog:1.1.9.7"
 
-//    implementation project(':libdatabindingex')
-//    implementation project(':iconfont')
-    implementation 'com.guuguo.android:androidlib:1.0.1'
-    implementation 'com.guuguo.android:libdatabindingex:1.0'
-    implementation 'com.guuguo.android:iconfont:1.0'
+    implementation project(':libdatabindingex')
+    implementation project(':iconfont')
+//    implementation 'com.guuguo.android:androidlib:1.0.2'
+//    implementation 'com.guuguo.android:libdatabindingex:1.0.2'
+//    implementation 'com.guuguo.android:iconfont:1.0.2'
 
     testImplementation 'junit:junit:4.12'
 
