@@ -64,6 +64,23 @@
   <attr format="dimension" name="ftv_textMinWidth"/>
   <!-- text 最大宽度-->
   <attr format="dimension" name="ftv_textMaxWidth"/>
+  <!-- text 居中状态-->
+  <attr format="enum" name="ftv_textGravity">
+    <enum name="bottom" value="80" />
+    <enum name="center" value="17" />
+    <enum name="center_horizontal" value="1" />
+    <enum name="center_vertical" value="16" />
+    <enum name="clip_horizontal" value="8" />
+    <enum name="clip_vertical" value="128" />
+    <enum name="end" value="8388613" />
+    <enum name="fill" value="119" />
+    <enum name="fill_horizontal" value="7" />
+    <enum name="fill_vertical" value="112" />
+    <enum name="left" value="3" />
+    <enum name="right" value="5" />
+    <enum name="start" value="8388611" />
+    <enum name="top" value="48" />
+  </attr>
   <!-- drawable 图片资源-->
   <attr format="reference" name="ftv_drawableSrc"/>
   <!-- drawable 图片着色颜色-->
