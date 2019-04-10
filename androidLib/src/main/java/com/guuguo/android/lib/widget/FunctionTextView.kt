@@ -66,6 +66,8 @@ class FunctionTextView : RoundLinearLayout {
         textColor = attributes.getColor(R.styleable.FunctionTextView_android_textColor, 0)
         textMinWidth = attributes.getDimension(R.styleable.FunctionTextView_ftv_textMinWidth, 0f).toInt()
         textMaxWidth = attributes.getDimension(R.styleable.FunctionTextView_ftv_textMaxWidth, Float.MAX_VALUE).toInt()
+        textGravity = attributes.getInt(R.styleable.FunctionTextView_ftv_textGravity, Gravity.CENTER)
+
         drawableTintDefaultTextColor = attributes.getBoolean(R.styleable.FunctionTextView_ftv_drawableTintDefaultTextColor, false)
         drawableTint = attributes.getColor(R.styleable.FunctionTextView_ftv_drawableTint, 0)
         drawable = attributes.getDrawable(R.styleable.FunctionTextView_ftv_drawableSrc)
@@ -109,6 +111,12 @@ class FunctionTextView : RoundLinearLayout {
             field = value
             textView?.maxWidth = value
         }
+    var textGravity: Int = 0
+        set(value) {
+            field = value
+            textView?.gravity = value
+        }
+
     var textStyle: Int = Typeface.NORMAL
         set(value) {
             field = value
@@ -214,6 +222,7 @@ class FunctionTextView : RoundLinearLayout {
         textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         textView?.minWidth = textMinWidth
         textView?.maxWidth = textMaxWidth
+        textView?.gravity = textGravity
         if (textColor != 0)
             textView?.setTextColor(textColor)
         textView?.typeface = Typeface.defaultFromStyle(textStyle)//加粗
