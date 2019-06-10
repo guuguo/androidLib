@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
 import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.extension.doAvoidDouble
+import com.guuguo.android.lib.extension.log
+import com.guuguo.android.lib.extension.loge
 import com.guuguo.android.lib.extension.toast
 import com.guuguo.android.lib.utils.DeviceUtil
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -26,6 +28,8 @@ class MainActivity : LBaseActivity() {
             it.doAvoidDouble {
                 ThemeUtils.changeToTheme(activity)
             }
+            "Error".loge()
+            "logError".log()
         }
         RxPermissions(activity).request(Manifest.permission.READ_PHONE_STATE).subscribe{it.toString().toast()}.isDisposed
 
