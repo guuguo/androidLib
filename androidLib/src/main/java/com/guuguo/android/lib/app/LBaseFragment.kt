@@ -38,6 +38,8 @@ abstract class LBaseFragment : RxFragment() {
         initToolbar()
         initView()
         loadData()
+        loadData(false)
+
         //如果准备好 懒加载
         isPrepare = true
         if (userVisibleHint && !isHidden) {
@@ -62,8 +64,10 @@ abstract class LBaseFragment : RxFragment() {
     }
 
     /*init*/
-
+    @Deprecated("用带参数的方法吧",replaceWith = ReplaceWith("loadData(false)"), level = DeprecationLevel.WARNING)
     open fun loadData() {}
+    open fun loadData(isRefresh:Boolean) {}
+
     protected open fun initVariable(savedInstanceState: Bundle?) {}
     protected open fun initView() {}
     protected open fun getMenuResId() = 0
@@ -111,6 +115,14 @@ abstract class LBaseFragment : RxFragment() {
         if (!hidden && isPrepare) {
             lazyLoad()
             mFirstLazyLoad = false
+        }
+        childFragmentManager.fragments.forEach {
+            if (hidden) it.userVisibleHint = false
+            else if (it.isVisible) {
+                it.userVisibleHint = true
+            }
+
+            if (it.isVisible) it.onHiddenChanged(hidden)
         }
     }
 

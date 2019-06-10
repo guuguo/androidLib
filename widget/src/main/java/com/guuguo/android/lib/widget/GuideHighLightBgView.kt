@@ -1,4 +1,4 @@
-package com.guuguo.android.drawable
+package com.guuguo.android.lib.widget
 
 import android.content.Context
 import android.graphics.*

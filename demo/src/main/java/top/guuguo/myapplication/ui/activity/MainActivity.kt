@@ -25,14 +25,6 @@ class MainActivity : LBaseActivity() {
         v_theme.setOnClickListener {
             it.doAvoidDouble {
                 ThemeUtils.changeToTheme(activity)
-//                ThemeUtils.sThemeDark = !ThemeUtils.sThemeDark
-//                if (ThemeUtils.sThemeDark) {
-//                    activity.setTheme(R.style.MyTheme_Dark)
-//                    theme.applyStyle(R.style.MyTheme_Dark, true)
-//                } else {
-//                    activity.setTheme(R.style.MyTheme_Light)
-//                    theme.applyStyle(R.style.MyTheme_Light, true)
-//                }
             }
         }
         RxPermissions(activity).request(Manifest.permission.READ_PHONE_STATE).subscribe{it.toString().toast()}.isDisposed

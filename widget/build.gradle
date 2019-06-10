@@ -6,7 +6,7 @@ apply from: rootProject.file("secret.gradle")
 
 android {
     defaultConfig {
-        resourcePrefix "widget_"
+//        resourcePrefix "widget_"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

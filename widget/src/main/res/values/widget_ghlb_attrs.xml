@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <declare-styleable name="GuideHighLightBgView" tools:ignore="ResourceName">
+    <attr name="ghv_backgroundColor" format="color"/>
+    <attr name="ghv_backgroundAlpha" format="integer"/>
+  </declare-styleable>
+</resources>

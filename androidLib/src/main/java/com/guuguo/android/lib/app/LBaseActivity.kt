@@ -209,8 +209,9 @@ abstract class LBaseActivity : RxAppCompatActivity() {
 
     protected open fun initVariable(savedInstanceState: Bundle?) {}
     protected open fun initView() {}
+    @Deprecated("用带参数的方法吧",replaceWith = ReplaceWith("loadData(false)"), level = DeprecationLevel.WARNING)
     open fun loadData() {}
-
+    open fun loadData(isRefresh:Boolean) {}
     @CallSuper
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
@@ -222,6 +223,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         initStatusBar()
         initView()
         loadData()
+        loadData(false)
     }
 
     @CallSuper
@@ -251,7 +253,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 return null
             }
             try {
-                return clz.getConstructor().newInstance() as LBaseFragment
+                return Fragment.instantiate(this,clz.name) as LBaseFragment
             } catch (e: Exception) {
                 e.printStackTrace()
                 throw IllegalArgumentException("generate fragment error. by value:" + clz.toString())

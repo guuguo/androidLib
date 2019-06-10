@@ -5,12 +5,27 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
-  <FrameLayout
-    android:layout_gravity="center_horizontal"
+  <com.guuguo.android.lib.widget.ShadowFrameLayout
     android:layout_width="200dp"
     android:layout_height="200dp"
-    android:background="@color/blue"
-    android:elevation="5dp"/>
+    android:layout_gravity="center_horizontal"
+    app:blurShadowRadius="5dp"
+    app:cardShadowAlpha="51"
+    app:cardShadowColor="@color/colorPrimaryRed"
+    app:cardShadowRadius="7dp"
+    app:sfl_cardTriangleWidth="18dp"
+    app:sfl_cardBackgroundColor="@color/white"
+    app:sfl_cardStrokeColor="@color/red"
+    app:sfl_cardStrokeWidth="1dp"
+    app:sfl_cardTriangleAlign="top"
+    app:sfl_cardTriangleHeight="10dp"
+    app:sfl_cardTriangleStartExtent="40dp"
+    app:shadowTranslationY="0dp">
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="20dp"/>
+  </com.guuguo.android.lib.widget.ShadowFrameLayout>
   <top.guuguo.myapplication.RoundFlowLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

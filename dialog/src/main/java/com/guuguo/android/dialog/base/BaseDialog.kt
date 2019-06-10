@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +16,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.guuguo.android.dialog.utils.StatusBarUtils
 import com.guuguo.android.lib.extension.dpToPx
+import com.guuguo.android.lib.extension.getActivity
+import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.guuguo.android.lib.utils.DisplayUtil
 
@@ -107,9 +110,9 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(mTag, "onCreate")
         mDisplayMetrics = mContext.resources.displayMetrics
-        if (mFullScreen)
-            mMaxHeight = (DisplayUtil.getScreenRealHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
-        else mMaxHeight = (DisplayUtil.getScreenRealHeight(mContext) - StatusBarUtils.getHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
+        mMaxHeight = if (mFullScreen)
+            (DisplayUtil.getScreenRealHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
+        else (DisplayUtil.getScreenRealHeight(mContext) - StatusBarUtils.getHeight(mContext) - DisplayUtil.getNavigationBarHeight(mContext)).toFloat()
 
         mContentTop = LinearLayout(mContext)
         mContentTop.gravity = Gravity.CENTER
@@ -146,6 +149,9 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
         super.onAttachedToWindow()
         Log.d(mTag, "onAttachedToWindow")
 
+        val insetBottom = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            context.getActivity()?.window?.decorView?.rootWindowInsets?.stableInsetBottom.safe()
+        } else 0
 
         val width: Int
         val createdWidth: Int
@@ -156,7 +162,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
             width = (mDisplayMetrics.widthPixels * mWidthRatio).toInt()
             createdWidth = ViewGroup.LayoutParams.MATCH_PARENT
         }
-
+        View(context).getActivity()
         val height: Int
         val createdHeight: Int
         if (mHeightRatio == 0f) {
@@ -170,6 +176,7 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
 
         mOnCreateView.layoutParams = mOnCreateView.layoutParams.also { it.height = createdHeight;it.width = createdWidth; }
         mDialogContent.layoutParams = LinearLayout.LayoutParams(width, height)
+
         mContentTop.doOnNextLayout {
             val bgLocation = IntArray(2)
             window.decorView.findViewById<FrameLayout>(Window.ID_ANDROID_CONTENT).getLocationOnScreen(bgLocation)
@@ -178,13 +185,14 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
 
 //            if (mFullScreen && !isNotRealImmerse)
 //                SystemBarHelper.immersiveStatusBar(window, 0f)
+            val contentHeight = mDialogContent.height - insetBottom
 
             if (mHeightRatio > 0 && mHeightRatio < 1) {
                 mDialogContent.updateLayoutParams<LinearLayout.LayoutParams> {
                     if (isNotRealImmerse) {//没顶上去就减去状态栏高度,另外再减去沉浸状态栏的 负的margin导致的高度变高
-                        this.height = ((mDialogContent.height - SystemBarHelper.getStatusBarHeight(context)*2) * mHeightRatio).toInt()
+                        this.height = ((contentHeight - SystemBarHelper.getStatusBarHeight(context) * 2) * mHeightRatio).toInt()
                     } else {
-                        this.height = (mDialogContent.height * mHeightRatio).toInt()
+                        this.height = ((contentHeight) * mHeightRatio).toInt()
                     }
                 }
             }
@@ -192,9 +200,10 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
                 window.decorView.findViewById<FrameLayout>(Window.ID_ANDROID_CONTENT).getChildAt(0).apply {
                     top = 0
                     updateLayoutParams<FrameLayout.LayoutParams> {
-                        topMargin=0 //把沉浸式改的topMargin改回来
+                        topMargin = 0 //把沉浸式改的topMargin改回来
+                        bottomMargin = insetBottom
                     }
-                    setPadding(0,0,0,SystemBarHelper.getStatusBarHeight(context))
+                    setPadding(0, 0, 0, SystemBarHelper.getStatusBarHeight(context))
                 }
                 mOnCreateView.requestLayout()
             }

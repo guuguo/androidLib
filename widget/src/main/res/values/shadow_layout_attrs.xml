@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr format="enum" name="sfl_cardTriangleAlign">
+    <enum name="left" value="0"/>
+    <enum name="top" value="1"/>
+    <enum name="right" value="2"/>
+    <enum name="bottom" value="3"/>
+  </attr>
+  <declare-styleable name="ShadowFrameLayout">
+    <attr format="dimension" name="shadowTranslationY"/>
+    <attr format="color" name="cardShadowColor"/>
+    <attr format="float" name="cardShadowAlpha"/>
+
+    <attr format="color" name="sfl_cardBackgroundColor"/>
+    <attr format="color" name="sfl_cardBackgroundColorEnd"/>
+    <attr name="sfl_cardTriangleAlign"/>
+    <attr format="color" name="sfl_cardStrokeColor"/>
+    <attr format="dimension" name="sfl_cardStrokeWidth"/>
+    <attr format="dimension" name="sfl_cardTriangleStartExtent"/>
+    <attr format="dimension" name="sfl_cardTriangleCubicRadius"/>
+    <attr format="dimension" name="sfl_cardTriangleHeight"/>
+    <attr format="dimension" name="sfl_cardTriangleWidth"/>
+    <attr format="dimension" name="cardShadowRadius"/>
+    <attr format="dimension" name="blurShadowRadius"/>
+    <attr format="float" name="shadowScale"/>
+  </declare-styleable>
+</resources>

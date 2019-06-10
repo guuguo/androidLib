@@ -80,12 +80,12 @@ class FunctionTextView : RoundLinearLayout {
         gravity = attributes.getInt(R.styleable.FunctionTextView_android_gravity, Gravity.CENTER)
     }
 
-    var text: String = ""
+    var text: String? = ""
         set(value) {
             field = value
             textView?.apply {
                 text = value
-                isVisible = !value.isEmpty()
+                isVisible = !value.isNullOrEmpty()
             }
             requestLayout()
         }
@@ -213,7 +213,7 @@ class FunctionTextView : RoundLinearLayout {
         }
         setDrawableWithTint()
 
-        if (text.isEmpty()) {
+        if (text.isNullOrEmpty()) {
             textView?.visibility = View.GONE
         } else {
             textView?.visibility = View.VISIBLE
