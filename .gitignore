@@ -24,7 +24,7 @@ local.properties
 /androidLib/*/build
 
 # User-specific configurations
-.idea
+.idea/
 
 .xml
 t/profiles_settings.xml
