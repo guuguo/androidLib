@@ -35,7 +35,7 @@ abstract class LBaseFragmentSupport : SupportFragment(), IView<FragmentEvent> {
         return inflater!!.inflate(resId, container, false)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         this.activity = context as LBaseActivitySupport
     }

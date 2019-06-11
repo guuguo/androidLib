@@ -185,9 +185,9 @@ class Klog private constructor() {
         private val JSON = -1
         private val XML = -2
         private val MAX_LEN = 4000
-        private val TOP_BORDER = "╔═════════════════════════════════════════════════════════════════════════════════════"
+        private val TOP_BORDER = "╔═════════════════════════════════════════════════════════════════════════════════════╗"
         private val LEFT_BORDER = "║ "
-        private val BOTTOM_BORDER = "╚═════════════════════════════════════════════════════════════════════════════════════"
+        private val BOTTOM_BORDER = "╚═════════════════════════════════════════════════════════════════════════════════════╝"
         //解决windows和linux换行不一致的问题 功能和"\n"是一致的,但是此种写法屏蔽了 Windows和Linux的区别 更保险.
         private val LINE_SEPARATOR = System.getProperty("line.separator")
         private val NULL_TIPS = "Log with a null object;"

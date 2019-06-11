@@ -28,7 +28,7 @@ abstract class LBaseFragment : RxFragment() {
         return inflater!!.inflate(resId, container, false)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         this.activity = context as AppCompatActivity
     }
@@ -86,9 +86,9 @@ abstract class LBaseFragment : RxFragment() {
     /*menu and title*/
 
     open protected fun getHeaderTitle(): String? = null
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (getMenuResId() != 0)
-            inflater!!.inflate(getMenuResId(), menu)
+            inflater.inflate(getMenuResId(), menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
