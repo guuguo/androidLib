@@ -7,6 +7,7 @@ import com.guuguo.android.lib.app.LBaseActivity
 import com.guuguo.android.lib.app.LBaseFragment
 import com.guuguo.android.lib.extension.log
 import com.guuguo.android.lib.extension.toast
+
 import com.guuguo.android.lib.widget.FunctionTextView
 import com.guuguo.android.lib.widget.simpleview.StateLayout
 import io.reactivex.Completable

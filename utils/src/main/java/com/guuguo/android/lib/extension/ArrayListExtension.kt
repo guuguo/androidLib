@@ -22,10 +22,14 @@ fun <K, V> Map<K, V>?.safe(): Map<K, V> {
     }
 }
 
-fun <T> List<T>?.toListString(separate:String="  "): String {
-    if(this==null)
+fun <T> List<T>?.toListString(separate: String = "  "): String {
+    if (this == null)
         return ""
     val str = StringBuilder()
-    forEach { str.append(it.toString()+separate) }
+    repeat(this.size - 1)
+    {
+        str.append(this[it].toString() + separate)
+    }
+    str.append(this.last().toString())
     return str.toString()
 }

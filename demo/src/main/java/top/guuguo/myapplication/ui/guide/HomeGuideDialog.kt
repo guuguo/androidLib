@@ -10,10 +10,10 @@ import android.widget.TextView
 import androidx.core.view.doOnNextLayout
 import androidx.core.view.updateLayoutParams
 import com.guuguo.android.dialog.base.BaseDialog
-import com.guuguo.android.lib.widget.GuideHighLightBgView
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.guuguo.android.lib.utils.DisplayUtil
+import com.guuguo.android.lib.widget.GuideHighLightBgView
 import com.guuguo.android.lib.widget.ShadowFrameLayout
 import top.guuguo.myapplication.R
 

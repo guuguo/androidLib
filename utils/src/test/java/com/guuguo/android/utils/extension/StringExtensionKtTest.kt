@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.extension
 
+import com.guuguo.android.lib.ktx.isPhone
 import org.junit.Assert
 import org.junit.Test
 

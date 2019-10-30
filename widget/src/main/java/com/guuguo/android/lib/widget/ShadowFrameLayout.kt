@@ -6,6 +6,7 @@ import android.graphics.*
 import android.graphics.Bitmap.Config.ARGB_8888
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import com.guuguo.android.lib.extension.changeAlpha
 import java.lang.IllegalArgumentException
 
 class ShadowFrameLayout : FrameLayout {
@@ -18,10 +19,10 @@ class ShadowFrameLayout : FrameLayout {
         init(attrs)
     }
 
-    private var shadowColor: Int = Color.BLACK
+    var shadowColor: Int = Color.BLACK
     private var shadow: Bitmap? = null
     private var bgBitmap: Bitmap? = null
-    private var shadowAlpha = 255
+    var shadowAlpha = 255
     private var shadowTranslationY = 8f
     private var blurShadowRadius = 24f
     var cardShadowRadius = 0f
@@ -105,7 +106,7 @@ class ShadowFrameLayout : FrameLayout {
         if (shadow == null) {
             return
         }
-        canvas.drawBitmap(shadow, 0f, 0f, bitmapPaint)
+        canvas.drawBitmap(shadow, -blurShadowRadius, -blurShadowRadius, bitmapPaint)
         if (strokeWidth > 0) {
             strokePaint.style = Paint.Style.STROKE
             strokePaint.strokeWidth = strokeWidth
@@ -123,7 +124,8 @@ class ShadowFrameLayout : FrameLayout {
         try {
             ///大小有改变或者为空重建bitmap
             if (shadow == null || shadow!!.width != measuredWidth || shadow!!.height != measuredHeight) {
-                shadow = Bitmap.createBitmap(measuredWidth, measuredHeight, ARGB_8888)
+                ///阴影可以绘制出范围外 超出 blurShadowRadius 的大小
+                shadow = Bitmap.createBitmap(measuredWidth + blurShadowRadius.toInt() * 2, measuredHeight + blurShadowRadius.toInt() * 2, ARGB_8888)
             } else {
                 shadow?.eraseColor(Color.TRANSPARENT)
             }
@@ -190,10 +192,15 @@ class ShadowFrameLayout : FrameLayout {
         shadowPaint.style = Paint.Style.FILL
         shadowPaint.color = shadowColor.changeAlpha(shadowAlpha)
         shadowPaint.setShadowLayer(blurShadowRadius, 0f, shadowTranslationY, shadowPaint.color);
+
         canvas.scale(shadowScale, shadowScale, 1.5f * childBounds.left + 0.5f * childBounds.right, childBounds.bottom)
+        canvas.save()
+        canvas.translate(blurShadowRadius,blurShadowRadius)
+
         canvas.drawRoundRect(childBounds, cardShadowRadius, cardShadowRadius, shadowPaint)
         if (triangleHeight > 0)
             canvas.drawPath(trianglePath, shadowPaint);
+        canvas.restore()
     }
 
     /**
@@ -213,7 +220,7 @@ class ShadowFrameLayout : FrameLayout {
                 bgColor,
                 bgColorEnd, Shader.TileMode.CLAMP)
         bgPaint.shader = linearGradient
-        canvas.drawRect(childBounds.left, 0f, childBounds.right, measuredHeight.toFloat(), bgPaint)
+        canvas.drawRect(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat(), bgPaint)
 
 
         //设置遮罩混合模式
@@ -263,74 +270,56 @@ class ShadowFrameLayout : FrameLayout {
         childBounds.set(tempRect)
         childBounds.offset(child.x, child.y)
 
-//        val currentShadowInfo = ShadowInfo(childBounds, shadowColor, shadowAlpha, shadowTranslationY,
-//                blurShadowRadius,
-//                cardShadowRadius,
-//                shadowScale,
-//                bgColor,
-//                bgColorEnd,
-//                triangleHeight,
-//                triangleWidth,
-//                triangleCubicRadius,
-//                strokeColor,
-//                strokeWidth,
-//                triangleAlign,
-//                triangleStartExtent)
-//        if (lastCacheBean?.isNoChange(currentShadowInfo) == true) {
-//            return
-//        }
-//        lastCacheBean = currentShadowInfo
-
         initTrianglePoint()
         createShadows()
     }
 
-    /** 上次的阴影信息，判断是否需要重建用 */
-    var lastCacheBean: ShadowInfo? = null
-
-    class ShadowInfo(var childBound: RectF,
-                     var shadowColor: Int,
-                     var shadowAlpha: Int,
-                     var shadowTranslationY: Float,
-                     var blurShadowRadius: Float,
-                     var cardShadowRadius: Float,
-                     var shadowScale: Float,
-                     var bgColor: Int,
-                     var bgColorEnd: Int,
-                     var triangleHeight: Float,
-                     var triangleWidth: Float,
-                     var triangleCubicRadius: Float,
-                     var strokeColor: Int,
-                     var strokeWidth: Float,
-                     var triangleAlign: Int,
-                     var triangleStartExtent: Float) {
-        fun isChangeTriangle(currentInfo: ShadowInfo) =
-                childBound.width() == currentInfo.childBound.width()
-                        && childBound.height() == currentInfo.childBound.height()
-                        && triangleAlign == currentInfo.triangleAlign
-                        && triangleStartExtent == currentInfo.triangleStartExtent
-                        && triangleWidth == currentInfo.triangleWidth
-                        && triangleHeight == currentInfo.triangleHeight
-                        && triangleCubicRadius == currentInfo.triangleCubicRadius
-
-        fun isNoChange(currentInfo: ShadowInfo) =
-                childBound.width() == currentInfo.childBound.width()
-                        && childBound.height() == currentInfo.childBound.height()
-                        && triangleAlign == currentInfo.triangleAlign
-                        && triangleStartExtent == currentInfo.triangleStartExtent
-                        && bgColor == currentInfo.bgColor
-                        && bgColorEnd == currentInfo.bgColorEnd
-                        && triangleWidth == currentInfo.triangleWidth
-                        && triangleHeight == currentInfo.triangleHeight
-                        && triangleCubicRadius == currentInfo.triangleCubicRadius
-                        && shadowScale == currentInfo.shadowScale
-                        && cardShadowRadius == currentInfo.cardShadowRadius
-                        && blurShadowRadius == currentInfo.blurShadowRadius
-                        && shadowTranslationY == currentInfo.shadowTranslationY
-                        && shadowAlpha == currentInfo.shadowAlpha
-                        && shadowColor == currentInfo.shadowColor
-
-    }
+//    /** 上次的阴影信息，判断是否需要重建用 */
+//    var lastCacheBean: ShadowInfo? = null
+//
+//    class ShadowInfo(var childBound: RectF,
+//                     var shadowColor: Int,
+//                     var shadowAlpha: Int,
+//                     var shadowTranslationY: Float,
+//                     var blurShadowRadius: Float,
+//                     var cardShadowRadius: Float,
+//                     var shadowScale: Float,
+//                     var bgColor: Int,
+//                     var bgColorEnd: Int,
+//                     var triangleHeight: Float,
+//                     var triangleWidth: Float,
+//                     var triangleCubicRadius: Float,
+//                     var strokeColor: Int,
+//                     var strokeWidth: Float,
+//                     var triangleAlign: Int,
+//                     var triangleStartExtent: Float) {
+//        fun isChangeTriangle(currentInfo: ShadowInfo) =
+//                childBound.width() == currentInfo.childBound.width()
+//                        && childBound.height() == currentInfo.childBound.height()
+//                        && triangleAlign == currentInfo.triangleAlign
+//                        && triangleStartExtent == currentInfo.triangleStartExtent
+//                        && triangleWidth == currentInfo.triangleWidth
+//                        && triangleHeight == currentInfo.triangleHeight
+//                        && triangleCubicRadius == currentInfo.triangleCubicRadius
+//
+//        fun isNoChange(currentInfo: ShadowInfo) =
+//                childBound.width() == currentInfo.childBound.width()
+//                        && childBound.height() == currentInfo.childBound.height()
+//                        && triangleAlign == currentInfo.triangleAlign
+//                        && triangleStartExtent == currentInfo.triangleStartExtent
+//                        && bgColor == currentInfo.bgColor
+//                        && bgColorEnd == currentInfo.bgColorEnd
+//                        && triangleWidth == currentInfo.triangleWidth
+//                        && triangleHeight == currentInfo.triangleHeight
+//                        && triangleCubicRadius == currentInfo.triangleCubicRadius
+//                        && shadowScale == currentInfo.shadowScale
+//                        && cardShadowRadius == currentInfo.cardShadowRadius
+//                        && blurShadowRadius == currentInfo.blurShadowRadius
+//                        && shadowTranslationY == currentInfo.shadowTranslationY
+//                        && shadowAlpha == currentInfo.shadowAlpha
+//                        && shadowColor == currentInfo.shadowColor
+//
+//    }
 
     fun Float.coerceInSafe(minimumValue: Float, maximumValue: Float): Float {
         return try {
@@ -347,7 +336,7 @@ class ShadowFrameLayout : FrameLayout {
 
         when (triangleAlign) {
             1 -> {
-                val lTriangleStartExtent =  triangleStartExtent.coerceInSafe(noTriangleExtent + childBounds.left, childBounds.right - noTriangleExtent)
+                val lTriangleStartExtent = triangleStartExtent.coerceInSafe(noTriangleExtent + childBounds.left, childBounds.right - noTriangleExtent)
                 triangleTriple.first.apply { x = lTriangleStartExtent - triangleWidth / 2f; y = childBounds.top }
                 triangleTriple.second.apply { x = lTriangleStartExtent; y = childBounds.top - triangleHeight }
                 triangleTriple.third.apply { x = lTriangleStartExtent + triangleWidth / 2f; y = childBounds.top }
@@ -373,11 +362,5 @@ class ShadowFrameLayout : FrameLayout {
             }
         }
     }
-    fun Int.changeAlpha(alpha: Int): Int {
-        val red = Color.red(this)
-        val green = Color.green(this)
-        val blue = Color.blue(this)
 
-        return Color.argb(alpha, red, green, blue)
-    }
 }

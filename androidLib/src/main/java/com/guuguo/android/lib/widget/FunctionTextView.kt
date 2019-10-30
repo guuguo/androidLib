@@ -2,10 +2,8 @@ package com.guuguo.android.lib.widget
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
@@ -19,6 +17,7 @@ import androidx.core.view.updateLayoutParams
 import com.guuguo.android.R
 import com.guuguo.android.lib.extension.dpToPx
 import com.guuguo.android.lib.extension.safe
+import com.guuguo.android.lib.ktx.margin
 import com.guuguo.android.lib.widget.roundview.RoundLinearLayout
 
 /**
@@ -136,6 +135,31 @@ class FunctionTextView : RoundLinearLayout {
      * bottom"3" />
      */
     var drawableAlign: Int? = null
+        set(value) {
+            field = value
+            if (textView == null || imageView == null)
+                return
+            when (field) {
+                ALIGN_LEFT -> orientation = HORIZONTAL
+                ALIGN_TOP -> orientation = VERTICAL
+                ALIGN_RIGHT -> orientation = HORIZONTAL
+                ALIGN_BOTTOM -> orientation = VERTICAL
+            }
+            when (field) {
+                ALIGN_LEFT, ALIGN_TOP -> {
+                    removeView(textView)
+                    addView(textView)
+                }
+                ALIGN_RIGHT, ALIGN_BOTTOM -> {
+                    removeView(imageView)
+                    addView(imageView)
+                }
+            }
+            textView?.updateLayoutParams<LayoutParams> {
+                updateLayoutParams(drawableAlign)
+            }
+        }
+
     var drawable: Drawable? = null
         set(value) {
             field = value
@@ -159,19 +183,23 @@ class FunctionTextView : RoundLinearLayout {
             } else {
                 imageView?.setImageDrawable(it)
             }
-            textView?.updateLayoutParams<LinearLayout.LayoutParams> {
-                when (drawableAlign) {
-                    ALIGN_LEFT -> marginStart = drawablePadding.toInt()
-                    ALIGN_TOP -> topMargin = drawablePadding.toInt()
-                    ALIGN_RIGHT -> marginEnd = drawablePadding.toInt()
-                    ALIGN_BOTTOM -> bottomMargin = drawablePadding.toInt()
-                }
+            textView?.updateLayoutParams<LayoutParams> {
+                updateLayoutParams(drawableAlign)
             }
         } ?: {
-            imageView?.visibility = View.GONE;textView?.updateLayoutParams<LinearLayout.LayoutParams> {
+            imageView?.visibility = View.GONE;textView?.updateLayoutParams<LayoutParams> {
             setMargins(0, 0, 0, 0)
         }
         }.invoke()
+    }
+
+    private fun LayoutParams.updateLayoutParams( drawableAlign:Int?) {
+        when (drawableAlign) {
+            ALIGN_LEFT -> this.setMargins(drawablePadding.toInt(), 0, 0, 0)
+            ALIGN_TOP -> this.setMargins(0, drawablePadding.toInt(), 0, 0)
+            ALIGN_RIGHT -> this.setMargins(0, 0, drawablePadding.toInt(), 0)
+            ALIGN_BOTTOM -> this.setMargins(0, 0, 0, drawablePadding.toInt())
+        }
     }
 
     var drawableWidth: Float = -2f
@@ -189,16 +217,11 @@ class FunctionTextView : RoundLinearLayout {
         }
 
         //param
-        val imageViewParams = LinearLayout.LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
+        val imageViewParams = LayoutParams(drawableWidth.toInt(), drawableHeight.toInt())
 
-        val textViewParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+        val textViewParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT).apply {
             drawable?.let {
-                when (drawableAlign) {
-                    ALIGN_LEFT -> marginStart = drawablePadding.toInt()
-                    ALIGN_TOP -> topMargin = drawablePadding.toInt()
-                    ALIGN_RIGHT -> marginEnd = drawablePadding.toInt()
-                    ALIGN_BOTTOM -> bottomMargin = drawablePadding.toInt()
-                }
+                updateLayoutParams(drawableAlign)
             }
         }
         when (drawableAlign) {

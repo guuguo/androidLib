@@ -90,7 +90,7 @@ class CircleRunDrawable : Drawable(), Animatable, IDrawableTheme {
 
             mPaint.color = mIndicatorColor
             mBufferCircleFgBitmap = Bitmap.createBitmap(bounds.width(), bounds.height(), Bitmap.Config.ARGB_8888)
-            val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap)
+            val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap!!)
 
             (0 until size).forEach {
                 val lcy = cy - Math.sin(2 * Math.PI / size * it) * radius

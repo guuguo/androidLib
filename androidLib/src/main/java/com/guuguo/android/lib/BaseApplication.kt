@@ -18,7 +18,7 @@ abstract class BaseApplication : Application(), Thread.UncaughtExceptionHandler 
     override fun onCreate() {
 
         Thread.setDefaultUncaughtExceptionHandler(this)
-        AppHelper.init(this)
+        AppHelper.init(this,debug = false)
         init()
         super.onCreate()
     }

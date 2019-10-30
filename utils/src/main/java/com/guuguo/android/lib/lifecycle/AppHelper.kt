@@ -1,6 +1,8 @@
 package com.guuguo.android.lib.lifecycle
 
 import android.app.Application
+import android.os.Debug
+import com.guuguo.android.lib.utils.LogUtil
 import com.guuguo.android.lib.utils.Utils
 
 /**
@@ -13,10 +15,11 @@ object AppHelper {
     lateinit var app: Application
         private set
 
-    fun init(app: Application) {
+    fun init(app: Application,debug: Boolean=false) {
         AppHelper.app = app
         initLyfecycle()
         Utils.init(app)
+        LogUtil.init(debug,true)
     }
 
     lateinit var mActivityLifecycle: ActivityLifecycle

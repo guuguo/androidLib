@@ -34,28 +34,6 @@ import static android.content.ContentValues.TAG;
 public class FileUtil {
     private static final String LINE_SEP = System.getProperty("line.separator");
 
-    /**
-     * 安装 apk 文件
-     *
-     * @param apkFile
-     */
-    public static void installApk(File apkFile) {
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(Utils.getContext(), AppUtil.getPackageName() + ".fileprovider", apkFile);
-            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-        } else {
-            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        }
-        if (Utils.getContext().getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
-            Utils.getContext().startActivity(intent);
-        }
-    }
-
-
     public static boolean isExternalStorageMounted() {
         String sts = Environment.getExternalStorageState();
         return sts.equals(Environment.MEDIA_MOUNTED);
@@ -1340,6 +1318,13 @@ public class FileUtil {
      *
      * @param type 文件夹类型 如果为空则返回 /storage/emulated/0/Android/data/app_package_name/cache
      *             否则返回对应类型的文件夹如Environment.DIRECTORY_PICTURES 对应的文件夹为 .../data/app_package_name/files/Pictures
+     *             {@link android.os.Environment#DIRECTORY_MUSIC},
+     *             {@link android.os.Environment#DIRECTORY_PODCASTS},
+     *             {@link android.os.Environment#DIRECTORY_RINGTONES},
+     *             {@link android.os.Environment#DIRECTORY_ALARMS},
+     *             {@link android.os.Environment#DIRECTORY_NOTIFICATIONS},
+     *             {@link android.os.Environment#DIRECTORY_PICTURES}, or
+     *             {@link android.os.Environment#DIRECTORY_MOVIES}.or 自定义文件夹名称
      * @return 缓存目录文件夹 或 null（无SD卡或SD卡挂载失败）
      */
     public static File getExternalCacheDirectory(String type) {
@@ -1393,6 +1378,7 @@ public class FileUtil {
     /**
      * @param assetFile         文件名，要拷贝的目录如assets目录下有一个SBClock文件：SBClock
      * @param targetDirFullPath 目标额文件夹地址，例如/sdcrad/SBClock
+     * @throws Exception
      */
     public static void CopyFileFromAssets(String assetFile, String targetDirFullPath) {
         try {

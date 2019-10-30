@@ -1,4 +1,4 @@
-package com.guuguo.android.lib.extension;
+package com.guuguo.android.lib.extension
 
 import android.text.TextUtils
 import android.util.Log
@@ -39,9 +39,9 @@ import javax.xml.transform.stream.StreamSource
  * desc : 利用Kotlin语法扩展, 一个可控制边框美化,可控制打印等级,可控制Log info, 自动识别类名为Tag, 同时支持自定义Tag的日志工具库
  * </pre>
  */
-fun <T> Any.log(hint: String = ""): T {
+fun <T> T.log(hint: String = ""): T {
     Klog.d(contents = if (hint.isEmpty()) toString() else (hint + "║ " + toString()))
-    return this as T
+    return this
 }
 
 fun <E> ArrayList<E>.log(hint: String = ""): ArrayList<E> {
@@ -69,20 +69,10 @@ fun String.log(hint: String = ""): String {
     return this
 }
 
-fun String.loge(hint: String = ""): String {
-    Klog.e(contents = if (hint.isEmpty()) toString() else (hint + "║ " + toString()))
-    return this
-}
-
-fun String.logi(hint: String = ""): String {
-    Klog.i(contents = if (hint.isEmpty()) toString() else (hint + "║ " + toString()))
-    return this
-}
-
 fun Throwable?.log(msg: String = "", tag: String = "") {
-    if (tag.isNullOrEmpty())
-        LogUtil.e(msg, this)
-    else LogUtil.e(tag, msg, this)
+    if (tag.isEmpty())
+        LogUtil.w(msg, this)
+    else LogUtil.w(tag, msg, this)
 }
 
 fun Int.log(hint: String = ""): Int {
@@ -182,22 +172,17 @@ class Klog private constructor() {
     }
 
     companion object {
-        private val JSON = -1
-        private val XML = -2
-        private val MAX_LEN = 4000
-        private val TOP_BORDER = "╔═════════════════════════════════════════════════════════════════════════════════════╗"
-        private val LEFT_BORDER = "║ "
-        private val BOTTOM_BORDER = "╚═════════════════════════════════════════════════════════════════════════════════════╝"
+        private const val JSON = -1
+        private const val XML = -2
+        private const val MAX_LEN = 4000
+        private const val TOP_BORDER = "╔═════════════════════════════════════════════════════════════════════════════════════"
+        private const val LEFT_BORDER = "║ "
+        private const val BOTTOM_BORDER = "╚═════════════════════════════════════════════════════════════════════════════════════"
         //解决windows和linux换行不一致的问题 功能和"\n"是一致的,但是此种写法屏蔽了 Windows和Linux的区别 更保险.
-        private val LINE_SEPARATOR = System.getProperty("line.separator")
-        private val NULL_TIPS = "Log with a null object;"
-        private val NULL = "null"
-        private val ARGS = "args"
+        private val LINE_SEPARATOR = System.getProperty("line.separator") ?: "\n"
         private var mLogDir: String = "" // log存储目录
         private var mLogEnable = true // log总开关
         private val mGlobalLogTag = "" // log标签
-        private val mTagIsSpace = true // log标签是否为空白
-        private val mLog2FileEnable = false// log是否写入文件
         private var mLogBorderEnable = false // log边框
         private var mLogInfoEnable = false // log详情开关
         private var mLogFilter = Log.VERBOSE // log过滤器
@@ -265,14 +250,14 @@ class Klog private constructor() {
                 return
             }
             val processContents = processObj(type, tag, objects)
-            var tagret = processContents[0]
+            val target = processContents[0]
             val msg = processContents[1]
             when (type) {
                 Log.INFO, Log.ASSERT, Log.DEBUG, Log.ERROR, Log.WARN -> if (mLogFilter <= type) {
-                    logOutout(type, tagret, msg)
+                    logOutout(type, target, msg)
                 }
-                JSON -> logOutout(Log.DEBUG, tagret, msg)
-                XML -> logOutout(Log.DEBUG, tagret, msg)
+                JSON -> logOutout(Log.DEBUG, target, msg)
+                XML -> logOutout(Log.DEBUG, target, msg)
             }
         }
 
@@ -288,18 +273,14 @@ class Klog private constructor() {
                 targetElement = Thread.currentThread().stackTrace[7]
                 className = targetElement.className
             }
-            val classNameInfo = className.split(("\\.").toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-            if (classNameInfo.size > 0) {
+            val classNameInfo = className.split(("\\.").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            if (classNameInfo.isNotEmpty()) {
                 className = classNameInfo[classNameInfo.size - 1]
             }
             if (className.contains("$")) {
-                className = className.split(("\\$").toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()[0]
+                className = className.split(("\\$").toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
             }
-            if (!mTagIsSpace) {// 如果全局tag不为空，那就用全局tag
-                tag = mGlobalLogTag
-            } else {// 全局tag为空时，如果传入的tag为空那就显示类名，否则显示tag
-                tag = if (TextUtils.isEmpty(tag) || isSpace(tag)) className else tag
-            }
+            tag = if (TextUtils.isEmpty(tag) || isSpace(tag)) className else tag
             val head = Formatter()
                     .format("Thread: %s, Method: %s (File:%s Line:%d)$LINE_SEPARATOR",
                             Thread.currentThread().name,
@@ -307,14 +288,11 @@ class Klog private constructor() {
                             className,
                             targetElement.lineNumber)
                     .toString()
-            var msg = NULL_TIPS
-            if (contents != null) {
-                msg = contents?.toString() ?: NULL
-                if (type == JSON) {
-                    msg = formatJson(msg)
-                } else if (type == XML) {
-                    msg = formatXml(msg)
-                }
+            var msg = contents.toString()
+            if (type == JSON) {
+                msg = formatJson(msg)
+            } else if (type == XML) {
+                msg = formatXml(msg)
             }
             if (mLogBorderEnable) {
                 val sb = StringBuilder()
@@ -327,7 +305,7 @@ class Klog private constructor() {
                 }
                 sb.append(BOTTOM_BORDER).append(LINE_SEPARATOR)
                 msg = sb.toString()
-                return arrayOf<String>(tag, msg)
+                return arrayOf(tag, msg)
             }
             if (mLogInfoEnable) {
                 val sb = StringBuilder()
@@ -336,9 +314,9 @@ class Klog private constructor() {
                     sb.append(line).append(LINE_SEPARATOR)
                 }
                 msg = sb.toString()
-                return arrayOf<String>(tag, head + msg)
+                return arrayOf(tag, head + msg)
             }
-            return arrayOf<String>(tag, msg)
+            return arrayOf(tag, msg)
         }
 
         private fun formatJson(json: String): String {
@@ -383,7 +361,7 @@ class Klog private constructor() {
             if (countOfSub > 0) {
                 var index = 0
                 var sub: String
-                for (i in 0..countOfSub - 1) {
+                for (i in 0 until countOfSub) {
                     sub = msg.substring(index, index + MAX_LEN)
                     printSubLog(type, tag, sub)
                     index += MAX_LEN
@@ -406,7 +384,7 @@ class Klog private constructor() {
         }
 
         private fun isSpace(s: String): Boolean {
-            return (0..s?.length - 1).any { Character.isWhitespace(s[it]) }
+            return (0 until s.length).any { Character.isWhitespace(s[it]) }
         }
 
         /**

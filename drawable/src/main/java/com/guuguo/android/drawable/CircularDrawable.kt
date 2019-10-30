@@ -86,7 +86,7 @@ class CircularDrawable : Drawable(), Animatable, IDrawableTheme {
 
             mPaint.color = mRoundColor
             mBufferCircleBgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888);
-            val mBufferCircleBgCanvas = Canvas(mBufferCircleBgBitmap)
+            val mBufferCircleBgCanvas = Canvas(mBufferCircleBgBitmap!!)
             mBufferCircleBgCanvas.drawCircle(canvas.width * 0.5f, canvas.height * 0.5f, radius - mPadding, mPaint)
 
 
@@ -95,7 +95,7 @@ class CircularDrawable : Drawable(), Animatable, IDrawableTheme {
             mPaint.color = mIndicatorColor
             val rectF = RectF(mPadding + hExtend, mPadding + vExtend, canvas.width - mPadding - hExtend, canvas.height - mPadding - vExtend)
             mBufferCircleFgBitmap = Bitmap.createBitmap(canvas.width, canvas.height, Bitmap.Config.ARGB_8888)
-            val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap)
+            val mBufferCircleFgCanvas = Canvas(mBufferCircleFgBitmap!!)
             mBufferCircleFgCanvas.drawArc(rectF, 0f, 60f, false, mPaint)//第四个参数是否显示半径
         }
         canvas.drawBitmap(mBufferCircleBgBitmap, 0f, 0f, mPaint)

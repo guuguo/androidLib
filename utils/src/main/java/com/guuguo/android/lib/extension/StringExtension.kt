@@ -10,9 +10,15 @@ import java.util.regex.Pattern
  */
 
 fun String?.safe(default: String = ""): String {
-    if (this.isNullOrEmpty())
-        return default
-    else return this!!;
+    return if (this.isNullOrEmpty())
+        default
+    else this
+}
+
+fun Double?.safe(default: Double = 0.0): Double {
+    return if (this == null || this == 0.0)
+        default
+    else this
 }
 
 fun String?.toast(isShortToast: Boolean = true): String? {
@@ -23,7 +29,13 @@ fun String?.toast(isShortToast: Boolean = true): String? {
     return this
 }
 
-
+infix fun String.toast(isShortToast: Boolean) {
+    if (isShortToast)
+        ToastUtil.showSingletonToast(this.safe("(空字符串)"))
+    else
+        ToastUtil.showSingleLongToast(this.safe("(空字符串)"))
+    return
+}
 
 fun String.sha1() = encrypt(this, "SHA-1")
 fun String.md5() = encrypt(this, "MD5")
@@ -42,11 +54,6 @@ fun String?.isUrl(): Boolean {
     return m.matches()
 }
 
-fun String.isPhone(): Boolean {
-    val p = "^1([34578])\\d{9}\$".toRegex()
-    return matches(p)
-}
-
 fun String.isNumeric(): Boolean {
     val p = "^[0-9]+$".toRegex()
     return matches(p)
@@ -62,7 +69,7 @@ private fun encrypt(string: String?, type: String): String {
     val md5: MessageDigest
     return try {
         md5 = MessageDigest.getInstance(type)
-        val bytes = md5.digest(string!!.toByteArray())
+        val bytes = md5.digest(string.toByteArray())
         bytes2Hex(bytes)
     } catch (e: NoSuchAlgorithmException) {
         ""

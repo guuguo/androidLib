@@ -5,29 +5,20 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Resources
-import android.content.res.TypedArray
 import android.graphics.Color
-import android.graphics.drawable.DrawableWrapper
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.annotation.CallSuper
 import android.support.annotation.ColorInt
-import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v4.graphics.drawable.DrawableCompat.setTint
-import android.support.v7.widget.DrawableUtils
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.TextView
 import com.guuguo.android.R
 import com.guuguo.android.dialog.dialog.NormalListDialog
 import com.guuguo.android.dialog.dialog.TipDialog
@@ -38,6 +29,7 @@ import com.guuguo.android.lib.extension.getColorCompat
 import com.guuguo.android.lib.extension.initNav
 import com.guuguo.android.lib.extension.safe
 import com.guuguo.android.lib.extension.toast
+
 import com.guuguo.android.lib.lifecycle.AppHelper
 import com.guuguo.android.lib.systembar.SystemBarHelper
 import com.guuguo.android.lib.utils.FileUtil
@@ -47,7 +39,6 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.io.Serializable
-import java.lang.System.exit
 import java.util.concurrent.TimeUnit
 
 
@@ -59,7 +50,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
     open fun getApp() = AppHelper.app
     private var mLoadingDialog: TipDialog? = null
     /*fragment*/
-    var mFragment: LBaseFragment? = null
+    var mFragment: Fragment? = null
 
     /*onCreate*/
     val BACK_DEFAULT = 0
@@ -74,7 +65,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
     private var TOUCH_TIME: Long = 0
 
     private fun fullScreen(): Boolean =
-            isFullScreen || mFragment != null && mFragment!!.isFullScreen
+            isFullScreen || mFragment != null && (mFragment as? LBaseFragment)?.isFullScreen.safe()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,9 +94,9 @@ abstract class LBaseActivity : RxAppCompatActivity() {
     /*toolbar*/
     open fun getToolBar(): Toolbar? = null
 
-    open fun getBackIconRes(): Int = mFragment?.getBackIconRes().safe(R.drawable.ic_arrow_back_white_24dp)
+    open fun getBackIconRes(): Int = (mFragment as? LBaseFragment)?.getBackIconRes().safe(R.drawable.ic_arrow_back_white_24dp)
     open fun getAppBar(): ViewGroup? = null
-    protected open fun isNavigationBack() = mFragment?.isNavigationBack().safe(true)
+    protected open fun isNavigationBack() = (mFragment as? LBaseFragment)?.isNavigationBack().safe(true)
     protected open fun isStatusBarTextDark() = false
     protected open fun initToolBar() {
         val toolBar = getToolBar()
@@ -209,21 +200,22 @@ abstract class LBaseActivity : RxAppCompatActivity() {
 
     protected open fun initVariable(savedInstanceState: Bundle?) {}
     protected open fun initView() {}
-    @Deprecated("用带参数的方法吧",replaceWith = ReplaceWith("loadData(false)"), level = DeprecationLevel.WARNING)
     open fun loadData() {}
-    open fun loadData(isRefresh:Boolean) {}
+
     @CallSuper
     protected fun init(savedInstanceState: Bundle?) {
         mFragment?.let {
             val trans = supportFragmentManager.beginTransaction()
-            trans.replace(R.id.content, mFragment!! as Fragment)
+            if (it.isAdded) {
+            } else {
+                trans.replace(R.id.content, it, it.javaClass.name)
+            }
             trans.commitAllowingStateLoss()
         }
         initToolBar()
         initStatusBar()
         initView()
         loadData()
-        loadData(false)
     }
 
     @CallSuper
@@ -239,24 +231,28 @@ abstract class LBaseActivity : RxAppCompatActivity() {
         mFragment = getFragmentInstance(data)
         if (mFragment == null)
             return
-        val args = data?.extras
 
+        val args = data?.extras
+        mFragment?.arguments = mFragment?.arguments ?: Bundle()
         if (args != null) {
-            mFragment!!.arguments = args
+            mFragment?.arguments?.putAll(args)
         }
     }
 
-    open fun getFragmentInstance(data: Intent?): LBaseFragment? {
+    open fun getFragmentInstance(data: Intent?): Fragment? {
         try {
             val clz = intent.getSerializableExtra(SIMPLE_ACTIVITY_INFO) as Class<*>?
             if (data == null || clz == null) {
                 return null
             }
             try {
-                return Fragment.instantiate(this,clz.name) as LBaseFragment
+                val fragment = supportFragmentManager.findFragmentByTag(clz.name)
+                if (fragment != null)
+                    return fragment as LBaseFragment
+                return Fragment.instantiate(this, clz.name) as LBaseFragment//clz.getConstructor().newInstance() as LBaseFragment
             } catch (e: Exception) {
                 e.printStackTrace()
-                throw IllegalArgumentException("generate fragment error. by value:" + clz.toString())
+                throw IllegalArgumentException("generate fragment error. by value:$clz")
             }
         } catch (e: Throwable) {
             return null
@@ -276,7 +272,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 }
             }
             BACK_DEFAULT -> {
-                if (mFragment != null && mFragment!!.onBackPressed())
+                if (mFragment != null && (mFragment as? LBaseFragment)?.onBackPressed().safe())
                 else {
                     super.onBackPressed()
                 }
@@ -300,7 +296,7 @@ abstract class LBaseActivity : RxAppCompatActivity() {
     }
 
     open fun overridePendingTransition() {
-        mFragment?.overridePendingTransition()
+        (mFragment as? LBaseFragment)?.overridePendingTransition()
 //        overridePendingTransition(R.anim.h_fragment_enter, R.anim.h_fragment_exit)
     }
 
@@ -394,6 +390,13 @@ abstract class LBaseActivity : RxAppCompatActivity() {
                 activity.startActivity(intent)
             else
                 activity.startActivityForResult(intent, targetCode)
+        }
+        fun <F : Fragment, A : Activity> intentTo(fragment: Fragment, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null, targetCode: Int = 0) {
+            val intent = getIntent(fragment.activity!!, targetFragment, targetActivity, map)
+            if (targetCode == 0)
+                fragment.startActivity(intent)
+            else
+                fragment.startActivityForResult(intent, targetCode)
         }
 
         fun <A : Activity, F : Fragment> getIntent(activity: Activity, targetFragment: Class<F>, targetActivity: Class<A>, map: HashMap<String, *>? = null): Intent {

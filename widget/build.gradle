@@ -1,21 +1,24 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.novoda.bintray-release'
 apply from: rootProject.file("secret.gradle")
 
 
 android {
     defaultConfig {
-//        resourcePrefix "widget_"
+        resourcePrefix "widget_"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
 }
 
 dependencies {
     api project(':drawable')
     api project(':roundview')
+    api project(':utils')
     api "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
     api 'com.android.support.constraint:constraint-layout:1.1.3'
 

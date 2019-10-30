@@ -7,36 +7,27 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.view.doOnLayout
 import androidx.core.view.updateLayoutParams
+import com.guuguo.android.lib.extension.dpToPx
+import com.guuguo.android.lib.extension.getDrawableCompat
 import com.guuguo.android.lib.widget.FunctionTextView
 
 
 @BindingMethods(BindingMethod(type = FunctionTextView::class, attribute = "android:text", method = "setText"),
-        BindingMethod(type = ImageView::class, attribute = "android:src", method = "setImageResource")
-)
+        BindingMethod(type = FunctionTextView::class, attribute = "ftv_drawableSrc", method = "setDrawable"),
+        BindingMethod(type = FunctionTextView::class, attribute = "ftv_drawableAlign", method = "setDrawableAlign")
+        )
+
 class FunctionTextViewBindingAdapter
 
-// 根据View的高度和宽高比，设置高度
-@BindingAdapter("heightWidthRatio")
-fun View.setWidthHeightRatio(ratio: Double) {
-    doOnLayout {
-        val width = this@setWidthHeightRatio.width
-        if (width > 0) {
-            this@setWidthHeightRatio.layoutParams.height = (width * ratio).toInt()
-        }
-    }
+@BindingAdapter("app:ftv_drawableWidth")
+fun FunctionTextView.setDrawableWidthBinding(width: Float) {
+    drawableWidth = width.dpToPx().toFloat()
 }
-
-// 设置高度
-@BindingAdapter("app:height")
-fun View.setHeight(height: Int) {
-    this.updateLayoutParams {
-        this.height=height
-    }
+@BindingAdapter("app:ftv_drawableHeight")
+fun FunctionTextView.setDrawableHeightBinding(height: Float) {
+    drawableHeight = height.dpToPx().toFloat()
 }
-// 设置宽度
-@BindingAdapter("app:width")
-fun View.setWidth(width: Int) {
-    this.updateLayoutParams {
-        this.width=width
-    }
+@BindingAdapter("app:ftv_drawableRes")
+fun FunctionTextView.setDrawableRes(res: Int) {
+    drawable = context.getDrawableCompat(res)
 }

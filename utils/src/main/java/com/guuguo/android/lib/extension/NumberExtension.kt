@@ -1,5 +1,6 @@
 package com.guuguo.android.lib.extension
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
 
@@ -16,11 +17,31 @@ fun Int.dpToPx(): Int {
     return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 }
 
-fun Int?.safe(default: Int = 0) = this?.run { if (this == 0) default else this }?: default
-fun Long?.safe(default: Long = 0) = this ?.run { if (this == 0L) default else this }?: default
-fun Boolean?.safe(default: Boolean = false) = this ?: default
-fun Float?.safe(default: Float = 0f) = this ?.run { if (this == 0f) default else this }?: default
+fun Int.dpToPxF(): Float {
+    return (this * Resources.getSystem().displayMetrics.density + 0.5f)
+}
 
+fun Float.pxToDp(): Int {
+    return (this / Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+}
+
+fun Float.dpToPx(): Int {
+    return (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
+}
+
+fun Float.spToPx(): Int {
+    return (this * Resources.getSystem().displayMetrics.scaledDensity + 0.5f).toInt()
+}
+
+
+fun Int?.safe(default: Int = 0) = this ?: default
+fun Long?.safe(default: Long = 0) = this ?: default
+fun Boolean?.safe(default: Boolean = false) = this ?: default
+fun Float?.safe(default: Float = 0f) = this ?: default
+
+fun Int?.safeNoZero(default: Int = 0) = if (this == 0) default else this ?: default
+fun Long?.safeNoZero(default: Long = 0) = if (this == 0L) default else this ?: default
+fun Float?.safeNoZero(default: Float = 0f) = if (this == 0f) default else this ?: default
 //fun Long.getFitSize(byte2FitMemorySize: Int = 1): String = FileUtil.byte2FitMemorySize(this, byte2FitMemorySize)
 //color
 /**

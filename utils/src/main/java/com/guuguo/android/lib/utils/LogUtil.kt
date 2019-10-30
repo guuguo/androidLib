@@ -9,10 +9,10 @@ import com.guuguo.android.lib.extension.Klog
 
 object LogUtil {
     var debug = true
-    private val TAG by lazy { AppUtil.getAppName() }
-    fun init(debug: Boolean) {
+    val TAG by lazy { AppUtil.getAppName() }
+    fun init(debug: Boolean, borderEnable: Boolean = true) {
         this.debug = debug
-        Klog.getSettings().setLogEnable(debug).setBorderEnable(true)
+        Klog.getSettings().setLogEnable(debug).setBorderEnable(borderEnable)
     }
 
     fun i(tag: String = TAG, info: String) {

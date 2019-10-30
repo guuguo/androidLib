@@ -162,7 +162,6 @@ abstract class BaseDialog<T : BaseDialog<T>> : Dialog {
             width = (mDisplayMetrics.widthPixels * mWidthRatio).toInt()
             createdWidth = ViewGroup.LayoutParams.MATCH_PARENT
         }
-        View(context).getActivity()
         val height: Int
         val createdHeight: Int
         if (mHeightRatio == 0f) {
